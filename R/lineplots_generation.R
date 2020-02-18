@@ -1,0 +1,60 @@
+
+htk_line_extract <- function(data_source, country_code, var1, var2)
+{
+  xdata <- data_source %>%
+          filter(ISO3_code == country_code) %>% #select country
+          dplyr::select(ISO3_code, var1, var2)  #select variables of interest
+  #xdata <- subset(xdata, substr(Period, nchar(Period)-3, nchar(Period)) %in% c("1-01"))    # keep annual data instead of quarterly
+  #xdata$Period <- as.Date(xdata$Period) #transform Period colum into date format - should have been done before though
+
+}
+
+htk_line_graph <- function(data = resilience_database,
+                                subtitle =".",
+                                title=NULL,
+                                Xlabel ="Date",
+                                Ylabel = "Price index",
+                                ymin = 0,
+                                ymax = 120,
+                                ybreak = 10,
+                                xbreak = "5 years",
+                                start_date = 1970,
+                                end_date = 2018,
+                                file = NULL,
+                                path=NULL,
+                                width=4,
+                                height=4,
+                                dpi=300)
+  {
+
+
+  # 2 options :if colonne 2 period ou non retourner erreur
+                # ou avec plot = try et ensuit if (class plot %in% try error)
+
+    country_plot <- ggplot(data=data)+
+
+    geom_line(aes(x=get(colnames(data)[2]), y=get(colnames(data)[4]),color=ISO3_code)) +
+
+    labs(x        = Xlabel,
+         y        = Ylabel,
+         title    = title,
+         subtitle = subtitle)  +  #add title, subtitles and labels on both X and Y axis
+    #scale_y_continuous(breaks=seq(ymin,ymax,ybreak)) + #set y ticks
+    #scale_x_date(date_breaks= xbreak, date_labels ="%Y") +  #set x ticks
+    theme_minimal() +   #set the background of the plot as white
+    theme(panel.grid.minor =  element_blank(),
+          legend.position ="bottom",
+          legend.title=element_blank(),
+          axis.title.x = element_text(size = 8),
+          axis.title.y = element_text(size=8),
+          axis.text.y = element_text(size=6),
+          plot.title=element_text(face="bold",colour="steelblue",size=15, hjust =0.5),
+          plot.subtitle =element_text(hjust = 0.5))  #clean background grid elements
+
+  if (!is.null(file)){
+    ggsave(filename=file,device = 'png',path=path,width = 4, height = 4, dpi = 300 )
+  }
+    return(country_plot)
+}
+
+

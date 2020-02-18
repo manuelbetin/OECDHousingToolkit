@@ -1,0 +1,36 @@
+\name{htk_barplot_graph}
+\alias{htk_barplot_graph}
+%- Also NEED an '\alias' for EACH other topic documented here.
+\title{
+Generate bar barplots using OECD style for use in the housing toolkit chapters
+}
+\description{
+The functions generates barplots displaying the value of the selected indicator for
+each country and with the average OECD value in highlighted. The plot respect the
+OECD style and allow the generation of standardize figures for all the chapters of the
+housing toolkit
+}
+\usage{
+htk_barplot_graph(data_source,x,y,Xlabel,Ylabel,title,subtitle, file=NULL, path=NULL)
+}
+
+\arguments{
+  \item{data_source}{dataframe that contains the variables and dates to be chosen}
+  \item{x}{x, often OECD countries}
+  \item{y}{y, variable to be plotted}
+  \item{Xlabel}{label of the X axis}
+  \item{Ylabel}{label of the Y axis}
+  \item{title}{title of the plot}
+  \item{subtitle}{subtitle of the plot}
+  \item{file}{name of the file that contains the plot if you decide to save it, filename must end with .png}
+  \item{path}{specify exit path of the file}
+}
+
+\value{
+returns a standardized barplot
+}
+
+\author{
+Maxime Nguyen
+Manuel Betin
+}

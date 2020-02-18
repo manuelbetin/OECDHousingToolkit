@@ -1,0 +1,85 @@
+---
+title: "Name of chapter"
+output:
+  html_document:
+    #toc: true
+    number_sections: False
+    fig_width: 7
+    fig_heigh: 5
+    echo: False
+    fig_caption: True
+    css: OECD_style.css
+---
+
+<div class="chapter" id="ECO_PED_Res">
+
+
+<div class="context">
+<h2>Context</h2>
+
+<div class="definition_concepts">
+<h3>Definitions </h3>
+<details class="definitions_details">
+<summary>Definitions</summary>
+<p>
+Include your definitions
+</p>
+</details> 
+</div>
+  
+<div class="definition_indicators"> 
+<h3>Policy indicators </h3>
+<p> Include your list and definition of policy indicators</p>
+</div>
+  
+<div class="definitions_challenges">
+<h3>Policy challenges</h3>
+<p> Include your list and details on the policy challenges</p>
+</div> 
+</div>
+
+
+<div class="economic_outcomes">
+<h2>Issues at stake </h2>
+
+<div class="indicators">
+<h3> The first indicator that you want to display </h3> 
+
+<p> Include tables and figures</p>
+
+</div>
+
+<div class="indicators">
+<h3> The Second indicator that you want to display </h3> 
+
+<p> Include tables and figures</p>
+
+</div>
+
+
+</div>
+
+<div class="policy_outcomes">
+<h2>Policy recommandations </h2>
+<div class="key_reco"> 
+<h3>Key recommandations</h3>
+<p>Your first key recommendation </p>
+</div>
+<div class="selected_policies">    
+<h3>Selected policies</h3>
+<p> Your list of selected policy recommendations</p>
+</div>
+</div>
+
+<div class="data_sources">
+<h2> Data sources </h2>
+<p> Your list of data sources and links</p> 
+</div>
+
+<div class="references">
+<h2>References and and further readings<h2>
+<p> Your list of references</p>
+</div>
+
+</div>
+
