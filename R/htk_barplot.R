@@ -1,14 +1,4 @@
 
-# htk_barplot_extract <- function (variable=".GDP.A", date= 2018)
-# {
-#
-#   series_filter <- paste0(paste0(as.character(FE_GroupCountries("OECD")[,1]),collapse='+'),variable) #Add to the list of OECD countries the chosen suffix that specifies the data to extract
-#   data <- GetData("ECO","EO",series_filter,date,date,"ROW") #extract country data for chosen in rows
-#   data <- select(data,"LOCATIONS","VALUE") %>% arrange(VALUE) #keep only locations and value variables
-#   data <- arrange(data, VALUE) %>%mutate(LOCATIONS = fct_reorder(LOCATIONS,VALUE)) #rearrange the data in order
-#   return(data)
-# }
-
 ## Generate a standard barplot template
 
 htk_barplot_graph <- function(data_source,x,y,y2=NULL,y3=NULL,Xlabel=NULL,Ylabel=NULL,title=NULL,subtitle=NULL, file=NULL, path=NULL)

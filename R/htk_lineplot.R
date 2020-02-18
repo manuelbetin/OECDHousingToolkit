@@ -1,14 +1,4 @@
 
-htk_line_extract <- function(data_source, country_code, var1, var2)
-{
-  xdata <- data_source %>%
-          filter(ISO3_code == country_code) %>% #select country
-          dplyr::select(ISO3_code, var1, var2)  #select variables of interest
-  #xdata <- subset(xdata, substr(Period, nchar(Period)-3, nchar(Period)) %in% c("1-01"))    # keep annual data instead of quarterly
-  #xdata$Period <- as.Date(xdata$Period) #transform Period colum into date format - should have been done before though
-
-}
-
 htk_line_graph <- function(data = resilience_database,
                                 subtitle =".",
                                 title=NULL,

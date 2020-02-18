@@ -1,8 +1,8 @@
-\name{htk_barplot_graph}
-\alias{htk_barplot_graph}
+\name{htk_barplot}
+\alias{htk_barplot}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-Generate bar barplots using OECD style for use in the housing toolkit chapters
+bar barplots with OECD template style to display cross country comparisons in the housing toolkit chapters
 }
 \description{
 The functions generates barplots displaying the value of the selected indicator for
@@ -11,7 +11,7 @@ OECD style and allow the generation of standardize figures for all the chapters 
 housing toolkit
 }
 \usage{
-htk_barplot_graph(data_source,x,y,Xlabel,Ylabel,title,subtitle, file=NULL, path=NULL)
+htk_barplot(data_source,x,y,Xlabel,Ylabel,title,subtitle, file=NULL, path=NULL)
 }
 
 \arguments{
@@ -31,6 +31,6 @@ returns a standardized barplot
 }
 
 \author{
-Maxime Nguyen
+Maxime Nguyen,
 Manuel Betin
 }

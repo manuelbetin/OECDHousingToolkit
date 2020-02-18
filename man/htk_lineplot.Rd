@@ -1,7 +1,7 @@
-\name{htk_line_graph}
-\alias{htk_line_graph}
+\name{htk_lineplot}
+\alias{htk_lineplot}
 %- Also NEED an '\alias' for EACH other topic documented here.
-\title{Generate timeseries figures using OECD style for use in the housing toolkit chapters}
+\title{Line barplots with OECD template style to display timeseries evolutions in the housing toolkit chapters}
 \description{
 Function that plots a lines in a standardized way.
 The function is built on the assumption that the data is
@@ -9,7 +9,7 @@ structured in the agreed format (first column as countries,
 second as period, others as key variables)
 }
 \usage{
-htk_line_graph(data = resilience_database, country_code = "FRA",
+htk_lineplot(data = resilience_database,
                    subtitle = ".", title = NULL, Xlabel = "Date", Ylabel
                    = "Price index", ymin = 0, ymax = 120, ybreak = 10,
                    xbreak = "5 years", start_date = 1970, end_date =
@@ -46,6 +46,6 @@ Returns a standardized single line plot
 %% ~put references to the literature/web site here ~
 }
 \author{
-Maxime Nguyen
+Maxime Nguyen,
 Manuel Betin
 }
