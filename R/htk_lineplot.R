@@ -1,5 +1,5 @@
 
-htk_line_graph <- function(data = resilience_database,
+htk_lineplot <- function(data = resilience_database,
                                 subtitle =".",
                                 title=NULL,
                                 Xlabel ="Date",

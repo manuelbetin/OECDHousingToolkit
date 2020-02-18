@@ -1,7 +1,7 @@
 
 ## Generate a standard barplot template
 
-htk_barplot_graph <- function(data_source,x,y,y2=NULL,y3=NULL,Xlabel=NULL,Ylabel=NULL,title=NULL,subtitle=NULL, file=NULL, path=NULL)
+htk_barplot <- function(data_source,x,y,y2=NULL,y3=NULL,Xlabel=NULL,Ylabel=NULL,title=NULL,subtitle=NULL, file=NULL, path=NULL)
 {
 
   data_source=data_source %>% mutate(mycolor=ifelse(ISO3_code=="OECD","red","steelblue"))
