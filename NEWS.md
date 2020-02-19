@@ -9,3 +9,7 @@ OECDHousingToolkit v0.1.1 (Release date: 2020-02-18)
 
 Update the names and documentation for the function and inclusion of the scatterplot functions
 
+OECDHousingToolkit v0.1.1 (Release date: 2020-02-19)
+==============
+
+Include the htk_instructions() function
