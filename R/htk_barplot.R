@@ -24,10 +24,10 @@ htk_barplot <- function(data_source,x,y,y2=NULL,y3=NULL,Xlabel=NULL,Ylabel=NULL,
           plot.subtitle =element_text(size =7, hjust = 0.5)) +
 
     {if(!is.null(y2)) {
-      geom_point(aes(x,y=y2), na.rm = TRUE, shape=17, show.legend = TRUE, colour ="black")
+      geom_point(aes(x=get(x),y=get(y2)), na.rm = TRUE, shape=17, show.legend = TRUE, colour ="black")
     }} +
     {if(!is.null(y3)) {
-      geom_point(aes(x,y=y3), na.rm = TRUE, shape =18, show.legend = TRUE, colour="red")
+      geom_point(aes(x=get(x),y=get(y3)), na.rm = TRUE, shape =18, show.legend = TRUE, colour="red")
     }}
   return(plot)
   if (!is.null(file)){
