@@ -11,75 +11,588 @@ output:
     css: OECD_style.css
 ---
 
+```{r set_up, include=F}
+#global parameters for knit
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+knitr::opts_chunk$set(fig.align = T)
+knitr::opts_chunk$set(fig.height =  5)
+knitr::opts_chunk$set(fig.width = 8)
+
+#R package dependencies
+library(devtools)
+library(ggplot2)
+library(rio)
+library(dplyr)
+library(plotly)
+library(forcats)
+library(DiagrammeR)
+library(lubridate)
+reco_package()
+install_github("manuelbetin/OECDToolkit")
+library(OECDHousingToolkit)
+
+htk_instructions()
+```
+
+```{r Rdata,include=F}
+
+#data_sources <- rio::import("data\\ECO\\1. PED Resilience\\resilience_database4.RData")
+
+#catalogue <- rio::import("data\\ECO\\1. PED Resilience\\housing_data_metadata.csv")
+
+#myvars=catalogue %>% filter(resilience_inclusion==1)
+
+#mydt <- data_sources[, colnames(data_sources) %in%c("ISO3_code","Period",myvars$var.id)] %>%
+#    select(ISO3_code, Period, everything())
+
+```
+
 <div class="chapter" id="ECO_PED_Res">
-
-
 <div class="context">
-<h2>Context</h2>
+<h2> Context</h2>
+<div class="introduction">
+<!---
+INCLUDE TEXT OF CONTEXT
+-->
+<!-- HERE-->
+<p> My text of context </p>
 
-<div class="definition_concepts">
-<h3>Definitions </h3>
-<details class="definitions_details">
-<summary>Definitions</summary>
-<p>
-Include your definitions
-</p>
+<!---
+INCLUDE TEXT OF CONTEXT
+-->
+
+<hr>
+
+<div class="context_diagram">
+<!---
+EDIT YOUR DIAGRAM IN THE R CODE
+-->
+```{r diagram}
+
+test=create_graph(graph_name = "Context_graph") %>%
+  #1
+add_node(label="Effect on wellbeing",
+         node_aes = node_aes(shape="oval",
+                             style="solid",
+                             color="darkgreen",
+                             fillcolor="darkgreen",
+                             fontcolor="darkgreen",
+                             fontname = "Times New Roman",
+                             x=0,
+                             y=1,
+                             fontsize =18,
+                             fixedsize = FALSE,
+                             tooltip="Aversion to extreme losses
+                                      Preferences for high growth
+                                      Aversion to volatility"
+                             )
+         
+         ) %>%
+  #2
+add_node(label="Ex-post resilience",
+         node_aes = node_aes(shape="rectangle",
+                            style="solid",
+                            color="darkorange2",
+                            fillcolor="darkorange2",
+                            fontcolor="darkorange2",
+                            fontname = "Times New Roman",
+                            x=-3,
+                            y=1,
+                            fontsize =18,
+                            fixedsize = FALSE,
+                            tooltip="Defined as the capacity to recover from shocks and crises, it is assessed through measures for the i) severity of downturns (peak-to-trough), ii) asymmetries between volatility during boom and bust periods as well as their durations and iii) the strength of the recovery and the time needed to recover, that is, regain the pre-crisis level of output."
+                           )
+         ) %>%
+  #3
+add_node(label="Ex-ante resilience",
+           node_aes = node_aes(shape="rectangle",
+                               style="solid",
+                               color="darkorange2",
+                               fillcolor="darkorange2",
+                               fontcolor="darkorange2",
+                               fontname = "Times New Roman",
+                               x=3,
+                               y=1,
+                               fontsize =18,
+                               fixedsize = FALSE,
+                               tooltip="Defined as the vulnerability to shocks and crises, it is assessed by i) the probability that a shock occurs, and ii) GDP-at-risk, which measures the maximum loss in output with a certain likelihood (e.g. 95%)",
+                               URL = "www.google.com")
+  ) %>%
+# #4
+ add_node(label="Adaptative capacity",
+          node_aes = node_aes(shape="rectangle",
+                              style="solid",
+                              color="steelblue",
+                              fillcolor="lighgrey",
+                              fontcolor="",
+                              fontname = "Times New Roman",
+                              x=0,
+                              y=-0.5,
+                              fontsize =13,
+                              fixedsize = FALSE,
+                              tooltip="Refers to rules and policies that can mitigate the effect of crises on ex-post resilience, including monetary and fiscal policy, automatic stabilisers, macroprudential rules, counter-cyclical buffers",
+                              URL = "index.html")) %>%
+# #5
+ add_node(label="Exposure",
+          node_aes = node_aes(shape="rectangle",
+                              style="solid",
+                              color="steelblue",
+                              fillcolor="lighgrey",
+                              fontcolor="",
+                              fontname = "Times New Roman",
+                              x=-1.5,
+                              y=2,
+                              fontsize =13,
+                              fixedsize = FALSE,
+                              tooltip="Factors that can threathen the resilience of economies to housing-related shocks : demographic pressures, inelastic supply, financial depth, excessive credit, CA imbalances",
+                              URL = "www.google.com")) %>%
+# #6
+ add_node(label="Mitigation",
+          node_aes = node_aes(shape="rectangle",
+                              style="solid",
+                              color="steelblue",
+                              fillcolor="lighgrey",
+                              fontcolor="",
+                              fontname = "Times New Roman",
+                              x=1.5,
+                              y=2,
+                              fontsize =13,
+                              fixedsize = FALSE,
+                              tooltip="Mitigation encompasses policies that can improve the ex-ante resilience, namely macroprudential rules, monetary and fiscal plicy, zoning regulation, rent control and tenure protection, and tax policy",
+                              URL = "www.google.com")) %>%
+# #7
+ add_node(label="",
+          node_aes = node_aes(shape="plaintext",
+                              style="invisible",
+                              height=0.02,
+                              width=0.02,
+                              color="white",
+                              fillcolor="white",
+                              fontcolor="",
+                              fontname = "Times New Roman",
+                              x=-3,
+                              y=2,
+                              fontsize =0,
+                              fixedsize = T
+                              )) %>%
+# #8
+ add_node(label="",
+          node_aes = node_aes(shape="plaintext",
+                              style="invisible",
+                              height=0.02,
+                              width=0.02,
+                              color="white",
+                              fillcolor="white",
+                              fontcolor="",
+                              fontname = "Times New Roman",
+                              x=3,
+                              y=2,
+                              fontsize =0,
+                              fixedsize = T
+                              )) %>%
+# #9
+ add_node(label="",
+          node_aes = node_aes(shape="plaintext",
+                              style="invisible",
+                              height=0.02,
+                              width=0.02,
+                              color="white",
+                              fillcolor="white",
+                              fontcolor="",
+                              fontname = "Times New Roman",
+                              x=-3,
+                              y=-0.5,
+                              fontsize =0,
+                              fixedsize = T
+                              )) %>%
+# #10
+ add_node(label="",
+          node_aes = node_aes(shape="plaintext",
+                              style="invisible",
+                              height=0.02,
+                              width=0.02,
+                              color="white",
+                              fillcolor="white",
+                              fontcolor="",
+                              fontname = "Times New Roman",
+                              x=3,
+                              y=-0.5,
+                              fontsize =0,
+                              fixedsize = T
+                              )) %>%
+add_edge(from=2,to=1,edge_aes=edge_aes(color="darkgreen",penwidth = 7)) %>%
+add_edge(from=3,to=1,edge_aes=edge_aes(color="red",penwidth = 7))%>%
+
+add_edge(from=2,to=9,edge_aes=edge_aes(color="black",penwidth = 2,arrowhead = "none",arrowtail = "none"))%>%
+add_edge(from=9,to=4,edge_aes=edge_aes(color="black",penwidth = 2))%>%
+ 
+add_edge(from=4,to=10,edge_aes=edge_aes(color="black",penwidth = 2,arrowhead = "none",arrowtail = "none"))%>%
+add_edge(from=10,to=3,edge_aes=edge_aes(color="black",penwidth = 2))%>%
+  
+add_edge(from=2,to=7,edge_aes=edge_aes(color="black",penwidth = 2,arrowhead = "none",arrowtail = "none"))%>%
+add_edge(from=7,to=5,edge_aes=edge_aes(color="black",penwidth = 2))%>%
+add_edge(from=5,to=6,edge_aes=edge_aes(color="black",penwidth = 2))%>%
+add_edge(from=6,to=8,edge_aes=edge_aes(color="black",penwidth = 2,arrowhead = "none",arrowtail = "none"))%>%
+add_edge(from=8,to=3,edge_aes=edge_aes(color="black",penwidth = 2))%>%
+render_graph()
+
+test
+```
+
+<div class="definition_concepts" >
+<details class="more_details">
+<summary>More details</summary>
+
+<!---
+INCLUDE TEXT OF CONTEXT
+-->
+<!-- HERE-->
+ <p>**Definition 1:** your text</p>
+  
+ <p>**Definition 2:** your text</p>
+<!--Copy and paste:  <p>**Definition 3:** your text</p> 
+to include more definitions-->   
+
+<!---
+INCLUDE TEXT OF CONTEXT
+-->
+
 </details> 
 </div>
-  
-<div class="definition_indicators"> 
-<h3>Policy indicators </h3>
-<p> Include your list and definition of policy indicators</p>
 </div>
-  
+</div>
+ <br>
+   
 <div class="definitions_challenges">
 <h3>Policy challenges</h3>
-<p> Include your list and details on the policy challenges</p>
-</div> 
-</div>
+<!---
+INCLUDE TEXT OF POLICY CHALENGES
+-->
+<!-- HERE-->
+ <p>My paragraph of challenges</p>
+  
+<!--Copy and paste: <p>My paragraph of challenges</p> 
+to include more paragraphs of policy challenges-->   
 
+<!---
+INCLUDE TEXT OF CONTEXT
+-->
+</div>
+<br>
 
 <div class="economic_outcomes">
 <h2>Issues at stake </h2>
+<div class="indicators">
+<h3> My first economic outcome </h3> 
+<!---
+INCLUDE TEXT OF fIRST ECONOMIC OUTCOME
+-->
+<!-- HERE-->
+ <p>My paragraph of description for the first policy outcome</p>
+  
+<!--Copy and paste: <p>My paragraph of challenges</p> 
+to include more paragraphs of policy challenges-->   
+
+<!---
+END INCLUDE TEXT OF CONTEXT
+-->
+
+
+<p align="center">
+<!---
+EDIT THE R CHUNK TO DRAW THE LINE FIGURE
+-->
+
+```{r name_of_eco_outcome,eval=F}
+#--------
+#EDIT THE R CHUNK TO DRAW THE FIGURE
+myyear=2018 #EDIT HERE
+var="Y2017" #EDIT HERE
+var1="Y2000" #EDIT HERE
+Ylabel=NULL #EDIT HERE
+title="House price-to-income ratios" #EDIT HERE
+subtitle="Years of average household disposable income required to purchase an average 100m2 dwelling" #EDIT HERE
+#END EDITING OF R CHUNK
+#---------
+
+
+outcome1_OECD=mydt %>% mutate(year=year(as.Date(Period))) %>% 
+  filter(year==myyear) %>%
+  dplyr::select(ISO3_code,var,var1) %>% 
+  na.omit() %>%
+  summarize(!!var:=mean(get(var)),
+ !!var1:=mean(get(var1))) %>%
+  dplyr::mutate(ISO3_code="OECD") %>%
+  dplyr::select(ISO3_code,var,var1)
+outcome1_ctries=mydt %>% mutate(year=year(as.Date(Period))) %>% 
+  filter(year==myyear) %>%
+  dplyr::select(ISO3_code,var,var1) %>% 
+  na.omit() %>% group_by(ISO3_code) %>%
+   summarize(!!var:=mean(get(var)),
+ !!var1:=mean(get(var1))) %>%
+  rbind(outcome1_OECD)
+
+fig_outcome1=outcome1_ctries%>%mutate(ISO3_code = fct_reorder(ISO3_code,get(var)))%>%
+  htk_barplot(x="ISO3_code",
+                    y=var,
+                    Xlabel=NULL,
+                    Ylabel=Ylabel,
+                    title=title,
+                    subtitle=subtitle)
+
+fig_outcome1 %>% ggplotly()
+
+
+```
+</p>
+
+</div> <!--End section of first Economic outcome  -->
 
 <div class="indicators">
-<h3> The first indicator that you want to display </h3> 
+<h3>My second economic outcome  </h3> 
+<!---
+INCLUDE TEXT OF SECOND ECONOMIC OUTCOME
+-->
+<!-- HERE-->
+ <p>My paragraph of description for the second policy outcome</p>
+  
+<!--Copy and paste: <p>My paragraph of challenges</p> 
+to include more paragraphs of policy challenges-->   
 
-<p> Include tables and figures</p>
+<!---
+END INCLUDE TEXT OF CONTEXT
+-->
 
-</div>
+<p align="center">
+<!---
+EDIT THE R CHUNK TO DRAW THE LINE FIGURE
+-->
+```{r price to rent,eval=F}
+#---------
+#EDIT THE R CHUNK TO DRAW THE FIGURE
+myyear=2018 #EDIT HERE
+var="Y2017" #EDIT HERE
+var1="Y2000" #EDIT HERE
+Ylabel=NULL #EDIT HERE
+title="House price-to-income ratios" #EDIT HERE
+subtitle="Years of average household disposable income required to purchase an average 100m2 dwelling" #EDIT HERE
+#END EDITING OF R CHUNK
+#---------
 
-<div class="indicators">
-<h3> The Second indicator that you want to display </h3> 
+mydt=mydt %>% mutate(Period=as.Date(Period))
+outcome_OECD= mydt %>% mutate(year=year(as.Date(Period))) %>% 
+  filter(year==myyear) %>%
+  dplyr::select(ISO3_code,var,var1,var2) %>% 
+  na.omit() %>%
+  summarize(!!var:=mean(get(var)),!!var1:=mean(get(var1)), !!var2:=mean(get(var2)) ) %>% 
+  dplyr::mutate(ISO3_code="OECD") %>%
+  dplyr::select(ISO3_code,var,var1,var2)
+outcome_ctries=mydt %>% mutate(year=year(as.Date(Period))) %>% 
+  filter(year==myyear) %>%
+  dplyr::select(ISO3_code,var,var1,var2) %>% 
+  na.omit() %>% group_by(ISO3_code) %>%
+  summarize(!!var:=mean(get(var)),!!var1:=mean(get(var1)), !!var2:=mean(get(var2)) ) %>%
+  rbind(outcome_OECD)
 
-<p> Include tables and figures</p>
+fig_outcome=outcome_ctries%>%mutate(ISO3_code = fct_reorder(ISO3_code,get(var)))%>%
+  htk_barplot(x="ISO3_code",
+                    y=var,
+                    # y2=var1,
+                    # y3=var2,
+                    Xlabel=NULL,
+                    Ylabel=Ylabel,
+                    title=title,
+                    subtitle=subtitle)
 
-</div>
+fig_outcome %>% ggplotly()
 
+# 
+# price_to_rent_data <- select(resilience_database,ISO3_code,Period,hpi_rpi)
+# 
+# max_data <- price_to_rent_data %>% na.omit() %>% group_by(ISO3_code) %>% summarise(max_hpi_rpi=max(hpi_rpi))
+# min_data <- price_to_rent_data %>% na.omit() %>% group_by(ISO3_code) %>% summarise(min_hpi_rpi=min(hpi_rpi))
+# 
+# last_value_data <- price_to_rent_data %>% na.omit() %>% group_by(ISO3_code) %>%
+#   dplyr::mutate(last_value = dplyr::last(hpi_rpi)) %>%
+#   summarise(last_hpi_rpi =max(last_value))
+# 
+# 
+# price_to_rent_data2 <- merge(max_data,min_data,by.x ="ISO3_code",by.y= "ISO3_code")
+# price_to_rent_data2 <- merge(price_to_rent_data2,last_value_data, by.x="ISO3_code", by.y="ISO3_code")
+# 
+# price_to_rent_data2 <- arrange(price_to_rent_data2,last_hpi_rpi) %>%
+#   mutate(ISO3_code = fct_reorder(ISO3_code,last_hpi_rpi))
+# 
+# price_to_rent_plot <- MN_barplot_graph(price_to_rent_data2,price_to_rent_data2$ISO3_code,price_to_rent_data2$last_hpi_rpi,price_to_rent_data2$max_hpi_rpi, price_to_rent_data2$min_hpi_rpi, title="House price-to-rent ratios")
+# print(price_to_rent_plot)
+```
+</p>
+<br>
+</div><!--End section of second economic outcome  -->
+</div> <!--End section of Economic outcomes  -->
 
-</div>
-
+<!-- ---------------------------------- -->
 <div class="policy_outcomes">
 <h2>Policy recommandations </h2>
 <div class="key_reco"> 
-<h3>Key recommandations</h3>
-<p>Your first key recommendation </p>
-</div>
+
 <div class="selected_policies">    
-<h3>Selected policies</h3>
-<p> Your list of selected policy recommendations</p>
-</div>
+<h3>My first policy</h3> 
+<!---
+INCLUDE TEXT OF FIRST POLICY RECOMMENDATION
+-->
+<!-- HERE-->
+ <span> My paragrph of policy recommendation </span> 
+<!---
+END INCLUDE FIRST POLICY RECOMMENDATION
+-->
+
+<details class="more_details">
+  <summary>More details</summary>
+
+<h4>Policy description and rationale</h4>
+<!---
+INCLUDE TEXT OF DESCRIPTION OF THE FIRST POLICY RECOMMENDATION
+-->
+<!-- HERE-->
+ <span> My paragrph of policy recommendation </span> 
+<!---
+END INCLUDE TEXT OF DESCRIPTION OF THE FIRST POLICY RECOMMENDATION
+-->
+
+```{r macroprudential}
+
+```
+
+<h4>Impact of policies</h4>
+<!---
+INCLUDE TEXT OF IMPACTS OF THE FIRST POLICY RECOMMENDATION
+-->
+<!-- HERE-->
+ <span> My paragrph of policy recommendation </span> 
+<!---
+END INCLUDE OF IMPACTS OF THE FIRST POLICY RECOMMENDATION
+-->
+
+<br>
+ 
+</details> <!-- END OF DETAIL SECTION OF FIRST POLICY RECOMMENDATION -->
+<hr>
+
+</div> <!-- END SECTION OF SELECTED POLICIES -->
+</div> <!-- END SECTION OF POLICY OUTCOMES-->
+
+<div class="definition_indicators">
+<h2>Housing policy indicators </h2>
+
+<!---
+EDIT THE R CHUNK TO BUILD YOUR OWN CATALOGUE
+-->
+```{r catalogue}
+#Lots of packages available to make it interactive
+
+
+Policy1 <- "Loan-to-value ratios (LTVs)"
+
+Description1 <- "Loan-to-value ratios (LTVs) cap housing loans to a certain proportion of the house value"
+
+Policy2 <- "Debt-service-to-income ratios (DSTIs)"
+
+Description2 <- "Debt-service-to-income ratios (DSTIs) require households to not pay more than a certain proportion of their income to service their housing loans. In some countries, DSTIs are based on total rather than only housing debt servicing costs"
+
+Policy3 <- "Loan-to-income ratios (LTIs)"
+
+Description3 <- "Loan-to-income ratios (LTIs), which limit the amount of debt to a certain fixed multiple of income, are less commonly used. They are equivalent to DSTIs for a given interest rate and repayment period but have the advantage of not becoming looser in times of booms when interest rates are low and banks offer more accommodative credit conditions."
+
+Policy4 <- "Minimum ratio of capital "
+
+Description4 <- "Capital requirement with which banks must fund housing loans. The strength of this requirement is determined by the combination of minimum capital ratios and risk weights: 
+- Minimum capital ratios set floors for the ratios of different measures of capital (core equity, equity, core Tier I, Tier I, total capital) over risk-weighted assets.
+- Risk weights (RW) for housing loans held on bank balance sheets can vary based on loan-to-value ratios. Higher risk weights make it more costly for banks to provide housing loans which can be expected to contain housing booms"
+
+
+Policy5 <- "Rent control"
+
+Description5 <- "Rent control refers to all kinds of policies that limit rent increases "
+
+
+Policy6 <- "Tenure security"
+
+Description6 <- "Tenure security policies aim at balancing the landlord-tenant bargaining power. Similarly to rent control, landlord-tenant rules have been devised for a variety of social and economic reasons "
+
+
+Policy7 <- "Marginal effective tax rates for residential property (METR)"
+
+Description7 <- "METRs are new OECD measures that allow gauging the combined weight of all tax instruments with relevance for housing, including personal income taxation, through marginal effective tax rates (METR) on owner-occupied and rental housing (OECD, 2018[55]). The METRs are derived as the difference between the pre and post-tax rates of return of a marginal investment divided by the pre-tax rate of return of that investment where the post-tax real rate is the minimum rate of return necessary to make the investment worthwhile. METRs are calculated for several saving vehicles including owner-occupied and rental property"
+
+Policy8 <- "Social rental housing"
+
+Description8 <- " Expressed as a percentage of total dwelling stock, the social rental housing indicator measures the part of social housing in every country"
+
+Policy9 <- "Housing allowances"
+
+Description9 <- "Housing allowances, measured as a percentage of housing allowances spending on total GDP, should also contribute to social resilience, by providing relief for lower-income people. Along with the stock of social rental housing, housing allowances allow to measure the extent of public support for hosuing-related expenses."
+
+
+Policy10 <- "Land use policies"
+
+Description10 <- "Land use restrictions limit the freedom to build dwellings on new land or to densify existing built areas. However, land use regulations are complex and quantitative indicators not readily available. Recent OECD work has produced several indicators for urban sprawl for most OECD countries (OECD, 2018[63]). These indicators can be used to derive composite indicators for urban sprawl"
+
+Policies <- c(Policy1,Policy2,Policy3,Policy4,Policy5,Policy6,Policy7,Policy8,Policy9,Policy10)
+Description <- c(Description1,Description2,Description3,Description4,Description5,Description6,Description7,Description8,Description9,Description10)
+
+Resilience_def_table <- cbind(Policies,Description)
+
+DT::datatable(Resilience_def_table,options = list(dom="t"))
+
+```
+<br>
 </div>
 
 <div class="data_sources">
 <h2> Data sources </h2>
-<p> Your list of data sources and links</p> 
-</div>
+<!---
+INCLUDE TEXT OF SECOND ECONOMIC OUTCOME
+-->
+<!-- HERE-->
+ <p>My paragraph of other datasource</p>
+  
+<!--Copy and paste:  <p>My paragraph of other datasource</p>
+to include more paragraphs of datasource-->   
+
+<!---
+END INCLUDE TEXT OF CONTEXT
+-->
+
+<!---
+EDIT THE R CHUNK TO REDIRECT TO YOUR OWN SHINYAPP
+-->
+```{r}
+knitr::include_app("https://yihui.shinyapps.io/miniUI/", 
+  height = "600px")
+```
+</div> <!--END OF DATASOURCE SECTION -->
 
 <div class="references">
-<h2>References and and further readings<h2>
-<p> Your list of references</p>
-</div>
+<h2>References and and further readings</h2>
+
+<!---
+INCLUDE TEXT OF SECOND ECONOMIC OUTCOME
+-->
+<!-- HERE-->
+<p>- Author (date), "Title", OECD Economics Department Working Papers, No. 1555, OECD Publishing, Paris. 
+https://oecdecoscope.blog/2019/07/18/are-there-ways-to-protect-economies-against-potential-future-housing-busts-2/ </p>
+
+<!--Copy and paste:  <p>My paragraph of other datasource</p>
+to include more paragraphs of datasource-->   
+
+<!---
+END INCLUDE TEXT OF CONTEXT
+-->
+
+<br>
+<br>
+</div><!--END OF REFERENCE SECTION -->
 
 </div>
-

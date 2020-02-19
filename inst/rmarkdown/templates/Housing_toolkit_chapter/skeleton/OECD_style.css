@@ -1,6 +1,7 @@
 
 body{ /* Normal  */
   background-color:WhiteSmoke;
+  font-size: 1.675em;
   }
 
 .navbar {
@@ -81,11 +82,26 @@ h4 { /* Header 4 */
 /* Refer to the full page of each section accessible via the navigation bar */
 .chapter {
  background-color:White;
+ border: 1px solid lightgrey;
 }
 
 /* div containing the context and introduction for each topi*/
 .context{
  padding: 0.5em;
+}
+
+.introduction{
+  font-weight: 400;
+  color: #005e8a;
+  padding: 0.5em;
+  -webkit-box-shadow: 4px 4px 3px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 4px 4px 3px 0px rgba(0,0,0,0.75);
+  box-shadow: 4px 4px 3px 0px rgba(0,0,0,0.75);
+  border: 1px solid grey;
+}
+
+.context_diagram{
+  display: flex; justify-content: center;
 }
 
 /* Div containing the definitions of the main concepts of the chapter*/
@@ -102,14 +118,18 @@ h4 { /* Header 4 */
  
  /* Div containing the definitions of the main indicators used in the chapter*/
 
- .definition_indicators{
- padding: 0.5em;
+ .indicators{
+ border: 1px solid lightgrey;
  }
  
+ .indicators p {
+font-weight: 400;
+ }
  /* Div containing the definitions of the main policy challenges of the chapter*/
 
- .definition_challenges{
+ .definitions_challenges{
  padding: 0.5em;
+ border: 1px solid lightgrey;
  }
 
 /* Div containing the tables and figures of economic outcomes */
@@ -129,6 +149,10 @@ h4 { /* Header 4 */
 
 .key_reco{
  padding: 0.5em;
+  -webkit-box-shadow: 4px 4px 3px 0px rgba(0,0,0,0.75);
+ -moz-box-shadow: 4px 4px 3px 0px rgba(0,0,0,0.75);
+ box-shadow: 4px 4px 3px 0px rgba(0,0,0,0.75);
+  border: 1px solid grey;
  }
  
  /* Div containing descriptions table and figures for selected policies and countries */
@@ -137,21 +161,26 @@ h4 { /* Header 4 */
  padding: 0.5em;
  }
  
+.selected_policies span {
+ font-style:bold;
+ }
+ 
 /* Div containing the main data sources */
 
  .data_sources{
  padding: 0.5em;
+
  }
  
  
  /* Div containing the main references */
  .references{
  padding: 0.5em;
- font-size: 1em;
  }
 
 
 .more_details:hover {
-  background-color:WhiteSmoke;
+  /*background-color:WhiteSmoke;*/
 }
+
 
