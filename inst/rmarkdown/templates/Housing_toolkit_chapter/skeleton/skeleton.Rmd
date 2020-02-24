@@ -35,6 +35,10 @@ library(OECDHousingToolkit)
 htk_instructions()
 ```
 
+<!-- remove comments and changes path to the location of your database
+and catalogue. Before continuing please make sure your database and catalogue
+respect the format of the template. 
+-->
 ```{r Rdata,include=F}
 
 #data_sources <- rio::import("data\\ECO\\1. PED Resilience\\resilience_database4.RData")
@@ -45,29 +49,31 @@ htk_instructions()
 
 #mydt <- data_sources[, colnames(data_sources) %in%c("ISO3_code","Period",myvars$var.id)] %>%
 #    select(ISO3_code, Period, everything())
-
 ```
 
 <div class="chapter" id="ECO_PED_Res">
 <div class="context">
 <h2> Context</h2>
 <div class="introduction">
-<!---
+<!--
 INCLUDE TEXT OF CONTEXT
 -->
-<!-- HERE-->
-<p> My text of context </p>
 
-<!---
-INCLUDE TEXT OF CONTEXT
+<p> <!-- HERE--> My text of context </p>
+
+<!--
+END TEXT OF CONTEXT
 -->
 
 <hr>
 
 <div class="context_diagram">
-<!---
+<!--
 EDIT YOUR DIAGRAM IN THE R CODE
+look at diagramR package and documentation for more details
+Remove the entire chunk (```{r diagram} ```) if not relevant
 -->
+  
 ```{r diagram}
 
 test=create_graph(graph_name = "Context_graph") %>%
@@ -244,18 +250,19 @@ test
 <details class="more_details">
 <summary>More details</summary>
 
-<!---
-INCLUDE TEXT OF CONTEXT
+<!--
+TEXT OF DEFINITION
 -->
-<!-- HERE-->
- <p>**Definition 1:** your text</p>
+
+ <p> <!-- HERE-->**Definition 1:** your text</p>
   
- <p>**Definition 2:** your text</p>
+ <p> <!-- HERE-->**Definition 2:** your text</p>
+
 <!--Copy and paste:  <p>**Definition 3:** your text</p> 
 to include more definitions-->   
 
-<!---
-INCLUDE TEXT OF CONTEXT
+<!--
+END TEXT OF DEFINITION
 -->
 
 </details> 
@@ -267,43 +274,62 @@ INCLUDE TEXT OF CONTEXT
 <div class="definitions_challenges">
 <h3>Policy challenges</h3>
 <!---
-INCLUDE TEXT OF POLICY CHALENGES
+TEXT OF POLICY CHALLENGES
 -->
-<!-- HERE-->
- <p>My paragraph of challenges</p>
+ <p> <!-- HERE--> My paragraph of challenges</p>
   
 <!--Copy and paste: <p>My paragraph of challenges</p> 
 to include more paragraphs of policy challenges-->   
 
-<!---
-INCLUDE TEXT OF CONTEXT
+<!--
+TEXT OF POLICY CHALLENGES
 -->
+
 </div>
 <br>
 
 <div class="economic_outcomes">
 <h2>Issues at stake </h2>
-<div class="indicators">
-<h3> My first economic outcome </h3> 
-<!---
-INCLUDE TEXT OF fIRST ECONOMIC OUTCOME
+ <!-- *****************************
+INSTRUCTIONS: This section contains the description and trends of relevant economic variables that you want 
+to show. 
+The section is made of subsections that contain a title, paragraphs of explainations, and a figure that
+can be either a lineplot or a barplot. 
+Copy and paste the entire section:
+from <div class="indicators> to 
+</div> END ECONOMIC OUTCOME
+If you want to include an additional section. Be carreful to paste it just bellow the existing sections
+and before
+<br>
+</div>
+</div> 
+<!--END SECTION OF ISSUES AT STAKES
+Please copy and paste the relevant chunk of R code to include either a barplot or a lineplot
+*****************************
 -->
-<!-- HERE-->
- <p>My paragraph of description for the first policy outcome</p>
   
-<!--Copy and paste: <p>My paragraph of challenges</p> 
-to include more paragraphs of policy challenges-->   
-
-<!---
-END INCLUDE TEXT OF CONTEXT
+<!-- (If you want to copy this section start from here) -->
+<div class="indicators"> 
+<!--
+TEXT OF ECONOMIC OUTCOME
 -->
 
+<h3> <!-- Title of indicator HERE--> My first economic outcome </h3> 
+
+ <p> <!-- body of indicator HERE-->My paragraph of description for the first policy outcome</p>
+  
+<!--Copy and paste: <p> My paragraph of description for the first policy outcome</p>
+to include more paragraphs on economic outcome-->   
+
+<!--
+END TEXT OF ECONOMIC OUTCOME WITH LINE PLOT
+-->
 
 <p align="center">
-<!---
-EDIT THE R CHUNK TO DRAW THE LINE FIGURE
+<!--
+LINE PLOT
+replace variables where #EDIT HERE are located
 -->
-
 ```{r name_of_eco_outcome,eval=F}
 #--------
 #EDIT THE R CHUNK TO DRAW THE FIGURE
@@ -316,6 +342,7 @@ subtitle="Years of average household disposable income required to purchase an a
 #END EDITING OF R CHUNK
 #---------
 
+#DO NOT MODIFY THE FOLLOWING CODE PLEASE ONLY EDIT THE SECTION BELLOW
 
 outcome1_OECD=mydt %>% mutate(year=year(as.Date(Period))) %>% 
   filter(year==myyear) %>%
@@ -342,32 +369,18 @@ fig_outcome1=outcome1_ctries%>%mutate(ISO3_code = fct_reorder(ISO3_code,get(var)
                     subtitle=subtitle)
 
 fig_outcome1 %>% ggplotly()
-
-
 ```
 </p>
 
-</div> <!--End section of first Economic outcome  -->
-
-<div class="indicators">
-<h3>My second economic outcome  </h3> 
-<!---
-INCLUDE TEXT OF SECOND ECONOMIC OUTCOME
+<!--
+END LINE PLOT
 -->
-<!-- HERE-->
- <p>My paragraph of description for the second policy outcome</p>
-  
-<!--Copy and paste: <p>My paragraph of challenges</p> 
-to include more paragraphs of policy challenges-->   
-
-<!---
-END INCLUDE TEXT OF CONTEXT
--->
-
 <p align="center">
-<!---
-EDIT THE R CHUNK TO DRAW THE LINE FIGURE
+<!--
+BARPLOT
+Only replace variables where #EDIT HERE are located
 -->
+
 ```{r price to rent,eval=F}
 #---------
 #EDIT THE R CHUNK TO DRAW THE FIGURE
@@ -380,6 +393,8 @@ subtitle="Years of average household disposable income required to purchase an a
 #END EDITING OF R CHUNK
 #---------
 
+#DO NOT MODIFY THE FOLLOWING CODE PLEASE ONLY EDIT THE SECTION BELLOW
+  
 mydt=mydt %>% mutate(Period=as.Date(Period))
 outcome_OECD= mydt %>% mutate(year=year(as.Date(Period))) %>% 
   filter(year==myyear) %>%
@@ -406,46 +421,51 @@ fig_outcome=outcome_ctries%>%mutate(ISO3_code = fct_reorder(ISO3_code,get(var)))
                     subtitle=subtitle)
 
 fig_outcome %>% ggplotly()
-
-# 
-# price_to_rent_data <- select(resilience_database,ISO3_code,Period,hpi_rpi)
-# 
-# max_data <- price_to_rent_data %>% na.omit() %>% group_by(ISO3_code) %>% summarise(max_hpi_rpi=max(hpi_rpi))
-# min_data <- price_to_rent_data %>% na.omit() %>% group_by(ISO3_code) %>% summarise(min_hpi_rpi=min(hpi_rpi))
-# 
-# last_value_data <- price_to_rent_data %>% na.omit() %>% group_by(ISO3_code) %>%
-#   dplyr::mutate(last_value = dplyr::last(hpi_rpi)) %>%
-#   summarise(last_hpi_rpi =max(last_value))
-# 
-# 
-# price_to_rent_data2 <- merge(max_data,min_data,by.x ="ISO3_code",by.y= "ISO3_code")
-# price_to_rent_data2 <- merge(price_to_rent_data2,last_value_data, by.x="ISO3_code", by.y="ISO3_code")
-# 
-# price_to_rent_data2 <- arrange(price_to_rent_data2,last_hpi_rpi) %>%
-#   mutate(ISO3_code = fct_reorder(ISO3_code,last_hpi_rpi))
-# 
-# price_to_rent_plot <- MN_barplot_graph(price_to_rent_data2,price_to_rent_data2$ISO3_code,price_to_rent_data2$last_hpi_rpi,price_to_rent_data2$max_hpi_rpi, price_to_rent_data2$min_hpi_rpi, title="House price-to-rent ratios")
-# print(price_to_rent_plot)
 ```
 </p>
-<br>
-</div><!--End section of second economic outcome  -->
-</div> <!--End section of Economic outcomes  -->
+<!--
+END BARPLOT
+-->
+</div> 
+<!--END ECONOMIC OUTCOME WITH LINE PLOT (if you want to copy this section end selection right after this comment)--> 
+
+<!--if you want to include a new subsection of economic outcome paste it
+HERE: MY NEW SUBSECTION OF ECONOMIC OUTCOMES-->
+
+</div> 
+<!--END SECTION OF ISSUES AT STAKES  -->
 
 <!-- ---------------------------------- -->
 <div class="policy_outcomes">
 <h2>Policy recommandations </h2>
-<div class="key_reco"> 
-
-<div class="selected_policies">    
-<h3>My first policy</h3> 
-<!---
-INCLUDE TEXT OF FIRST POLICY RECOMMENDATION
+ <!-- *****************************
+INSTRUCTIONS: This section contains the description and trends of relevant policy recommendations that you want 
+to show. 
+The section is made of subsections that contain a title, a first paragraph with the key policy message, and a collapsible 
+section of details that contains the description of the policy and the impact of the policy. 
+Copy and paste the entire section:
+from <div class="selected_policies> to 
+</div> END SELECTED POLICIES
+If you want to include an additional section. Be carreful to paste it just bellow the existing sections
+and before
+<br>
+</div>
+</div> 
+<!--END SECTION OF POLICY OUTCOMES
+Please copy and paste the relevant chunk of R code to include either a barplot or a lineplot
+*****************************
 -->
-<!-- HERE-->
- <span> My paragrph of policy recommendation </span> 
+<div class="key_reco"> <!-- (If you want to include a new policy copy from here) -->
+<div class="selected_policies">   
 <!---
-END INCLUDE FIRST POLICY RECOMMENDATION
+TEXT POLICY RECOMMENDATION
+-->
+<h3>><--Edit title HERE -->My first policy</h3> 
+
+ <span> <!-- Edit paragraph HERE-->My paragrph of policy recommendation </span> 
+
+<!--
+END TEXT OF POLICY RECOMMENDATION
 -->
 
 <details class="more_details">
@@ -453,12 +473,13 @@ END INCLUDE FIRST POLICY RECOMMENDATION
 
 <h4>Policy description and rationale</h4>
 <!---
-INCLUDE TEXT OF DESCRIPTION OF THE FIRST POLICY RECOMMENDATION
+TEXT OF DESCRIPTION OF THE POLICY RECOMMENDATION
 -->
-<!-- HERE-->
- <span> My paragrph of policy recommendation </span> 
+
+ <span> <!--Edit paragraph HERE--> My paragraph of policy recommendation </span> 
+
 <!---
-END INCLUDE TEXT OF DESCRIPTION OF THE FIRST POLICY RECOMMENDATION
+END TEXT OF DESCRIPTION OF THE FIRST POLICY RECOMMENDATION
 -->
 
 ```{r macroprudential}
@@ -467,31 +488,34 @@ END INCLUDE TEXT OF DESCRIPTION OF THE FIRST POLICY RECOMMENDATION
 
 <h4>Impact of policies</h4>
 <!---
-INCLUDE TEXT OF IMPACTS OF THE FIRST POLICY RECOMMENDATION
+TEXT OF IMPACTS OF THE FIRST POLICY RECOMMENDATION
 -->
-<!-- HERE-->
- <span> My paragrph of policy recommendation </span> 
+
+ <span> <!--Edit paragraph HERE-->  My paragrph of policy recommendation </span> 
+
 <!---
-END INCLUDE OF IMPACTS OF THE FIRST POLICY RECOMMENDATION
+END TEXT OF IMPACTS OF THE POLICY RECOMMENDATION
 -->
 
 <br>
- 
 </details> <!-- END OF DETAIL SECTION OF FIRST POLICY RECOMMENDATION -->
 <hr>
 
-</div> <!-- END SECTION OF SELECTED POLICIES -->
+</div> <!-- (If you want to include a new policy end the copy here) -->
+<!-- END SECTION OF SELECTED POLICIES --> 
+
+<!-- (if you want to include a new policy recommendation paste it 
+HERE: MY NEW SUBSECTION OF POLICY RECOMMENDATION) -->
+
 </div> <!-- END SECTION OF POLICY OUTCOMES-->
 
 <div class="definition_indicators">
 <h2>Housing policy indicators </h2>
-
 <!---
 EDIT THE R CHUNK TO BUILD YOUR OWN CATALOGUE
 -->
 ```{r catalogue}
 #Lots of packages available to make it interactive
-
 
 Policy1 <- "Loan-to-value ratios (LTVs)"
 
@@ -505,47 +529,11 @@ Policy3 <- "Loan-to-income ratios (LTIs)"
 
 Description3 <- "Loan-to-income ratios (LTIs), which limit the amount of debt to a certain fixed multiple of income, are less commonly used. They are equivalent to DSTIs for a given interest rate and repayment period but have the advantage of not becoming looser in times of booms when interest rates are low and banks offer more accommodative credit conditions."
 
-Policy4 <- "Minimum ratio of capital "
-
-Description4 <- "Capital requirement with which banks must fund housing loans. The strength of this requirement is determined by the combination of minimum capital ratios and risk weights: 
-- Minimum capital ratios set floors for the ratios of different measures of capital (core equity, equity, core Tier I, Tier I, total capital) over risk-weighted assets.
-- Risk weights (RW) for housing loans held on bank balance sheets can vary based on loan-to-value ratios. Higher risk weights make it more costly for banks to provide housing loans which can be expected to contain housing booms"
-
-
-Policy5 <- "Rent control"
-
-Description5 <- "Rent control refers to all kinds of policies that limit rent increases "
-
-
-Policy6 <- "Tenure security"
-
-Description6 <- "Tenure security policies aim at balancing the landlord-tenant bargaining power. Similarly to rent control, landlord-tenant rules have been devised for a variety of social and economic reasons "
-
-
-Policy7 <- "Marginal effective tax rates for residential property (METR)"
-
-Description7 <- "METRs are new OECD measures that allow gauging the combined weight of all tax instruments with relevance for housing, including personal income taxation, through marginal effective tax rates (METR) on owner-occupied and rental housing (OECD, 2018[55]). The METRs are derived as the difference between the pre and post-tax rates of return of a marginal investment divided by the pre-tax rate of return of that investment where the post-tax real rate is the minimum rate of return necessary to make the investment worthwhile. METRs are calculated for several saving vehicles including owner-occupied and rental property"
-
-Policy8 <- "Social rental housing"
-
-Description8 <- " Expressed as a percentage of total dwelling stock, the social rental housing indicator measures the part of social housing in every country"
-
-Policy9 <- "Housing allowances"
-
-Description9 <- "Housing allowances, measured as a percentage of housing allowances spending on total GDP, should also contribute to social resilience, by providing relief for lower-income people. Along with the stock of social rental housing, housing allowances allow to measure the extent of public support for hosuing-related expenses."
-
-
-Policy10 <- "Land use policies"
-
-Description10 <- "Land use restrictions limit the freedom to build dwellings on new land or to densify existing built areas. However, land use regulations are complex and quantitative indicators not readily available. Recent OECD work has produced several indicators for urban sprawl for most OECD countries (OECD, 2018[63]). These indicators can be used to derive composite indicators for urban sprawl"
-
-Policies <- c(Policy1,Policy2,Policy3,Policy4,Policy5,Policy6,Policy7,Policy8,Policy9,Policy10)
-Description <- c(Description1,Description2,Description3,Description4,Description5,Description6,Description7,Description8,Description9,Description10)
-
+Policies <- c(Policy1,Policy2,Policy3)
+Description <- c(Description1,Description2,Description3)
 Resilience_def_table <- cbind(Policies,Description)
 
 DT::datatable(Resilience_def_table,options = list(dom="t"))
-
 ```
 <br>
 </div>
@@ -553,22 +541,22 @@ DT::datatable(Resilience_def_table,options = list(dom="t"))
 <div class="data_sources">
 <h2> Data sources </h2>
 <!---
-INCLUDE TEXT OF SECOND ECONOMIC OUTCOME
+TEXT OF OTHER DATA SOURCES
 -->
-<!-- HERE-->
- <p>My paragraph of other datasource</p>
+ <p> <!-- HERE--> My paragraph of other datasource</p>
   
 <!--Copy and paste:  <p>My paragraph of other datasource</p>
 to include more paragraphs of datasource-->   
 
 <!---
-END INCLUDE TEXT OF CONTEXT
+END TEXT OF DATA SOURCES
 -->
 
 <!---
 EDIT THE R CHUNK TO REDIRECT TO YOUR OWN SHINYAPP
 -->
 ```{r}
+#edit path of the app
 knitr::include_app("https://yihui.shinyapps.io/miniUI/", 
   height = "600px")
 ```
@@ -578,21 +566,18 @@ knitr::include_app("https://yihui.shinyapps.io/miniUI/",
 <h2>References and and further readings</h2>
 
 <!---
-INCLUDE TEXT OF SECOND ECONOMIC OUTCOME
+INCLUDE REFERENCES
 -->
-<!-- HERE-->
-<p>- Author (date), "Title", OECD Economics Department Working Papers, No. 1555, OECD Publishing, Paris. 
+
+<p><!-- Edit authors HERE-->- Author (date), "Title", OECD Economics Department Working Papers, No. 1555, OECD Publishing, Paris. 
 https://oecdecoscope.blog/2019/07/18/are-there-ways-to-protect-economies-against-potential-future-housing-busts-2/ </p>
 
-<!--Copy and paste:  <p>My paragraph of other datasource</p>
+<!--Copy and paste:  <p>- Author (date), "Title", OECD Economics Department Working Papers, No. 1555, OECD Publishing, Paris. 
+https://oecdecoscope.blog/2019/07/18/are-there-ways-to-protect-economies-against-potential-future-housing-busts-2/ </p>
 to include more paragraphs of datasource-->   
-
-<!---
-END INCLUDE TEXT OF CONTEXT
--->
 
 <br>
 <br>
 </div><!--END OF REFERENCE SECTION -->
 
-</div>
+</div> <!--END OF THE CHAPTER -->
