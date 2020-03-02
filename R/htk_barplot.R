@@ -7,7 +7,8 @@ htk_barplot <- function(data_source,x,y,y2=NULL,y3=NULL,Xlabel=NULL,Ylabel=NULL,
   data_source=data_source %>% mutate(mycolor=ifelse(ISO3_code=="OECD","red","steelblue"))
 
   plot <- ggplot(data =data_source) +
-    geom_bar(aes(x=get(x),y=get(y),fill=mycolor),stat="identity",show.legend = F) +
+    geom_bar(aes(x=get(x),y=get(y),fill=mycolor,text=paste0("",get(x),"\n",
+                                                            "",round(get(y),2),"\n")),stat="identity",show.legend = F) +
     labs(title = title,
          subtitle=subtitle,
          x= Xlabel,

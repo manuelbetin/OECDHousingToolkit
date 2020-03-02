@@ -23,7 +23,11 @@ htk_lineplot <- function(data = resilience_database,
 
     country_plot <- ggplot(data=data)+
 
-    geom_line(aes(x=get(colnames(data)[2]), y=get(colnames(data)[4]),color=ISO3_code)) +
+    geom_line(aes(x=get(colnames(data)[2]), y=get(colnames(data)[4]),
+                  group=ISO3_code,
+                  color=ISO3_code,
+                  text=paste0("",get(colnames(data)[2]),"\n",
+                              "",round(get(colnames(data)[4]),2),"\n"))) +
 
     labs(x        = Xlabel,
          y        = Ylabel,

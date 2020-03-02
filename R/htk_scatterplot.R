@@ -1,6 +1,10 @@
 htk_scatterplot <- function(data_source,myvar_x,myvar_y,my_label,Xlabel=NULL,Ylabel=NULL,title=NULL,subtitle=NULL)
 {
-    plot <- ggplot(data =data_source, aes(x=get(myvar_x),y=get(myvar_y), label=get(my_label))) +
+    plot <- ggplot(data =data_source, aes(x=get(myvar_x),y=get(myvar_y),
+                                          label=get(my_label),
+                                          group=get(my_label),
+                                          text=paste0("",get(myvar_x),"\n",
+                                                      "",round(get(myvar_y),2),"\n"))) +
       geom_point() +
       geom_text_repel() +
       scale_x_continuous(name="Peak-to-trough of residential investment", limits=c(-100, 0)) +
