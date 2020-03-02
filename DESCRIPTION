@@ -12,5 +12,6 @@ require:
   dplyr,
   ggplot2,
   rmardown,
+  ggrepel,
   Knit
 

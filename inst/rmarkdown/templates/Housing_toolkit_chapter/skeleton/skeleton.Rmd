@@ -18,7 +18,6 @@ knitr::opts_chunk$set(warning = FALSE)
 knitr::opts_chunk$set(fig.align = T)
 knitr::opts_chunk$set(fig.height =  5)
 knitr::opts_chunk$set(fig.width = 8)
-
 #R package dependencies
 library(devtools)
 library(ggplot2)
@@ -29,9 +28,8 @@ library(forcats)
 library(DiagrammeR)
 library(lubridate)
 reco_package()
-install_github("manuelbetin/OECDToolkit")
+install_github("manuelbetin/OECDtoolkit")
 library(OECDHousingToolkit)
-
 htk_instructions()
 ```
 
@@ -40,15 +38,14 @@ and catalogue. Before continuing please make sure your database and catalogue
 respect the format of the template. 
 -->
 ```{r Rdata,include=F}
-
-#data_sources <- rio::import("data\\ECO\\1. PED Resilience\\resilience_database4.RData")
-
+#data_sources <- rio::import("data\\ECO\\1. PED Resilience\\resilience_database.RData")
 #catalogue <- rio::import("data\\ECO\\1. PED Resilience\\housing_data_metadata.csv")
-
 #myvars=catalogue %>% filter(resilience_inclusion==1)
-
 #mydt <- data_sources[, colnames(data_sources) %in%c("ISO3_code","Period",myvars$var.id)] %>%
-#    select(ISO3_code, Period, everything())
+     #select(ISO3_code, Period, everything())
+#setwd("V:\\Nguyen_Ma\\BACKUP\\packages\\OECDtoolkit")
+resilience_database <- rio::import("V:\\Nguyen_Ma\\BACKUP\\packages\\OECDtoolkit\\data\\resilience_database.Rdata")
+mydt <- resilience_database
 ```
 
 <div class="chapter" id="ECO_PED_Res">
@@ -70,12 +67,12 @@ END TEXT OF CONTEXT
 <div class="context_diagram">
 <!--
 EDIT YOUR DIAGRAM IN THE R CODE
+You can change the label of every node in the label argument and the hidden definition that appears when hovering over the label in the tooltip argument
 look at diagramR package and documentation for more details
 Remove the entire chunk (```{r diagram} ```) if not relevant
 -->
   
 ```{r diagram}
-
 test=create_graph(graph_name = "Context_graph") %>%
   #1
 add_node(label="Effect on wellbeing",
@@ -229,7 +226,6 @@ add_node(label="Ex-ante resilience",
                               )) %>%
 add_edge(from=2,to=1,edge_aes=edge_aes(color="darkgreen",penwidth = 7)) %>%
 add_edge(from=3,to=1,edge_aes=edge_aes(color="red",penwidth = 7))%>%
-
 add_edge(from=2,to=9,edge_aes=edge_aes(color="black",penwidth = 2,arrowhead = "none",arrowtail = "none"))%>%
 add_edge(from=9,to=4,edge_aes=edge_aes(color="black",penwidth = 2))%>%
  
@@ -242,7 +238,6 @@ add_edge(from=5,to=6,edge_aes=edge_aes(color="black",penwidth = 2))%>%
 add_edge(from=6,to=8,edge_aes=edge_aes(color="black",penwidth = 2,arrowhead = "none",arrowtail = "none"))%>%
 add_edge(from=8,to=3,edge_aes=edge_aes(color="black",penwidth = 2))%>%
 render_graph()
-
 test
 ```
 
@@ -324,7 +319,7 @@ to include more paragraphs on economic outcome-->
 <!--
 END TEXT OF ECONOMIC OUTCOME WITH LINE PLOT
 -->
-
+<center>
 <p align="center">
 <!--
 LINE PLOT
@@ -333,48 +328,38 @@ replace variables where #EDIT HERE are located
 ```{r name_of_eco_outcome,eval=F}
 #--------
 #EDIT THE R CHUNK TO DRAW THE FIGURE
-myyear=2018 #EDIT HERE
-var="Y2017" #EDIT HERE
-var1="Y2000" #EDIT HERE
-Ylabel=NULL #EDIT HERE
-title="House price-to-income ratios" #EDIT HERE
-subtitle="Years of average household disposable income required to purchase an average 100m2 dwelling" #EDIT HERE
+var="hpi" #EDIT HERE - Y variable to plot 
+title="House Prices" #EDIT HERE -
+Ylabel="Price index" #EDIT HERE -
+list_countries=c("FRA","DEU","ITA","USA") #EDIT HERE -Countries to plot, using ISO3_codes - Ex: if we want to add Japan, then we have list_countries = c("FRA","DEU","ITA","USA","JPN")
 #END EDITING OF R CHUNK
 #---------
+#DO NOT MODIFY THE FOLLOWING CODE PLEASE ONLY EDIT THE SECTION  ABOVE
 
-#DO NOT MODIFY THE FOLLOWING CODE PLEASE ONLY EDIT THE SECTION BELLOW
+eco_outcome1=mydt %>%
+  dplyr::select(ISO3_code,Period,var) %>%
+  mutate(Period=as.Date(Period)) %>% 
+  tidyr::gather("variable","value",-c(ISO3_code,Period)) %>% 
+  na.omit() %>% filter(ISO3_code %in% list_countries)
 
-outcome1_OECD=mydt %>% mutate(year=year(as.Date(Period))) %>% 
-  filter(year==myyear) %>%
-  dplyr::select(ISO3_code,var,var1) %>% 
-  na.omit() %>%
-  summarize(!!var:=mean(get(var)),
- !!var1:=mean(get(var1))) %>%
-  dplyr::mutate(ISO3_code="OECD") %>%
-  dplyr::select(ISO3_code,var,var1)
-outcome1_ctries=mydt %>% mutate(year=year(as.Date(Period))) %>% 
-  filter(year==myyear) %>%
-  dplyr::select(ISO3_code,var,var1) %>% 
-  na.omit() %>% group_by(ISO3_code) %>%
-   summarize(!!var:=mean(get(var)),
- !!var1:=mean(get(var1))) %>%
-  rbind(outcome1_OECD)
+  htk_lineplot(data=eco_outcome1, #dataset use for the graph
+                  title = title, #title of the graph
+                  Xlabel=NULL,
+                  Ylabel=Ylabel,
+                  ymin=0,
+                  ymax=120,
+                  width=6,
+                  height = 4,
+                  dpi=300
+                  ) %>% ggplotly() 
 
-fig_outcome1=outcome1_ctries%>%mutate(ISO3_code = fct_reorder(ISO3_code,get(var)))%>%
-  htk_barplot(x="ISO3_code",
-                    y=var,
-                    Xlabel=NULL,
-                    Ylabel=Ylabel,
-                    title=title,
-                    subtitle=subtitle)
-
-fig_outcome1 %>% ggplotly()
 ```
 </p>
-
+</center>
 <!--
 END LINE PLOT
 -->
+<center>
 <p align="center">
 <!--
 BARPLOT
@@ -384,16 +369,15 @@ Only replace variables where #EDIT HERE are located
 ```{r price to rent,eval=F}
 #---------
 #EDIT THE R CHUNK TO DRAW THE FIGURE
-myyear=2018 #EDIT HERE
-var="Y2017" #EDIT HERE
-var1="Y2000" #EDIT HERE
-Ylabel=NULL #EDIT HERE
+myyear=2018 #EDIT HERE - Chose here the year you wish to plot
+var="Y2017" #EDIT HERE - First y variable you wish to plot
+var1="Y2000" #EDIT HERE - Second y variable you wish to plot
+Ylabel=NULL #EDIT HERE - Name of the label
 title="House price-to-income ratios" #EDIT HERE
 subtitle="Years of average household disposable income required to purchase an average 100m2 dwelling" #EDIT HERE
 #END EDITING OF R CHUNK
 #---------
-
-#DO NOT MODIFY THE FOLLOWING CODE PLEASE ONLY EDIT THE SECTION BELLOW
+#DO NOT MODIFY THE FOLLOWING CODE PLEASE ONLY EDIT THE SECTION ABOVE
   
 mydt=mydt %>% mutate(Period=as.Date(Period))
 outcome_OECD= mydt %>% mutate(year=year(as.Date(Period))) %>% 
@@ -409,7 +393,6 @@ outcome_ctries=mydt %>% mutate(year=year(as.Date(Period))) %>%
   na.omit() %>% group_by(ISO3_code) %>%
   summarize(!!var:=mean(get(var)),!!var1:=mean(get(var1)), !!var2:=mean(get(var2)) ) %>%
   rbind(outcome_OECD)
-
 fig_outcome=outcome_ctries%>%mutate(ISO3_code = fct_reorder(ISO3_code,get(var)))%>%
   htk_barplot(x="ISO3_code",
                     y=var,
@@ -419,15 +402,69 @@ fig_outcome=outcome_ctries%>%mutate(ISO3_code = fct_reorder(ISO3_code,get(var)))
                     Ylabel=Ylabel,
                     title=title,
                     subtitle=subtitle)
+fig_outcome %>% ggplotly()
+```
+</p>
+</center>
+<!--
+END BARPLOT
+-->
+
+<center>
+<p align="center">
+<!--
+SCATTERPLOT
+Only replace variables where #EDIT HERE are located
+-->
+
+```{r scatterplot, eval=F}
+#---------
+#EDIT THE R CHUNK TO DRAW THE FIGURE
+myyear=2018 #EDIT HERE - Chose the year you wish to plot
+var="peak_to_trough_x" #EDIT HERE - X axis variable
+var1="time_to_recovery" #EDIT HERE - Y axis variable
+point_label ="ISO3_code" #EDIT HERE - Label of the points that will appear on the plot
+Xlabel="Peak-to-trough of residential investment" #EDIT HERE - Legend of the X axis
+Ylabel="Time to recovery of real GDP" #EDIT HERE - Legend of the Y axis
+title="Housing price cycle and recovery" #EDIT HERE
+subtitle=NULL #EDIT HERE
+#END EDITING OF R CHUNK
+#---------
+#DO NOT MODIFY THE FOLLOWING CODE PLEASE ONLY EDIT THE SECTION ABOVE
+
+outcome_OECD=mydt %>% mutate(year=year(as.Date(Period))) %>% 
+  filter(year==myyear) %>%
+  dplyr::select(ISO3_code,var,var1,point_label) %>% 
+  na.omit() %>%
+  summarize(!!var:=mean(get(var)), !!var1:=mean(get(var1))) %>% 
+  dplyr::mutate(ISO3_code="OECD") %>%
+  dplyr::select(ISO3_code,var,var1,point_label)
+outcome_ctries=mydt %>% ungroup() %>% mutate(year=year(as.Date(Period))) %>% 
+  filter(year==myyear) %>%
+  dplyr::select(ISO3_code,var,var1,point_label) %>% 
+  na.omit() %>% group_by(ISO3_code) %>%
+  summarize(!!var:=mean(get(var)), !!var1:=mean(get(var1))) %>%
+  rbind(outcome_OECD)
+
+fig_outcome=outcome_ctries%>%
+  htk_scatterplot(myvar_x=var,
+                  myvar_y=var1,
+                  my_label="ISO3_code",
+                    Xlabel=NULL,
+                    Ylabel=Ylabel,
+                    title=title,
+                    subtitle=subtitle)
 
 fig_outcome %>% ggplotly()
 ```
 </p>
+</center>
 <!--
-END BARPLOT
+END SCATTERPLOT
 -->
+
 </div> 
-<!--END ECONOMIC OUTCOME WITH LINE PLOT (if you want to copy this section end selection right after this comment)--> 
+<!--END ECONOMIC OUTCOME WITH LINE/BAR/SCATTER PLOT (if you want to copy this section end selection right after this comment)--> 
 
 <!--if you want to include a new subsection of economic outcome paste it
 HERE: MY NEW SUBSECTION OF ECONOMIC OUTCOMES-->
@@ -460,9 +497,9 @@ Please copy and paste the relevant chunk of R code to include either a barplot o
 <!---
 TEXT POLICY RECOMMENDATION
 -->
-<h3>><--Edit title HERE -->My first policy</h3> 
+<h3><!--Edit title HERE -->My first policy</h3> 
 
- <span> <!-- Edit paragraph HERE-->My paragrph of policy recommendation </span> 
+ <span> <!-- Edit paragraph HERE-->My paragraph of policy recommendation </span> 
 
 <!--
 END TEXT OF POLICY RECOMMENDATION
@@ -483,7 +520,6 @@ END TEXT OF DESCRIPTION OF THE FIRST POLICY RECOMMENDATION
 -->
 
 ```{r macroprudential}
-
 ```
 
 <h4>Impact of policies</h4>
@@ -516,23 +552,15 @@ EDIT THE R CHUNK TO BUILD YOUR OWN CATALOGUE
 -->
 ```{r catalogue}
 #Lots of packages available to make it interactive
-
 Policy1 <- "Loan-to-value ratios (LTVs)"
-
 Description1 <- "Loan-to-value ratios (LTVs) cap housing loans to a certain proportion of the house value"
-
 Policy2 <- "Debt-service-to-income ratios (DSTIs)"
-
 Description2 <- "Debt-service-to-income ratios (DSTIs) require households to not pay more than a certain proportion of their income to service their housing loans. In some countries, DSTIs are based on total rather than only housing debt servicing costs"
-
 Policy3 <- "Loan-to-income ratios (LTIs)"
-
 Description3 <- "Loan-to-income ratios (LTIs), which limit the amount of debt to a certain fixed multiple of income, are less commonly used. They are equivalent to DSTIs for a given interest rate and repayment period but have the advantage of not becoming looser in times of booms when interest rates are low and banks offer more accommodative credit conditions."
-
 Policies <- c(Policy1,Policy2,Policy3)
 Description <- c(Description1,Description2,Description3)
 Resilience_def_table <- cbind(Policies,Description)
-
 DT::datatable(Resilience_def_table,options = list(dom="t"))
 ```
 <br>

@@ -16,10 +16,10 @@ htk_barplot <- function(data_source,x,y,y2=NULL,y3=NULL,Xlabel=NULL,Ylabel=NULL,
     scale_fill_manual(name = NULL, values=c("darkred","steelblue")) +
     theme(legend.position = "none",
           panel.grid.minor =  element_blank(),
-          axis.text.x = element_text(size = 6,angle=90),
-          axis.title.x = element_text(size = 8),
-          axis.title.y = element_text(size=8),
-          axis.text.y = element_text(size=6),
+          axis.text.x = element_text(size = 11,angle=90),
+          axis.title.x = element_text(size = 11),
+          axis.title.y = element_text(size=11),
+          axis.text.y = element_text(size=11),
           plot.title=element_text(face="bold",colour ="steelblue",size=15, hjust =0.5),
           plot.subtitle =element_text(size =7, hjust = 0.5)) +
 
@@ -27,7 +27,7 @@ htk_barplot <- function(data_source,x,y,y2=NULL,y3=NULL,Xlabel=NULL,Ylabel=NULL,
       geom_point(aes(x=get(x),y=get(y2)), na.rm = TRUE, shape=17, show.legend = TRUE, colour ="black")
     }} +
     {if(!is.null(y3)) {
-      geom_point(aes(x=get(x),y=get(y3)), na.rm = TRUE, shape =18, show.legend = TRUE, colour="red")
+      geom_point(aes(x=get(x),y=get(y3)), na.rm = TRUE, shape =19, show.legend = TRUE, colour="gray71")
     }}
   return(plot)
   if (!is.null(file)){
