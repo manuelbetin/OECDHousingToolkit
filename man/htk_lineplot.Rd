@@ -35,14 +35,8 @@ htk_lineplot(data = resilience_database,
   \item{height}{height of the image to be saved}
   \item{dpi}{resolution}
 }
-\details{
-%%  ~~ If necessary, more details than the description above ~~
-}
 \value{
 Returns a standardized single line plot
-}
-\references{
-%% ~put references to the literature/web site here ~
 }
 \author{
 Maxime Nguyen,

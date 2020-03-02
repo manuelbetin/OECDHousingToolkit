@@ -47,22 +47,4 @@ Manuel Betin
 \seealso{
 %% ~~objects to See Also as \code{\link{help}}, ~~~
 }
-\examples{
-
-#mycrisis_data <- rio::import("\\data\\ECO\\1. PED Resilience\\mycrisis.Rdata")
-#mycrisis_data <- plyr::rename(mycrisis_data,c("Peak-to-trough.x" = "peak_to_trough_x")) %>%
-#  plyr::rename(c("Time to recovery" = "time_to_recovery"))
-#mycrisis_data$peak_to_trough_x=as.numeric(mycrisis_data$peak_to_trough_x)
-
-#mycrisis_plot <- htk_scatterplot(mycrisis_data,mycrisis_data$peak_to_trough_x,mycrisis_data$time_to_recovery,mycrisis_data$ISO3_Code,title="Recovery from the global financial crisis")
-#print(mycrisis_plot)
-
-
-## The function is currently defined as
-function (x)
-{
-  }
-}
-% Add one or more standard keywords, see file 'KEYWORDS' in the
-% R documentation directory.
 \keyword{ hplot }% use one of  RShowDoc("KEYWORDS")
