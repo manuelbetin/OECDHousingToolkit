@@ -2,7 +2,7 @@
 \alias{htk_barplot}
 %- Also NEED an '\alias' for EACH other topic documented here.
 \title{
-bar barplots with OECD template style to display cross country comparisons in the housing toolkit chapters
+barplots with OECD template style to display cross country comparisons in the housing toolkit chapters
 }
 \description{
 The functions generates barplots displaying the value of the selected indicator for
@@ -11,13 +11,15 @@ OECD style and allow the generation of standardize figures for all the chapters 
 housing toolkit
 }
 \usage{
-htk_barplot(data_source,x,y,Xlabel,Ylabel,title,subtitle, file=NULL, path=NULL)
+htk_barplot(data_source,x,y,y2=NULL,y3=NULL,Xlabel=NULL,Ylabel=NULL,title=NULL,subtitle=NULL, file=NULL, path=NULL)
 }
 
 \arguments{
   \item{data_source}{dataframe that contains the variables and dates to be chosen}
   \item{x}{x, often OECD countries}
   \item{y}{y, variable to be plotted}
+  \item{y2}{other variable to be plotted}
+  \item{y3}{other variable to be plotted}
   \item{Xlabel}{label of the X axis}
   \item{Ylabel}{label of the Y axis}
   \item{title}{title of the plot}

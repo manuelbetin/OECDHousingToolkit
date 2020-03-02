@@ -35,9 +35,9 @@ htk_lineplot <- function(data = resilience_database,
     theme(panel.grid.minor =  element_blank(),
           legend.position ="bottom",
           legend.title=element_blank(),
-          axis.title.x = element_text(size = 8),
-          axis.title.y = element_text(size=8),
-          axis.text.y = element_text(size=6),
+          axis.title.x = element_text(size = 11),
+          axis.title.y = element_text(size=11),
+          axis.text.y = element_text(size=11),
           plot.title=element_text(face="bold",colour="steelblue",size=15, hjust =0.5),
           plot.subtitle =element_text(hjust = 0.5))  #clean background grid elements
 

@@ -19,7 +19,6 @@ htk_lineplot(data = resilience_database,
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{data}{data frame to be used for the plot}
-  \item{country_code}{ISO3 code of the chosen country}
   \item{subtitle}{subtitle of the plot}
   \item{title}{title of the plot}
   \item{Xlabel}{label of the x axis}
@@ -33,7 +32,7 @@ htk_lineplot(data = resilience_database,
   \item{file}{name of the file containing the plot were it to be saved, name must be followed by .png}
   \item{path}{path of where the file is to be saved}
   \item{width}{width of the image to be saved}
-  \item{heigth}{height of the image to be saved}
+  \item{height}{height of the image to be saved}
   \item{dpi}{resolution}
 }
 \details{
