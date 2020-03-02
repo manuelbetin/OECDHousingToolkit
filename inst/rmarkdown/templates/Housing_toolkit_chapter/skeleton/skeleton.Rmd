@@ -28,7 +28,7 @@ library(forcats)
 library(DiagrammeR)
 library(lubridate)
 reco_package()
-install_github("manuelbetin/OECDtoolkit")
+install_github("manuelbetin/OECDHousingToolkit")
 library(OECDHousingToolkit)
 htk_instructions()
 ```
@@ -38,14 +38,13 @@ and catalogue. Before continuing please make sure your database and catalogue
 respect the format of the template. 
 -->
 ```{r Rdata,include=F}
-#data_sources <- rio::import("data\\ECO\\1. PED Resilience\\resilience_database.RData")
-#catalogue <- rio::import("data\\ECO\\1. PED Resilience\\housing_data_metadata.csv")
-#myvars=catalogue %>% filter(resilience_inclusion==1)
-#mydt <- data_sources[, colnames(data_sources) %in%c("ISO3_code","Period",myvars$var.id)] %>%
-     #select(ISO3_code, Period, everything())
-#setwd("V:\\Nguyen_Ma\\BACKUP\\packages\\OECDtoolkit")
-resilience_database <- rio::import("V:\\Nguyen_Ma\\BACKUP\\packages\\OECDtoolkit\\data\\resilience_database.Rdata")
-mydt <- resilience_database
+data("resilience_database")
+mydt=resilience_database
+rm(resilience_database)
+
+##change to the path of your database 
+##please make sure that the format of the database is the same as the resilience_database example
+#mydt=rio::import("THE_LOCATION_OF_MY_DATASET")
 ```
 
 <div class="chapter" id="ECO_PED_Res">
@@ -325,7 +324,7 @@ END TEXT OF ECONOMIC OUTCOME WITH LINE PLOT
 LINE PLOT
 replace variables where #EDIT HERE are located
 -->
-```{r name_of_eco_outcome,eval=F}
+```{r name_of_eco_outcome1}
 #--------
 #EDIT THE R CHUNK TO DRAW THE FIGURE
 var="hpi" #EDIT HERE - Y variable to plot 
@@ -366,15 +365,16 @@ BARPLOT
 Only replace variables where #EDIT HERE are located
 -->
 
-```{r price to rent,eval=F}
+```{r name_of_eco_outcome2}
 #---------
 #EDIT THE R CHUNK TO DRAW THE FIGURE
 myyear=2018 #EDIT HERE - Chose here the year you wish to plot
-var="Y2017" #EDIT HERE - First y variable you wish to plot
-var1="Y2000" #EDIT HERE - Second y variable you wish to plot
+var="last_hpi_rpi" #EDIT HERE - First y variable you wish to plot
+var1="max_hpi_rpi" #EDIT HERE - Second y variable you wish to plot
+var2="min_hpi_rpi" #EDIT HERE - third y variable you wish to plot
 Ylabel=NULL #EDIT HERE - Name of the label
-title="House price-to-income ratios" #EDIT HERE
-subtitle="Years of average household disposable income required to purchase an average 100m2 dwelling" #EDIT HERE
+title="House price-to-rent ratios" #EDIT HERE
+subtitle=NULL #EDIT HERE
 #END EDITING OF R CHUNK
 #---------
 #DO NOT MODIFY THE FOLLOWING CODE PLEASE ONLY EDIT THE SECTION ABOVE
