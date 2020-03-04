@@ -15,6 +15,7 @@ output:
 #global parameters for knit
 knitr::opts_chunk$set(echo = FALSE)
 knitr::opts_chunk$set(warning = FALSE)
+knitr::opts_chunk$set(message = FALSE)
 knitr::opts_chunk$set(fig.align = T)
 knitr::opts_chunk$set(fig.height =  5)
 knitr::opts_chunk$set(fig.width = 8)
@@ -27,6 +28,7 @@ library(plotly)
 library(forcats)
 library(DiagrammeR)
 library(lubridate)
+library(ggrepel)
 reco_package()
 install_github("manuelbetin/OECDHousingToolkit")
 library(OECDHousingToolkit)
@@ -43,7 +45,7 @@ mydt=resilience_database
 rm(resilience_database)
 
 ##change to the path of your database 
-##please make sure that the format of the database is the same as the resilience_database example
+##please make sure that the format of the database is the same as the resilience_database example(ie, first column is countries' ISO3_code, second is the date, and each following column represents a variable)
 #mydt=rio::import("THE_LOCATION_OF_MY_DATASET")
 ```
 
@@ -287,18 +289,18 @@ TEXT OF POLICY CHALLENGES
  <!-- *****************************
 INSTRUCTIONS: This section contains the description and trends of relevant economic variables that you want 
 to show. 
-The section is made of subsections that contain a title, paragraphs of explainations, and a figure that
-can be either a lineplot or a barplot. 
+The section is made of subsections that contain a title, paragraphs of explanations, and a figure that
+can be either a lineplot, a barplot or a scatterplot. 
 Copy and paste the entire section:
 from <div class="indicators> to 
 </div> END ECONOMIC OUTCOME
-If you want to include an additional section. Be carreful to paste it just bellow the existing sections
+If you want to include an additional section. Be carreful to paste it just below the existing sections
 and before
 <br>
 </div>
 </div> 
 <!--END SECTION OF ISSUES AT STAKES
-Please copy and paste the relevant chunk of R code to include either a barplot or a lineplot
+Please copy and paste the relevant chunk of R code to include either a barplot, a lineplot or a scatterplot
 *****************************
 -->
   
@@ -341,7 +343,7 @@ eco_outcome1=mydt %>%
   tidyr::gather("variable","value",-c(ISO3_code,Period)) %>% 
   na.omit() %>% filter(ISO3_code %in% list_countries)
 
-  htk_lineplot(data=eco_outcome1, #dataset use for the graph
+  fig_outcome <- htk_lineplot(data=eco_outcome1, #dataset use for the graph
                   title = title, #title of the graph
                   Xlabel=NULL,
                   Ylabel=Ylabel,
@@ -350,7 +352,10 @@ eco_outcome1=mydt %>%
                   width=6,
                   height = 4,
                   dpi=300
-                  ) %>% ggplotly() 
+                  ) 
+  
+fig_outcome <- ggplotly(fig_outcome,tooltip="text")
+fig_outcome
 
 ```
 </p>
@@ -402,7 +407,8 @@ fig_outcome=outcome_ctries%>%mutate(ISO3_code = fct_reorder(ISO3_code,get(var)))
                     Ylabel=Ylabel,
                     title=title,
                     subtitle=subtitle)
-fig_outcome %>% ggplotly()
+fig_outcome <- ggplotly(fig_outcome, tooltip="text")
+fig_outcome
 ```
 </p>
 </center>
@@ -417,7 +423,7 @@ SCATTERPLOT
 Only replace variables where #EDIT HERE are located
 -->
 
-```{r scatterplot, eval=F}
+```{r scatterplot}
 #---------
 #EDIT THE R CHUNK TO DRAW THE FIGURE
 myyear=2018 #EDIT HERE - Chose the year you wish to plot
@@ -443,7 +449,7 @@ outcome_ctries=mydt %>% ungroup() %>% mutate(year=year(as.Date(Period))) %>%
   filter(year==myyear) %>%
   dplyr::select(ISO3_code,var,var1,point_label) %>% 
   na.omit() %>% group_by(ISO3_code) %>%
-  summarize(!!var:=mean(get(var)), !!var1:=mean(get(var1))) %>%
+  summarize(!!var:=mean(get(var)), !!var1:=mean(get(var1))) #%>%
   rbind(outcome_OECD)
 
 fig_outcome=outcome_ctries%>%
@@ -455,7 +461,7 @@ fig_outcome=outcome_ctries%>%
                     title=title,
                     subtitle=subtitle)
 
-fig_outcome %>% ggplotly()
+fig_outcome 
 ```
 </p>
 </center>
@@ -504,7 +510,7 @@ TEXT POLICY RECOMMENDATION
 <!--
 END TEXT OF POLICY RECOMMENDATION
 -->
-
+<!-- Beginning of the collapsible section -->
 <details class="more_details">
   <summary>More details</summary>
 
@@ -519,8 +525,14 @@ TEXT OF DESCRIPTION OF THE POLICY RECOMMENDATION
 END TEXT OF DESCRIPTION OF THE FIRST POLICY RECOMMENDATION
 -->
 
+<center>
+<p>
+
 ```{r macroprudential}
 ```
+</p>
+</center>
+
 
 <h4>Impact of policies</h4>
 <!---

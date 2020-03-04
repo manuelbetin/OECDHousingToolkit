@@ -7,8 +7,8 @@ htk_barplot <- function(data_source,x,y,y2=NULL,y3=NULL,Xlabel=NULL,Ylabel=NULL,
   data_source=data_source %>% mutate(mycolor=ifelse(ISO3_code=="OECD","red","steelblue"))
 
   plot <- ggplot(data =data_source) +
-    geom_bar(aes(x=get(x),y=get(y),fill=mycolor,text=paste0("",get(x),"\n",
-                                                            "",round(get(y),2),"\n")),stat="identity",show.legend = F) +
+    geom_bar(aes(x=get(x),y=get(y),fill=mycolor,group =1, text=paste0("Country: ",get(x),"\n",
+                                                            "Value: ", round(get(y),2),"\n")),stat="identity",show.legend = F) +
     labs(title = title,
          subtitle=subtitle,
          x= Xlabel,
@@ -25,10 +25,10 @@ htk_barplot <- function(data_source,x,y,y2=NULL,y3=NULL,Xlabel=NULL,Ylabel=NULL,
           plot.subtitle =element_text(size =7, hjust = 0.5)) +
 
     {if(!is.null(y2)) {
-      geom_point(aes(x=get(x),y=get(y2)), na.rm = TRUE, shape=17, show.legend = TRUE, colour ="black")
+      geom_point(aes(x=get(x),y=get(y2), text=paste0("Country: ",get(x),"\n","Value: ", round(get(y),2),"\n")), na.rm = TRUE, shape=17, show.legend = TRUE, colour ="black")
     }} +
     {if(!is.null(y3)) {
-      geom_point(aes(x=get(x),y=get(y3)), na.rm = TRUE, shape =19, show.legend = TRUE, colour="gray71")
+      geom_point(aes(x=get(x),y=get(y3), text=paste0("Country: ",get(x),"\n","Value: ", round(get(y),2),"\n")), na.rm = TRUE, shape =19, show.legend = TRUE, colour="gray71")
     }}
   return(plot)
   if (!is.null(file)){
