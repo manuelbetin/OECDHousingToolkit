@@ -29,8 +29,7 @@ library(forcats)
 library(DiagrammeR)
 library(lubridate)
 library(ggrepel)
-reco_package()
-install_github("manuelbetin/OECDHousingToolkit")
+install_github("manuelbetin/OECDHousingToolkit",force=TRUE)
 library(OECDHousingToolkit)
 htk_instructions()
 ```
@@ -40,6 +39,7 @@ and catalogue. Before continuing please make sure your database and catalogue
 respect the format of the template. 
 -->
 ```{r Rdata,include=F}
+
 data("resilience_database")
 mydt=resilience_database
 rm(resilience_database)
@@ -51,7 +51,9 @@ rm(resilience_database)
 
 <div class="chapter" id="ECO_PED_Res">
 <div class="context">
-<h2> Context</h2>
+<h2> Context </h2> 
+<button data-toggle="collapse" data-target="#id1"> → </button>
+<div id="id1" class ="collapse">
 <div class="introduction">
 <!--
 INCLUDE TEXT OF CONTEXT
@@ -72,6 +74,7 @@ You can change the label of every node in the label argument and the hidden defi
 look at diagramR package and documentation for more details
 Remove the entire chunk (```{r diagram} ```) if not relevant
 -->
+</div>
   
 ```{r diagram}
 test=create_graph(graph_name = "Context_graph") %>%
@@ -264,7 +267,6 @@ END TEXT OF DEFINITION
 </details> 
 </div>
 </div>
-</div>
  <br>
    
 <div class="definitions_challenges">
@@ -283,9 +285,12 @@ TEXT OF POLICY CHALLENGES
 
 </div>
 <br>
+</div>
 
 <div class="economic_outcomes">
-<h2>Issues at stake </h2>
+<h2> Outcomes </h2>
+<button data-toggle="collapse" data-target="#id2"> → </button>
+<div id="id2" class ="collapse">
  <!-- *****************************
 INSTRUCTIONS: This section contains the description and trends of relevant economic variables that you want 
 to show. 
@@ -299,7 +304,7 @@ and before
 <br>
 </div>
 </div> 
-<!--END SECTION OF ISSUES AT STAKES
+<!--END SECTION OF OUTCOMES
 Please copy and paste the relevant chunk of R code to include either a barplot, a lineplot or a scatterplot
 *****************************
 -->
@@ -460,7 +465,6 @@ fig_outcome=outcome_ctries%>%
                     Ylabel=Ylabel,
                     title=title,
                     subtitle=subtitle)
-
 fig_outcome 
 ```
 </p>
@@ -476,13 +480,14 @@ END SCATTERPLOT
 HERE: MY NEW SUBSECTION OF ECONOMIC OUTCOMES-->
 
 </div> 
+</div>
 <!--END SECTION OF ISSUES AT STAKES  -->
 
 <!-- ---------------------------------- -->
 <div class="policy_outcomes">
-<h2>Policy recommandations </h2>
+<h2>Policy discussions </h2>
  <!-- *****************************
-INSTRUCTIONS: This section contains the description and trends of relevant policy recommendations that you want 
+INSTRUCTIONS: This section contains the description and trends of relevant policies that you want 
 to show. 
 The section is made of subsections that contain a title, a first paragraph with the key policy message, and a collapsible 
 section of details that contains the description of the policy and the impact of the policy. 
@@ -539,7 +544,7 @@ END TEXT OF DESCRIPTION OF THE FIRST POLICY RECOMMENDATION
 TEXT OF IMPACTS OF THE FIRST POLICY RECOMMENDATION
 -->
 
- <span> <!--Edit paragraph HERE-->  My paragrph of policy recommendation </span> 
+ <span> <!--Edit paragraph HERE-->  My paragraph of policy recommendation </span> 
 
 <!---
 END TEXT OF IMPACTS OF THE POLICY RECOMMENDATION
@@ -559,11 +564,14 @@ HERE: MY NEW SUBSECTION OF POLICY RECOMMENDATION) -->
 
 <div class="definition_indicators">
 <h2>Housing policy indicators </h2>
+<button data-toggle="collapse" data-target="#id3"> → </button>
+<div id="id3" class ="collapse"> 
+
 <!---
 EDIT THE R CHUNK TO BUILD YOUR OWN CATALOGUE
 -->
+
 ```{r catalogue}
-#Lots of packages available to make it interactive
 Policy1 <- "Loan-to-value ratios (LTVs)"
 Description1 <- "Loan-to-value ratios (LTVs) cap housing loans to a certain proportion of the house value"
 Policy2 <- "Debt-service-to-income ratios (DSTIs)"
@@ -575,11 +583,16 @@ Description <- c(Description1,Description2,Description3)
 Resilience_def_table <- cbind(Policies,Description)
 DT::datatable(Resilience_def_table,options = list(dom="t"))
 ```
-<br>
+    
+    
 </div>
+
+
 
 <div class="data_sources">
 <h2> Data sources </h2>
+<button data-toggle="collapse" data-target="#id4"> → </button>
+<div id="id4" class ="collapse">
 <!---
 TEXT OF OTHER DATA SOURCES
 -->
@@ -601,10 +614,12 @@ knitr::include_app("https://yihui.shinyapps.io/miniUI/",
   height = "600px")
 ```
 </div> <!--END OF DATASOURCE SECTION -->
+</div>
 
 <div class="references">
 <h2>References and and further readings</h2>
-
+<button data-toggle="collapse" data-target="#id5"> → </button>
+<div id="id5" class ="collapse">
 <!---
 INCLUDE REFERENCES
 -->
@@ -619,5 +634,9 @@ to include more paragraphs of datasource-->
 <br>
 <br>
 </div><!--END OF REFERENCE SECTION -->
+</div>
+
+
+
 
 </div> <!--END OF THE CHAPTER -->
