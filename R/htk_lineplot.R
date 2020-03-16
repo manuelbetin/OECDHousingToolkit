@@ -17,10 +17,6 @@ htk_lineplot <- function(data = resilience_database,
                                 dpi=300)
   {
 
-
-  # 2 options :if colonne 2 period ou non retourner erreur
-                # ou avec plot = try et ensuit if (class plot %in% try error)
-
     country_plot <- ggplot(data=data)+
 
     geom_line(aes(x=get(colnames(data)[2]), y=get(colnames(data)[4]),
