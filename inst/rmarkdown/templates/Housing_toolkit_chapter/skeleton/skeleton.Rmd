@@ -1,8 +1,7 @@
 ---
-title: "Name of chapter"
+title: "Name of chapter" 
 output:
   html_document:
-    #toc: true
     number_sections: False
     fig_width: 7
     fig_heigh: 5
@@ -16,7 +15,7 @@ output:
 knitr::opts_chunk$set(echo = FALSE)
 knitr::opts_chunk$set(warning = FALSE)
 knitr::opts_chunk$set(message = FALSE)
-knitr::opts_chunk$set(fig.align = T)
+knitr::opts_chunk$set(fig.align = "center")
 knitr::opts_chunk$set(fig.height =  5)
 knitr::opts_chunk$set(fig.width = 8)
 #R package dependencies
@@ -52,9 +51,9 @@ rm(resilience_database)
 <div class="chapter" id="ECO_PED_Res">
 <div class="context">
 <h2> Context </h2> 
-<button data-toggle="collapse" data-target="#id1"> → </button>
-<div id="id1" class ="collapse">
 <div class="introduction">
+
+
 <!--
 INCLUDE TEXT OF CONTEXT
 -->
@@ -65,7 +64,8 @@ INCLUDE TEXT OF CONTEXT
 END TEXT OF CONTEXT
 -->
 
-<hr>
+<button data-toggle="collapse" data-target="#id1"> see </button>
+<div id="id1" class ="collapse">
 
 <div class="context_diagram">
 <!--
@@ -267,29 +267,11 @@ END TEXT OF DEFINITION
 </details> 
 </div>
 </div>
- <br>
-   
-<div class="definitions_challenges">
-<h3>Policy challenges</h3>
-<!---
-TEXT OF POLICY CHALLENGES
--->
- <p> <!-- HERE--> My paragraph of challenges</p>
-  
-<!--Copy and paste: <p>My paragraph of challenges</p> 
-to include more paragraphs of policy challenges-->   
-
-<!--
-TEXT OF POLICY CHALLENGES
--->
-
-</div>
-<br>
 </div>
 
 <div class="economic_outcomes">
 <h2> Outcomes </h2>
-<button data-toggle="collapse" data-target="#id2"> → </button>
+<button data-toggle="collapse" data-target="#id2"> see </button>
 <div id="id2" class ="collapse">
  <!-- *****************************
 INSTRUCTIONS: This section contains the description and trends of relevant economic variables that you want 
@@ -485,7 +467,7 @@ HERE: MY NEW SUBSECTION OF ECONOMIC OUTCOMES-->
 
 <!-- ---------------------------------- -->
 <div class="policy_outcomes">
-<h2>Policy discussions </h2>
+<h2>Policies</h2>
  <!-- *****************************
 INSTRUCTIONS: This section contains the description and trends of relevant policies that you want 
 to show. 
@@ -503,8 +485,19 @@ and before
 Please copy and paste the relevant chunk of R code to include either a barplot or a lineplot
 *****************************
 -->
-<div class="key_reco"> <!-- (If you want to include a new policy copy from here) -->
+
+<!-- Executive summary of the policies to be presented 
+--> 
+
+<p> <!-- Include the executive summary --> </p>
+
+<button data-toggle="collapse" data-target="#id3"> see </button>
+<div id="id3" class ="collapse">
+
+<div class="key_reco"> 
 <div class="selected_policies">   
+
+<!-- (If you want to include a new policy copy from here) -->
 <!---
 TEXT POLICY RECOMMENDATION
 -->
@@ -554,18 +547,21 @@ END TEXT OF IMPACTS OF THE POLICY RECOMMENDATION
 </details> <!-- END OF DETAIL SECTION OF FIRST POLICY RECOMMENDATION -->
 <hr>
 
-</div> <!-- (If you want to include a new policy end the copy here) -->
+<!-- (If you want to include a new policy end the copy here) -->
 <!-- END SECTION OF SELECTED POLICIES --> 
 
 <!-- (if you want to include a new policy recommendation paste it 
 HERE: MY NEW SUBSECTION OF POLICY RECOMMENDATION) -->
 
+</div>
+</div>
+</div>
 </div> <!-- END SECTION OF POLICY OUTCOMES-->
 
 <div class="definition_indicators">
-<h2>Housing policy indicators </h2>
-<button data-toggle="collapse" data-target="#id3"> → </button>
-<div id="id3" class ="collapse"> 
+<h2>Definitions </h2>
+<button data-toggle="collapse" data-target="#id4"> see </button>
+<div id="id4" class ="collapse"> 
 
 <!---
 EDIT THE R CHUNK TO BUILD YOUR OWN CATALOGUE
@@ -584,15 +580,16 @@ Resilience_def_table <- cbind(Policies,Description)
 DT::datatable(Resilience_def_table,options = list(dom="t"))
 ```
     
-    
+</div>    
+</div>    
 </div>
 
 
 
 <div class="data_sources">
-<h2> Data sources </h2>
-<button data-toggle="collapse" data-target="#id4"> → </button>
-<div id="id4" class ="collapse">
+<h2> Compare your country </h2>
+<button data-toggle="collapse" data-target="#id5"> see </button>
+<div id="id5" class ="collapse">
 <!---
 TEXT OF OTHER DATA SOURCES
 -->
@@ -618,8 +615,8 @@ knitr::include_app("https://yihui.shinyapps.io/miniUI/",
 
 <div class="references">
 <h2>References and and further readings</h2>
-<button data-toggle="collapse" data-target="#id5"> → </button>
-<div id="id5" class ="collapse">
+<button data-toggle="collapse" data-target="#id6"> see </button>
+<div id="id"6 class ="collapse">
 <!---
 INCLUDE REFERENCES
 -->

@@ -1,5 +1,26 @@
-
-## Generate a standard barplot template
+#' barplots with OECD template style to display cross country comparisons in the housing toolkit chapters
+#'
+#'@description The functions generates barplots displaying the value of the selected indicator for each country and with the average OECD value in highlighted. The plot respect the OECD style and allow the generation of standardize figures for all the chapters of the housing toolkit
+#'
+#'@param data_source dataframe that contains the variables and dates to be chosen
+#'@param x x axis variable, often OECD countries
+#'@param y y axis variable to be plotted
+#'@param y2 other y variable to be plotted
+#'@param y3 other y variable to be plotted
+#'@param Xlabel label of the X axis
+#'@param Ylabel label of the Y axis
+#'@param title title of the plot
+#'@param subtitle subtitle of the plot
+#'@param file name of the file that contains the plot if you decide to save it, filename must end with .png
+#'@param path specify exit path of the file
+#'
+#'@return returns a standardized barplot
+#'
+#'@author
+#'Manuel Betin
+#'Maxime Nguyen
+#'
+#'@export
 
 htk_barplot <- function(data_source,x,y,y2=NULL,y3=NULL,Xlabel=NULL,Ylabel=NULL,title=NULL,subtitle=NULL, file=NULL, path=NULL)
 {
