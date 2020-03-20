@@ -318,7 +318,16 @@ replace variables where #EDIT HERE are located
 #EDIT THE R CHUNK TO DRAW THE FIGURE
 var="hpi" #EDIT HERE - Y variable to plot 
 title="House Prices" #EDIT HERE -
+subtitle ="" #EDIT HERE - 
+Xlabel="Date" #EDIT HERE - 
 Ylabel="Price index" #EDIT HERE -
+ymin=0
+ymax=120
+ybreak=10
+xbreak = "5 years"
+start_date = 1970
+end_date = 2018
+
 list_countries=c("FRA","DEU","ITA","USA") #EDIT HERE -Countries to plot, using ISO3_codes - Ex: if we want to add Japan, then we have list_countries = c("FRA","DEU","ITA","USA","JPN")
 #END EDITING OF R CHUNK
 #---------
@@ -332,10 +341,15 @@ eco_outcome1=mydt %>%
 
   fig_outcome <- htk_lineplot(data=eco_outcome1, #dataset use for the graph
                   title = title, #title of the graph
-                  Xlabel=NULL,
+                  subtitle = subtitle,
+                  Xlabel=Xlabel,
                   Ylabel=Ylabel,
-                  ymin=0,
-                  ymax=120,
+                  ymin=ymin,
+                  ymax=ymax,
+                  ybreak=ybreak,
+                  xbreak=xbreak,
+                  start_date=start_date,
+                  end_date=end_date,
                   width=6,
                   height = 4,
                   dpi=300
@@ -614,9 +628,9 @@ knitr::include_app("https://yihui.shinyapps.io/miniUI/",
 </div>
 
 <div class="references">
-<h2>References and and further readings</h2>
+<h2>References and further readings</h2>
 <button data-toggle="collapse" data-target="#id6"> see </button>
-<div id="id"6 class ="collapse">
+<div id="id6" class ="collapse">
 <!---
 INCLUDE REFERENCES
 -->
