@@ -33,6 +33,8 @@ library(OECDHousingToolkit)
 htk_instructions()
 ```
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 <!-- remove comments and changes path to the location of your database
 and catalogue. Before continuing please make sure your database and catalogue
 respect the format of the template. 
@@ -53,7 +55,6 @@ rm(resilience_database)
 <h2> Context </h2> 
 <div class="introduction">
 
-
 <!--
 INCLUDE TEXT OF CONTEXT
 -->
@@ -63,8 +64,7 @@ INCLUDE TEXT OF CONTEXT
 <!--
 END TEXT OF CONTEXT
 -->
-
-<button data-toggle="collapse" data-target="#id1"> see </button>
+<button data-toggle="collapse" data-target="#id1"class="btn"><i class="fa fa-bars"></i></button>
 <div id="id1" class ="collapse">
 
 <div class="context_diagram">
@@ -270,8 +270,8 @@ END TEXT OF DEFINITION
 </div>
 
 <div class="economic_outcomes">
-<h2> Outcomes </h2>
-<button data-toggle="collapse" data-target="#id2"> see </button>
+<h2 > Outcomes </h2>
+<button data-toggle="collapse" data-target="#id2"class="btn"><i class="fa fa-bars"></i></button>
 <div id="id2" class ="collapse">
  <!-- *****************************
 INSTRUCTIONS: This section contains the description and trends of relevant economic variables that you want 
@@ -504,8 +504,7 @@ Please copy and paste the relevant chunk of R code to include either a barplot o
 --> 
 
 <p> <!-- Include the executive summary --> </p>
-
-<button data-toggle="collapse" data-target="#id3"> see </button>
+<button data-toggle="collapse" data-target="#id3"class="btn"><i class="fa fa-bars"></i></button>
 <div id="id3" class ="collapse">
 
 <div class="key_reco"> 
@@ -574,7 +573,7 @@ HERE: MY NEW SUBSECTION OF POLICY RECOMMENDATION) -->
 
 <div class="definition_indicators">
 <h2>Definitions </h2>
-<button data-toggle="collapse" data-target="#id4"> see </button>
+<button data-toggle="collapse" data-target="#id4"class="btn"><i class="fa fa-bars"></i></button>
 <div id="id4" class ="collapse"> 
 
 <!---
@@ -602,7 +601,7 @@ DT::datatable(Resilience_def_table,options = list(dom="t"))
 
 <div class="data_sources">
 <h2> Compare your country </h2>
-<button data-toggle="collapse" data-target="#id5"> see </button>
+<button data-toggle="collapse" data-target="#id5"class="btn"><i class="fa fa-bars"></i></button>
 <div id="id5" class ="collapse">
 <!---
 TEXT OF OTHER DATA SOURCES
@@ -629,7 +628,7 @@ knitr::include_app("https://yihui.shinyapps.io/miniUI/",
 
 <div class="references">
 <h2>References and further readings</h2>
-<button data-toggle="collapse" data-target="#id6"> see </button>
+<button data-toggle="collapse" data-target="#id6"class="btn"><i class="fa fa-bars"></i></button>
 <div id="id6" class ="collapse">
 <!---
 INCLUDE REFERENCES
