@@ -1,3 +1,25 @@
+#'scatter barplots with OECD template style to display correlation between two variables in the housing toolkit chapters
+#'
+#'@description The functions generates scatter plots in an agreed format to ensure presentation consistency in the dashboard
+#'
+#'@param data_source dataframe that contains the variables to plot
+#'@param myvar_x x axis variable name
+#'@param myvar_y y axis variable name
+#'@param my_label labels used to label the points in the plot
+#'@param Xlabel label of the X axis
+#'@param Ylabel label of the Y axis
+#'@param title title of the plot
+#'@param subtitle subtitle of the plot
+#'
+#'@return returns a standardized scatter plot
+#'
+#'@author
+#'Manuel Betin
+#'Maxime Nguyen
+#'
+#'@export
+
+
 htk_scatterplot <- function(data_source,myvar_x,myvar_y,my_label,Xlabel=NULL,Ylabel=NULL,title=NULL,subtitle=NULL)
 {
     plot <- ggplot(data =data_source, aes(x=get(myvar_x),y=get(myvar_y),
