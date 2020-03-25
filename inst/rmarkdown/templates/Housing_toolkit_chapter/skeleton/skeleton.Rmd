@@ -28,19 +28,18 @@ library(forcats)
 library(DiagrammeR)
 library(lubridate)
 library(ggrepel)
-install_github("manuelbetin/OECDHousingToolkit",force=TRUE)
+library(stringr)
+devtools::install_github("MaxNguyen123/OECDtoolkit",force=TRUE)
 library(OECDHousingToolkit)
 htk_instructions()
 ```
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <!-- remove comments and changes path to the location of your database
 and catalogue. Before continuing please make sure your database and catalogue
 respect the format of the template. 
 -->
 ```{r Rdata,include=F}
-
+mydt=rio::import("V:\\Nguyen_Ma\\BACKUP\\OECDtoolkit\\data\\resilience_database.Rda")
 data("resilience_database")
 mydt=resilience_database
 rm(resilience_database)
@@ -370,22 +369,21 @@ END LINE PLOT
 BARPLOT
 Only replace variables where #EDIT HERE are located
 -->
+```{r barplot}
+#---------
+myyear=2018
+var="last_hpi_rpi" 
+var1="max_hpi_rpi"
+var2="min_hpi_rpi"
+Ylabel=NULL
+ylegend="1990"
+y2legend="1991"
+y3legend="1992"
+title="House price-to-rent ratios"
+subtitle=NULL
 
-```{r name_of_eco_outcome2}
 #---------
-#EDIT THE R CHUNK TO DRAW THE FIGURE
-myyear=2018 #EDIT HERE - Chose here the year you wish to plot
-var="last_hpi_rpi" #EDIT HERE - First y variable you wish to plot
-var1="max_hpi_rpi" #EDIT HERE - Second y variable you wish to plot
-var2="min_hpi_rpi" #EDIT HERE - third y variable you wish to plot
-Ylabel=NULL #EDIT HERE - Name of the label
-title="House price-to-rent ratios" #EDIT HERE
-subtitle=NULL #EDIT HERE
-#END EDITING OF R CHUNK
-#---------
-#DO NOT MODIFY THE FOLLOWING CODE PLEASE ONLY EDIT THE SECTION ABOVE
-  
-mydt=mydt %>% mutate(Period=as.Date(Period))
+
 outcome_OECD= mydt %>% mutate(year=year(as.Date(Period))) %>% 
   filter(year==myyear) %>%
   dplyr::select(ISO3_code,var,var1,var2) %>% 
@@ -399,18 +397,35 @@ outcome_ctries=mydt %>% mutate(year=year(as.Date(Period))) %>%
   na.omit() %>% group_by(ISO3_code) %>%
   summarize(!!var:=mean(get(var)),!!var1:=mean(get(var1)), !!var2:=mean(get(var2)) ) %>%
   rbind(outcome_OECD)
+
 fig_outcome=outcome_ctries%>%mutate(ISO3_code = fct_reorder(ISO3_code,get(var)))%>%
   htk_barplot(x="ISO3_code",
                     y=var,
-                    # y2=var1,
-                    # y3=var2,
+                    y2=var1,
+                    y3=var2,
                     Xlabel=NULL,
                     Ylabel=Ylabel,
+                    ylegend=ylegend,
+                    y2legend=y2legend,
+                    y3legend=y3legend,
                     title=title,
                     subtitle=subtitle)
-fig_outcome <- ggplotly(fig_outcome, tooltip="text")
+
+fig_outcome= ggplotly(fig_outcome,tooltip = "text") %>% layout(legend = list(orientation = "h", x = 0.3, y =-0.2))
+
+
+for (i in 1:length(fig_outcome$x$data)){
+    if (!is.null(fig_outcome$x$data[[i]]$name)){
+        fig_outcome$x$data[[i]]$name =  gsub("\\(","",str_split(fig_outcome$x$data[[i]]$name,",")[[1]][1])
+    }
+}
 fig_outcome
+
 ```
+
+
+
+
 </p>
 </center>
 <!--
