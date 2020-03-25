@@ -29,17 +29,21 @@ library(DiagrammeR)
 library(lubridate)
 library(ggrepel)
 library(stringr)
-devtools::install_github("MaxNguyen123/OECDtoolkit",force=TRUE)
+install_github("manuelbetin/OECDHousingToolkit")
+
 library(OECDHousingToolkit)
 htk_instructions()
 ```
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
 <!-- remove comments and changes path to the location of your database
 and catalogue. Before continuing please make sure your database and catalogue
 respect the format of the template. 
 -->
 ```{r Rdata,include=F}
-mydt=rio::import("V:\\Nguyen_Ma\\BACKUP\\OECDtoolkit\\data\\resilience_database.Rda")
 data("resilience_database")
 mydt=resilience_database
 rm(resilience_database)
@@ -51,9 +55,10 @@ rm(resilience_database)
 
 <div class="chapter" id="ECO_PED_Res">
 <div class="context">
-<h2> Context </h2> 
 <div class="introduction">
-
+<div class="collapsible_header">
+<h2 class="collapsible_title">Context </h2>
+</div>
 <!--
 INCLUDE TEXT OF CONTEXT
 -->
@@ -63,7 +68,7 @@ INCLUDE TEXT OF CONTEXT
 <!--
 END TEXT OF CONTEXT
 -->
-<button data-toggle="collapse" data-target="#id1"class="btn"><i class="fa fa-bars"></i></button>
+<button data-toggle="collapse" data-target="#id1"class="btn">see<i class="fa fa-bars"></i></button>
 <div id="id1" class ="collapse">
 
 <div class="context_diagram">
@@ -269,8 +274,10 @@ END TEXT OF DEFINITION
 </div>
 
 <div class="economic_outcomes">
-<h2 > Outcomes </h2>
-<button data-toggle="collapse" data-target="#id2"class="btn"><i class="fa fa-bars"></i></button>
+<div class="collapsible_header">
+<h2 class="collapsible_title">Outcomes </h2>
+<button data-toggle="collapse" data-target="#id2"class="btn">see<i class="fa fa-bars"></i></button>
+</div>
 <div id="id2" class ="collapse">
  <!-- *****************************
 INSTRUCTIONS: This section contains the description and trends of relevant economic variables that you want 
@@ -369,7 +376,7 @@ END LINE PLOT
 BARPLOT
 Only replace variables where #EDIT HERE are located
 -->
-```{r barplot}
+```{r name_of_eco_outcome2}
 #---------
 myyear=2018
 var="last_hpi_rpi" 
@@ -496,7 +503,9 @@ HERE: MY NEW SUBSECTION OF ECONOMIC OUTCOMES-->
 
 <!-- ---------------------------------- -->
 <div class="policy_outcomes">
-<h2>Policies</h2>
+<div class="collapsible_header">
+<h2 class="collapsible_title">Main policy lessons </h2>
+</div>
  <!-- *****************************
 INSTRUCTIONS: This section contains the description and trends of relevant policies that you want 
 to show. 
@@ -517,9 +526,10 @@ Please copy and paste the relevant chunk of R code to include either a barplot o
 
 <!-- Executive summary of the policies to be presented 
 --> 
+<p> <!-- HERE--> My text of Exuctive summary of policies </p>
 
 <p> <!-- Include the executive summary --> </p>
-<button data-toggle="collapse" data-target="#id3"class="btn"><i class="fa fa-bars"></i></button>
+<button data-toggle="collapse" data-target="#id3"class="btn">see<i class="fa fa-bars"></i></button>
 <div id="id3" class ="collapse">
 
 <div class="key_reco"> 
@@ -587,8 +597,10 @@ HERE: MY NEW SUBSECTION OF POLICY RECOMMENDATION) -->
 </div> <!-- END SECTION OF POLICY OUTCOMES-->
 
 <div class="definition_indicators">
-<h2>Definitions </h2>
-<button data-toggle="collapse" data-target="#id4"class="btn"><i class="fa fa-bars"></i></button>
+<div class="collapsible_header">
+<h2 class=""collapsible_title">Definitions </h2>
+<button data-toggle="collapse" data-target="#id4"class="btn">see<i class="fa fa-bars"></i></button>
+</div>
 <div id="id4" class ="collapse"> 
 
 <!---
@@ -615,8 +627,10 @@ DT::datatable(Resilience_def_table,options = list(dom="t"))
 
 
 <div class="data_sources">
-<h2> Compare your country </h2>
-<button data-toggle="collapse" data-target="#id5"class="btn"><i class="fa fa-bars"></i></button>
+<div class="collapsible_header">
+<h2 class=""collapsible_title">Compare your country </h2>
+<button data-toggle="collapse" data-target="#id5"class="btn">see<i class="fa fa-bars"></i></button>
+</div>
 <div id="id5" class ="collapse">
 <!---
 TEXT OF OTHER DATA SOURCES
@@ -642,8 +656,10 @@ knitr::include_app("https://yihui.shinyapps.io/miniUI/",
 </div>
 
 <div class="references">
-<h2>References and further readings</h2>
-<button data-toggle="collapse" data-target="#id6"class="btn"><i class="fa fa-bars"></i></button>
+<div class="collapsible_header">
+<h2 class=""collapsible_title">References and and further readings </h2>
+<button data-toggle="collapse" data-target="#id6"class="btn">see<i class="fa fa-bars"></i></button>
+</div>
 <div id="id6" class ="collapse">
 <!---
 INCLUDE REFERENCES

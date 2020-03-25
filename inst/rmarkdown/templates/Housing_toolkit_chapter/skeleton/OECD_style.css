@@ -14,6 +14,11 @@ p {
  margin: .9em;
 }
 
+li {
+ font-weight: 400;
+ color: #332;
+ margin: .9em;
+ }
 
 
 /* titles and headers
@@ -46,9 +51,18 @@ h1 { /* Header 1 */
 h2 { /* Header 2 */
     color: #005e8a;
     font-style:italic;
-    border-bottom: 1px solid #005e8a;
+    float:left;
     font-size: 1.5em;
-    line-height: 1.4;
+    font-weight: 400;
+    padding-left:1em;
+    padding-bottom: 0em;
+    margin: 0em 0 1em 0;
+}
+
+.collapsible_header h2 { /* Header 2 */
+    color: #005e8a;
+    font-style:italic;
+    font-size: 1.5em;
     font-weight: 400;
     padding-left:1em;
     padding-bottom: 0em;
@@ -101,6 +115,7 @@ h4 { /* Header 4 */
   -moz-box-shadow: 4px 4px 3px 0px rgba(0,0,0,0.75);
   box-shadow: 4px 4px 3px 0px rgba(0,0,0,0.75);
   border: 1px solid grey;
+  margin: 1.6em 0em 1.6em 0;
 }
 
 .context_diagram{
@@ -108,7 +123,6 @@ h4 { /* Header 4 */
 }
 
 /* Div containing the definitions of the main concepts of the chapter*/
-
 .definition_concepts{
  padding: 0.5em;
  }
@@ -138,52 +152,53 @@ font-weight: 400;
 /* Div containing the tables and figures of economic outcomes */
 
 .economic_outcomes{
- padding: 0.6em;
+ padding: 0.5em;
  }
 
 
 /* Div containing the  tables and figures of policy outcomes*/
 
 .policy_outcomes{
- padding: 0.6em;
+ font-weight: 400;
+  color: #005e8a;
+  padding: 0.5em;
+  -webkit-box-shadow: 4px 4px 3px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 4px 4px 3px 0px rgba(0,0,0,0.75);
+  box-shadow: 4px 4px 3px 0px rgba(0,0,0,0.75);
+  border: 1px solid grey;
+  margin: 1.6em 0em 1.6em 0;
  }
-
+ 
 /* Div containing the main policy recommendations of the chapter */
 
 .key_reco{
- padding: 0.5em;
+ /*padding: 0.5em;
   -webkit-box-shadow: 4px 4px 3px 0px rgba(0,0,0,0.75);
  -moz-box-shadow: 4px 4px 3px 0px rgba(0,0,0,0.75);
  box-shadow: 4px 4px 3px 0px rgba(0,0,0,0.75);
-  border: 1px solid grey;
+  border: 1px solid grey;*/
  }
  
  /* Div containing descriptions table and figures for selected policies and countries */
 
 .selected_policies{
- padding: 0.6em;
+ padding: 0.5em;
  }
  
 .selected_policies span {
  font-style:bold;
  }
-
-/* Div containing the definitions */
-.definition_indicators{
- padding: 0.6em;
- }
  
 /* Div containing the main data sources */
 
  .data_sources{
- padding: 0.6em 1.1em;
-
+ padding: 0.5em;
  }
  
  
  /* Div containing the main references */
  .references{
- padding: 0.6em 1.1em;
+ padding: 0.5em;
  }
 
 
@@ -191,18 +206,11 @@ font-weight: 400;
   /*background-color:WhiteSmoke;*/
 }
 
-button {
-  background-color: #005e8a; /* Green */
-  border: none;
+.btn {
+  background-color: #005e8a; 
   color: white;
-  width: 3em;
-  height: 2.5em;
-  /*padding: 0.5em 0.5em;*/
-  text-align: top;
-  text-decoration: none;
   display: inline-block;
-  font-size: 1em;
-  /*margin: 0.5em 0.5em;*/
+  border-radius: 0.4em;
   cursor: pointer;
   -webkit-transition-duration: 0.4s; /* Safari */
   transition-duration: 0.4s;
@@ -211,5 +219,17 @@ button {
 button:hover {
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
 }
+
+.collapsible_header {
+  overflow:hidden;
+  border-bottom: 1px solid #005e8a;
+  line-height: 1.4;
+  font-weight: 400;
+}
+
+.collapsible_header .btn {
+   float:right;
+}
+
 
 
