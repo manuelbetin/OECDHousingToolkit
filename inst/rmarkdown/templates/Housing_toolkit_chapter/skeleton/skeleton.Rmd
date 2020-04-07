@@ -29,24 +29,26 @@ library(DiagrammeR)
 library(lubridate)
 library(ggrepel)
 library(stringr)
-install_github("manuelbetin/OECDHousingToolkit")
-
-library(OECDHousingToolkit)
-htk_instructions()
+#install_github("manuelbetin/OECDHousingToolkit")
+#library(OECDHousingToolkit)
+#download the functions necessary for the simulator. 
+#htk_instructions()
 ```
 
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+-->
 
-<!-- remove comments and changes path to the location of your database
+<!-- remove comments and change path to the location of your database
 and catalogue. Before continuing please make sure your database and catalogue
 respect the format of the template. 
 -->
 ```{r Rdata,include=F}
-data("resilience_database")
-mydt=resilience_database
-rm(resilience_database)
+mydt=load("V:\\Nguyen_Ma\\BACKUP\\OECDtoolkit\\data\\resilience_database.Rda")
+#data("resilience_database")
+#mydt=resilience_database
+#rm(resilience_database)
 
 ##change to the path of your database 
 ##please make sure that the format of the database is the same as the resilience_database example(ie, first column is countries' ISO3_code, second is the date, and each following column represents a variable)
@@ -311,13 +313,13 @@ TEXT OF ECONOMIC OUTCOME
 to include more paragraphs on economic outcome-->   
 
 <!--
-END TEXT OF ECONOMIC OUTCOME WITH LINE PLOT
+END TEXT OF ECONOMIC OUTCOME 
 -->
 <center>
 <p align="center">
 <!--
-LINE PLOT
-replace variables where #EDIT HERE are located
+Below is a R chunk containing the code to produce a LINE PLOT
+Please only replace variables where #EDIT HERE are located if you want to produce a line plot, delete the whole chunk otherwise
 -->
 ```{r name_of_eco_outcome1}
 #--------
@@ -373,8 +375,8 @@ END LINE PLOT
 <center>
 <p align="center">
 <!--
-BARPLOT
-Only replace variables where #EDIT HERE are located
+Below is a R chunk containing the code to produce a BAR PLOT
+Please only replace variables where #EDIT HERE are located if you want to produce a bar plot, delete the whole chunk otherwise
 -->
 ```{r name_of_eco_outcome2}
 #---------
@@ -431,8 +433,6 @@ fig_outcome
 ```
 
 
-
-
 </p>
 </center>
 <!--
@@ -442,8 +442,8 @@ END BARPLOT
 <center>
 <p align="center">
 <!--
-SCATTERPLOT
-Only replace variables where #EDIT HERE are located
+Below is a R chunk containing the code to produce a BAR PLOT
+Please only replace variables where #EDIT HERE are located if you want to produce a bar plot, delete the whole chunk otherwise
 -->
 
 ```{r scatterplot}
@@ -499,7 +499,7 @@ HERE: MY NEW SUBSECTION OF ECONOMIC OUTCOMES-->
 
 </div> 
 </div>
-<!--END SECTION OF ISSUES AT STAKES  -->
+<!--END SECTION OF OUTCOMES  -->
 
 <!-- ---------------------------------- -->
 <div class="policy_outcomes">
@@ -509,12 +509,11 @@ HERE: MY NEW SUBSECTION OF ECONOMIC OUTCOMES-->
  <!-- *****************************
 INSTRUCTIONS: This section contains the description and trends of relevant policies that you want 
 to show. 
-The section is made of subsections that contain a title, a first paragraph with the key policy message, and a collapsible 
-section of details that contains the description of the policy and the impact of the policy. 
+The section is made of subsections that contain a title, a first paragraph with the key policy message or an introduction to the policy, and two collapsible section of details: 1) the first one ("Cross country experiences") focuses on the policy outcomes from a cross country perspective and is split in two sections i) Policy description and rationale and ii) Impact of policies 2) the second one ("Country experiences") sheds light on specific countries and the policies they have implemented
 Copy and paste the entire section:
 from <div class="selected_policies> to 
 </div> END SELECTED POLICIES
-If you want to include an additional section. Be carreful to paste it just bellow the existing sections
+If you want to include an additional section. Be carreful to paste it just below the existing sections
 and before
 <br>
 </div>
@@ -526,9 +525,8 @@ Please copy and paste the relevant chunk of R code to include either a barplot o
 
 <!-- Executive summary of the policies to be presented 
 --> 
-<p> <!-- HERE--> My text of Exuctive summary of policies </p>
+<p> <!-- HERE--> My text of Executive summary of policies </p>
 
-<p> <!-- Include the executive summary --> </p>
 <button data-toggle="collapse" data-target="#id3"class="btn">see<i class="fa fa-bars"></i></button>
 <div id="id3" class ="collapse">
 
@@ -537,18 +535,18 @@ Please copy and paste the relevant chunk of R code to include either a barplot o
 
 <!-- (If you want to include a new policy copy from here) -->
 <!---
-TEXT POLICY RECOMMENDATION
+TEXT POLICY INTRODUCTION
 -->
 <h3><!--Edit title HERE -->My first policy</h3> 
 
- <span> <!-- Edit paragraph HERE-->My paragraph of policy recommendation </span> 
+ <p> <!-- Edit paragraph HERE-->Introduction or summary of the policy </p> 
 
 <!--
-END TEXT OF POLICY RECOMMENDATION
+END TEXT OF POLICY INTRODUCTION
 -->
 <!-- Beginning of the collapsible section -->
 <details class="more_details">
-  <summary>More details</summary>
+  <summary>Cross-country experiences</summary>
 
 <h4>Policy description and rationale</h4>
 <!---
@@ -564,7 +562,7 @@ END TEXT OF DESCRIPTION OF THE FIRST POLICY RECOMMENDATION
 <center>
 <p>
 
-```{r macroprudential}
+```{r graph first policy}
 ```
 </p>
 </center>
@@ -575,14 +573,35 @@ END TEXT OF DESCRIPTION OF THE FIRST POLICY RECOMMENDATION
 TEXT OF IMPACTS OF THE FIRST POLICY RECOMMENDATION
 -->
 
- <span> <!--Edit paragraph HERE-->  My paragraph of policy recommendation </span> 
+ <span> <!--Edit paragraph HERE-->  My paragraph of impact of policies </span> 
 
 <!---
 END TEXT OF IMPACTS OF THE POLICY RECOMMENDATION
 -->
 
 <br>
-</details> <!-- END OF DETAIL SECTION OF FIRST POLICY RECOMMENDATION -->
+</details> <!-- End of collapsible section that includes cross country experiences -->
+
+<!-- Beginning of a collapsible section that includes key country experiences -->
+<details class="more_details">
+  <summary>Country experiences</summary>
+<!-- Insert the name of your country below, between the <h4> </h4> tags --> 
+<h4> Country 1 </h4>
+
+<!-- You can include your paragraphs by writing in between <p> </p> tags -->
+<p> Paragraph1 of specific country policy </p>
+
+<p> Paragraph2 of specific country policy </p>
+
+<!-- If needed, you can also include graphs and R plots in the following chunk of R code -->
+
+```{r graph country policy}
+
+```
+
+</details>
+<!-- End of collapsible section that includes key country experiences --> 
+
 <hr>
 
 <!-- (If you want to include a new policy end the copy here) -->
