@@ -1,0 +1,219 @@
+---
+title: |
+  ![](logo.jpg){width=1in}  
+  France
+output:
+  pdf_document:
+    fig_caption: yes
+    fig_heigh: 5
+    fig_width: 7
+    number_sections: no
+    includes:
+      in_header: "preamble.tex"
+---
+
+```{r set_up, include=F}
+#global parameters for knit
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(fig.align = "center")
+knitr::opts_chunk$set(fig.height =  5)
+knitr::opts_chunk$set(fig.width = 8)
+#R package dependencies
+library(devtools)
+library(ggplot2)
+library(rio)
+library(dplyr)
+library(plotly)
+library(forcats)
+library(DiagrammeR)
+library(lubridate)
+library(ggrepel)
+library(stringr)
+library(OECDHousingToolkit)
+#download the functions necessary for the simulator. 
+#htk_instructions()
+```
+
+
+```{r}
+data("resilience_database")
+mydt=resilience_database
+rm(resilience_database)
+```
+
+
+\section{Introduction}
+
+[Common to all fiches]
+
+\lipsum[2-2]
+
+\section{Efficiency}
+
+[Common to all fiches]
+
+\lipsum[2-2]
+
+```{r Efficiency}
+#--------
+#EDIT THE R CHUNK TO DRAW THE FIGURE
+var="hpi" #EDIT HERE - Y variable to plot 
+title="House Prices" #EDIT HERE -
+subtitle ="" #EDIT HERE - 
+Xlabel="Date" #EDIT HERE - 
+Ylabel="Price index" #EDIT HERE -
+ymin=0
+ymax=120
+ybreak=10
+xbreak = "5 years"
+start_date = 1970
+end_date = 2018
+
+list_countries=c("FRA","DEU","ITA","USA") #EDIT HERE -Countries to plot, using ISO3_codes - Ex: if we want to add Japan, then we have list_countries = c("FRA","DEU","ITA","USA","JPN")
+#END EDITING OF R CHUNK
+#---------
+#DO NOT MODIFY THE FOLLOWING CODE PLEASE ONLY EDIT THE SECTION  ABOVE
+
+eco_outcome1=mydt %>%
+  dplyr::select(ISO3_code,Period,var) %>%
+  mutate(Period=as.Date(Period)) %>% 
+  tidyr::gather("variable","value",-c(ISO3_code,Period)) %>% 
+  na.omit() %>% filter(ISO3_code %in% list_countries)
+
+  fig_outcome <- htk_lineplot(data=eco_outcome1, #dataset use for the graph
+                  title = title, #title of the graph
+                  subtitle = subtitle,
+                  Xlabel=Xlabel,
+                  Ylabel=Ylabel,
+                  ymin=ymin,
+                  ymax=ymax,
+                  ybreak=ybreak,
+                  xbreak=xbreak,
+                  start_date=start_date,
+                  end_date=end_date,
+                  width=6,
+                  height = 4,
+                  dpi=300
+                  ) 
+  
+fig_outcome + theme_void()
+
+```
+
+[Country specific]
+
+\lipsum[2-2]
+
+\section{Affordability}
+
+[Common to all fiches]
+
+\lipsum[2-3]
+
+```{r Affordability}
+#--------
+#EDIT THE R CHUNK TO DRAW THE FIGURE
+var="hpi" #EDIT HERE - Y variable to plot 
+title="House Prices" #EDIT HERE -
+subtitle ="" #EDIT HERE - 
+Xlabel="Date" #EDIT HERE - 
+Ylabel="Price index" #EDIT HERE -
+ymin=0
+ymax=120
+ybreak=10
+xbreak = "5 years"
+start_date = 1970
+end_date = 2018
+
+list_countries=c("FRA","DEU","ITA","USA") #EDIT HERE -Countries to plot, using ISO3_codes - Ex: if we want to add Japan, then we have list_countries = c("FRA","DEU","ITA","USA","JPN")
+#END EDITING OF R CHUNK
+#---------
+#DO NOT MODIFY THE FOLLOWING CODE PLEASE ONLY EDIT THE SECTION  ABOVE
+
+eco_outcome1=mydt %>%
+  dplyr::select(ISO3_code,Period,var) %>%
+  mutate(Period=as.Date(Period)) %>% 
+  tidyr::gather("variable","value",-c(ISO3_code,Period)) %>% 
+  na.omit() %>% filter(ISO3_code %in% list_countries)
+
+  fig_outcome <- htk_lineplot(data=eco_outcome1, #dataset use for the graph
+                  title = title, #title of the graph
+                  subtitle = subtitle,
+                  Xlabel=Xlabel,
+                  Ylabel=Ylabel,
+                  ymin=ymin,
+                  ymax=ymax,
+                  ybreak=ybreak,
+                  xbreak=xbreak,
+                  start_date=start_date,
+                  end_date=end_date,
+                  width=6,
+                  height = 4,
+                  dpi=300
+                  ) 
+  
+fig_outcome
+
+```
+
+[Country specific]
+
+\lipsum[2-3]
+
+\section{Sustainability}
+
+[Common to all fiches]
+
+\lipsum[2-3]
+
+```{r Sustainability}
+#--------
+#EDIT THE R CHUNK TO DRAW THE FIGURE
+var="hpi" #EDIT HERE - Y variable to plot 
+title="House Prices" #EDIT HERE -
+subtitle ="" #EDIT HERE - 
+Xlabel="Date" #EDIT HERE - 
+Ylabel="Price index" #EDIT HERE -
+ymin=0
+ymax=120
+ybreak=10
+xbreak = "5 years"
+start_date = 1970
+end_date = 2018
+
+list_countries=c("FRA","DEU","ITA","USA") #EDIT HERE -Countries to plot, using ISO3_codes - Ex: if we want to add Japan, then we have list_countries = c("FRA","DEU","ITA","USA","JPN")
+#END EDITING OF R CHUNK
+#---------
+#DO NOT MODIFY THE FOLLOWING CODE PLEASE ONLY EDIT THE SECTION  ABOVE
+
+eco_outcome1=mydt %>%
+  dplyr::select(ISO3_code,Period,var) %>%
+  mutate(Period=as.Date(Period)) %>% 
+  tidyr::gather("variable","value",-c(ISO3_code,Period)) %>% 
+  na.omit() %>% filter(ISO3_code %in% list_countries)
+
+  fig_outcome <- htk_lineplot(data=eco_outcome1, #dataset use for the graph
+                  title = title, #title of the graph
+                  subtitle = subtitle,
+                  Xlabel=Xlabel,
+                  Ylabel=Ylabel,
+                  ymin=ymin,
+                  ymax=ymax,
+                  ybreak=ybreak,
+                  xbreak=xbreak,
+                  start_date=start_date,
+                  end_date=end_date,
+                  width=6,
+                  height = 4,
+                  dpi=300
+                  ) 
+  
+fig_outcome
+
+```
+
+[Country specific]
+
+\lipsum[2-3]

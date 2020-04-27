@@ -1,13 +1,13 @@
 ---
-title: "Name of chapter" 
+title: "Name of chapter"
 output:
   html_document:
-    number_sections: False
-    fig_width: 7
-    fig_heigh: 5
-    echo: False
-    fig_caption: True
     css: OECD_style.css
+    echo: no
+    fig_caption: yes
+    fig_heigh: 5
+    fig_width: 7
+    number_sections: no
 ---
 
 ```{r set_up, include=F}
@@ -29,8 +29,7 @@ library(DiagrammeR)
 library(lubridate)
 library(ggrepel)
 library(stringr)
-#install_github("manuelbetin/OECDHousingToolkit")
-#library(OECDHousingToolkit)
+library(OECDHousingToolkit)
 #download the functions necessary for the simulator. 
 #htk_instructions()
 ```
@@ -45,10 +44,10 @@ and catalogue. Before continuing please make sure your database and catalogue
 respect the format of the template. 
 -->
 ```{r Rdata,include=F}
-mydt=load("V:\\Nguyen_Ma\\BACKUP\\OECDtoolkit\\data\\resilience_database.Rda")
-#data("resilience_database")
-#mydt=resilience_database
-#rm(resilience_database)
+#mydt=load("V:\\Nguyen_Ma\\BACKUP\\OECDtoolkit\\data\\resilience_database.Rda")
+data("resilience_database")
+mydt=resilience_database
+rm(resilience_database)
 
 ##change to the path of your database 
 ##please make sure that the format of the database is the same as the resilience_database example(ie, first column is countries' ISO3_code, second is the date, and each following column represents a variable)
