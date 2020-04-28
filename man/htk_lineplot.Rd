@@ -4,24 +4,11 @@
 \alias{htk_lineplot}
 \title{Line barplots with OECD template style to display timeseries evolutions in the housing toolkit chapters}
 \usage{
-htk_lineplot(
-  data = resilience_database,
-  subtitle = ".",
-  title = NULL,
-  Xlabel = "Date",
-  Ylabel = "Price index",
-  ymin = 0,
-  ymax = 120,
-  ybreak = 10,
-  xbreak = "5 years",
-  start_date = 1970,
-  end_date = 2018,
-  file = NULL,
-  path = NULL,
-  width = 4,
-  height = 4,
-  dpi = 300
-)
+htk_lineplot(data = resilience_database, subtitle = ".",
+  title = NULL, Xlabel = "Date", Ylabel = "Price index", ymin = 0,
+  ymax = 120, ybreak = 10, xbreak = "5 years", start_date = 1970,
+  end_date = 2018, file = NULL, path = NULL, width = 4,
+  height = 4, dpi = 300)
 }
 \arguments{
 \item{data}{dataframe to be used for the plot}
