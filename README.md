@@ -4,18 +4,15 @@
 
 ## Description
 
+Provide template for the creation of web chapters (html) and country fiches (pdf) with OECD style
+
 ## Authors
 
-- Manuel Bétin
-- Maximum Nguyen
+- Manuel Betin
+- Maxime Nguyen
+- Federica Depace
 
 ## Version
 
-0.1.0
-
-## Indications
-
-### Created standardized figures with OECD style
-
-### Create Rmardown documents convertible to html files
+0.2.0
 
