@@ -9,7 +9,7 @@ params:
   ctry_code: FRA
   ctry_name: France
 title: |
-  ![](data/logo.jpg){width=1in}  
+  ![](OECDlogo.jpg){width=1in}  
   \Huge `r params$ctry_name`
 ---
 
@@ -39,17 +39,18 @@ library(OECDHousingToolkit)
 #htk_instructions()
 ```
 
-
-```{r}
+```{r import data}
 data("resilience_database")
 mydt=resilience_database
 rm(resilience_database)
-```
 
+data("htk_paragraphs")
+dt=htk_paragraphs
+data("htk_Polvars")
+data=htk_Polvars
 
-```{r}
-dt=rio::import("data/htk_paragraphs.xlsx")
-data=rio::import("data/htk_Polvars.xlsx")
+rm(htk_Polvars)
+rm(htk_paragraphs)
 ```
 
 \fancyhead{}
