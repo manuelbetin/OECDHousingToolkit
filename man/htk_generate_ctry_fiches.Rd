@@ -4,10 +4,15 @@
 \alias{htk_generate_ctry_fiches}
 \title{generate the country fiche for the selected country}
 \usage{
-htk_generate_ctry_fiches(country_code_list)
+htk_generate_ctry_fiches(Rmdfile = "skeleton.Rmd", country_code_list,
+  path = NULL)
 }
 \arguments{
-\item{country_code_list}{a vector of iso3 codes for the
+\item{Rmdfile}{the name of the file (.Rmd) that is used as template}
+
+\item{country_code_list}{a vector of iso3 codes for the}
+
+\item{path}{name of the directory where to store the pdf output
 group of countries that you want to generate the fiches}
 }
 \value{

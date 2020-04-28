@@ -1,4 +1,4 @@
 ctries=c("ARG","FRA")
-htk_generate_ctry_fiches(ctries)
-
-#rmarkdown::render("skeleton.Rmd", params = "ask")
+htk_generate_ctry_fiches(Rmdfile="skeleton.Rmd",
+                         country_code_list=ctries,
+                         path="Country_fiches")
