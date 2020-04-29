@@ -1,3 +1,21 @@
+#' compare-your-country plot for each selected indicator in the housing toolkit chapters
+#'
+#'@description The functions generates a (line) plot displaying the value of the selected indicator for each country and with the average OECD value, the bottom and top performing countries. 
+#'@param mydata dataframe that contains the variables and dates to be chosen
+#'@param ctry selected OECD countries for which the country note is produced 
+#'@param var_codes list of indicators 
+#'@param var_names names of the indicators 
+#'
+#'@return returns a standardized plot
+#'
+#'@author
+#'Manuel Betin
+#'Federica De Pace
+#'
+#'@export
+
+
+
 htk_CyC=function(mydata,ctry,var_codes,var_names,title=NULL){
 
   country_name=countrycode(ctry,origin = "iso3c",destination="country.name")
@@ -21,9 +39,13 @@ htk_CyC=function(mydata,ctry,var_codes,var_names,title=NULL){
   }
 
   temp_long<- vars_needed %>%  filter(country==ctry)%>% dplyr::select(-country) %>%
-    gather(key = "variable", value = "value") %>%
-    mutate(main_v=ifelse( (str_detect(variable, "ovc_tot")), "ovc_tot", "tenure_oo"),
-           main_v=ifelse( (str_detect(variable, "tenure_oo")), "tenure_oo", main_v)) %>%
+    gather(key = "variable", value = "value") 
+   
+   for (var in myvars) {
+      temp_long<-temp_long %>%
+        mutate(main_v=ifelse( (str_detect(variable, myvars)), myvars, NA))
+   } 
+  temp_long<-temp_long %>%
     mutate(ext=ifelse( (str_detect(variable, "mean")), "mean", "value"),
            ext=ifelse( (str_detect(variable, "min")), "min", ext),
            ext=ifelse( (str_detect(variable, "max")), "max", ext),
