@@ -34,6 +34,7 @@ htk_policyradar=function(data,ctry,title=NULL){
                 #custom the grid
                 cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(1,5,1), cglwd=1,
                 #custom labels
+
                 vlcex=0.7
     ) %>%
       legend(x=0.85, y=-0.7,

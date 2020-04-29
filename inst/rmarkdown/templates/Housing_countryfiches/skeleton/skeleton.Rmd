@@ -13,7 +13,6 @@ title: |
   \Huge `r params$ctry_name`
 ---
 
-
 ```{r set_up, include=F}
 #global parameters for knit
 knitr::opts_chunk$set(echo = FALSE)
@@ -62,77 +61,6 @@ vars_cluster <- vars_cluster %>%  select(Iso_code3, everything()) %>%
 
 ```
 
-
-```{r}
-htk_CyC=function(mydata,ctry,var_codes,var_names){
-
-  country_name=countrycode(ctry,origin = "iso3c",destination="country.name")
-
-vars_needed<- mydata %>%  select(country, var_codes) %>%
-  mutate_at(vars(var_codes),.funs=list(mean=~mean(.,na.rm=T),
-                                    min=~min(.na.rm=T),
-                                    max=~max(.,na.rm=T)))
-# 2. create min, max, mean, valu
-for (var in var_codes) {
-  name_col=paste0(var, '_country_min')
-  vars_needed<- vars_needed %>%
-    mutate(!!name_col := vars_needed$country[which.min(get(var))] )
-}
-
-for (var in var_codes) {
-  name_col=paste0(var, '_country_max')
-  vars_needed<- vars_needed %>%
-    mutate(!!name_col := vars_needed$country[which.max(get(var))] )
-
-}
-
-temp_long<- vars_needed %>%  filter(country==ctry)%>% dplyr::select(-country) %>%
-  gather(key = "variable", value = "value") %>%
-  mutate(main_v=ifelse( (str_detect(variable, "ovc_tot")), "ovc_tot", "tenure_oo"),
-         main_v=ifelse( (str_detect(variable, "tenure_oo")), "tenure_oo", main_v)) %>%
-  mutate(ext=ifelse( (str_detect(variable, "mean")), "mean", "value"),
-         ext=ifelse( (str_detect(variable, "min")), "min", ext),
-         ext=ifelse( (str_detect(variable, "max")), "max", ext),
-         ext=ifelse( (str_detect(variable, "country_max")), "country_max", ext),
-         ext=ifelse( (str_detect(variable, "country_min")), "country_min", ext)) %>%
-  dplyr::select(-variable)
-
-final<-reshape(temp_long, idvar = "main_v" , timevar =  "ext" , direction = "wide")
-
-name_vars<-c("value.value","value.mean","value.min","value.max")
-final<-  final %>% mutate_at(vars(name_vars),as.numeric) %>%
-  mutate(value_scaled = (value.value-value.min) / (value.max-value.min ),
-          mean_scaled =  ( value.mean-value.min) / (value.max-value.min ) )%>%
-  mutate(group = ifelse(main_v=="ovc_tot" , "A", NA),
-         group = ifelse(main_v=="tenure_oo" , "B", group))
-
-ggplot(data=final)+
-  geom_segment( aes(x=main_v ,xend=main_v, y=0, yend=1), color="grey") +
-  geom_point(aes(x=main_v, y= value_scaled ), shape=19, color='red', size=4)  +
-  geom_point( aes(x=main_v, y=mean_scaled  ) , shape=19, color='darkblue', size=3) +
-  geom_point(aes(x=main_v, y=0), shape=1, color='grey', size=2)  +
-  geom_point(aes(x=main_v, y=1 ), shape=1, color='grey', size=2) +
-  coord_flip() +
-  labs(x = "", y="") +
-  theme(panel.background = element_blank(),
-        axis.text.x = element_blank(),
-        axis.ticks =element_blank() )+
-  scale_x_discrete(breaks=final$main_v,labels=var_names) +
-  geom_text(aes(x=main_v, y= value_scaled   , label=paste(country_name,": ", round(value.value, digits = 2))),
-            size=3, nudge_x = -0.1, nudge_y = 0.0,  check_overlap = TRUE) +
-  geom_text(aes(x=main_v, y= mean_scaled   , label=paste("OECD: ", round(value.mean, digits = 2))),
-            size=3, nudge_x = 0.1, nudge_y = 0.0,  check_overlap = TRUE) +
-  geom_text(aes(x=main_v, y= 0   , label=paste(value.country_min,":" , round(value.min, digits = 2))),
-            size=3, nudge_x = 0.1, nudge_y = 0.0,  check_overlap = TRUE) +
-  geom_text(aes(x=main_v, y= 1   , label=paste(value.country_max,":", round(value.max, digits = 2))),
-            size=3, nudge_x = 0.1, nudge_y = -0.01,  check_overlap = TRUE)+
-  annotate("text", x =2.3, y = 0.08, label = "Bottom OECD performer", size=3) +
-  annotate("text", x =2.3, y = 0.95, label = "Top OECD performer", size=3)
-
-}
-
-```
-
 \fancyhead{}
 \fancyhead[CO,CE]{Housing Country Fiche}
 
@@ -157,11 +85,16 @@ cat("\\item",myintro$Intro)
 ```
 \end{itemize}
 
+\twocolumn
+
 \color{ultramarineblue}
 \section{Efficiency}
 \color{black}
 
 \lipsum[2-2]
+
+
+```{r,eval=F}
 
 **Indicators**
 
@@ -173,17 +106,20 @@ cat("\\item",myintro$Intro)
 
 - Long term trend increase in price to income ratios
 
-```{r Efficiency}
-
-var_codes<-c("ovc_tot", "tenure_oo")
-var_names=c("over-crowding","owner-outright")
-
-htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names)
-
 ```
 
 
+\bigskip
+\bigskip
 
+```{r Efficiency}
+
+var_codes<-c("ovc_tot", "tenure_oo")
+var_names=c("House price\nvolatility","Residential\nInvestment")
+
+htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names,title="Efficiency Outcomes")
+
+```
 
 
 \begin{itemize}
@@ -202,6 +138,7 @@ cat("\\item",myefficiency$Efficiency)
 \lipsum[2-2]
 
 
+```{r eval=F}
 **Indicators**
 
 - Share of households in overcrowded flats
@@ -210,12 +147,19 @@ cat("\\item",myefficiency$Efficiency)
 - Housing wealth inequality
 - Homelessness
 - Regional disparities
+```
+
+
+
+
+\bigskip
+\bigskip
 
 ```{r Inclusiveness}
 var_codes<-c("ovc_tot", "tenure_oo")
 var_names=c("over-crowding","owner-outright")
 
-htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names)
+htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names,title="Inclusiveness Outcomes")
 
 ```
 
@@ -234,6 +178,7 @@ cat("\\item",myinclusiveness$Inclusiveness)
 
 \lipsum[2-2]
 
+```{r,eval=F}
 **Indicators**
 
 - CO 2 emissions from housing per capita
@@ -241,11 +186,18 @@ cat("\\item",myinclusiveness$Inclusiveness)
 - Exxtend of urban sprawl
 - Renovation rate to accomodate with zero emission objective
 
+```
+
+
+
+\bigskip
+\bigskip
+
 ```{r Sustainability}
 var_codes<-c("ovc_tot", "tenure_oo")
-var_names=c("over-crowding","owner-outright")
+var_names=c("CO2 emissions","Local air\npollution")
 
-htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names)
+htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names,title="Sustainability Outcomes")
 
 ```
 
@@ -263,7 +215,11 @@ cat("\\item",mysustainability$Sustainability)
 
 \lipsum[2-2]
 
+
+\bigskip
+\bigskip
+
 ```{r fig.height =  5,fig.width = 6,fig.align="center"}
-htk_policyradar(data,params$ctry_code)
+htk_policyradar(data,params$ctry_code,title="Housing Policy variable")
 ```
 
