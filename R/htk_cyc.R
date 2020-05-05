@@ -1,10 +1,11 @@
 #' compare-your-country plot for each selected indicator in the housing toolkit chapters
 #'
-#'@description The functions generates a (line) plot displaying the value of the selected indicator for each country and with the average OECD value, the bottom and top performing countries. 
+#'@description The functions generates a (line) plot displaying the value of the selected indicator for each country and with the average OECD value, the bottom and top performing countries.
 #'@param mydata dataframe that contains the variables and dates to be chosen
-#'@param ctry selected OECD countries for which the country note is produced 
-#'@param var_codes list of indicators 
-#'@param var_names names of the indicators 
+#'@param ctry selected OECD countries for which the country note is produced
+#'@param var_codes list of indicators
+#'@param var_names names of the indicators
+#'@param sec_col colours for each section
 #'
 #'@return returns a standardized plot
 #'
@@ -16,13 +17,13 @@
 
 
 
-htk_CyC=function(mydata,ctry,var_codes,var_names,title=NULL){
+htk_CyC=function(mydata,ctry,var_codes,var_names,sec_col, title=NULL){
 
   country_name=countrycode(ctry,origin = "iso3c",destination="country.name")
 
   vars_needed<- mydata %>%  select(country, var_codes) %>%
     mutate_at(vars(var_codes),.funs=list(mean=~mean(.,na.rm=T),
-                                         min=~min(.na.rm=T),
+                                         min=~min(.,na.rm=T),
                                          max=~max(.,na.rm=T)))
   # 2. create min, max, mean, valu
   for (var in var_codes) {
@@ -35,16 +36,15 @@ htk_CyC=function(mydata,ctry,var_codes,var_names,title=NULL){
     name_col=paste0(var, '_country_max')
     vars_needed<- vars_needed %>%
       mutate(!!name_col := vars_needed$country[which.max(get(var))] )
-
   }
 
   temp_long<- vars_needed %>%  filter(country==ctry)%>% dplyr::select(-country) %>%
-    gather(key = "variable", value = "value") 
-   
-   for (var in myvars) {
+    gather(key = "variable", value = "value")
+
+   for (var in var_codes) {
       temp_long<-temp_long %>%
-        mutate(main_v=ifelse( (str_detect(variable, myvars)), myvars, NA))
-   } 
+        mutate(main_v=ifelse( (str_detect(variable, var_codes)), var_codes, NA))
+   }
   temp_long<-temp_long %>%
     mutate(ext=ifelse( (str_detect(variable, "mean")), "mean", "value"),
            ext=ifelse( (str_detect(variable, "min")), "min", ext),
@@ -74,11 +74,11 @@ htk_CyC=function(mydata,ctry,var_codes,var_names,title=NULL){
     theme(panel.background = element_blank(),
           axis.text.x = element_blank(),
           plot.title=element_text(face="bold",colour ="black",size=15, hjust =0.5),
-          axis.text.y = element_text(angle=60,size=16,color="darkgreen"),
+          axis.text.y = element_text(angle=60,size=16,color=sec_col),
           axis.ticks =element_blank() )+
     scale_x_discrete(breaks=final$main_v,labels=var_names) +
     geom_text(aes(y= value_scaled   , label=paste(country_name,": ", round(value.value, digits = 2))),
-              size=7, nudge_x = -0.1, nudge_y = 0.0,  check_overlap = TRUE) +
+              size=5, nudge_x = -0.1, nudge_y = 0.0,  check_overlap = TRUE) +
     geom_text(aes(y= mean_scaled   , label=paste("OECD: ", round(value.mean, digits = 2))),
               size=5, nudge_x = 0.1, nudge_y = 0.0,  check_overlap = TRUE,color="steelblue") +
     geom_text(aes(y= 0   , label=paste(value.country_min,":" , round(value.min, digits = 2))),

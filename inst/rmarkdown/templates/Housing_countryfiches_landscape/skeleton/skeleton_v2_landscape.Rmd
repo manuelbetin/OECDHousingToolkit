@@ -1,0 +1,257 @@
+---
+output:
+  pdf_document:
+    highlight: tango
+    keep_tex: false
+    includes:
+      in_header: "preamble.tex"
+params:
+  ctry_code: FRA
+  ctry_name: France
+---
+
+```{r set_up, include=F}
+#global parameters for knit
+knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(fig.align = "center")
+knitr::opts_chunk$set(fig.height =  5)
+knitr::opts_chunk$set(fig.width = 8)
+#R package dependencies
+library(devtools)
+library(ggplot2)
+library(rio)
+library(dplyr)
+library(plotly)
+library(forcats)
+library(DiagrammeR)
+library(lubridate)
+library(ggrepel)
+library(stringr)
+library(fmsb)
+library(countrycode)
+library(tidyr)
+library(OECDHousingToolkit)
+source("/Users/federicadepace/Dropbox (QMUL-SEF)/OECD/projects/OECDHousingToolkit/r/htk_cyc.r")
+
+#download the functions necessary for the simulator. 
+#htk_instructions()
+```
+
+```{r import data}
+data("resilience_database")
+mydt=resilience_database
+rm(resilience_database)
+
+data("htk_paragraphs")
+dt=htk_paragraphs
+data("htk_Polvars")
+data=htk_Polvars
+
+rm(htk_Polvars)
+rm(htk_paragraphs)
+
+vars_cluster=rio::import("/Users/federicadepace/Dropbox (QMUL-SEF)/OECD/projects/OECDHousingToolkit/data/vars_example.xlsx")
+
+vars_cluster <- vars_cluster %>% mutate(Iso_code3=countrycode(country,origin="country.name",destination="iso3c"))
+vars_cluster <- vars_cluster %>%  select(Iso_code3, everything()) %>%
+  rename(country_name=country,
+         country=Iso_code3)
+
+```
+\KOMAoptions{paper=landscape,pagesize}
+\recalctypearea
+
+\fancyhead[C]{
+  \rule[-1.75\baselineskip]{0pt}{0pt}% Strut to ensure a 1/4 \baselineskip between image and header rule
+  \includegraphics[height=3\baselineskip,valign=c]{OECDlogo.jpg}
+  \quad% Space
+  Horizontal Housing Project: focus on `r params$ctry_name` 
+}
+
+\newpage
+\bigskip
+
+\begin{multicols}{2}
+\bigskip
+
+\color{ultramarineblue}
+
+\section{How does `r params$ctry_name` compare?}
+
+\color{black}
+\lipsum[2-2]
+\includegraphics[valign=c]{diagram_synthesis.png}
+\columnbreak
+\section{}
+
+\begin{itemize}
+```{r Intro paragraph, results='asis'}
+myintro=dt %>% filter(country==params$ctry_code) %>% dplyr::select(Intro)
+cat("\\item",myintro$Intro)
+```
+\end{itemize}
+
+
+\end{multicols}
+
+
+
+
+\newpage
+
+\begin{multicols}{3}
+
+\color{Goldenrod}
+\section{Efficiency}
+
+\color{black}
+
+\lipsum[2-2]
+
+
+```{r,eval=F}
+
+**Indicators**
+
+- Probability of house price bear markets/volatilit
+
+- Residenciantial construction as a share of GDP
+
+- Number of years of median household disposable income to buy a 100 meters square
+
+- Long term trend increase in price to income ratios
+
+```
+
+\bigskip
+\bigskip
+
+```{r Efficiency}
+
+var_codes<-c("ovc_tot", "tenure_oo")
+var_names=c("House price\nvolatility","Residential\nInvestment")
+sec_col=c("goldenrod")
+htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names,sec_col, title="Efficiency Outcomes")
+
+```
+
+
+\begin{itemize}
+```{r Efficiency paragraph, results='asis'}
+myefficiency=dt %>% filter(country=="FRA") %>% dplyr::select(Efficiency)
+cat("\\item",myefficiency$Efficiency)
+```
+\end{itemize}
+
+\columnbreak
+
+\color{ProcessBlue}
+\section{Inclusiveness}
+\color{black}
+
+\lipsum[2-2]
+
+
+```{r eval=F}
+**Indicators**
+
+- Share of households in overcrowded flats
+- Share of people that can afford a 100m square flat within 10 years of disposable income
+- Homeownership
+- Housing wealth inequality
+- Homelessness
+- Regional disparities
+```
+
+
+
+
+\bigskip
+\bigskip
+```{r Inclusiveness}
+var_codes<-c("ovc_tot", "tenure_oo")
+var_names=c("over-crowding","owner-outright")
+sec_col=c("deepskyblue")
+
+htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names,sec_col, title="Inclusiveness Outcomes")
+
+```
+
+\begin{itemize}
+```{r Inclusiveness paragraph, results='asis'}
+myinclusiveness=dt %>% filter(country==params$ctry_code) %>% dplyr::select(Inclusiveness)
+cat("\\item",myinclusiveness$Inclusiveness)
+```
+\end{itemize}
+
+\columnbreak
+
+\color{Green}
+\section{Sustainability}
+\color{black}
+
+\lipsum[2-2]
+
+```{r,eval=F}
+**Indicators**
+
+- CO 2 emissions from housing per capita
+- Local air pollution in large cities
+- Exxtend of urban sprawl
+- Renovation rate to accomodate with zero emission objective
+
+```
+
+
+
+\bigskip
+\bigskip
+
+
+```{r Sustainability}
+var_codes<-c("ovc_tot", "tenure_oo")
+var_names=c("CO2 emissions","Local air\npollution")
+sec_col=c("darkgreen")
+
+htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names, sec_col, title="Sustainability Outcomes")
+
+```
+
+\begin{itemize}
+```{r results='asis'}
+mysustainability=dt %>% filter(country==params$ctry_code) %>% dplyr::select(Sustainability)
+cat("\\item",mysustainability$Sustainability)
+```
+\end{itemize}
+\end{multicols}
+
+\newpage
+
+\begin{multicols}{2}
+\color{ultramarineblue}
+
+\section{Policy Indicators}
+
+\color{black}
+\lipsum[2-2]
+
+\bigskip
+\bigskip
+\bigskip
+\bigskip
+
+```{r fig.height =  4,fig.width = 5,fig.align="center"}
+htk_policyradar(data,params$ctry_code)
+```
+
+\columnbreak 
+\section{}
+
+\begin{itemize}
+\item This is specific to FRA
+\lipsum[2-2]
+\end{itemize}
+
+\end{multicols}
