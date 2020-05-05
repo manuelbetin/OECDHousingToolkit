@@ -8,7 +8,6 @@ output:
 params:
   ctry_code: FRA
   ctry_name: France
-title: ""
 ---
 
 ```{r set_up, include=F}
@@ -61,9 +60,12 @@ vars_cluster <- vars_cluster %>%  select(Iso_code3, everything()) %>%
          country=Iso_code3)
 
 ```
-\KOMAoptions{paper=landscape,pagesize}
-\recalctypearea
-
+\fancyhead[CO,CE]{
+  \rule[-1.75\baselineskip]{0pt}{0pt}
+  \includegraphics[height=3\baselineskip,valign=c]{OECDlogo.jpg}
+  \quad
+  Horizontal Housing Project: focus on `r params$ctry_name`
+}
 \newpage
 \bigskip
 
@@ -71,33 +73,60 @@ vars_cluster <- vars_cluster %>%  select(Iso_code3, everything()) %>%
 \bigskip
 
 \color{ultramarineblue}
+
 \section{How does `r params$ctry_name` compare?}
 
 \color{black}
 \lipsum[2-2]
 \includegraphics[valign=c]{diagram_synthesis.png}
+\lipsum[2-2]
+
 \columnbreak
 \section{}
+
+\begin{itemize}
+\item Definitions
+\end{itemize}
+
+\begin{center}
+ \begin{tabular}{l c} 
+\multicolumn{2}{c}{\color{Goldenrod}\bf{Efficiency}}        \\
+      \hline
+      \color{Goldenrod}\bf {Residential Investment} & blablabla \\
+      \color{Goldenrod}\bf {House Price Volatiloty} & blablabla \\
+      \color{Goldenrod}\bf {Affordability} & blablabla \\
+\multicolumn{2}{c}{\color{ProcessBlue}\bf{Inclusiveness}}        \\
+\hline
+    \color{ProcessBlue}\bf{  Owner-outright }  & blablabla \\
+    \color{ProcessBlue}\bf{  Over-crowding } & blablabla \\
+    \color{ProcessBlue}\bf{  Homelessness } & blablabla \\
+\multicolumn{2}{c}{\color{Green}\bf{Sustainability}}        \\
+\hline
+    \color{Green}\bf{  Local air pollution} & blablabla \\
+    \color{Green}\bf{  $CO_{2}$ emission} & blablabla \\
+    \color{Green}\bf{  Urban sprawl} & blablabla \\
+\hline      
+    \end{tabular}
+\end{center}
+
+\bigskip
 
 \begin{itemize}
 ```{r Intro paragraph, results='asis'}
 myintro=dt %>% filter(country==params$ctry_code) %>% dplyr::select(Intro)
 cat("\\item",myintro$Intro)
 ```
+\lipsum[2-2]
 \end{itemize}
-
-
 \end{multicols}
 
 
-
-
 \newpage
+\begin{multicols}{2}
 
-\begin{multicols}{3}
-
-\color{ultramarineblue}
+\color{Goldenrod}
 \section{Efficiency}
+
 \color{black}
 
 \lipsum[2-2]
@@ -117,15 +146,14 @@ cat("\\item",myintro$Intro)
 
 ```
 
-\bigskip
-\bigskip
+
 
 ```{r Efficiency}
 
-var_codes<-c("ovc_tot", "tenure_oo")
-var_names=c("House price\nvolatility","Residential\nInvestment")
-
-htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names,title="Efficiency Outcomes")
+var_codes<-c("ovc_tot", "tenure_oo", "mortgage_dispincome")
+var_names=c("House price\nvolatility","Residential\nInvestment","Affordability" )
+sec_col=c("goldenrod")
+htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names,sec_col, title="Efficiency Outcomes")
 
 ```
 
@@ -135,11 +163,11 @@ htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names,title="Efficiency Outc
 myefficiency=dt %>% filter(country=="FRA") %>% dplyr::select(Efficiency)
 cat("\\item",myefficiency$Efficiency)
 ```
+\lipsum[2-2]
 \end{itemize}
 
 \columnbreak
-
-\color{ultramarineblue}
+\color{ProcessBlue}
 \section{Inclusiveness}
 \color{black}
 
@@ -160,13 +188,12 @@ cat("\\item",myefficiency$Efficiency)
 
 
 
-\bigskip
-\bigskip
 ```{r Inclusiveness}
-var_codes<-c("ovc_tot", "tenure_oo")
-var_names=c("over-crowding","owner-outright")
+var_codes<-c("ovc_tot", "tenure_oo", "mortgage_dispincome")
+var_names=c("over-crowding","owner-outright", "homelessness")
+sec_col=c("deepskyblue")
 
-htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names,title="Inclusiveness Outcomes")
+htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names,sec_col, title="Inclusiveness Outcomes")
 
 ```
 
@@ -175,11 +202,15 @@ htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names,title="Inclusiveness O
 myinclusiveness=dt %>% filter(country==params$ctry_code) %>% dplyr::select(Inclusiveness)
 cat("\\item",myinclusiveness$Inclusiveness)
 ```
+\lipsum[2-2]
 \end{itemize}
 
-\columnbreak
+\end{multicols}
 
-\color{ultramarineblue}
+\newpage 
+\begin{multicols}{2}
+
+\color{Green}
 \section{Sustainability}
 \color{black}
 
@@ -197,15 +228,14 @@ cat("\\item",myinclusiveness$Inclusiveness)
 
 
 
-\bigskip
-\bigskip
 
 
 ```{r Sustainability}
-var_codes<-c("ovc_tot", "tenure_oo")
-var_names=c("CO2 emissions","Local air\npollution")
+var_codes<-c("ovc_tot", "tenure_oo", "mortgage_dispincome")
+var_names=c("CO2 emissions","local air\npollution", "urban\nsprawl")
+sec_col=c("darkgreen")
 
-htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names,title="Sustainability Outcomes")
+htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names, sec_col, title="Sustainability Outcomes")
 
 ```
 
@@ -214,6 +244,7 @@ htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names,title="Sustainability 
 mysustainability=dt %>% filter(country==params$ctry_code) %>% dplyr::select(Sustainability)
 cat("\\item",mysustainability$Sustainability)
 ```
+\lipsum[2-2]
 \end{itemize}
 \end{multicols}
 
@@ -228,19 +259,36 @@ cat("\\item",mysustainability$Sustainability)
 \lipsum[2-2]
 
 \bigskip
-\bigskip
-\bigskip
-\bigskip
+
+\begin{center}
+ \begin{tabular}{l c} 
+\multicolumn{2}{c}{\color{ultramarineblue}\bf{Policy}}        \\
+      \hline
+      \color{ultramarineblue}\bf {Rent control stringency} & blablabla \\
+         \color{ultramarineblue}\bf {Tenant protection} & blablabla \\
+      \color{ultramarineblue}\bf {Building and energy code stringency} & blablabla \\
+      \color{ultramarineblue}\bf {Planning system} & blablabla \\
+      \color{ultramarineblue}\bf {Social housing} & blablabla \\
+      \color{ultramarineblue}\bf {METR mortgage } & blablabla \\
+      \color{ultramarineblue}\bf {LTV } & blablabla \\
+
+\hline      
+    \end{tabular}
+\end{center}
+
+
+\columnbreak 
+\section{}
 
 ```{r fig.height =  4,fig.width = 5,fig.align="center"}
 htk_policyradar(data,params$ctry_code)
 ```
 
-\columnbreak 
-\section{}
+\bigskip
 
 \begin{itemize}
 \item This is specific to FRA
+\lipsum[2-2]
 \end{itemize}
 
 \end{multicols}
