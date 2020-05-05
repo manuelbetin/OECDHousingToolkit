@@ -8,9 +8,6 @@ output:
 params:
   ctry_code: FRA
   ctry_name: France
-title: |
-  ![](OECDlogo.jpg){width=1in}  
-  \Huge `r params$ctry_name`
 ---
 
 ```{r set_up, include=F}
@@ -63,38 +60,44 @@ vars_cluster <- vars_cluster %>%  select(Iso_code3, everything()) %>%
          country=Iso_code3)
 
 ```
+\fancyhead[CO,CE]{
+  \rule[-1.75\baselineskip]{0pt}{0pt}
+  \includegraphics[height=3\baselineskip,valign=c]{OECDlogo.jpg}
+  \quad
+  Horizontal Housing Project: focus on `r params$ctry_name`
+}
+\newpage
+\bigskip
 
-\fancyhead{}
-\fancyhead[CO,CE]{Housing Country Fiche}
-
-\fancyfoot[CO,CE]{\color{ultramarineblue}OECD}
-
-\fancyfoot[LE,RO]{page \thepage}
+\begin{multicols}{2}
+\bigskip
 
 \color{ultramarineblue}
-\section{OECD Horizontal Housing Project}
+
+\section{How does `r params$ctry_name` compare?}
+
 \color{black}
-
 \lipsum[2-2]
-
-\begin{center}
-\includegraphics[]{diagram_synthesis.png}
-\end{center}
+\includegraphics[valign=c]{diagram_synthesis.png}
+\columnbreak
+\section{}
 
 \begin{itemize}
 ```{r Intro paragraph, results='asis'}
 myintro=dt %>% filter(country==params$ctry_code) %>% dplyr::select(Intro)
 cat("\\item",myintro$Intro)
 ```
+\lipsum[2-2]
 \end{itemize}
+\end{multicols}
+
 
 \newpage
-\begin{landscape}
+\begin{multicols}{2}
 
-\begin{multicols}{3}
-
-\color{ultramarineblue}
+\color{Goldenrod}
 \section{Efficiency}
+
 \color{black}
 
 \lipsum[2-2]
@@ -115,15 +118,13 @@ cat("\\item",myintro$Intro)
 ```
 
 
-\bigskip
-\bigskip
 
 ```{r Efficiency}
 
-var_codes<-c("ovc_tot", "tenure_oo")
-var_names=c("House price\nvolatility","Residential\nInvestment")
-
-htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names,title="Efficiency Outcomes")
+var_codes<-c("ovc_tot", "tenure_oo", "mortgage_dispincome")
+var_names=c("House price\nvolatility","Residential\nInvestment","Affordability" )
+sec_col=c("goldenrod")
+htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names,sec_col, title="Efficiency Outcomes")
 
 ```
 
@@ -133,11 +134,11 @@ htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names,title="Efficiency Outc
 myefficiency=dt %>% filter(country=="FRA") %>% dplyr::select(Efficiency)
 cat("\\item",myefficiency$Efficiency)
 ```
+\lipsum[2-2]
 \end{itemize}
 
 \columnbreak
-
-\color{ultramarineblue}
+\color{ProcessBlue}
 \section{Inclusiveness}
 \color{black}
 
@@ -158,13 +159,12 @@ cat("\\item",myefficiency$Efficiency)
 
 
 
-\bigskip
-\bigskip
 ```{r Inclusiveness}
-var_codes<-c("ovc_tot", "tenure_oo")
-var_names=c("over-crowding","owner-outright")
+var_codes<-c("ovc_tot", "tenure_oo", "mortgage_dispincome")
+var_names=c("over-crowding","owner-outright", "homelessness")
+sec_col=c("deepskyblue")
 
-htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names,title="Inclusiveness Outcomes")
+htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names,sec_col, title="Inclusiveness Outcomes")
 
 ```
 
@@ -173,11 +173,15 @@ htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names,title="Inclusiveness O
 myinclusiveness=dt %>% filter(country==params$ctry_code) %>% dplyr::select(Inclusiveness)
 cat("\\item",myinclusiveness$Inclusiveness)
 ```
+\lipsum[2-2]
 \end{itemize}
 
-\columnbreak
+\end{multicols}
 
-\color{ultramarineblue}
+\newpage 
+\begin{multicols}{2}
+
+\color{Green}
 \section{Sustainability}
 \color{black}
 
@@ -195,15 +199,14 @@ cat("\\item",myinclusiveness$Inclusiveness)
 
 
 
-\bigskip
-\bigskip
 
 
 ```{r Sustainability}
-var_codes<-c("ovc_tot", "tenure_oo")
-var_names=c("CO2 emissions","Local air\npollution")
+var_codes<-c("ovc_tot", "tenure_oo", "mortgage_dispincome")
+var_names=c("CO2 emissions","local air\npollution", "urban\nsprawl")
+sec_col=c("darkgreen")
 
-htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names,title="Sustainability Outcomes")
+htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names, sec_col, title="Sustainability Outcomes")
 
 ```
 
@@ -212,25 +215,35 @@ htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names,title="Sustainability 
 mysustainability=dt %>% filter(country==params$ctry_code) %>% dplyr::select(Sustainability)
 cat("\\item",mysustainability$Sustainability)
 ```
+\lipsum[2-2]
 \end{itemize}
 \end{multicols}
 
-\end{landscape}
-
 \newpage
 
-
+\begin{multicols}{2}
 \color{ultramarineblue}
-\section{Policy Indicators}
-\color{black}
 
+\section{Policy Indicators}
+
+\color{black}
 \lipsum[2-2]
 
-
+\bigskip
+\bigskip
 \bigskip
 \bigskip
 
-```{r fig.height =  5,fig.width = 6,fig.align="center"}
-htk_policyradar(data,params$ctry_code,title="Housing Policy variable")
+```{r fig.height =  4,fig.width = 5,fig.align="center"}
+htk_policyradar(data,params$ctry_code)
 ```
 
+\columnbreak 
+\section{}
+
+\begin{itemize}
+\item This is specific to FRA
+\lipsum[2-2]
+\end{itemize}
+
+\end{multicols}

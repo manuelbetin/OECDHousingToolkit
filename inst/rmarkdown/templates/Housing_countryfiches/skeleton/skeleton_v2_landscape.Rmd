@@ -8,9 +8,7 @@ output:
 params:
   ctry_code: FRA
   ctry_name: France
-title: |
-  ![](OECDlogo.jpg){width=1in}  
-  \Huge `r params$ctry_name`
+title: ""
 ---
 
 ```{r set_up, include=F}
@@ -63,23 +61,23 @@ vars_cluster <- vars_cluster %>%  select(Iso_code3, everything()) %>%
          country=Iso_code3)
 
 ```
+\KOMAoptions{paper=landscape,pagesize}
+\recalctypearea
 
-\fancyhead{}
-\fancyhead[CO,CE]{Housing Country Fiche}
+\newpage
+\bigskip
 
-\fancyfoot[CO,CE]{\color{ultramarineblue}OECD}
-
-\fancyfoot[LE,RO]{page \thepage}
+\begin{multicols}{2}
+\bigskip
 
 \color{ultramarineblue}
-\section{OECD Horizontal Housing Project}
+\section{How does `r params$ctry_name` compare?}
+
 \color{black}
-
 \lipsum[2-2]
-
-\begin{center}
-\includegraphics[]{diagram_synthesis.png}
-\end{center}
+\includegraphics[valign=c]{diagram_synthesis.png}
+\columnbreak
+\section{}
 
 \begin{itemize}
 ```{r Intro paragraph, results='asis'}
@@ -88,8 +86,13 @@ cat("\\item",myintro$Intro)
 ```
 \end{itemize}
 
+
+\end{multicols}
+
+
+
+
 \newpage
-\begin{landscape}
 
 \begin{multicols}{3}
 
@@ -113,7 +116,6 @@ cat("\\item",myintro$Intro)
 - Long term trend increase in price to income ratios
 
 ```
-
 
 \bigskip
 \bigskip
@@ -215,22 +217,30 @@ cat("\\item",mysustainability$Sustainability)
 \end{itemize}
 \end{multicols}
 
-\end{landscape}
-
 \newpage
 
-
+\begin{multicols}{2}
 \color{ultramarineblue}
-\section{Policy Indicators}
-\color{black}
 
+\section{Policy Indicators}
+
+\color{black}
 \lipsum[2-2]
 
-
+\bigskip
+\bigskip
 \bigskip
 \bigskip
 
-```{r fig.height =  5,fig.width = 6,fig.align="center"}
-htk_policyradar(data,params$ctry_code,title="Housing Policy variable")
+```{r fig.height =  4,fig.width = 5,fig.align="center"}
+htk_policyradar(data,params$ctry_code)
 ```
 
+\columnbreak 
+\section{}
+
+\begin{itemize}
+\item This is specific to FRA
+\end{itemize}
+
+\end{multicols}
