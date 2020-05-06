@@ -1,8 +1,9 @@
+
 \renewcommand{\href}[2]{#2\footnote{\url{#1}}}
 \usepackage{lipsum}
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-\fancypagestyle{plain}
+%\fancypagestyle{plain}
 
 \usepackage[usenames,dvipsnames]{xcolor}
 \definecolor{azure(colorwheel)}{rgb}{0.0, 0.5, 1.0}
@@ -14,6 +15,9 @@
 
 
 \usepackage[paper=portrait,pagesize]{typearea}
+\KOMAoptions{pagesize,  paper=landscape, paper=a4,pagesize,DIV=18,footinclude}
+\recalctypearea
+%\usepackage[margin=1in, landscape]{geometry}
 \usepackage[export]{adjustbox}
 
 
@@ -23,7 +27,6 @@
 
 
 
-\fancyfoot[CO,CE]{\color{ultramarineblue}OECD}
-
-\fancyfoot[CE,CO]{page \thepage}
+\fancyfoot[C]{\color{ultramarineblue}OECD}
+\fancyfoot[RE,RO]{ \thepage}
 
