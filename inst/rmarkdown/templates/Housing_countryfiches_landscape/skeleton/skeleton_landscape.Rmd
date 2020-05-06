@@ -8,6 +8,7 @@ output:
 params:
   ctry_code: FRA
   ctry_name: France
+  title: Housing Horizontal Project
 ---
 
 ```{r set_up, include=F}
@@ -61,12 +62,12 @@ vars_cluster <- vars_cluster %>%  select(Iso_code3, everything()) %>%
 
 ```
 
-\fancyhead[R]{
-  \rule[-1.75\baselineskip]{0pt}{0pt}% Strut to ensure a 1/4 \baselineskip between image and header rule
-  \includegraphics[height=3\baselineskip,valign=c]{OECDlogo.jpg}
+
+\chead{
+ \rule[-1.75\baselineskip]{0pt}{0pt}
+  \includegraphics[height=4\baselineskip,valign=c]{OECDlogo.jpg}
   \quad% Space
-  Horizontal Housing Project: focus on `r params$ctry_name` 
-}
+   Housing Performance: `r params$ctry_name` }
 
 \newpage
 \bigskip
@@ -74,7 +75,7 @@ vars_cluster <- vars_cluster %>%  select(Iso_code3, everything()) %>%
 
 \color{ultramarineblue}
 
-\section{How does `r params$ctry_name` compare in terms of outcomes?}
+\section{Housing outcomes overview: `r params$ctry_name` }
 
 \color{black}
 
@@ -205,7 +206,7 @@ cat(mysustainability$Sustainability)
 
 \begin{multicols}{2}
 \color{ultramarineblue}
-\section{Policy overview}
+\section{Housing policies overview: `r params$ctry_name` }
 
 \color{black}
 \lipsum[2-2]
@@ -233,37 +234,40 @@ This is specific to FRA
 \color{black}
 
 \begin{center}
-\begin{tabular}{l c}
+\begin{tabular}{l l}
+\hline
 \hline
 \multicolumn{2}{c}{\color{Goldenrod}\bf{Efficiency}}        \\
-\hline
-\color{Goldenrod}\bf {Residential Investment} & blablabla \\
-\color{Goldenrod}\bf {House Price Volatility} & blablabla \\
-\color{Goldenrod}\bf {Affordability} & blablabla \\
-\hline
+\color{Goldenrod}\bf {Residential Investment} & Difference in number of dwellings that were completed during a given year and are ready to be occupied \\
+& between two consecutive quarters \\
+\color{Goldenrod}\bf {House Price Volatility} & Standard deviation of (real) house price index  \\
+\color{Goldenrod}\bf {Affordability} &  Ratio between (real) house price index and median  yearly income \\
+& \\
 \multicolumn{2}{c}{\color{ProcessBlue}\bf{Inclusiveness}}        \\
-\hline
-\color{ProcessBlue}\bf{  Owner-outright }  & blablabla \\
-\color{ProcessBlue}\bf{  Over-crowding } & blablabla \\
-\color{ProcessBlue}\bf{  Homelessness } & blablabla \\
-\hline
+\color{ProcessBlue}\bf{  Owner-outright }  & Percentage of household that owns the dwelling and has no outstanding mortgage related to the
+dwelling \\
+\color{ProcessBlue}\bf{  Over-crowding } & Percentage of household that does not have at its disposal a minimum number of rooms \\
+\color{ProcessBlue}\bf{  Homelessness } & Percentage of people  living in the streets or public spaces without a shelter that can be defined as living
+quarters \\
+ & (e.g. public spaces/external spaces) \\
+ & \\
 \multicolumn{2}{c}{\color{Green}\bf{Sustainability}}        \\
-\hline
-\color{Green}\bf{  Local air pollution} & blablabla \\
-\color{Green}\bf{  $CO_{2}$ emission} & blablabla \\
-\color{Green}\bf{  Urban sprawl} & blablabla \\
-\hline      
+\color{Green}\bf{  Local air pollution} & Presence of contaminant or pollutant substances in the air that do not disperse properly and that \\
+ & interfere with human health or welfare, or produce other harmful environmental effects \\
+\color{Green}\bf{  $CO_{2}$ emission} & Product of fuel efficiency and the carbon intensity per kWh.5  \\
+\color{Green}\bf{  Urban sprawl} & Low average urban population density  \\
+& \\
 \multicolumn{2}{c}{\color{ultramarineblue}\bf{Policy}}        \\
+\color{ultramarineblue}\bf {Rent control stringency} & The rent control indicator measures the extent of rental regulation in the private rental market by country. \\
+& It considers the presence of controls on rent levels and rent increases   \\
+\color{ultramarineblue}\bf {Tenant protection} &  The tenant protection indicator considers the ease of tenant eviction, tenure security and eposit requirement \\
+\color{ultramarineblue}\bf {Social housing} & Share of public expenditure on social housing \\
+\color{ultramarineblue}\bf {LTV } & Maximum loan-to-value ratio \\
+\color{ultramarineblue}\bf {METR mortgage } & Marginal effective tax rate on mortgage \\
+\color{ultramarineblue}\bf {Building and energy code stringency} & Definition to find \\
+\color{ultramarineblue}\bf {Planning system} & Definition to find \\
 \hline
-\color{ultramarineblue}\bf {Rent control stringency} & blablabla \\
-\color{ultramarineblue}\bf {Tenant protection} & blablabla \\
-\color{ultramarineblue}\bf {Building and energy code stringency} & blablabla \\
-\color{ultramarineblue}\bf {Planning system} & blablabla \\
-\color{ultramarineblue}\bf {Social housing} & blablabla \\
-\color{ultramarineblue}\bf {METR mortgage } & blablabla \\
-\color{ultramarineblue}\bf {LTV } & blablabla \\
-
-\hline      
+\hline
 \end{tabular}
 \end{center}
 
