@@ -58,9 +58,7 @@ htk_CyC=function(mydata,ctry,var_codes,var_names,sec_col, title=NULL){
   name_vars<-c("value.value","value.mean","value.min","value.max")
   final<-  final %>% mutate_at(vars(name_vars),as.numeric) %>%
     mutate(value_scaled = (value.value-value.min) / (value.max-value.min ),
-           mean_scaled =  ( value.mean-value.min) / (value.max-value.min ) )%>%
-    mutate(group = ifelse(main_v=="ovc_tot" , "A", NA),
-           group = ifelse(main_v=="tenure_oo" , "B", group))
+           mean_scaled =  ( value.mean-value.min) / (value.max-value.min ) )
 
   ggplot(data=final,aes(x=main_v))+
     geom_segment(aes(xend=main_v, y=0, yend=1), color="grey") +
@@ -85,7 +83,7 @@ htk_CyC=function(mydata,ctry,var_codes,var_names,sec_col, title=NULL){
               size=5, nudge_x = 0.2, nudge_y = 0.03,  check_overlap = TRUE,color="steelblue") +
     geom_text(aes(y= 1   , label=paste(value.country_max,":", round(value.max, digits = 2))),
               size=5, nudge_x = 0.2, nudge_y = -0.05,  check_overlap = TRUE,color="steelblue")+
-    annotate("text", x =2.4, y = 0.14, label = "Bottom OECD performer", size=5,color="darkgrey") +
-    annotate("text", x =2.4, y = 0.90, label = "Top OECD performer", size=5,color="darkgrey")
+    annotate("text", x =3.4, y = 0.14, label = "Bottom OECD performer", size=5,color="darkgrey") +
+    annotate("text", x =3.4, y = 0.90, label = "Top OECD performer", size=5,color="darkgrey")
 
 }

@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.7.18)  4 MAY 2020 16:29
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.7.18)  5 MAY 2020 19:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**skeleton.tex
-(./skeleton.tex
+**skeleton_landscape.tex
+(./skeleton_landscape.tex
 LaTeX2e <2016/03/31>
 Babel <3.9r> and hyphenation patterns for 83 language(s) loaded.
 (/usr/local/texlive/2016/texmf-dist/tex/latex/base/article.cls
@@ -732,7 +732,7 @@ Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
 )
 \Hy@SectionHShift=\skip47
 )
-Package hyperref Info: Option `breaklinks' set `true' on input line 29.
+Package hyperref Info: Option `breaklinks' set `true' on input line 28.
 (/usr/local/texlive/2016/texmf-dist/tex/latex/geometry/geometry.sty
 Package: geometry 2010/09/12 v5.6 Page Geometry
 \Gm@cnth=\count111
@@ -802,9 +802,7 @@ Package xcolor Info: Model `Gray' substituted by `gray' on input line 1370.
 Package xcolor Info: Model `wave' substituted by `hsb' on input line 1371.
 (/usr/local/texlive/2016/texmf-dist/tex/latex/graphics/dvipsnam.def
 File: dvipsnam.def 2015/12/30 v3.0k Driver-dependent file (DPC,SPQR)
-)) (/usr/local/texlive/2016/texmf-dist/tex/latex/graphics/lscape.sty
-Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
-) (/usr/local/texlive/2016/texmf-dist/tex/latex/tools/multicol.sty
+)) (/usr/local/texlive/2016/texmf-dist/tex/latex/tools/multicol.sty
 Package: multicol 2016/04/07 v1.8p multicolumn formatting (FMi)
 \c@tracingmulticols=\count116
 \mult@box=\box28
@@ -852,36 +850,134 @@ Package: multicol 2016/04/07 v1.8p multicolumn formatting (FMi)
 \mult@nat@firstbox=\box52
 \colbreak@box=\box53
 \mc@col@check@num=\count124
-) (./skeleton.aux)
-\openout1 = `skeleton.aux'.
-
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 84.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 84.
-(/usr/local/texlive/2016/texmf-dist/tex/latex/base/ts1cmr.fd
-File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+) (/usr/local/texlive/2016/texmf-dist/tex/latex/oberdiek/pdflscape.sty
+Package: pdflscape 2016/05/14 v0.11 Display of landscape pages in PDF (HO)
+(/usr/local/texlive/2016/texmf-dist/tex/latex/graphics/lscape.sty
+Package: lscape 2000/10/22 v3.01 Landscape Pages (DPC)
 )
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 84.
-LaTeX Font Info:    ... okay on input line 84.
-LaTeX Font Info:    Try loading font information for T1+lmr on input line 84.
+Package pdflscape Info: Auto-detected driver: pdftex on input line 81.
+) (/usr/local/texlive/2016/texmf-dist/tex/latex/koma-script/typearea.sty
+Package: typearea 2016/05/10 v3.20 KOMA-Script package (type area)
+Package typearea, 2016/05/10 v3.20 KOMA-Script package (type area)
+                  Copyright (C) Frank Neukam, 1992-1994
+                  Copyright (C) Markus Kohm, 1994-
+
+(/usr/local/texlive/2016/texmf-dist/tex/latex/koma-script/scrkbase.sty
+Package: scrkbase 2016/05/10 v3.20 KOMA-Script package (KOMA-Script-dependent b
+asics and keyval usage)
+(/usr/local/texlive/2016/texmf-dist/tex/latex/koma-script/scrbase.sty
+Package: scrbase 2016/05/10 v3.20 KOMA-Script package (KOMA-Script-independent 
+basics and keyval usage)
+(/usr/local/texlive/2016/texmf-dist/tex/latex/koma-script/scrlfile.sty
+Package: scrlfile 2016/05/10 v3.20 KOMA-Script package (loading files)
+Package scrlfile, 2016/05/10 v3.20 KOMA-Script package (loading files)
+                  Copyright (C) Markus Kohm
+
+)))
+\ta@bcor=\skip59
+\ta@div=\count125
+\ta@hblk=\skip60
+\ta@vblk=\skip61
+\ta@temp=\skip62
+\footheight=\skip63
+LaTeX Font Info:    Try loading font information for T1+lmr on input line 1528.
+
 (/usr/local/texlive/2016/texmf-dist/tex/latex/lm/t1lmr.fd
 File: t1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Info: Redefining \microtypecontext on input line 84.
+Package typearea Info: These are the values describing the layout:
+(typearea)             DIV  = 8
+(typearea)             BCOR = 0.0pt
+(typearea)             \paperwidth      = 597.50793pt
+(typearea)              \textwidth      = 373.44246pt
+(typearea)              DIV departure   = -4%
+(typearea)              \evensidemargin = 39.76274pt
+(typearea)              \oddsidemargin  = 39.76274pt
+(typearea)             \paperheight     = 845.04694pt
+(typearea)              \textheight     = 538.0pt
+(typearea)              \topmargin      = 0.36087pt
+(typearea)              \headheight     = 15.0pt
+(typearea)              \headsep        = 18.0pt
+(typearea)              \topskip        = 10.0pt
+(typearea)              \footskip       = 42.0pt
+(typearea)              \baselineskip   = 12.0pt
+(typearea)              on input line 1528.
+) (/usr/local/texlive/2016/texmf-dist/tex/latex/adjustbox/adjustbox.sty
+Package: adjustbox 2012/05/21 v1.0 Adjusting TeX boxes (trim, clip, ...)
+(/usr/local/texlive/2016/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+Package: xkeyval 2014/12/03 v2.7a package option processing (HA)
+(/usr/local/texlive/2016/texmf-dist/tex/generic/xkeyval/xkeyval.tex (/usr/local
+/texlive/2016/texmf-dist/tex/generic/xkeyval/xkvutils.tex
+\XKV@toks=\toks25
+\XKV@tempa@toks=\toks26
+)
+\XKV@depth=\count126
+File: xkeyval.tex 2014/12/03 v2.7a key=value parser (HA)
+)) (/usr/local/texlive/2016/texmf-dist/tex/latex/adjustbox/adjcalc.sty
+Package: adjcalc 2012/05/16 v1.1 Provides advanced setlength with multiple back
+-ends (calc, etex, pgfmath)
+) (/usr/local/texlive/2016/texmf-dist/tex/latex/adjustbox/trimclip.sty
+Package: trimclip 2012/05/16 v1.0 Trim and clip general TeX material
+(/usr/local/texlive/2016/texmf-dist/tex/latex/collectbox/collectbox.sty
+Package: collectbox 2012/05/17 v0.4b Collect macro arguments as boxes
+\collectedbox=\box54
+)
+\tc@llx=\dimen136
+\tc@lly=\dimen137
+\tc@urx=\dimen138
+\tc@ury=\dimen139
+Package trimclip Info: Using driver 'tc-pdftex.def'.
+(/usr/local/texlive/2016/texmf-dist/tex/latex/adjustbox/tc-pdftex.def
+File: tc-pdftex.def 2012/05/13 v1.0 Clipping driver for pdftex
+))
+\adjbox@Width=\dimen140
+\adjbox@Height=\dimen141
+\adjbox@Depth=\dimen142
+\adjbox@Totalheight=\dimen143
+(/usr/local/texlive/2016/texmf-dist/tex/latex/ifoddpage/ifoddpage.sty
+Package: ifoddpage 2016/04/23 v1.1 Conditionals for odd/even page detection
+\c@checkoddpage=\count127
+) (/usr/local/texlive/2016/texmf-dist/tex/latex/varwidth/varwidth.sty
+Package: varwidth 2009/03/30 ver 0.92;  Variable-width minipages
+\@vwid@box=\box55
+\sift@deathcycles=\count128
+\@vwid@loff=\dimen144
+\@vwid@roff=\dimen145
+))
+
+Package Fancyhdr Warning: \fancyfoot's `E' option without twoside option is use
+less on input line 90.
+
+
+Package Fancyhdr Warning: \fancyfoot's `E' option without twoside option is use
+less on input line 92.
+
+(./skeleton_landscape.aux)
+\openout1 = `skeleton_landscape.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 97.
+LaTeX Font Info:    ... okay on input line 97.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 97.
+LaTeX Font Info:    ... okay on input line 97.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 97.
+LaTeX Font Info:    ... okay on input line 97.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 97.
+LaTeX Font Info:    ... okay on input line 97.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 97.
+LaTeX Font Info:    ... okay on input line 97.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 97.
+LaTeX Font Info:    ... okay on input line 97.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 97.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 97.
+(/usr/local/texlive/2016/texmf-dist/tex/latex/base/ts1cmr.fd
+File: ts1cmr.fd 2014/09/29 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    ... okay on input line 97.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 97.
+LaTeX Font Info:    ... okay on input line 97.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 97.
+LaTeX Font Info:    ... okay on input line 97.
+LaTeX Info: Redefining \microtypecontext on input line 97.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using protrusion set `basicmath'.
@@ -895,21 +991,21 @@ Package microtype Info: No adjustment of character kerning.
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman 
 (RS)
 )
-\AtBeginShipoutBox=\box54
-Package hyperref Info: Link coloring OFF on input line 84.
+\AtBeginShipoutBox=\box56
+Package hyperref Info: Link coloring OFF on input line 97.
 (/usr/local/texlive/2016/texmf-dist/tex/latex/hyperref/nameref.sty
 Package: nameref 2012/10/27 v2.43 Cross-referencing by name of section
 (/usr/local/texlive/2016/texmf-dist/tex/generic/oberdiek/gettitlestring.sty
 Package: gettitlestring 2016/05/16 v1.5 Cleanup title references (HO)
 )
-\c@section@level=\count125
+\c@section@level=\count129
 )
-LaTeX Info: Redefining \ref on input line 84.
-LaTeX Info: Redefining \pageref on input line 84.
-LaTeX Info: Redefining \nameref on input line 84.
-(./skeleton.out) (./skeleton.out)
+LaTeX Info: Redefining \ref on input line 97.
+LaTeX Info: Redefining \pageref on input line 97.
+LaTeX Info: Redefining \nameref on input line 97.
+(./skeleton_landscape.out) (./skeleton_landscape.out)
 \@outlinefile=\write3
-\openout3 = `skeleton.out'.
+\openout3 = `skeleton_landscape.out'.
 
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
@@ -921,19 +1017,19 @@ LaTeX Info: Redefining \nameref on input line 84.
 * modes: 
 * h-part:(L,W,R)=(72.26999pt, 469.75502pt, 72.26999pt)
 * v-part:(T,H,B)=(72.26999pt, 650.43001pt, 72.26999pt)
-* \paperwidth=614.295pt
-* \paperheight=794.96999pt
-* \textwidth=469.75502pt
-* \textheight=650.43001pt
-* \oddsidemargin=0.0pt
-* \evensidemargin=0.0pt
-* \topmargin=-37.0pt
-* \headheight=12.0pt
-* \headsep=25.0pt
+* \paperwidth=597.50793pt
+* \paperheight=845.04694pt
+* \textwidth=373.44246pt
+* \textheight=538.0pt
+* \oddsidemargin=39.76274pt
+* \evensidemargin=39.76274pt
+* \topmargin=0.36087pt
+* \headheight=15.0pt
+* \headsep=18.0pt
 * \topskip=10.0pt
-* \footskip=30.0pt
-* \marginparwidth=65.0pt
-* \marginparsep=11.0pt
+* \footskip=42.0pt
+* \marginparwidth=74.68849pt
+* \marginparsep=12.8401pt
 * \columnsep=10.0pt
 * \skip\footins=9.0pt plus 4.0pt minus 2.0pt
 * \hoffset=0.0pt
@@ -947,17 +1043,17 @@ LaTeX Info: Redefining \nameref on input line 84.
 
 (/usr/local/texlive/2016/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count126
-\scratchdimen=\dimen136
-\scratchbox=\box55
-\nofMPsegments=\count127
-\nofMParguments=\count128
-\everyMPshowfont=\toks25
-\MPscratchCnt=\count129
-\MPscratchDim=\dimen137
-\MPnumerator=\count130
-\makeMPintoPDFobject=\count131
-\everyMPtoPDFconversion=\toks26
+\scratchcounter=\count130
+\scratchdimen=\dimen146
+\scratchbox=\box57
+\nofMPsegments=\count131
+\nofMParguments=\count132
+\everyMPshowfont=\toks27
+\MPscratchCnt=\count133
+\MPscratchDim=\dimen147
+\MPnumerator=\count134
+\makeMPintoPDFobject=\count135
+\everyMPtoPDFconversion=\toks28
 ) (/usr/local/texlive/2016/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
 Package: epstopdf-base 2016/05/15 v2.6 Base part for package epstopdf
 (/usr/local/texlive/2016/texmf-dist/tex/latex/oberdiek/grfext.sty
@@ -970,134 +1066,176 @@ G,.JBIG2,.JB2,.eps]
 (/usr/local/texlive/2016/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
-)) <OECDlogo.jpg, id=24, 319.1925pt x 159.59625pt>
-File: OECDlogo.jpg Graphic file (type jpg)
-<use OECDlogo.jpg>
-Package pdftex.def Info: OECDlogo.jpg used on input line 86.
-(pdftex.def)             Requested size: 72.26816pt x 36.13408pt.
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 86.
+))
+
+Package typearea Warning: Bad type area settings!
+(typearea)                The detected line width is about 48%
+(typearea)                larger than the heuristically detected line width.
+(typearea)                You should e.g. decrease DIV, increase fontsize
+(typearea)                or change papersize.
+
+Package typearea Info: These are the values describing the layout:
+(typearea)             DIV  = 8
+(typearea)             BCOR = 0.0pt
+(typearea)             \paperwidth      = 845.04694pt
+(typearea)              \textwidth      = 528.15436pt
+(typearea)              DIV departure   = -48%
+(typearea)              \evensidemargin = 86.1763pt
+(typearea)              \oddsidemargin  = 86.1763pt
+(typearea)             \paperheight     = 597.50793pt
+(typearea)              \textheight     = 382.0pt
+(typearea)              \topmargin      = -30.5815pt
+(typearea)              \headheight     = 15.0pt
+(typearea)              \headsep        = 18.0pt
+(typearea)              \topskip        = 10.0pt
+(typearea)              \footskip       = 42.0pt
+(typearea)              \baselineskip   = 12.0pt
+(typearea)              on input line 99.
+
+Package typearea Warning: Typearea changed!
+(typearea)                You should do this only at preamble, because only
+(typearea)                \begin{document} calculates output dimensions!
+(typearea)                Trying to calculate new output dimensions, but
+(typearea)                this is only a dirty hack on input line 99.
+
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 121.
+
 (/usr/local/texlive/2016/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 86.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 121.
+
 (/usr/local/texlive/2016/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 86.
-
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 121
+.
 (/usr/local/texlive/2016/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 86.
-
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 121
+.
 (/usr/local/texlive/2016/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 86.
+(Font)              <10> on input line 121.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 86.
+(Font)              <7> on input line 121.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 86.
-LaTeX Font Info:    Try loading font information for U+msa on input line 86.
+(Font)              <5> on input line 121.
+LaTeX Font Info:    Try loading font information for U+msa on input line 121.
 (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (/usr/local/texlive/2016/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 86.
+LaTeX Font Info:    Try loading font information for U+msb on input line 121.
 (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (/usr/local/texlive/2016/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
-)
-
-Package Fancyhdr Warning: \fancyhead's `E' option without twoside option is use
-less on input line 87.
-
-
-Package Fancyhdr Warning: \fancyfoot's `E' option without twoside option is use
-less on input line 89.
-
-
-Package Fancyhdr Warning: \fancyfoot's `E' option without twoside option is use
-less on input line 91.
-
-<diagram_synthesis.png, id=25, 372.39125pt x 274.52562pt>
+) <diagram_synthesis.png, id=32, 372.39125pt x 274.52562pt>
 File: diagram_synthesis.png Graphic file (type png)
 <use diagram_synthesis.png>
-Package pdftex.def Info: diagram_synthesis.png used on input line 99.
-(pdftex.def)             Requested size: 372.40169pt x 274.53333pt.
-LaTeX Font Info:    Try loading font information for TS1+lmr on input line 103.
+Package pdftex.def Info: diagram_synthesis.png used on input line 121.
+(pdftex.def)             Requested size: 259.08675pt x 190.99791pt.
+LaTeX Font Info:    Try loading font information for TS1+lmr on input line 126.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
-) [1{/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
+) <OECDlogo.jpg, id=34, 319.1925pt x 159.59625pt>
+File: OECDlogo.jpg Graphic file (type jpg)
+<use OECDlogo.jpg>
+Package pdftex.def Info: OECDlogo.jpg used on input line 156.
+(pdftex.def)             Requested size: 72.00029pt x 36.00014pt.
 
- <./OECDlogo.jpg> <./diagram_synthesis.png>] <skeleton_files/figure-latex/Effic
-iency-1.pdf, id=37, 539.01375pt x 321.2pt>
-File: skeleton_files/figure-latex/Efficiency-1.pdf Graphic file (type pdf)
-<use skeleton_files/figure-latex/Efficiency-1.pdf>
-Package pdftex.def Info: skeleton_files/figure-latex/Efficiency-1.pdf used on i
-nput line 126.
-(pdftex.def)             Requested size: 210.14049pt x 125.22339pt.
+Package Fancyhdr Warning: \headheight is too small (15.0pt): 
+ Make it at least 41.50008pt.
+ We now make it that large for the rest of the document.
+ This may cause the page layout to be inconsistent, however.
 
-<skeleton_files/figure-latex/Inclusiveness-1.pdf, id=38, 543.02875pt x 341.275p
-t>
-File: skeleton_files/figure-latex/Inclusiveness-1.pdf Graphic file (type pdf)
-<use skeleton_files/figure-latex/Inclusiveness-1.pdf>
-Package pdftex.def Info: skeleton_files/figure-latex/Inclusiveness-1.pdf used o
-n input line 150.
-(pdftex.def)             Requested size: 210.13974pt x 132.06563pt.
+[1{/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
-<skeleton_files/figure-latex/Sustainability-1.pdf, id=39, 538.01pt x 344.28625p
-t>
-File: skeleton_files/figure-latex/Sustainability-1.pdf Graphic file (type pdf)
-<use skeleton_files/figure-latex/Sustainability-1.pdf>
-Package pdftex.def Info: skeleton_files/figure-latex/Sustainability-1.pdf used 
-on input line 173.
-(pdftex.def)             Requested size: 210.14322pt x 134.47597pt.
-[2
+ <./OECDlogo.jpg> <./diagram_synthesis.png>]
+<skeleton_landscape_files/figure-latex/Efficiency-1.pdf, id=47, 539.01375pt x 3
+51.3125pt>
+File: skeleton_landscape_files/figure-latex/Efficiency-1.pdf Graphic file (type
+ pdf)
+<use skeleton_landscape_files/figure-latex/Efficiency-1.pdf>
+Package pdftex.def Info: skeleton_landscape_files/figure-latex/Efficiency-1.pdf
+ used on input line 168.
+(pdftex.def)             Requested size: 169.3872pt x 110.40135pt.
 
- <./skeleton_files/figure-latex/Efficiency-1.pdf> <./skeleton_files/figure-late
-x/Inclusiveness-1.pdf> <./skeleton_files/figure-latex/Sustainability-1.pdf>]
-<skeleton_files/figure-latex/unnamed-chunk-5-1.pdf, id=68, 239.89626pt x 260.97
-5pt>
-File: skeleton_files/figure-latex/unnamed-chunk-5-1.pdf Graphic file (type pdf)
+<skeleton_landscape_files/figure-latex/Inclusiveness-1.pdf, id=48, 543.02875pt 
+x 356.33125pt>
+File: skeleton_landscape_files/figure-latex/Inclusiveness-1.pdf Graphic file (t
+ype pdf)
+<use skeleton_landscape_files/figure-latex/Inclusiveness-1.pdf>
+Package pdftex.def Info: skeleton_landscape_files/figure-latex/Inclusiveness-1.
+pdf used on input line 191.
+(pdftex.def)             Requested size: 169.3812pt x 111.14662pt.
 
-<use skeleton_files/figure-latex/unnamed-chunk-5-1.pdf>
-Package pdftex.def Info: skeleton_files/figure-latex/unnamed-chunk-5-1.pdf used
- on input line 191.
-(pdftex.def)             Requested size: 239.8993pt x 260.97833pt.
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 193.
-[3
+<skeleton_landscape_files/figure-latex/Sustainability-1.pdf, id=49, 538.01pt x 
+322.20375pt>
+File: skeleton_landscape_files/figure-latex/Sustainability-1.pdf Graphic file (
+type pdf)
+<use skeleton_landscape_files/figure-latex/Sustainability-1.pdf>
+Package pdftex.def Info: skeleton_landscape_files/figure-latex/Sustainability-1
+.pdf used on input line 211.
+(pdftex.def)             Requested size: 169.38374pt x 101.44063pt.
 
- <./skeleton_files/figure-latex/unnamed-chunk-5-1.pdf>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 193.
-(./skeleton.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 193.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 193.
-Package rerunfilecheck Info: File `skeleton.out' has not changed.
-(rerunfilecheck)             Checksum: 013F71D08ED370402F8B193F3171D324;657.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 193.
+Overfull \vbox (1.304pt too high) has occurred while \output is active []
+
+File: OECDlogo.jpg Graphic file (type jpg)
+<use OECDlogo.jpg>
+Package pdftex.def Info: OECDlogo.jpg used on input line 218.
+(pdftex.def)             Requested size: 72.00029pt x 36.00014pt.
+[2 <./skeleton_landscape_files/figure-latex/Efficiency-1.pdf> <./skeleton_lands
+cape_files/figure-latex/Inclusiveness-1.pdf> <./skeleton_landscape_files/figure
+-latex/Sustainability-1.pdf>]
+<skeleton_landscape_files/figure-latex/unnamed-chunk-5-1.pdf, id=78, 178.6675pt
+ x 156.585pt>
+File: skeleton_landscape_files/figure-latex/unnamed-chunk-5-1.pdf Graphic file 
+(type pdf)
+<use skeleton_landscape_files/figure-latex/unnamed-chunk-5-1.pdf>
+Package pdftex.def Info: skeleton_landscape_files/figure-latex/unnamed-chunk-5-
+1.pdf used on input line 254.
+(pdftex.def)             Requested size: 178.6725pt x 156.58939pt.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 266.
+File: OECDlogo.jpg Graphic file (type jpg)
+<use OECDlogo.jpg>
+Package pdftex.def Info: OECDlogo.jpg used on input line 266.
+(pdftex.def)             Requested size: 72.00029pt x 36.00014pt.
+[3 <./skeleton_landscape_files/figure-latex/unnamed-chunk-5-1.pdf>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 266.
+(./skeleton_landscape.aux)
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 266.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 266.
+Package rerunfilecheck Info: File `skeleton_landscape.out' has not changed.
+(rerunfilecheck)             Checksum: C2B636ED832E77758A00D93724740140;694.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 266.
  ) 
 Here is how much of TeX's memory you used:
- 13176 strings out of 493014
- 189859 string characters out of 6133351
- 405336 words of memory out of 5000000
- 16505 multiletter control sequences out of 15000+600000
- 36475 words of font info for 55 fonts, out of 8000000 for 9000
+ 14605 strings out of 493014
+ 214786 string characters out of 6133351
+ 455584 words of memory out of 5000000
+ 17891 multiletter control sequences out of 15000+600000
+ 29918 words of font info for 47 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 32i,11n,43p,252b,446s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/local
-/texlive/2016/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}</usr/local/texlive/2016/
-texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/local/texlive/2016/texmf-dist
-/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type
-1/public/lm/lmr17.pfb>
-Output written on skeleton.pdf (3 pages, 145752 bytes).
+ 34i,19n,65p,252b,446s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/
+texlive/2016/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/20
+16/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/usr/local/texlive/2016/texmf-dist/
+fonts/enc/dvips/lm/lm-ts1.enc}</usr/local/texlive/2016/texmf-dist/fonts/type1/p
+ublic/lm/lmbx10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/l
+mbx12.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmmi10.pfb>
+</usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local
+/texlive/2016/texmf-dist/fonts/type1/public/lm/lmr7.pfb>
+Output written on skeleton_landscape.pdf (3 pages, 171701 bytes).
 PDF statistics:
- 106 PDF objects out of 1000 (max. 8388607)
- 82 compressed objects within 1 object stream
- 9 named destinations out of 1000 (max. 500000)
- 8263 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 123 PDF objects out of 1000 (max. 8388607)
+ 97 compressed objects within 1 object stream
+ 11 named destinations out of 1000 (max. 500000)
+ 4183 words of extra memory for PDF output out of 10000 (max. 10000000)
 
