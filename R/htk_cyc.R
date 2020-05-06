@@ -72,7 +72,7 @@ htk_CyC=function(mydata,ctry,var_codes,var_names,sec_col, title=NULL){
     theme(panel.background = element_blank(),
           axis.text.x = element_blank(),
           plot.title=element_text(face="bold",colour ="black",size=15, hjust =0.5),
-          axis.text.y = element_text(angle=60,size=16,color=sec_col),
+          axis.text.y = element_text(angle=60,size=13,color=sec_col),
           axis.ticks =element_blank() )+
     scale_x_discrete(breaks=final$main_v,labels=var_names) +
     geom_text(aes(y= value_scaled   , label=paste(country_name,": ", round(value.value, digits = 2))),
