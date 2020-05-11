@@ -202,9 +202,12 @@ cat(mysustainability$Sustainability)
 
 \end{multicols}
 
+
+
 \newpage
 
-\begin{multicols}{2}
+\begin{tabular}{l  l}
+\parbox[t]{0.35\textwidth}{
 \color{ultramarineblue}
 \section{Housing policies overview: `r params$ctry_name` }
 
@@ -215,60 +218,53 @@ cat(mysustainability$Sustainability)
 ```{r fig.height =  4,fig.width = 5,fig.align="center"}
 htk_policyradar(data,params$ctry_code)
 ```
-\columnbreak 
-
-
-\section{}
-
-This is specific to FRA
-\lipsum[2-2]
-
-
-\end{multicols}
-
-\newpage 
-
-
+}
+&
+\parbox[t]{0.2\textwidth}{
 \color{ultramarineblue}
 \section{Indicators}
 \color{black}
-
-\begin{center}
-\begin{tabular}{l l}
+\small
+\begin{tabular}{ l p{11cm} }
 \hline
 \hline
 \multicolumn{2}{c}{\color{Goldenrod}\bf{Efficiency}}        \\
-\color{Goldenrod}\bf {Residential Investment} & Difference in number of dwellings that were completed during a given year and are ready to be occupied \\
-& between two consecutive quarters \\
+\color{Goldenrod}\bf {Residential Investment} & Difference in number of dwellings that were completed during a given year  \\
+& and are ready to be occupied between two consecutive quarters \\
 \color{Goldenrod}\bf {House Price Volatility} & Standard deviation of (real) house price index  \\
 \color{Goldenrod}\bf {Affordability} &  Ratio between (real) house price index and median  yearly income \\
 & \\
 \multicolumn{2}{c}{\color{ProcessBlue}\bf{Inclusiveness}}        \\
-\color{ProcessBlue}\bf{  Owner-outright }  & Percentage of household that owns the dwelling and has no outstanding mortgage related to the
-dwelling \\
-\color{ProcessBlue}\bf{  Over-crowding } & Percentage of household that does not have at its disposal a minimum number of rooms \\
-\color{ProcessBlue}\bf{  Homelessness } & Percentage of people  living in the streets or public spaces without a shelter that can be defined as living
-quarters \\
- & (e.g. public spaces/external spaces) \\
+\color{ProcessBlue}\bf{  Owner-outright }  & Percentage of household that owns the dwelling and has no outstanding \\ 
+& mortgage related to the dwelling \\
+\color{ProcessBlue}\bf{  Over-crowding } & Percentage of household that does not have at its disposal a minimum \\ 
+& number of rooms \\
+\color{ProcessBlue}\bf{  Homelessness } & Percentage of people  living in the streets or public spaces without \\
+ & a shelter that can be defined as living quarters  \\
  & \\
 \multicolumn{2}{c}{\color{Green}\bf{Sustainability}}        \\
-\color{Green}\bf{  Local air pollution} & Presence of contaminant or pollutant substances in the air that do not disperse properly and that \\
- & interfere with human health or welfare, or produce other harmful environmental effects \\
+\color{Green}\bf{  Local air pollution} & Presence of contaminant or pollutant substances in the air that do not \\ 
+& disperse properly and that interfere with human health or welfare, \\
+& or produce other harmful environmental effects \\
 \color{Green}\bf{  $CO_{2}$ emission} & Product of fuel efficiency and the carbon intensity per kWh.5  \\
 \color{Green}\bf{  Urban sprawl} & Low average urban population density  \\
 & \\
 \multicolumn{2}{c}{\color{ultramarineblue}\bf{Policy}}        \\
-\color{ultramarineblue}\bf {Rent control stringency} & The rent control indicator measures the extent of rental regulation in the private rental market by country. \\
+\color{ultramarineblue}\bf {Rent control stringency} & The rent control indicator measures the extent of rental regulation \\
+& in the private rental market by country. \\
 & It considers the presence of controls on rent levels and rent increases   \\
-\color{ultramarineblue}\bf {Tenant protection} &  The tenant protection indicator considers the ease of tenant eviction, tenure security and eposit requirement \\
+\color{ultramarineblue}\bf {Tenant protection} &  The tenant protection indicator considers the ease of tenant eviction, \\
+& tenure security and deposit requirement \\
 \color{ultramarineblue}\bf {Social housing} & Share of public expenditure on social housing \\
 \color{ultramarineblue}\bf {LTV } & Maximum loan-to-value ratio \\
 \color{ultramarineblue}\bf {METR mortgage } & Marginal effective tax rate on mortgage \\
-\color{ultramarineblue}\bf {Building and energy code stringency} & Definition to find \\
+\color{ultramarineblue}\bf {Building and energy} & Definition to find \\
+\color{ultramarineblue}\bf {code stringency} &   \\
 \color{ultramarineblue}\bf {Planning system} & Definition to find \\
 \hline
 \hline
 \end{tabular}
-\end{center}
+}
+\end{tabular}
 
 
