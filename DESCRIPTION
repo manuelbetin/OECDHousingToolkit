@@ -18,5 +18,6 @@ require:
   stringr,
   lubridate,
   forcats,
-  fmsb
+  fmsb,
+  rLDCP
 RoxygenNote: 7.0.2
