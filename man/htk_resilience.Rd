@@ -1,15 +1,16 @@
-\name{resilience_database}
-\alias{resilience_database}
+\name{htk_resilience}
+\alias{htk_resilience}
 \docType{data}
 \title{
-Dataset containing the variables to show for the resilience chapter
+Chapters: variables sources of the resilience chapter
 }
 \description{
-Dataset containing the variables to show for the resilience chapter
+dataset containing all the variables necessary to generate the
+Resilience chapter
 }
-\usage{data("resilience_database")}
+\usage{data("htk_resilience")}
 \format{
-  A data frame with 10620 observations on the following 48 variables.
+  A data frame with 10620 observations on the following 50 variables.
   \describe{
     \item{\code{ISO3_code}}{a character vector}
     \item{\code{Period}}{a character vector}
@@ -21,6 +22,7 @@ Dataset containing the variables to show for the resilience chapter
     \item{\code{cr_tier1}}{a numeric vector}
     \item{\code{cr_mortgage}}{a numeric vector}
     \item{\code{hpi}}{a numeric vector}
+    \item{\code{hpi_rpi}}{a numeric vector}
     \item{\code{hpi_ydh}}{a numeric vector}
     \item{\code{ihq}}{a numeric vector}
     \item{\code{iph}}{a numeric vector}
@@ -55,10 +57,24 @@ Dataset containing the variables to show for the resilience chapter
     \item{\code{last_hpi_rpi}}{a numeric vector}
     \item{\code{Owner_occupied}}{a numeric vector}
     \item{\code{Rented}}{a numeric vector}
-    \item{\code{hpi_rpi}}{a numeric vector}
     \item{\code{price_to_income}}{a numeric vector}
+    \item{\code{price_to_income2000}}{a numeric vector}
+    \item{\code{price_to_income2017}}{a numeric vector}
     \item{\code{peak_to_trough_x}}{a numeric vector}
     \item{\code{time_to_recovery}}{a numeric vector}
   }
+}
+\details{
+%%  ~~ If necessary, more details than the __description__ above ~~
+}
+\source{
+%%  ~~ reference to a publication or URL from which the data were obtained ~~
+}
+\references{
+%%  ~~ possibly secondary sources and usages ~~
+}
+\examples{
+data(htk_resilience)
+## maybe str(htk_resilience) ; plot(htk_resilience) ...
 }
 \keyword{datasets}

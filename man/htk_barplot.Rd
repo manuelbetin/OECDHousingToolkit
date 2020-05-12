@@ -35,7 +35,7 @@ htk_barplot(data_source, x, y, y2 = NULL, y3 = NULL, Xlabel = NULL,
 
 \item{file}{name of the file that contains the plot if you decide to save it, filename must end with .png}
 
-\item{path}{specify exit path of the file}
+\item{path1}{specify exit path of the file}
 }
 \value{
 returns a standardized barplot

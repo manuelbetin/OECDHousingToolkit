@@ -1,10 +1,10 @@
 Package: OECDHousingToolkit
 Type: Package
-Title: Provide Rmarkdown template to generate chapters of the OECD housing toolkit
-Version: 0.2.0
-Author: Manuel Betin, Maxime Nguyen
+Title: Provide Rmarkdown template to generate chapters of the OECD housing toolkit and OECD Housing horizontal project country fiches
+Version: 0.2.1
+Author: Manuel Betin, Federica Depace, Maxime Nguyen
 Maintainer: The package maintainer <manuel.betin@oecd.org>
-Description: contains all the functions and templates to generate uniform figures, data manipulation and html documents necessary to populate the housing toolkit.
+Description: contains all the functions and templates to generate uniform figures,data manipulation and html documents necessary to populate the housing toolkit. The package also includes a template to generate country fiches
 License: GPL v3 + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -14,5 +14,9 @@ require:
   rmardown,
   countrycode,
   ggrepel,
-  Knit
+  Knit,
+  stringr,
+  lubridate,
+  forcats,
+  fmsb
 RoxygenNote: 7.0.2

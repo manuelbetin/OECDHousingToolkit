@@ -11,6 +11,8 @@ htk_policyradar(data, ctry, title = NULL)
 columns and iso3 codes in rows.}
 
 \item{ctry}{the iso3 code for the selected country}
+
+\item{title}{an optional title for the figure}
 }
 \value{
 fmsl radarchart object
@@ -20,5 +22,5 @@ Radar chart to produce the spider graph
 to display the selected policy variables
 }
 \author{
-Manuel Bétin
+Manuel Betin
 }

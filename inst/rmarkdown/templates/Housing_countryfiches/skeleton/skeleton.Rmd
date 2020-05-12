@@ -6,8 +6,8 @@ output:
     includes:
       in_header: "preamble.tex"
 params:
-  ctry_code: FRA
-  ctry_name: France
+  ctry_code: USA
+  ctry_name: United States
   title: Housing Horizontal Project
 ---
 
@@ -26,7 +26,6 @@ library(rio)
 library(dplyr)
 library(plotly)
 library(forcats)
-library(DiagrammeR)
 library(lubridate)
 library(ggrepel)
 library(stringr)
@@ -34,26 +33,21 @@ library(fmsb)
 library(countrycode)
 library(tidyr)
 library(OECDHousingToolkit)
-source("/Users/federicadepace/Dropbox (QMUL-SEF)/OECD/projects/OECDHousingToolkit/r/htk_cyc.r")
 
-#download the functions necessary for the simulator. 
-#htk_instructions()
 ```
 
 ```{r import data}
-data("resilience_database")
-mydt=resilience_database
-rm(resilience_database)
 
 data("htk_paragraphs")
 dt=htk_paragraphs
 data("htk_Polvars")
 data=htk_Polvars
+data("htk_Outcomevars")
+vars_cluster=htk_Outcomevars
 
 rm(htk_Polvars)
 rm(htk_paragraphs)
-
-vars_cluster=rio::import("/Users/federicadepace/Dropbox (QMUL-SEF)/OECD/projects/OECDHousingToolkit/data/vars_example.xlsx")
+rm(htk_Outcomevars)
 
 vars_cluster <- vars_cluster %>% mutate(Iso_code3=countrycode(country,origin="country.name",destination="iso3c"))
 vars_cluster <- vars_cluster %>%  select(Iso_code3, everything()) %>%
@@ -72,7 +66,6 @@ vars_cluster <- vars_cluster %>%  select(Iso_code3, everything()) %>%
 \newpage
 \bigskip
 
-
 \color{ultramarineblue}
 
 \section{Housing outcomes overview: `r params$ctry_name` }
@@ -88,21 +81,6 @@ The provision of efficient, sustainable and inclusive housing is crucial for the
 \begin{center}
 \section{Efficiency}
 \end{center}
-```{r,eval=F}
-
-**Indicators**
-
-- Probability of house price bear markets/volatilit
-
-- Residenciantial construction as a share of GDP
-
-- Number of years of median household disposable income to buy a 100 meters square
-
-- Long term trend increase in price to income ratios
-
-```
-
-
 
 ```{r Efficiency}
 
@@ -115,7 +93,7 @@ htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names,sec_col, title="Effici
 
 \color{black}
 ```{r Efficiency paragraph, results='asis'}
-myefficiency=dt %>% filter(country=="FRA") %>% dplyr::select(Efficiency)
+myefficiency=dt %>% filter(country==params$ctry_code) %>% dplyr::select(Efficiency)
 cat(myefficiency$Efficiency)
 ```
 \lipsum[2-2]
@@ -130,21 +108,6 @@ cat(myefficiency$Efficiency)
 \end{center}
 
 \color{black}
-
-
-
-```{r eval=F}
-**Indicators**
-
-- Share of households in overcrowded flats
-- Share of people that can afford a 100m square flat within 10 years of disposable income
-- Homeownership
-- Housing wealth inequality
-- Homelessness
-- Regional disparities
-```
-
-
 
 ```{r Inclusiveness}
 var_codes<-c("ovc_tot", "tenure_oo", "mortgage_dispincome")
@@ -171,19 +134,6 @@ cat(myinclusiveness$Inclusiveness)
 \end{center}
 
 \color{black}
-
-
-```{r,eval=F}
-**Indicators**
-
-- CO 2 emissions from housing per capita
-- Local air pollution in large cities
-- Exxtend of urban sprawl
-- Renovation rate to accomodate with zero emission objective
-
-```
-
-
 
 ```{r Sustainability}
 var_codes<-c("ovc_tot", "tenure_oo", "mortgage_dispincome")

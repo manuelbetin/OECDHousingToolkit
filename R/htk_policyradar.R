@@ -6,8 +6,9 @@ htk_policyradar=function(data,ctry,title=NULL){
   #' @param data a dataframe with the policy variables in
   #' columns and iso3 codes in rows.
   #' @param ctry the iso3 code for the selected country
+  #' @param title an optional title for the figure
   #' @return fmsl radarchart object
-  #' @author Manuel Bétin
+  #' @author Manuel Betin
   #' @export
 
   varcodes=c("POL_Rent","POL_Ten","POL_LTV","POL_METR","POL_SPENSOC","POL_Plan","POL_Build")

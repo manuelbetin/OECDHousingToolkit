@@ -15,7 +15,7 @@
 #'@param title title of the plot
 #'@param subtitle subtitle of the plot
 #'@param file name of the file that contains the plot if you decide to save it, filename must end with .png
-#'@param path specify exit path of the file
+#'@param path1 specify exit path of the file
 #'
 #'@return returns a standardized barplot
 #'

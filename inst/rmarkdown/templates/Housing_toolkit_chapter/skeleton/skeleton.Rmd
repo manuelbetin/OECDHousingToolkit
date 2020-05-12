@@ -25,7 +25,6 @@ library(rio)
 library(dplyr)
 library(plotly)
 library(forcats)
-library(DiagrammeR)
 library(lubridate)
 library(ggrepel)
 library(stringr)
@@ -33,7 +32,6 @@ library(OECDHousingToolkit)
 #download the functions necessary for the simulator. 
 #htk_instructions()
 ```
-
 
 
 <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -44,9 +42,9 @@ and catalogue. Before continuing please make sure your database and catalogue
 respect the format of the template. 
 -->
 ```{r Rdata,include=F}
-#mydt=load("V:\\Nguyen_Ma\\BACKUP\\OECDtoolkit\\data\\resilience_database.Rda")
-data("resilience_database")
-mydt=resilience_database
+
+data("htk_resilience")
+mydt=htk_resilience
 rm(resilience_database)
 
 ##change to the path of your database 
@@ -80,176 +78,7 @@ look at diagramR package and documentation for more details
 Remove the entire chunk (```{r diagram} ```) if not relevant
 -->
 </div>
-  
-```{r diagram}
-test=create_graph(graph_name = "Context_graph") %>%
-  #1
-add_node(label="Effect on wellbeing",
-         node_aes = node_aes(shape="oval",
-                             style="solid",
-                             color="darkgreen",
-                             fillcolor="darkgreen",
-                             fontcolor="darkgreen",
-                             fontname = "Times New Roman",
-                             x=0,
-                             y=1,
-                             fontsize =18,
-                             fixedsize = FALSE,
-                             tooltip="Aversion to extreme losses
-                                      Preferences for high growth
-                                      Aversion to volatility"
-                             )
-         
-         ) %>%
-  #2
-add_node(label="Ex-post resilience",
-         node_aes = node_aes(shape="rectangle",
-                            style="solid",
-                            color="darkorange2",
-                            fillcolor="darkorange2",
-                            fontcolor="darkorange2",
-                            fontname = "Times New Roman",
-                            x=-3,
-                            y=1,
-                            fontsize =18,
-                            fixedsize = FALSE,
-                            tooltip="Defined as the capacity to recover from shocks and crises, it is assessed through measures for the i) severity of downturns (peak-to-trough), ii) asymmetries between volatility during boom and bust periods as well as their durations and iii) the strength of the recovery and the time needed to recover, that is, regain the pre-crisis level of output."
-                           )
-         ) %>%
-  #3
-add_node(label="Ex-ante resilience",
-           node_aes = node_aes(shape="rectangle",
-                               style="solid",
-                               color="darkorange2",
-                               fillcolor="darkorange2",
-                               fontcolor="darkorange2",
-                               fontname = "Times New Roman",
-                               x=3,
-                               y=1,
-                               fontsize =18,
-                               fixedsize = FALSE,
-                               tooltip="Defined as the vulnerability to shocks and crises, it is assessed by i) the probability that a shock occurs, and ii) GDP-at-risk, which measures the maximum loss in output with a certain likelihood (e.g. 95%)",
-                               URL = "www.google.com")
-  ) %>%
-# #4
- add_node(label="Adaptative capacity",
-          node_aes = node_aes(shape="rectangle",
-                              style="solid",
-                              color="steelblue",
-                              fillcolor="lighgrey",
-                              fontcolor="",
-                              fontname = "Times New Roman",
-                              x=0,
-                              y=-0.5,
-                              fontsize =13,
-                              fixedsize = FALSE,
-                              tooltip="Refers to rules and policies that can mitigate the effect of crises on ex-post resilience, including monetary and fiscal policy, automatic stabilisers, macroprudential rules, counter-cyclical buffers",
-                              URL = "index.html")) %>%
-# #5
- add_node(label="Exposure",
-          node_aes = node_aes(shape="rectangle",
-                              style="solid",
-                              color="steelblue",
-                              fillcolor="lighgrey",
-                              fontcolor="",
-                              fontname = "Times New Roman",
-                              x=-1.5,
-                              y=2,
-                              fontsize =13,
-                              fixedsize = FALSE,
-                              tooltip="Factors that can threathen the resilience of economies to housing-related shocks : demographic pressures, inelastic supply, financial depth, excessive credit, CA imbalances",
-                              URL = "www.google.com")) %>%
-# #6
- add_node(label="Mitigation",
-          node_aes = node_aes(shape="rectangle",
-                              style="solid",
-                              color="steelblue",
-                              fillcolor="lighgrey",
-                              fontcolor="",
-                              fontname = "Times New Roman",
-                              x=1.5,
-                              y=2,
-                              fontsize =13,
-                              fixedsize = FALSE,
-                              tooltip="Mitigation encompasses policies that can improve the ex-ante resilience, namely macroprudential rules, monetary and fiscal plicy, zoning regulation, rent control and tenure protection, and tax policy",
-                              URL = "www.google.com")) %>%
-# #7
- add_node(label="",
-          node_aes = node_aes(shape="plaintext",
-                              style="invisible",
-                              height=0.02,
-                              width=0.02,
-                              color="white",
-                              fillcolor="white",
-                              fontcolor="",
-                              fontname = "Times New Roman",
-                              x=-3,
-                              y=2,
-                              fontsize =0,
-                              fixedsize = T
-                              )) %>%
-# #8
- add_node(label="",
-          node_aes = node_aes(shape="plaintext",
-                              style="invisible",
-                              height=0.02,
-                              width=0.02,
-                              color="white",
-                              fillcolor="white",
-                              fontcolor="",
-                              fontname = "Times New Roman",
-                              x=3,
-                              y=2,
-                              fontsize =0,
-                              fixedsize = T
-                              )) %>%
-# #9
- add_node(label="",
-          node_aes = node_aes(shape="plaintext",
-                              style="invisible",
-                              height=0.02,
-                              width=0.02,
-                              color="white",
-                              fillcolor="white",
-                              fontcolor="",
-                              fontname = "Times New Roman",
-                              x=-3,
-                              y=-0.5,
-                              fontsize =0,
-                              fixedsize = T
-                              )) %>%
-# #10
- add_node(label="",
-          node_aes = node_aes(shape="plaintext",
-                              style="invisible",
-                              height=0.02,
-                              width=0.02,
-                              color="white",
-                              fillcolor="white",
-                              fontcolor="",
-                              fontname = "Times New Roman",
-                              x=3,
-                              y=-0.5,
-                              fontsize =0,
-                              fixedsize = T
-                              )) %>%
-add_edge(from=2,to=1,edge_aes=edge_aes(color="darkgreen",penwidth = 7)) %>%
-add_edge(from=3,to=1,edge_aes=edge_aes(color="red",penwidth = 7))%>%
-add_edge(from=2,to=9,edge_aes=edge_aes(color="black",penwidth = 2,arrowhead = "none",arrowtail = "none"))%>%
-add_edge(from=9,to=4,edge_aes=edge_aes(color="black",penwidth = 2))%>%
- 
-add_edge(from=4,to=10,edge_aes=edge_aes(color="black",penwidth = 2,arrowhead = "none",arrowtail = "none"))%>%
-add_edge(from=10,to=3,edge_aes=edge_aes(color="black",penwidth = 2))%>%
-  
-add_edge(from=2,to=7,edge_aes=edge_aes(color="black",penwidth = 2,arrowhead = "none",arrowtail = "none"))%>%
-add_edge(from=7,to=5,edge_aes=edge_aes(color="black",penwidth = 2))%>%
-add_edge(from=5,to=6,edge_aes=edge_aes(color="black",penwidth = 2))%>%
-add_edge(from=6,to=8,edge_aes=edge_aes(color="black",penwidth = 2,arrowhead = "none",arrowtail = "none"))%>%
-add_edge(from=8,to=3,edge_aes=edge_aes(color="black",penwidth = 2))%>%
-render_graph()
-test
-```
-
+  [Include diagram]
 <div class="definition_concepts" >
 <details class="more_details">
 <summary>More details</summary>

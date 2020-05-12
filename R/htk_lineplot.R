@@ -7,10 +7,10 @@
 #'@param title title of the plot
 #'@param Xlabel label of the X axis
 #'@param Ylabel label of the Y axis
-#'@param Ymin minimum y value to be displayed
-#'@param Ymax maximum y value to be displayed
-#'@param Ybreak difference between Y ticks
-#'@param Xbreak difference between X ticks
+#'@param ymin minimum y value to be displayed
+#'@param ymax maximum y value to be displayed
+#'@param ybreak difference between Y ticks
+#'@param xbreak difference between X ticks
 #'@param start_date data start date
 #'@param end_date data end date
 #'@param file name of the file containing the plot were it to be saved, name must be followed by .png

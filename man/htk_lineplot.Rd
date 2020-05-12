@@ -21,6 +21,14 @@ htk_lineplot(data = resilience_database, subtitle = ".",
 
 \item{Ylabel}{label of the Y axis}
 
+\item{ymin}{minimum y value to be displayed}
+
+\item{ymax}{maximum y value to be displayed}
+
+\item{ybreak}{difference between Y ticks}
+
+\item{xbreak}{difference between X ticks}
+
 \item{start_date}{data start date}
 
 \item{end_date}{data end date}
@@ -34,14 +42,6 @@ htk_lineplot(data = resilience_database, subtitle = ".",
 \item{height}{height of the image to be saved}
 
 \item{dpi}{resolution}
-
-\item{Ymin}{minimum y value to be displayed}
-
-\item{Ymax}{maximum y value to be displayed}
-
-\item{Ybreak}{difference between Y ticks}
-
-\item{Xbreak}{difference between X ticks}
 }
 \value{
 Returns a standardized single line plot
