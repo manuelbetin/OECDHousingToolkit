@@ -53,6 +53,10 @@ htk_text_generator=function(category,vars,path=NULL){
 
   colnames(dt)=c("country",vars,"Efficiency")
   file.remove("htk_paragraphs.csv")
+  file.remove("Affordability_paragraphs.xml")
+  file.remove("Efficiency_paragraphs.xml")
+  file.remove("Sustainability_paragraphs.xml")
+  file.remove(output)
   rio::export(dt,paste0("htk_paragraphs_",category,".csv"),sep=";")
   dt
 }
