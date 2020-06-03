@@ -6,8 +6,8 @@ output:
     includes:
       in_header: "preamble.tex"
 params:
-  ctry_code: USA
-  ctry_name: United States
+  ctry_code: FRA
+  ctry_name: France
   title: Housing Horizontal Project
 ---
 
@@ -33,6 +33,7 @@ library(fmsb)
 library(countrycode)
 library(tidyr)
 library(OECDHousingToolkit)
+library(rLDCP)
 
 ```
 
@@ -85,20 +86,27 @@ The provision of efficient, sustainable and inclusive housing is crucial for the
 ```{r Efficiency}
 
 var_codes<-c("ovc_tot", "tenure_oo", "mortgage_dispincome")
-var_names=c("House price\nvolatility","Residential\nInvestment", "Affordability")
+var_names=c("Residential\nInvestment","House price\nvolatility", "Affordability")
 sec_col=c("goldenrod")
 htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names,sec_col, title="Efficiency Outcomes")
 
 ```
 
 \color{black}
-```{r Efficiency paragraph, results='asis'}
-myefficiency=dt %>% filter(country==params$ctry_code) %>% dplyr::select(Efficiency)
+```{r Efficiency paragraph, results='asis',include=F}
+
+dt=htk_text_generator("Efficiency",var_codes)
+myefficiency=dt %>% filter(country==params$ctry_name) %>% dplyr::select(Efficiency)
 cat(myefficiency$Efficiency)
+
 ```
-\lipsum[2-2]
 
 
+```{r Efficiency paragraph results, results='asis'}
+
+cat(myefficiency$Efficiency)
+
+```
 
 \columnbreak
 
@@ -110,20 +118,22 @@ cat(myefficiency$Efficiency)
 \color{black}
 
 ```{r Inclusiveness}
-var_codes<-c("ovc_tot", "tenure_oo", "mortgage_dispincome")
-var_names=c("over-crowding","owner-outright", "homelessness")
+var_codes<-c("tenure_rent_subs_bq", "mortgage_GDP", "no_heating_3q")
+var_names=c("over-crowding", "homelessness","owner-outright")
 sec_col=c("deepskyblue")
 
 htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names,sec_col, title="Inclusiveness Outcomes")
 
 ```
 
-```{r Inclusiveness paragraph, results='asis'}
-myinclusiveness=dt %>% filter(country==params$ctry_code) %>% dplyr::select(Inclusiveness)
+```{r Inclusiveness paragraph, results='asis',include=F}
+dt=htk_text_generator("Inclusiveness",var_codes)
+myinclusiveness=dt %>% filter(country==params$ctry_name) %>% dplyr::select(Inclusiveness)
+```
+
+```{r Inclusiveness paragraph results, results='asis'}
 cat(myinclusiveness$Inclusiveness)
 ```
-\lipsum[2-2]
-
 
 \columnbreak
 
@@ -136,7 +146,7 @@ cat(myinclusiveness$Inclusiveness)
 \color{black}
 
 ```{r Sustainability}
-var_codes<-c("ovc_tot", "tenure_oo", "mortgage_dispincome")
+var_codes<-c("room_outright_bq", "hbc_rent_3q", "hbc_rent_bq")
 var_names=c("CO2 emissions","Local air\npollution", "urban\nsprawl")
 sec_col=c("darkgreen")
 
@@ -144,11 +154,15 @@ htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names, sec_col, title="Susta
 
 ```
 
-```{r results='asis'}
-mysustainability=dt %>% filter(country==params$ctry_code) %>% dplyr::select(Sustainability)
+```{r Sustainability paragraph, results='asis',include=F}
+dt=htk_text_generator("Sustainability",var_codes)
+mysustainability=dt %>% filter(country==params$ctry_name) %>% dplyr::select(Sustainability)
+```
+
+```{r Sustainability paragraph results, results='asis'}
 cat(mysustainability$Sustainability)
 ```
-\lipsum[2-2]
+
 
 \end{multicols}
 

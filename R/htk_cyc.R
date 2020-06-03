@@ -68,8 +68,9 @@ htk_CyC=function(mydata,ctry,var_codes,var_names,sec_col, title=NULL){
     geom_point(aes(y=0), shape=1, color='grey', size=2)  +
     geom_point(aes(y=1 ), shape=1, color='grey', size=2) +
     coord_flip() +
-    labs(x = "", y="",
-         title=title) +
+    labs(x = "", y=""
+         #title=title
+         ) +
     theme(panel.background = element_blank(),
           axis.text.x = element_blank(),
           plot.title=element_text(face="bold",colour ="black",size=15, hjust =0.5),
