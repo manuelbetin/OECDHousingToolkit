@@ -77,3 +77,69 @@ htk_generate_ctry_fiches(Rmdfile="nameofRmdfile.Rmd", #name of the template of t
 
 run the code
 
+## Documentation on Linguistic Description of Complex Phenomena
+
+Literature on computational theory of perception
+The NL system is stratefed in 4 strata:
+ - Context: the meaning of NL depends on the domain of experience
+ - Semantic: the meaning ressources stored in the NL system that are acquiredd through experience in terms of meaning feature
+ - Lexico-grammar: the grammatical ressources in the NL system to realize the meaning at the semantical stratum as a a text
+ - Expression: ressources to realize the final expression of text
+
+Text generation = Context => Expression
+Text understanding= Expression => Context
+
+Granular linguistic model of a phenomenon as structured meaning. The structuration is a three step process:
+ - A selection of a set of situation types
+ - In each situation type select a set of figures
+ - For each figure select a set of clauses
+
+Computational perception (CP)
+The computational model of a unit of meaning about the phenomenon to be modeled
+CP is a couple (A,W) with A={a1,...,aN} a set of linguistic expressions that represents the whole linguistic domain of the CP
+W={w1,...wN} set of vqlidity degree, the context of validity depends on the thruthfulness and perceverance of each sentence
+in the context of use.
+
+Perception mapping (PM) are used to create new CP
+PM is a tupple (U,y,g,T)
+U =(u1,...,uN) the input data
+y = output CP y=(Ay,Wy)={(a1,w1),...,(an,Wn)}
+g = aggregation function Wy=g(wu1,...,Wun) with w1,...,Wn a vector of degree validity
+T = Text generqation algorithm that generates the linguistic expression in Ay. T has associated a figure and uses the input DATA to 
+choose the most suitable clauses to describe the current state of the monitored phenomenon. 
+
+GLMP consiste of a network of PMs
+each PM receives a set of input CPs adn transmits upwards a CP. Each output CP is explained by the PM using a set of input CPs. In the 
+network, each CP covers specific aspects of the phenomenon with certqin degree of granularity
+1PM: first order perception mapping => those which are input to the GLMP.
+PMs which input are CPs are called 2PM and their outputs are 2CP.
+
+### The algorithm and technical background
+
+
+Gracian Trivino*, Michio Sugeno, 2012, Towards linguistic descriptions of phenomena, 
+European Centre for Soft Computing, Mieres, Asturias, Spain
+
+
+### papers LDCP
+
+P. Conde-Clemente, Jose M. Alonso, G. Trivino. "rLDCP: R package for text generation form data".
+In Proceedings of the IEEE International Conference on Fuzzy Systems (FUZZ-IEEE), Naples, Italy, 2017 (DOI:10.1109/FUZZ-IEEE.2017.8015487).
+
+https://www.aclweb.org/anthology/W17-3538.pdf
+
+### documentation of the R package
+
+http://phedes.com/rLDCP/
+
+### Country fiche text generation example
+
+[TextGeneration_workflow.pdf](https://github.com/manuelbetin/OECDHousingToolkit/files/4780531/TextGeneration_workflow.pdf)
+
+
+![TextGeneration_workflow](https://user-images.githubusercontent.com/57252006/84664727-4255fd00-af1f-11ea-9140-ad63661b5659.jpg)
+
+
+
+
+
