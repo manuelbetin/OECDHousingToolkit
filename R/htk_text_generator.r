@@ -12,10 +12,10 @@ htk_text_generator=function(category,vars,path=NULL){
   data("htk_Outcomevars")
   htk_Outcomevars=htk_Outcomevars
 
-  current.folder=system.file("extdata", package = "OECDHousingToolkit")
-  local.folder <- "."
-  list.of.files <- list.files(path = current.folder, full.names = TRUE)
-  file.copy(list.of.files, local.folder)
+ # current.folder=system.file("extdata", package = "OECDHousingToolkit")
+#  local.folder <- "."
+#  list.of.files <- list.files(path = current.folder, full.names = TRUE)
+#  file.copy(list.of.files, local.folder)
 
   dt=htk_Outcomevars %>% dplyr::select(country,vars)
   colnames(dt)=c("country","var1","var2")
@@ -52,11 +52,11 @@ htk_text_generator=function(category,vars,path=NULL){
   }
 
   colnames(dt)=c("country",vars,"Efficiency")
-  file.remove("htk_paragraphs.csv")
-  file.remove("Affordability_paragraphs.xml")
-  file.remove("Efficiency_paragraphs.xml")
-  file.remove("Sustainability_paragraphs.xml")
-  file.remove(output)
+#  file.remove("htk_paragraphs.csv")
+#  file.remove("Affordability_paragraphs.xml")
+#  file.remove("Efficiency_paragraphs.xml")
+#  file.remove("Sustainability_paragraphs.xml")
+#  file.remove(output)
   rio::export(dt,paste0("htk_paragraphs_",category,".csv"),sep=";")
   dt
 }
