@@ -1,6 +1,6 @@
 #'@title Text generation
 #'@description generate dynamic text using rLDCP algorithm: the file
-#'take as input a dataset with 4 variables and produce 
+#'take as input a dataset with 4 variables and produce
 #'@author Manuel Betin, Naomi Cohen
 #'@return a dataset containing the values of the indicator for each country
 #'and the paragraph of text interpretating the data
@@ -12,15 +12,15 @@ library(rLDCP)
 ####################################################################
 ###################### input file definition #######################
 ####################################################################
-input1 <- read.csv(file="htk_paragraphs.csv",
-sep=";", dec=".",
-header=TRUE)
+# input1 <- read.csv(file="htk_paragraphs.csv",
+# sep=";", dec=".",
+# header=TRUE)
 
 ####################################################################
 ###################### data definition #############################
 ####################################################################
 
-#input1=htk_paragraphs
+input1=data
 
 replace_value_na=0 #default value when missing data
 
@@ -132,7 +132,7 @@ g_pm_myvar3<- function(u,y){
 
 t_pm_myvar3<- function(y){
 templates <- c(
-" affordability, is not available for this country",  
+" affordability, is not available for this country",
 " affordability, is in the bottom tail",
 " affordability, is below the OECD average",
 " affordability, is slighly below the OECD average",
@@ -160,7 +160,7 @@ g_pm_myvar4<- function(u,y){
 
 t_pm_myvar4<- function(y){
   templates <- c(
-    "The data coverage regarding housing for country is very bad: only ",  
+    "The data coverage regarding housing for country is very bad: only ",
     "The data coverage regarding housing for country is bad: only ",
     "The data coverage regarding housing for country is low: ",
     "The data coverage regarding housing for country is good: ",
@@ -187,7 +187,7 @@ fuzzy_rule(0, 0, 0, 0, 0, 1, 1, 1,
            0, 0, 0, 0, 0, 1, 1, 1,
            0, 0, 0, 0, 0, 1, 1, 1,
            0, 0, 0, 1),
-fuzzy_rule(0, 0, 0, 1, 1, 1 ,0, 0, 
+fuzzy_rule(0, 0, 0, 1, 1, 1 ,0, 0,
            0, 0, 0, 1, 1, 1, 0, 0,
            0, 0, 0, 1, 1, 1, 0, 0,
            0, 0, 1, 0)
@@ -198,7 +198,7 @@ y }
 
 t_pm_Efficiency<- function(y){
 templates <- c(
-" ERROR",  
+" ERROR",
 " Generally speaking, its performance are among the bottom OECD ones",
 " Overall, its performance are in line with the rest of OECD countries",
 " The efficiency of the housing sector is globally among the top OECD performers"
@@ -231,7 +231,7 @@ g_pm_profile<- function(u,y){
                0, 0, 0, 1, 1, 1, 0, 0,
                0, 0, 0, 1, 1, 1, 0, 0,
                0, 1)
-    
+
   ), operator,
   list( u[[1]]$w, u[[2]]$w, u[[3]]$w ))
   y }
@@ -272,42 +272,42 @@ my_glmp <- glmp(list(pm_myvar1 = pm_myvar1,
 ####################################################################
 
 report_method <- function(properties,pm){
-  
+
   ## specific case for no data at all ##
   if((pm$pm_myvar1$u == 0.00000) & (pm$pm_myvar2$u == 0.00000) & (pm$pm_myvar3$u == 0.00000)){
     "There is no data available for this country."
   } else {
-  
+
   ## specific case for extreme values, include ranking of the country ##
   if(str_detect(pm_report(pm$pm_myvar1), "tail")) {
-  x = rank(myvar1)
+  x = rank(myvars[[1]])
   myperc_var1=paste0(pm_report(pm$pm_myvar1), ". Indeed, country is ranked ", ((length(myvar1)+1)-x[i]), " over ", length(myvar1), " (", round(pm$pm_myvar1$u, digits=3),")")
   } else {
     myperc_var1=paste0(pm_report(pm$pm_myvar1)," (", round(pm$pm_myvar1$u, digits=3),")")
   }
-  
+
  if(str_detect(pm_report(pm$pm_myvar2), "tail")) {
-  x = rank(myvar2)
+  x = rank(myvars[[2]])
       if(str_detect(pm_report(pm$pm_myvar1), "tail")) {
       myperc_var2=paste0(str_split(pm_report(pm$pm_myvar2), "(?<=is)", 2, simplify=TRUE)[1], " also", str_split(pm_report(pm$pm_myvar2), "(?<=is)", 2, simplify=TRUE)[2], ". Indeed, country is ranked ", ((length(myvar2)+1)-x[i]), " over ", length(myvar2), " (", round(pm$pm_myvar2$u, digits=3),")")
       } else {
       myperc_var2=paste0(pm_report(pm$pm_myvar2), ". Indeed, country is ranked ", ((length(myvar2)+1)-x[i]), " over ", length(myvar2), " (", round(pm$pm_myvar2$u, digits=3),")")
-  } } 
+  } }
   else {
   myperc_var2=paste0(pm_report(pm$pm_myvar2)," (", round(pm$pm_myvar2$u, digits=3),")")
-  } 
-  
+  }
+
   if(str_detect(pm_report(pm$pm_myvar3), "tail")) {
-  x = rank(myvar3)
+  x = rank(myvars[[3]])
     if(str_detect(pm_report(pm$pm_myvar2), "tail")) {
     myperc_var3=paste0(str_split(pm_report(pm$pm_myvar3), "(?<=is)", 2, simplify=TRUE)[1], " also", str_split(pm_report(pm$pm_myvar3), "(?<=is)", 2, simplify=TRUE)[2], ". Indeed, country is ranked ", ((length(myvar3)+1)-x[i]), " over ", length(myvar3), " (", round(pm$pm_myvar3$u, digits=3),")")
     } else {
     myperc_var3=paste0(pm_report(pm$pm_myvar3), ". Indeed, country is ranked ", ((length(myvar3)+1)-x[i]), " over ", length(myvar3), " (", round(pm$pm_myvar3$u, digits=3),")")
-  } } 
+  } }
   else {
   myperc_var3=paste0(pm_report(pm$pm_myvar3)," (", round(pm$pm_myvar3$u, digits=3),")")
-  } 
-  
+  }
+
   paste (
 pm_report(pm$pm_myvar4), round(pm$pm_myvar4$u*100, digits=2), "% of the indicators are available. ",
 
@@ -321,7 +321,7 @@ if(str_detect(pm$pm_profile, "homogeneous")) {
 },
 
 "The first dimension,",
-myperc_var1, 
+myperc_var1,
 ". The second one,",
 myperc_var2,
 ". Finally, the last indicator of efficiency,",
