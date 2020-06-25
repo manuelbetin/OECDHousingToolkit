@@ -6,8 +6,8 @@ output:
     includes:
       in_header: "preamble.tex"
 params:
-  ctry_code: FRA
-  ctry_name: France
+  ctry_code: USA
+  ctry_name: United States
   title: Housing Horizontal Project
 ---
 
@@ -34,6 +34,7 @@ library(countrycode)
 library(tidyr)
 library(OECDHousingToolkit)
 library(rLDCP)
+
 
 ```
 
@@ -86,7 +87,7 @@ The provision of efficient, sustainable and inclusive housing is crucial for the
 ```{r Efficiency}
 
 var_codes<-c("ovc_tot", "tenure_oo", "mortgage_dispincome")
-var_names=c("Residential\nInvestment","House price\nvolatility", "Affordability")
+var_names=c("Price to income","House price\nvolatility", "Mortgage claims")
 sec_col=c("goldenrod")
 htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names,sec_col, title="Efficiency Outcomes")
 
@@ -94,17 +95,20 @@ htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names,sec_col, title="Effici
 
 \color{black}
 ```{r Efficiency paragraph, results='asis',include=F}
+category="Efficiency"
+vars=c(var_codes,"mortgage_GDP")
+vars_label=c("the price to income ratio","house price volatility","Mortgage claims as percentage of bank assets")
+data=vars_cluster
 
-dt=htk_text_generator("Efficiency",var_codes)
-myefficiency=dt %>% filter(country==params$ctry_name) %>% dplyr::select(Efficiency)
-cat(myefficiency$Efficiency)
-
+dt=htk_text_generator(data %>% filter(country==params$ctry_code),category,vars,vars_label=vars_label)
+paragraph=dt %>% dplyr::select(category)
+cat(paragraph[[category]])
 ```
 
 
 ```{r Efficiency paragraph results, results='asis'}
 
-cat(myefficiency$Efficiency)
+cat(paragraph[[category]])
 
 ```
 
@@ -119,20 +123,28 @@ cat(myefficiency$Efficiency)
 
 ```{r Inclusiveness}
 var_codes<-c("tenure_rent_subs_bq", "mortgage_GDP", "no_heating_3q")
-var_names=c("over-crowding", "homelessness","owner-outright")
+var_names=c("Home ownership", "overburden","overcrowding")
 sec_col=c("deepskyblue")
 
 htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names,sec_col, title="Inclusiveness Outcomes")
 
 ```
 
+
 ```{r Inclusiveness paragraph, results='asis',include=F}
-dt=htk_text_generator("Inclusiveness",var_codes)
-myinclusiveness=dt %>% filter(country==params$ctry_name) %>% dplyr::select(Inclusiveness)
+category="Inclusiveness"
+vars=c(var_codes,"ovc_tot")
+vars_label=c("Home ownership among youth or low income", "over burden rate","over crowding rate")
+data=vars_cluster
+
+dt=htk_text_generator(data %>% filter(country==params$ctry_code),category,vars,vars_label=vars_label)
+paragraph=dt %>% dplyr::select(category)
+cat(paragraph[[category]])
 ```
 
+
 ```{r Inclusiveness paragraph results, results='asis'}
-cat(myinclusiveness$Inclusiveness)
+cat(paragraph[[category]])
 ```
 
 \columnbreak
@@ -147,7 +159,7 @@ cat(myinclusiveness$Inclusiveness)
 
 ```{r Sustainability}
 var_codes<-c("room_outright_bq", "hbc_rent_3q", "hbc_rent_bq")
-var_names=c("CO2 emissions","Local air\npollution", "urban\nsprawl")
+var_names=c("Local air\npollution", "urban\nsprawl","CO2 Emissions")
 sec_col=c("darkgreen")
 
 htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names, sec_col, title="Sustainability Outcomes")
@@ -155,12 +167,18 @@ htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names, sec_col, title="Susta
 ```
 
 ```{r Sustainability paragraph, results='asis',include=F}
-dt=htk_text_generator("Sustainability",var_codes)
-mysustainability=dt %>% filter(country==params$ctry_name) %>% dplyr::select(Sustainability)
+category="Sustainability"
+vars=c(var_codes,"ovc_tot")
+vars_label=c("Local air pollution in large cities", "extend of urban sprawl","CO2 emissions from housing per capita")
+data=vars_cluster
+
+dt=htk_text_generator(data %>% filter(country==params$ctry_code),category,vars,vars_label=vars_label)
+paragraph=dt %>% dplyr::select(category)
+cat(paragraph[[category]])
 ```
 
 ```{r Sustainability paragraph results, results='asis'}
-cat(mysustainability$Sustainability)
+cat(paragraph[[category]])
 ```
 
 

@@ -4,7 +4,8 @@
 #'@description generate dynamic text
 #'@param data dataset with one row per country
 #'@param category name of the category: Efficiency, Affordability, Sustainability
-#'@param vars a vector of four variable names that enter the algorithm
+#'@param vars a vector of four variable codes that enter the algorithm
+#'@param vars_label a vector of three variable name that enter the algorithm
 #'@author Manuel Betin, Federica Depace, Naomi Cohen
 #'@return a dataset containing the values of the indicator for each country
 #'and the paragraph of text interpretating the data

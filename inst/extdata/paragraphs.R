@@ -245,7 +245,7 @@ g_pm_profile<- function(u,y){
 
 t_pm_profile<- function(y){
   templates <- c(
-    paste0("With respect to ", mycategory_label," country displays heterogeneous performances among all three dimensions"),
+    paste0("With respect to ", mycategory_label," the overall performance is difficult to assess"),
     paste0("With respect to ", mycategory_label," efficiency, country displays similar relative performances among all three dimensions")
   )
   return(templates[which.max(y$w)])
@@ -322,7 +322,7 @@ report_method <- function(properties,pm){
   }
 
   paste (
-pm_report(pm$pm_myvar4), round(pm$pm_myvar4$u*100, digits=2), " percent of the indicators are available. ",
+#pm_report(pm$pm_myvar4), round(pm$pm_myvar4$u*100, digits=2), " percent of the indicators are available. ",
 
 pm_report(pm$pm_profile),
 ". ",
@@ -337,9 +337,9 @@ if(str_detect(pm$pm_profile, "similar")) {
 myperc_var1,
 ". The second one,",
 myperc_var2,
-paste0(". Finally, the last indicator of ",mycategory_label,","),
+paste0(". Finally, the last selected indicator of ",mycategory_label,","),
 myperc_var3,
-".",
+". Among the factors contributing to those performance we can mention [More from desks]",
  sep="")
 } }
 
