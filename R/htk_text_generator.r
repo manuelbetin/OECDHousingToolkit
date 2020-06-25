@@ -36,7 +36,7 @@ htk_text_generator=function(data,category,vars){
    local.folder <- "."
    file.copy(paste0(current.folder,"/",output), local.folder,overwrite = T)
   source(output)
-i=1
+
   #include the paragraphs in the database for each country
   dt[[category]]=NA
   for(i in 1:length(dt$country)){
