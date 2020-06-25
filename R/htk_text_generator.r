@@ -35,7 +35,6 @@ htk_text_generator=function(data,category,vars){
    current.folder=system.file("extdata", package = "OECDHousingToolkit")
    local.folder <- "."
    file.copy(paste0(current.folder,"/",output), local.folder)
-
   source(output)
 
   #include the paragraphs in the database for each country
