@@ -14,12 +14,6 @@
 
 htk_text_generator=function(data,category,vars,vars_label){
 
-
-  if(!category %in% c("Efficiency","Sustainability","Inclusiveness")){
-    print("Please select a relevant category: Efficicency, Sustainability or Inclusiveness")
-    stop()
-  }
-
   if(length(vars)!=4){
     print("Please provide three variables")
     stop()
