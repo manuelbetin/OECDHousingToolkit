@@ -32,6 +32,10 @@ myvars=lapply(2:dim(input1)[2],function(x){
   myvar
 })
 
+myvar1_label=vars_label[1]
+myvar2_label=vars_label[2]
+myvar3_label=vars_label[3]
+
 ####################################################################
 ###################### Data Structure definition ##################
 ####################################################################
@@ -73,14 +77,14 @@ y }
 
 t_pm_myvar1 <- function(y){
 templates <- c(
-" residential investment, is not available for this country",
-" residential investment, locates country in the bottom tail of the distribution",
-" residential investment, is below OECD average",
-" residential investment, is slightly below OECD average",
-" residential investment, is close to the OECD average",
-" residential investment, is slightly above OECD average",
-" residential investment, is above OECD average",
-" residential investment, locates country in the upper tail of the distribution"
+paste0(" ",myvar1_label,", is not available for this country"),
+paste0(" ",myvar1_label,", locates country in the bottom tail of the distribution"),
+paste0(" ",myvar1_label,", is below OECD average"),
+paste0(" ",myvar1_label,", is slightly below OECD average"),
+paste0(" ",myvar1_label,", is close to the OECD average"),
+paste0(" ",myvar1_label,", is slightly above OECD average"),
+paste0(" ",myvar1_label,", is above OECD average"),
+paste0(" ",myvar1_label,", locates country in the upper tail of the distribution")
 )
 return(templates[which.max(y$w)])
 }
@@ -104,14 +108,14 @@ y }
 
 t_pm_myvar2<- function(y){
 templates <- c(
-" house price volatility, is not available for this country",
-" house price volatility, is in the bottom tail of the distribution",
-" house price volatility, is below the OECD average",
-" house price volatility, is slightly below the OECD average",
-" house price volatility, is close to the OECD average",
-" house price volatility, is slighly above the OECD average",
-" house price volatility, is above the OECD average",
-" house price volatility, is in the upper tail of the distribution"
+  paste0(" ",myvar2_label,", is not available for this country"),
+  paste0(" ",myvar2_label,", is in the bottom tail of the distribution"),
+  paste0(" ",myvar2_label,", is below the OECD average"),
+  paste0(" ",myvar2_label,", is slightly below the OECD average"),
+  paste0(" ",myvar2_label,", is close to the OECD average"),
+  paste0(" ",myvar2_label,", is slighly above the OECD average"),
+  paste0(" ",myvar2_label,", is above the OECD average"),
+  paste0(" ",myvar2_label,", is in the upper tail of the distribution")
 )
 return(templates[which.max(y$w)])
 }
@@ -134,14 +138,14 @@ g_pm_myvar3<- function(u,y){
 
 t_pm_myvar3<- function(y){
 templates <- c(
-" affordability, is not available for this country",
-" affordability, is in the bottom tail",
-" affordability, is below the OECD average",
-" affordability, is slighly below the OECD average",
-" affordability, is close to the OECD average",
-" affordability, is slighly above the OECD average",
-" affordability, is above the OECD average",
-" affordability, is in the upper tail"
+  paste0(" ",myvar3_label,", is not available for this country"),
+  paste0(" ",myvar3_label,",is in the bottom tail"),
+  paste0(" ",myvar3_label,", is below the OECD average"),
+  paste0(" ",myvar3_label,", is slighly below the OECD average"),
+  paste0(" ",myvar3_label,", is close to the OECD average"),
+  paste0(" ",myvar3_label,", is slighly above the OECD average"),
+  paste0(" ",myvar3_label,", is above the OECD average"),
+  paste0(" ",myvar3_label,", is in the upper tail")
 )
 return(templates[which.max(y$w)])
 }
@@ -162,11 +166,11 @@ g_pm_myvar4<- function(u,y){
 
 t_pm_myvar4<- function(y){
   templates <- c(
-    "The data coverage regarding housing for country is very bad: only ",
-    "The data coverage regarding housing for country is bad: only ",
-    "The data coverage regarding housing for country is low: ",
-    "The data coverage regarding housing for country is good: ",
-    "The data coverage regarding housing for country is very good: "
+    "The data coverage regarding housing for country is very scarce: only ",
+    "The data coverage regarding housing for country is sarce: only ",
+    "The data coverage regarding housing for country is scarce: ",
+    "The data coverage regarding housing for country is relatively comprehensive: ",
+    "The data coverage regarding housing for country is comprehensive: "
   )
   return(templates[which.max(y$w)])
 }
@@ -241,7 +245,7 @@ g_pm_profile<- function(u,y){
 t_pm_profile<- function(y){
   templates <- c(
     "With respect to efficiency, country displays heterogeneous performances among all three dimensions",
-    "With respect to efficiency, country displays homogeneous performances among all three dimensions"
+    "With respect to efficiency, country displays similar relative performances among all three dimensions"
   )
   return(templates[which.max(y$w)])
 }
@@ -323,7 +327,7 @@ pm_report(pm$pm_profile),
 ". ",
 
  ## no overall performance if heterogeneous ##
-if(str_detect(pm$pm_profile, "homogeneous")) {
+if(str_detect(pm$pm_profile, "similar")) {
   pm_report(pm$pm_Efficiency)
 } else {
 },
