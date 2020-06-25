@@ -4,10 +4,14 @@
 \alias{htk_text_generator}
 \title{Create dynamique text from}
 \usage{
-htk_text_generator(category, vars, path = NULL)
+htk_text_generator(data, category, vars)
 }
 \arguments{
+\item{data}{dataset with one row per country}
+
 \item{category}{name of the category: Efficiency, Affordability, Sustainability}
+
+\item{vars}{a vector of four variable names that enter the algorithm}
 }
 \value{
 a dataset containing the values of the indicator for each country
@@ -17,5 +21,5 @@ and the paragraph of text interpretating the data
 generate dynamic text
 }
 \author{
-Manuel Betin, Federica Depace
+Manuel Betin, Federica Depace, Naomi Cohen
 }
