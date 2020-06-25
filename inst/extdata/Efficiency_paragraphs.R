@@ -283,17 +283,21 @@ report_method <- function(properties,pm){
   ## specific case for extreme values, include ranking of the country ##
   if(str_detect(pm_report(pm$pm_myvar1), "tail")) {
   x = rank(myvars[[1]])
-  myperc_var1=paste0(pm_report(pm$pm_myvar1), ". Indeed, country is ranked ", ((length(myvars[[1]])+1)-x[i]), " over ", length(myvars[[1]]), " (", round(pm$pm_myvar1$u, digits=3),")")
+  ctry_x=rank(myvars[[1]])[match(pm$pm_myvar1$u ,myvars[[1]])]
+
+  myperc_var1=paste0(pm_report(pm$pm_myvar1), ". Indeed, country is ranked ", ((length(myvars[[1]])+1)-ctry_x), " over ", length(myvars[[1]]), " (", round(pm$pm_myvar1$u, digits=3),")")
   } else {
     myperc_var1=paste0(pm_report(pm$pm_myvar1)," (", round(pm$pm_myvar1$u, digits=3),")")
   }
 
  if(str_detect(pm_report(pm$pm_myvar2), "tail")) {
   x = rank(myvars[[2]])
+  ctry_x=rank(myvars[[2]])[match(pm$pm_myvar2$u ,myvars[[2]])]
+
       if(str_detect(pm_report(pm$pm_myvar1), "tail")) {
-      myperc_var2=paste0(str_split(pm_report(pm$pm_myvar2), "(?<=is)", 2, simplify=TRUE)[1], " also", str_split(pm_report(pm$pm_myvar2), "(?<=is)", 2, simplify=TRUE)[2], ". Indeed, country is ranked ", ((length(myvars[[2]])+1)-x[i]), " over ", length(myvars[[2]]), " (", round(pm$pm_myvar2$u, digits=3),")")
+      myperc_var2=paste0(str_split(pm_report(pm$pm_myvar2), "(?<=is)", 2, simplify=TRUE)[1], " also", str_split(pm_report(pm$pm_myvar2), "(?<=is)", 2, simplify=TRUE)[2], ". Indeed, country is ranked ", ((length(myvars[[2]])+1)-ctry_x), " over ", length(myvars[[2]]), " (", round(pm$pm_myvar2$u, digits=3),")")
       } else {
-      myperc_var2=paste0(pm_report(pm$pm_myvar2), ". Indeed, country is ranked ", ((length(myvars[[2]])+1)-x[i]), " over ", length(myvars[[2]]), " (", round(pm$pm_myvar2$u, digits=3),")")
+      myperc_var2=paste0(pm_report(pm$pm_myvar2), ". Indeed, country is ranked ", ((length(myvars[[2]])+1)-ctry_x), " over ", length(myvars[[2]]), " (", round(pm$pm_myvar2$u, digits=3),")")
   } }
   else {
   myperc_var2=paste0(pm_report(pm$pm_myvar2)," (", round(pm$pm_myvar2$u, digits=3),")")
@@ -301,10 +305,12 @@ report_method <- function(properties,pm){
 
   if(str_detect(pm_report(pm$pm_myvar3), "tail")) {
   x = rank(myvars[[3]])
+  ctry_x=rank(myvars[[3]])[match(pm$pm_myvar3$u ,myvars[[3]])]
+
     if(str_detect(pm_report(pm$pm_myvar2), "tail")) {
-    myperc_var3=paste0(str_split(pm_report(pm$pm_myvar3), "(?<=is)", 2, simplify=TRUE)[1], " also", str_split(pm_report(pm$pm_myvar3), "(?<=is)", 2, simplify=TRUE)[2], ". Indeed, country is ranked ", ((length(myvars[[3]])+1)-x[i]), " over ", length(myvars[[3]]), " (", round(pm$pm_myvar3$u, digits=3),")")
+    myperc_var3=paste0(str_split(pm_report(pm$pm_myvar3), "(?<=is)", 2, simplify=TRUE)[1], " also", str_split(pm_report(pm$pm_myvar3), "(?<=is)", 2, simplify=TRUE)[2], ". Indeed, country is ranked ", ((length(myvars[[3]])+1)-ctry_x), " over ", length(myvars[[3]]), " (", round(pm$pm_myvar3$u, digits=3),")")
     } else {
-    myperc_var3=paste0(pm_report(pm$pm_myvar3), ". Indeed, country is ranked ", ((length(myvars[[3]])+1)-x[i]), " over ", length(myvars[[3]]), " (", round(pm$pm_myvar3$u, digits=3),")")
+    myperc_var3=paste0(pm_report(pm$pm_myvar3), ". Indeed, country is ranked ", ((length(myvars[[3]])+1)-ctry_x), " over ", length(myvars[[3]]), " (", round(pm$pm_myvar3$u, digits=3),")")
   } }
   else {
   myperc_var3=paste0(pm_report(pm$pm_myvar3)," (", round(pm$pm_myvar3$u, digits=3),")")
