@@ -32,6 +32,7 @@ myvars=lapply(2:dim(input1)[2],function(x){
   myvar
 })
 
+mycategory_label=category
 myvar1_label=vars_label[1]
 myvar2_label=vars_label[2]
 myvar3_label=vars_label[3]
@@ -244,8 +245,8 @@ g_pm_profile<- function(u,y){
 
 t_pm_profile<- function(y){
   templates <- c(
-    "With respect to efficiency, country displays heterogeneous performances among all three dimensions",
-    "With respect to efficiency, country displays similar relative performances among all three dimensions"
+    paste0("With respect to ", mycategory_label," country displays heterogeneous performances among all three dimensions"),
+    paste0("With respect to ", mycategory_label," efficiency, country displays similar relative performances among all three dimensions")
   )
   return(templates[which.max(y$w)])
 }
@@ -336,7 +337,7 @@ if(str_detect(pm$pm_profile, "similar")) {
 myperc_var1,
 ". The second one,",
 myperc_var2,
-". Finally, the last indicator of efficiency,",
+paste0(". Finally, the last indicator of ",mycategory_label,","),
 myperc_var3,
 ".",
  sep="")

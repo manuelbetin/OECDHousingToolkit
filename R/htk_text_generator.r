@@ -13,6 +13,7 @@
 
 htk_text_generator=function(data,category,vars,vars_label){
 
+
   if(!category %in% c("Efficiency","Sustainability","Inclusiveness")){
     print("Please select a relevant category: Efficicency, Sustainability or Inclusiveness")
     stop()
