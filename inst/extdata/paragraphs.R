@@ -328,10 +328,10 @@ pm_report(pm$pm_profile),
 ". ",
 
  ## no overall performance if heterogeneous ##
-if(str_detect(pm$pm_profile, "similar")) {
-  pm_report(pm$pm_Efficiency)
-} else {
-},
+#if(str_detect(pm$pm_profile, "similar")) {
+  pm_report(pm$pm_Efficiency),
+#} else {
+#},
 
 "The first dimension,",
 myperc_var1,
