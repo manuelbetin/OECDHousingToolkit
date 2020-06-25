@@ -24,7 +24,9 @@ input1=data
 
 replace_value_na=0 #default value when missing data
 
-myvars=lapply(2:dim(input1)[2],function(x){
+non_num_vars=input1 %>% select_if(is.character)
+
+myvars=lapply((dim(non_num_vars)[2]+1):dim(input1)[2],function(x){
   myvar <- c(base::t(input1[x]))
   myvar=myvar%>%replace_na(replace_value_na)
   myvar
