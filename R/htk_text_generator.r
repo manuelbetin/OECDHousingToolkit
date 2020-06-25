@@ -31,7 +31,7 @@ htk_text_generator=function(data,category,vars,vars_label){
   #export data
   # rio::export(dt,paste0("htk_paragraphs.csv"),sep=";")
 
-  output <-paste0(category,"_paragraphs.R")
+  output <-"paragraphs.R"
 
    current.folder=system.file("extdata", package = "OECDHousingToolkit")
    local.folder <- "."
