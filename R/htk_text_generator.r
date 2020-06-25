@@ -32,9 +32,9 @@ htk_text_generator=function(data,category,vars){
 
   output <-paste0(category,"_paragraphs.R")
 
-  # current.folder=system.file("extdata", package = "OECDHousingToolkit")
-  # local.folder <- "."
-  # file.copy(paste0(current.folder,"/",output), local.folder)
+   current.folder=system.file("extdata", package = "OECDHousingToolkit")
+   local.folder <- "."
+   file.copy(paste0(current.folder,"/",output), local.folder)
 
   source(output)
 
@@ -48,8 +48,7 @@ htk_text_generator=function(data,category,vars){
     dt[i,category]=text
   }
   colnames(dt)=c("country",vars,category)
-  #file.remove(output)
-  #file.remove("htk_paragraphs.csv")
+  file.remove(output)
   #rio::export(dt,paste0("htk_paragraphs_",category,".csv"),sep=";")
   dt
 }
