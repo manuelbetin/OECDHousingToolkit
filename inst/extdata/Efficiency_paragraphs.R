@@ -20,7 +20,7 @@ library(rLDCP)
 ###################### data definition #############################
 ####################################################################
 
-input1=data
+input1=dt
 
 replace_value_na=0 #default value when missing data
 
@@ -317,7 +317,7 @@ report_method <- function(properties,pm){
   }
 
   paste (
-pm_report(pm$pm_myvar4), round(pm$pm_myvar4$u*100, digits=2), "percent of the indicators are available. ",
+pm_report(pm$pm_myvar4), round(pm$pm_myvar4$u*100, digits=2), " percent of the indicators are available. ",
 
 pm_report(pm$pm_profile),
 ". ",
