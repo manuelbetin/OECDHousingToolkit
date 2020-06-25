@@ -41,7 +41,7 @@ htk_text_generator=function(data,category,vars){
   dt[[category]]=NA
   for(i in 1:length(dt$country)){
     ctry=dt[i,"country"]
-    current_input <- c(round(myvars[[1]][i],2),round(myvars[[2]][i],2),round(myvars[[3]][i],2),round(myvars[[4]][i],2))
+    current_input <- c(round(dt[i,2],2),round(dt[i,3],2),round(dt[i,4],2),round(dt[i,5],2))
     my_ldcp <- ldcp_run(ldcp=my_ldcp,input=current_input)
     text=gsub("country",ctry,my_ldcp$report$description)
     dt[i,category]=text
