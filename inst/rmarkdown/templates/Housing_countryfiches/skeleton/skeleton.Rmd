@@ -43,9 +43,15 @@ library(rLDCP)
 data("htk_paragraphs")
 dt=htk_paragraphs
 data("htk_Polvars")
-data=htk_Polvars
+data_polvar=htk_Polvars
+
+
 data("htk_Outcomevars")
 vars_cluster=htk_Outcomevars
+
+# vars_cluster=rio::import("country_fiches_data.xlsx")
+# vars_cluster=vars_cluster %>% mutate(period=year(as.Date(period,format="%d/%m/%Y"))) %>%
+#   filter(period==2018)
 
 rm(htk_Polvars)
 rm(htk_paragraphs)
@@ -55,6 +61,95 @@ vars_cluster <- vars_cluster %>% mutate(Iso_code3=countrycode(country,origin="co
 vars_cluster <- vars_cluster %>%  select(Iso_code3, everything()) %>%
   rename(country_name=country,
          country=Iso_code3)
+vars_cluster=vars_cluster %>% gather(key=key,value=value,-c("country","country_name")) %>% group_by(country) %>%
+  mutate(dispo_var=mean(ifelse(!is.na(value),1,0))) %>% spread(key=key,value) %>% ungroup() %>% data.frame()
+
+
+
+htk_text_generator=function(data,category,vars,vars_label){
+
+  if(length(vars)!=4){
+    print("Please provide four variables, the three first for the
+          indicators and the last for the overall quality of data")
+    stop()
+  }
+
+  #select the variables in the database
+  dt=data %>% dplyr::select(country,vars)
+  colnames(dt)=c("country","var1","var2","var3","var4")
+
+  #export data
+  # rio::export(dt,paste0("htk_paragraphs.csv"),sep=";")
+
+  output <-"paragraphs.R"
+
+   #current.folder=system.file("extdata", package = "OECDHousingToolkit")
+   #local.folder <- "."
+   #file.copy(paste0(current.folder,"/",output), local.folder,overwrite = T)
+   source(output)
+
+  #include the paragraphs in the database for each country
+  dt[[category]]=NA
+  for(i in 1:length(dt$country)){
+    ctry=dt[i,"country"]
+    current_input <- c(round(dt[i,2],2),round(dt[i,3],2),round(dt[i,4],2),round(dt[i,5],2))
+    my_ldcp <- ldcp_run(ldcp=my_ldcp,input=current_input)
+    text=gsub("country",countrycode(ctry,origin="iso3c",destination="country.name"),my_ldcp$report$description)
+    dt[i,category]=text
+  }
+  colnames(dt)=c("country",vars,category)
+ # file.remove(output)
+  #rio::export(dt,paste0("htk_paragraphs_",category,".csv"),sep=";")
+  dt
+}
+
+htk_policyradar=function(data,ctry,title=NULL){
+
+  #' @title Radar chart for policy variables
+  #' @description Radar chart to produce the spider graph
+  #' to display the selected policy variables
+  #' @param data a dataframe with the policy variables in
+  #' columns and iso3 codes in rows.
+  #' @param ctry the iso3 code for the selected country
+  #' @param title an optional title for the figure
+  #' @return fmsl radarchart object
+  #' @author Manuel Betin
+  #' @export
+
+  varcodes=c("POL_Rent","POL_Ten","POL_LTV","POL_METR","POL_SPENSOC","POL_Plan","POL_Build")
+  #Make sure all dimension are present in the database
+  if(any(colnames(data) %in% varcodes)){
+
+    #filter the selected country
+    data=data %>% filter(country %in% c("min","max",ctry,"OECD")) #%>% dplyr::select(-country,varcodes)
+    data=rbind(rep(0,7),rep(5,7),data)
+    rownames(data)=data$country
+    data=data%>% dplyr::select(varcodes)
+    #use proper label names
+    colnames(data) <- c("Rent control\n stringency","Tenant protection\n stringency","Mortgage\ninterest\nrelief","Marginal effective\ntax rate\non mortgage","Housing\nallowances", "Planning \n systems","Building and energy \n code stringency")
+
+    # set colors
+    colors_border=c(rgb(0,0,1,1),rgb(1,0,0,0.3))
+    colors_in=c(rgb(0,0,1,0.5),rgb(1,0,0,0.3))
+
+    # plot the radar chart
+    radarchart( data  , axistype=4 ,
+                title=title,
+                #custom polygon
+                pcol=colors_border , pfcol=colors_in , plwd=1 , plty=1,pty=16,
+                #custom the grid
+                cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(1,5,1), cglwd=1,
+                #custom labels
+
+                vlcex=0.7
+    ) %>%
+      legend(x=0.85, y=-0.7,
+             legend = c(ctry,"OECD"),
+             bty = "n", pch=20 , col=colors_in , text.col = c("black","darkgrey"), cex=0.8, pt.cex=3)
+  }
+
+}
+
 
 ```
 
@@ -70,7 +165,7 @@ vars_cluster <- vars_cluster %>%  select(Iso_code3, everything()) %>%
 
 \color{ultramarineblue}
 
-\section{Housing outcomes overview: `r params$ctry_name` }
+\section{Housing Sector Outcomes}
 
 \color{black}
 
@@ -87,16 +182,16 @@ The provision of efficient, sustainable and inclusive housing is crucial for the
 ```{r Efficiency}
 
 var_codes<-c("ovc_tot", "tenure_oo", "mortgage_dispincome")
-var_names=c("Price to income","House price\nvolatility", "Mortgage claims")
+var_names=c("Price to\nincome","House price\nvolatility", "Mortgage \nclaims")
 sec_col=c("goldenrod")
-htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names,sec_col, title="Efficiency Outcomes")
 
+htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names,sec_col, title="Efficiency Outcomes")
 ```
 
 \color{black}
 ```{r Efficiency paragraph, results='asis',include=F}
 category="efficiency"
-vars=c(var_codes,"mortgage_GDP")
+vars=c(var_codes,"dispo_var")
 vars_label=c("the price to income ratio","house price volatility","Mortgage claims as percentage of bank assets")
 data=vars_cluster
 
@@ -106,11 +201,13 @@ cat(paragraph[[category]])
 ```
 
 
+\small
 ```{r Efficiency paragraph results, results='asis'}
 
 cat(paragraph[[category]])
 
 ```
+
 
 \columnbreak
 
@@ -123,7 +220,7 @@ cat(paragraph[[category]])
 
 ```{r Inclusiveness}
 var_codes<-c("tenure_rent_subs_bq", "mortgage_GDP", "no_heating_3q")
-var_names=c("Home ownership", "overburden","overcrowding")
+var_names=c("Home\nownership", "overburden","overcrowding")
 sec_col=c("deepskyblue")
 
 htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names,sec_col, title="Inclusiveness Outcomes")
@@ -159,7 +256,7 @@ cat(paragraph[[category]])
 
 ```{r Sustainability}
 var_codes<-c("room_outright_bq", "hbc_rent_3q", "hbc_rent_bq")
-var_names=c("Local air\npollution", "urban\nsprawl","CO2 Emissions")
+var_names=c("Local air\npollution", "urban\nsprawl","CO2\nEmissions")
 sec_col=c("darkgreen")
 
 htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names, sec_col, title="Sustainability Outcomes")
@@ -191,40 +288,45 @@ cat(paragraph[[category]])
 \begin{tabular}{l  l}
 \parbox[t]{0.35\textwidth}{
 \color{ultramarineblue}
-\section{Housing policies overview: `r params$ctry_name` }
+\section{Housing Sector Policies Variables:}
 
 \color{black}
 \lipsum[2-2]
 \bigskip
 
-```{r fig.height =  4,fig.width = 5,fig.align="center"}
-htk_policyradar(data,params$ctry_code)
+```{r fig.height =  6,fig.width = 6,fig.align="center"}
+#correct legend that as potentially an error
+htk_policyradar(data_polvar,params$ctry_code)
 ```
 }
 &
 \parbox[t]{0.2\textwidth}{
 \color{ultramarineblue}
-\section{Indicators}
+\section{Definitions}
 \color{black}
-\small
+\footnotesize
 \begin{tabular}{ l p{11cm} }
 \hline
 \hline
+\multicolumn{2}{c}{}        \\
 \multicolumn{2}{c}{\color{Goldenrod}\bf{Efficiency}}        \\
+\multicolumn{2}{c}{}        \\
 \color{Goldenrod}\bf {Residential Investment} & Difference in number of dwellings that were completed during a given year  \\
 & and are ready to be occupied between two consecutive quarters \\
 \color{Goldenrod}\bf {House Price Volatility} & Standard deviation of (real) house price index  \\
-\color{Goldenrod}\bf {Affordability} &  Ratio between (real) house price index and median  yearly income \\
+\color{Goldenrod}\bf {Price to income} &  Ratio between (real) house price index and median  yearly income \\
+& \\
+\color{Goldenrod}\bf {Mortgage claims} &  add definition \\
 & \\
 \multicolumn{2}{c}{\color{ProcessBlue}\bf{Inclusiveness}}        \\
-\color{ProcessBlue}\bf{  Owner-outright }  & Percentage of household that owns the dwelling and has no outstanding \\ 
-& mortgage related to the dwelling \\
+\multicolumn{2}{c}{}        \\
+\color{ProcessBlue}\bf{  Home ownership}  & add definition \\
 \color{ProcessBlue}\bf{  Over-crowding } & Percentage of household that does not have at its disposal a minimum \\ 
 & number of rooms \\
-\color{ProcessBlue}\bf{  Homelessness } & Percentage of people  living in the streets or public spaces without \\
- & a shelter that can be defined as living quarters  \\
+\color{ProcessBlue}\bf{  Over burden } & add definition  \\
  & \\
 \multicolumn{2}{c}{\color{Green}\bf{Sustainability}}        \\
+\multicolumn{2}{c}{}        \\
 \color{Green}\bf{  Local air pollution} & Presence of contaminant or pollutant substances in the air that do not \\ 
 & disperse properly and that interfere with human health or welfare, \\
 & or produce other harmful environmental effects \\
@@ -232,6 +334,7 @@ htk_policyradar(data,params$ctry_code)
 \color{Green}\bf{  Urban sprawl} & Low average urban population density  \\
 & \\
 \multicolumn{2}{c}{\color{ultramarineblue}\bf{Policy}}        \\
+\multicolumn{2}{c}{}        \\
 \color{ultramarineblue}\bf {Rent control stringency} & The rent control indicator measures the extent of rental regulation \\
 & in the private rental market by country. \\
 & It considers the presence of controls on rent levels and rent increases   \\

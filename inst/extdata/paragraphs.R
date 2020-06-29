@@ -32,7 +32,16 @@ myvars=lapply(2:dim(input1)[2],function(x){
   myvar
 })
 
+#provide the labels to the indicators and the categories that will be
+#used in the text
+
+definition=c(efficiency="the capacity of the sector to propose affordable and qualitative housing conditions",
+             inclusiveness="[Add definition]",
+             sustainability="[Add definition")
+
+
 mycategory_label=category
+mycategory_definition=definition[[mycategory_label]]
 myvar1_label=vars_label[1]
 myvar2_label=vars_label[2]
 myvar3_label=vars_label[3]
@@ -44,7 +53,7 @@ myvar3_label=vars_label[3]
 input <- c()
 
 my_method <- function (input){
-input
+  input
 }
 
 my_data <- data_structure(input,my_method)
@@ -56,7 +65,7 @@ cp_myvar1 <- cp("cp_myvar1", c("cp_error1", "myvar1_lowtail", "myvar1_low", "myv
 cp_myvar2 <- cp("cp_myvar2", c("cp_error2", "myvar2_lowtail", "myvar2_low", "myvar2_slow", "myvar2_medium", "myvar2_shigh", "myvar2_high","myvar2_uptail"))
 cp_myvar3 <- cp("cp_myvar3", c("cp_error3", "myvar3_lowtail", "myvar3_low", "myvar3_slow", "myvar3_medium", "myvar3_shigh", "myvar3_high","myvar3_uptail"))
 cp_myvar4 <- cp("cp_myvar4", c("cp_error4", "myvar4_verybad", "myvar4_bad", "myvar4_low", "myvar4_good", "myvar4_verygood"))
-cp_profile <- cp("cp_Efficiency", c("Homogeneous","Heterogeneous"))
+cp_profile <- cp("cp_profile", c("Homogeneous","Heterogeneous"))
 cp_Efficiency <- cp("cp_Efficiency", c("all_low","avg","all_high"))
 
 ####################################################################
@@ -65,29 +74,29 @@ cp_Efficiency <- cp("cp_Efficiency", c("all_low","avg","all_high"))
 
 ## myvar1
 g_pm_myvar1 <- function(u,y){
- y$w <- degree_mf(fuzzy_partitions(
-   triangle_mf(0, 0, 0),
-   triangle_mf(0.00001, 0.1, 0.15),
-   trapezoid_mf(0.15, 0.15, 0.35, 0.35) ,
-   trapezoid_mf(0.35, 0.35, 0.4, 0.45),
-   triangle_mf(0.4, 0.5, 0.6) ,
-   trapezoid_mf(0.55, 0.55, 0.6, 0.65),
-   trapezoid_mf(0.65, 0.65, 0.85, 0.85),
-   triangle_mf(0.85, 0.95, 1)), u)
-y }
+  y$w <- degree_mf(fuzzy_partitions(
+    triangle_mf(0, 0, 0),
+    triangle_mf(0.00001, 0.1, 0.15),
+    trapezoid_mf(0.15, 0.15, 0.35, 0.35) ,
+    trapezoid_mf(0.35, 0.35, 0.4, 0.45),
+    triangle_mf(0.4, 0.5, 0.6) ,
+    trapezoid_mf(0.55, 0.55, 0.6, 0.65),
+    trapezoid_mf(0.65, 0.65, 0.85, 0.85),
+    triangle_mf(0.85, 0.95, 1)), u)
+  y }
 
 t_pm_myvar1 <- function(y){
-templates <- c(
-paste0(" ",myvar1_label,", is not available for this country"),
-paste0(" ",myvar1_label,", locates country in the bottom tail of the distribution"),
-paste0(" ",myvar1_label,", is below OECD average"),
-paste0(" ",myvar1_label,", is slightly below OECD average"),
-paste0(" ",myvar1_label,", is close to the OECD average"),
-paste0(" ",myvar1_label,", is slightly above OECD average"),
-paste0(" ",myvar1_label,", is above OECD average"),
-paste0(" ",myvar1_label,", locates country in the upper tail of the distribution")
-)
-return(templates[which.max(y$w)])
+  templates <- c(
+    paste0(" ",myvar1_label,", is not available for this country"),
+    paste0(" ",myvar1_label,", locates country in the bottom tail of the distribution"),
+    paste0(" ",myvar1_label,", is relatively far below OECD average"),
+    paste0(" ",myvar1_label,", is slightly below OECD average"),
+    paste0(" ",myvar1_label,", is close to the OECD average"),
+    paste0(" ",myvar1_label,", is slightly above OECD average"),
+    paste0(" ",myvar1_label,", is relatively far above OECD average"),
+    paste0(" ",myvar1_label,", locates country in the upper tail of the distribution")
+  )
+  return(templates[which.max(y$w)])
 }
 
 pm_myvar1 <- rLDCP::pm(y=cp_myvar1, g=g_pm_myvar1, t=t_pm_myvar1)
@@ -96,29 +105,29 @@ pm_myvar1 <- rLDCP::pm(y=cp_myvar1, g=g_pm_myvar1, t=t_pm_myvar1)
 
 ## myvar2
 g_pm_myvar2<- function(u,y){
- y$w <- degree_mf(fuzzy_partitions(
-   triangle_mf(0, 0, 0),
-   triangle_mf(0.0001, 0.1, 0.15),
-   trapezoid_mf(0.15, 0.15, 0.35, 0.35) ,
-   trapezoid_mf(0.35, 0.35, 0.4, 0.45),
-   triangle_mf(0.4, 0.5, 0.6) ,
-   trapezoid_mf(0.55, 0.6, 0.65, 0.65),
-   trapezoid_mf(0.65, 0.65, 0.85, 0.85),
-   triangle_mf(0.85, 0.9, 1)), u)
-y }
+  y$w <- degree_mf(fuzzy_partitions(
+    triangle_mf(0, 0, 0),
+    triangle_mf(0.0001, 0.1, 0.15),
+    trapezoid_mf(0.15, 0.15, 0.35, 0.35) ,
+    trapezoid_mf(0.35, 0.35, 0.4, 0.45),
+    triangle_mf(0.4, 0.5, 0.6) ,
+    trapezoid_mf(0.55, 0.6, 0.65, 0.65),
+    trapezoid_mf(0.65, 0.65, 0.85, 0.85),
+    triangle_mf(0.85, 0.9, 1)), u)
+  y }
 
 t_pm_myvar2<- function(y){
-templates <- c(
-  paste0(" ",myvar2_label,", is not available for this country"),
-  paste0(" ",myvar2_label,", is in the bottom tail of the distribution"),
-  paste0(" ",myvar2_label,", is below the OECD average"),
-  paste0(" ",myvar2_label,", is slightly below the OECD average"),
-  paste0(" ",myvar2_label,", is close to the OECD average"),
-  paste0(" ",myvar2_label,", is slighly above the OECD average"),
-  paste0(" ",myvar2_label,", is above the OECD average"),
-  paste0(" ",myvar2_label,", is in the upper tail of the distribution")
-)
-return(templates[which.max(y$w)])
+  templates <- c(
+    paste0(" ",myvar2_label,", is not available for this country"),
+    paste0(" ",myvar2_label,", is in the bottom tail of the distribution"),
+    paste0(" ",myvar2_label,", is in the lower third of the distribution"),
+    paste0(" ",myvar2_label,", is slightly below the average"),
+    paste0(" ",myvar2_label,", is close to the average"),
+    paste0(" ",myvar2_label,", is slighly above the average"),
+    paste0(" ",myvar2_label,", is between the 65th and 85th percentile"),
+    paste0(" ",myvar2_label,", is in the upper tail of the distribution")
+  )
+  return(templates[which.max(y$w)])
 }
 
 pm_myvar2 <- rLDCP::pm(y=cp_myvar2, g=g_pm_myvar2, t=t_pm_myvar2)
@@ -127,7 +136,7 @@ pm_myvar2 <- rLDCP::pm(y=cp_myvar2, g=g_pm_myvar2, t=t_pm_myvar2)
 
 ## myvar3
 g_pm_myvar3<- function(u,y){
- y$w <- degree_mf(fuzzy_partitions(
+  y$w <- degree_mf(fuzzy_partitions(
     triangle_mf(0, 0, 0),
     triangle_mf(0.0001 , 0.1, 0.15),
     trapezoid_mf(0.15, 0.15, 0.35, 0.35) ,
@@ -135,20 +144,20 @@ g_pm_myvar3<- function(u,y){
     trapezoid_mf(0.55, 0.55, 0.6, 0.65),
     trapezoid_mf(0.65, 0.65, 0.85, 0.85),
     triangle_mf(0.85, 0.95, 1)), u)
- y }
+  y }
 
 t_pm_myvar3<- function(y){
-templates <- c(
-  paste0(" ",myvar3_label,", is not available for this country"),
-  paste0(" ",myvar3_label,",is in the bottom tail"),
-  paste0(" ",myvar3_label,", is below the OECD average"),
-  paste0(" ",myvar3_label,", is slighly below the OECD average"),
-  paste0(" ",myvar3_label,", is close to the OECD average"),
-  paste0(" ",myvar3_label,", is slighly above the OECD average"),
-  paste0(" ",myvar3_label,", is above the OECD average"),
-  paste0(" ",myvar3_label,", is in the upper tail")
-)
-return(templates[which.max(y$w)])
+  templates <- c(
+    paste0(" ",myvar3_label,", is not available for this country"),
+    paste0(" ",myvar3_label,",is in the bottom tail"),
+    paste0(" ",myvar3_label,", is among the 35 percent lower performing economies"),
+    paste0(" ",myvar3_label,", is slighly below the average"),
+    paste0(" ",myvar3_label,", is close to the average"),
+    paste0(" ",myvar3_label,", is slighly above the average"),
+    paste0(" ",myvar3_label,", is among the 35 percent better performing economies"),
+    paste0(" ",myvar3_label,", is in the upper tail")
+  )
+  return(templates[which.max(y$w)])
 }
 
 pm_myvar3 <- rLDCP::pm(y=cp_myvar3, g=g_pm_myvar3, t=t_pm_myvar3)
@@ -163,7 +172,7 @@ g_pm_myvar4<- function(u,y){
     triangle_mf(0.4, 0.5, 0.6),
     triangle_mf(0.6, 0.7, 0.8),
     triangle_mf(0.8, 0.9, 1)), u)
- y }
+  y }
 
 t_pm_myvar4<- function(y){
   templates <- c(
@@ -183,34 +192,33 @@ pm_myvar4 <- rLDCP::pm(y=cp_myvar4, g=g_pm_myvar4, t=t_pm_myvar4)
 ## overall performance
 
 g_pm_Efficiency<- function(u,y){
-operator <- operator(  min , max )
- y$w <- infer_rules(fuzzy_rules(
+  operator <- operator(  min , max )
+  y$w <- infer_rules(fuzzy_rules(
 
-fuzzy_rule(0, 1, 1, 1, 0, 0, 0, 0,
-           0, 1, 1, 1, 0, 0, 0, 0,
-           0, 1, 1, 1, 0, 0, 0, 0,
-           0, 1, 0, 0),
-fuzzy_rule(0, 0, 0, 0, 0, 1, 1, 1,
-           0, 0, 0, 0, 0, 1, 1, 1,
-           0, 0, 0, 0, 0, 1, 1, 1,
-           0, 0, 0, 1),
-fuzzy_rule(0, 0, 0, 1, 1, 1 ,0, 0,
-           0, 0, 0, 1, 1, 1, 0, 0,
-           0, 0, 0, 1, 1, 1, 0, 0,
-           0, 0, 1, 0)
+    fuzzy_rule(0, 1, 1, 1, 0, 0, 0, 0,
+               0, 1, 1, 1, 0, 0, 0, 0,
+               0, 1, 1, 1, 0, 0, 0, 0,
+               1, 0, 0),
+    fuzzy_rule(0, 0, 0, 0, 0, 1, 1, 1,
+               0, 0, 0, 0, 0, 1, 1, 1,
+               0, 0, 0, 0, 0, 1, 1, 1,
+               0, 0, 1),
+    fuzzy_rule(0, 0, 1, 1, 1, 1 ,0, 0,
+               0, 0, 1, 1, 1, 1, 0, 0,
+               0, 0, 1, 1, 1, 1, 0, 0,
+               0, 1, 0)
 
-), operator,
-list( u[[1]]$w, u[[2]]$w, u[[3]]$w ))
-y }
+  ), operator,
+  list( u[[1]]$w, u[[2]]$w, u[[3]]$w))
+  y }
 
 t_pm_Efficiency<- function(y){
-templates <- c(
-" ERROR",
-" Generally speaking, its performance are among the bottom OECD ones",
-" Overall, its performance are in line with the rest of OECD countries",
-" The efficiency of the housing sector is globally among the top OECD performers"
-)
-return(templates[which.max(y$w)])
+  templates <- c(
+    " Generally speaking, its performance are among the bottom OECD ones",
+    " Overall, its performance are in line with the rest of OECD countries",
+    " country is globally among the top OECD performers"
+  )
+  return(templates[which.max(y$w)])
 }
 
 pm_Efficiency <- rLDCP::pm(y=cp_Efficiency, g=g_pm_Efficiency, t=t_pm_Efficiency)
@@ -226,13 +234,13 @@ g_pm_profile<- function(u,y){
                1, 0, 0, 0, 0, 0, 0, 0,
                1, 0, 0, 0, 0, 0, 0, 0,
                1, 0),
-    fuzzy_rule(0, 1, 1, 1, 0, 0, 0, 0,
-               0, 1, 1, 1, 0, 0, 0, 0,
-               0, 1, 1, 1, 0, 0, 0, 0,
+    fuzzy_rule(0, 1, 1, 1, 1, 0, 0, 0,
+               0, 1, 1, 1, 1, 0, 0, 0,
+               0, 1, 1, 1, 1, 0, 0, 0,
                0, 1),
-    fuzzy_rule(0, 0, 0, 0, 0, 1, 1, 1,
-               0, 0, 0, 0, 0, 1, 1, 1,
-               0, 0, 0, 0, 0, 1, 1, 1,
+    fuzzy_rule(0, 0, 0, 0, 1, 1, 1, 1,
+               0, 0, 0, 0, 1, 1, 1, 1,
+               0, 0, 0, 0, 1, 1, 1, 1,
                0, 1),
     fuzzy_rule(0, 0, 0, 1, 1, 1, 0, 0,
                0, 0, 0, 1, 1, 1, 0, 0,
@@ -244,9 +252,9 @@ g_pm_profile<- function(u,y){
   y }
 
 t_pm_profile<- function(y){
-  templates <- c(
-    paste0("With respect to ", mycategory_label," the overall performance is difficult to assess"),
-    paste0("With respect to ", mycategory_label," efficiency, country displays similar relative performances among all three dimensions")
+  templates <- c( #The performances of country are mixed along the three main indicators:
+    paste0(" The overall performance of country is difficult to assess based on the three main indicators: ",myvar1_label, ", ", myvar2_label, " and ",myvar3_label, '. '),
+    paste0(" country displays similar relative performances among all three dimensions: ",myvar1_label, ", ", myvar2_label, " and ",myvar3_label, '. ')
   )
   return(templates[which.max(y$w)])
 }
@@ -258,13 +266,13 @@ pm_profile <- rLDCP::pm(y=cp_profile, g=g_pm_profile, t=t_pm_profile)
 ####################################################################
 
 glmp_method <- function(pm,input){
-pm$pm_myvar1  <- pm_infer(pm$pm_myvar1, input[1])
-pm$pm_myvar2  <- pm_infer(pm$pm_myvar2, input[2])
-pm$pm_myvar3  <- pm_infer(pm$pm_myvar3, input[3])
-pm$pm_myvar4  <- pm_infer(pm$pm_myvar4, input[4])
-pm$pm_Efficiency  <- pm_infer(pm$pm_Efficiency, list(pm$pm_myvar1$y,pm$pm_myvar2$y,pm$pm_myvar3$y))
-pm$pm_profile  <- pm_infer(pm$pm_profile, list(pm$pm_myvar1$y,pm$pm_myvar2$y,pm$pm_myvar3$y))
-pm
+  pm$pm_myvar1  <- pm_infer(pm$pm_myvar1, input[1])
+  pm$pm_myvar2  <- pm_infer(pm$pm_myvar2, input[2])
+  pm$pm_myvar3  <- pm_infer(pm$pm_myvar3, input[3])
+  pm$pm_myvar4  <- pm_infer(pm$pm_myvar4, input[4])
+  pm$pm_Efficiency  <- pm_infer(pm$pm_Efficiency, list(pm$pm_myvar1$y,pm$pm_myvar2$y,pm$pm_myvar3$y))
+  pm$pm_profile  <- pm_infer(pm$pm_profile, list(pm$pm_myvar1$y,pm$pm_myvar2$y,pm$pm_myvar3$y))
+  pm
 }
 my_glmp <- glmp(list(pm_myvar1 = pm_myvar1,
                      pm_myvar2 = pm_myvar2,
@@ -278,70 +286,55 @@ my_glmp <- glmp(list(pm_myvar1 = pm_myvar1,
 ###################### Report Template definition ##################
 ####################################################################
 
+report_no_data=function(var1,var2,var3){
+  if((var1 == 0.00000) & (var2== 0.00000) & (var3 == 0.00000)){
+    no_data= "There is no data available for this country."
+  }else{
+    no_data=1}
+  return(no_data)
+}
+
+report_tail=function(var){ #error in the function the rank is not displaying properly
+  if(str_detect(pm_report(var), "tail")) {
+    x = rank(round(myvars[[1]],3))
+    ctry_x=as.numeric(rank(myvars[[1]])[match(round(var[["u"]],3) ,round(myvars[[1]],3))])
+    #myperc_var=paste0(pm_report(var), ". Indeed, country is ranked ", ((length(myvars[[1]])+1)-ctry_x), " over ", length(myvars[[1]]), " (", round(var[["u"]], digits=3),") countries")
+    myperc_var=paste0(pm_report(var)," (", round(var[["u"]], digits=3),")")
+  } else {
+    myperc_var=paste0(pm_report(var)," (", round(var[["u"]], digits=3),")")
+  }
+  return(myperc_var)
+}
+
 report_method <- function(properties,pm){
 
   ## specific case for no data at all ##
-  if((pm$pm_myvar1$u == 0.00000) & (pm$pm_myvar2$u == 0.00000) & (pm$pm_myvar3$u == 0.00000)){
-    "There is no data available for this country."
-  } else {
+
+  no_data=report_no_data(pm$pm_myvar1$u,pm$pm_myvar2$u,pm$pm_myvar3$u)
 
   ## specific case for extreme values, include ranking of the country ##
-  if(str_detect(pm_report(pm$pm_myvar1), "tail")) {
-  x = rank(myvars[[1]])
-  ctry_x=rank(myvars[[1]])[match(pm$pm_myvar1$u ,myvars[[1]])]
+  if(no_data==1){
+    myperc_var1=report_tail(pm$pm_myvar1)
+    myperc_var2=report_tail(pm$pm_myvar2)
+    myperc_var3=report_tail(pm$pm_myvar3)
 
-  myperc_var1=paste0(pm_report(pm$pm_myvar1), ". Indeed, country is ranked ", ((length(myvars[[1]])+1)-ctry_x), " over ", length(myvars[[1]]), " (", round(pm$pm_myvar1$u, digits=3),")")
-  } else {
-    myperc_var1=paste0(pm_report(pm$pm_myvar1)," (", round(pm$pm_myvar1$u, digits=3),")")
-  }
-
- if(str_detect(pm_report(pm$pm_myvar2), "tail")) {
-  x = rank(myvars[[2]])
-  ctry_x=rank(myvars[[2]])[match(pm$pm_myvar2$u ,myvars[[2]])]
-
-      if(str_detect(pm_report(pm$pm_myvar1), "tail")) {
-      myperc_var2=paste0(str_split(pm_report(pm$pm_myvar2), "(?<=is)", 2, simplify=TRUE)[1], " also", str_split(pm_report(pm$pm_myvar2), "(?<=is)", 2, simplify=TRUE)[2], ". Indeed, country is ranked ", ((length(myvars[[2]])+1)-ctry_x), " over ", length(myvars[[2]]), " (", round(pm$pm_myvar2$u, digits=3),")")
-      } else {
-      myperc_var2=paste0(pm_report(pm$pm_myvar2), ". Indeed, country is ranked ", ((length(myvars[[2]])+1)-ctry_x), " over ", length(myvars[[2]]), " (", round(pm$pm_myvar2$u, digits=3),")")
-  } }
-  else {
-  myperc_var2=paste0(pm_report(pm$pm_myvar2)," (", round(pm$pm_myvar2$u, digits=3),")")
-  }
-
-  if(str_detect(pm_report(pm$pm_myvar3), "tail")) {
-  x = rank(myvars[[3]])
-  ctry_x=rank(myvars[[3]])[match(pm$pm_myvar3$u ,myvars[[3]])]
-
-    if(str_detect(pm_report(pm$pm_myvar2), "tail")) {
-    myperc_var3=paste0(str_split(pm_report(pm$pm_myvar3), "(?<=is)", 2, simplify=TRUE)[1], " also", str_split(pm_report(pm$pm_myvar3), "(?<=is)", 2, simplify=TRUE)[2], ". Indeed, country is ranked ", ((length(myvars[[3]])+1)-ctry_x), " over ", length(myvars[[3]]), " (", round(pm$pm_myvar3$u, digits=3),")")
-    } else {
-    myperc_var3=paste0(pm_report(pm$pm_myvar3), ". Indeed, country is ranked ", ((length(myvars[[3]])+1)-ctry_x), " over ", length(myvars[[3]]), " (", round(pm$pm_myvar3$u, digits=3),")")
-  } }
-  else {
-  myperc_var3=paste0(pm_report(pm$pm_myvar3)," (", round(pm$pm_myvar3$u, digits=3),")")
-  }
-
-  paste (
-#pm_report(pm$pm_myvar4), round(pm$pm_myvar4$u*100, digits=2), " percent of the indicators are available. ",
-
-pm_report(pm$pm_profile),
-". ",
-
- ## no overall performance if heterogeneous ##
-#if(str_detect(pm$pm_profile, "similar")) {
-  pm_report(pm$pm_Efficiency),
-#} else {
-#},
-
-"The first dimension,",
-myperc_var1,
-". The second one,",
-myperc_var2,
-paste0(". Finally, the last selected indicator of ",mycategory_label,","),
-myperc_var3,
-". Among the factors contributing to those performance we can mention [More from desks]",
- sep="")
-} }
+    paste (
+      str_to_title(mycategory_label), " is defined as ",mycategory_definition,".",
+      #pm_report(pm$pm_myvar4), round(pm$pm_myvar4$u*100, digits=2), " percent of the indicators are available. ",
+      pm_report(pm$pm_profile),
+      ". ",
+      ## no overall performance if heterogeneous ##
+      pm_report(pm$pm_Efficiency),
+      "The first dimension,",
+      myperc_var1,
+      ". The second one,",
+      myperc_var2,
+      paste0(". Finally, the last selected indicator of ",mycategory_label,","),
+      myperc_var3,
+      ". Among the factors contributing to those performances we can mention [More from desks]",
+      sep="")
+  } #close if(no_data)
+}
 
 properties = NULL
 my_report <- report_template(properties,report_method)

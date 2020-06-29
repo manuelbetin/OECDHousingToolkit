@@ -39,7 +39,7 @@ htk_policyradar=function(data,ctry,title=NULL){
                 vlcex=0.7
     ) %>%
       legend(x=0.85, y=-0.7,
-             legend = rownames(data[-c(1,2),]),
+             legend = c(ctry,"OECD"),
              bty = "n", pch=20 , col=colors_in , text.col = c("black","darkgrey"), cex=0.8, pt.cex=3)
   }
 
