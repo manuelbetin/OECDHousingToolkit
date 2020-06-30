@@ -74,9 +74,9 @@ cp_myvar1 <- cp("cp_myvar1", c("nodata","myvar1_lowtail", "myvar1_low", "myvar1_
 cp_myvar2 <- cp("cp_myvar2", c("nodata","myvar2_lowtail", "myvar2_low", "myvar2_slow", "myvar2_medium", "myvar2_shigh", "myvar2_high","myvar2_uptail"))
 cp_myvar3 <- cp("cp_myvar3", c("nodata","myvar3_lowtail", "myvar3_low", "myvar3_slow", "myvar3_medium", "myvar3_shigh", "myvar3_high","myvar3_uptail"))
 
-cp_myvar1_sub <- cp("nodata","cp_myvar1_sub", c("myvar1_sub_lowtail", "myvar1_sub_low", "myvar1_sub_slow", "myvar1_sub_medium", "myvar1_sub_shigh", "myvar1_sub_high","myvar1_sub_uptail"))
-cp_myvar2_sub <- cp("nodata","cp_myvar2_sub", c("myvar2_sub_lowtail", "myvar2_sub_low", "myvar2_sub_slow", "myvar2_sub_medium", "myvar2_sub_shigh", "myvar2_sub_high","myvar2_sub_uptail"))
-cp_myvar3_sub <- cp("nodata","cp_myvar3_sub", c("myvar3_sub_lowtail", "myvar3_sub_low", "myvar3_sub_slow", "myvar3_sub_medium", "myvar3_sub_shigh", "myvar3_sub_high","myvar3_sub_uptail"))
+cp_myvar1_sub <- cp("cp_myvar1_sub", c("nodata","myvar1_sub_lowtail", "myvar1_sub_low", "myvar1_sub_slow", "myvar1_sub_medium", "myvar1_sub_shigh", "myvar1_sub_high","myvar1_sub_uptail"))
+cp_myvar2_sub <- cp("cp_myvar2_sub", c("nodata","myvar2_sub_lowtail", "myvar2_sub_low", "myvar2_sub_slow", "myvar2_sub_medium", "myvar2_sub_shigh", "myvar2_sub_high","myvar2_sub_uptail"))
+cp_myvar3_sub <- cp("cp_myvar3_sub", c("nodata","myvar3_sub_lowtail", "myvar3_sub_low", "myvar3_sub_slow", "myvar3_sub_medium", "myvar3_sub_shigh", "myvar3_sub_high","myvar3_sub_uptail"))
 
 cp_profile <- cp("cp_profile", c("Homogeneous","Heterogeneous"))
 cp_Efficiency <- cp("cp_Efficiency", c("all_low","avg","all_high"))
@@ -183,7 +183,6 @@ g_pm_myvar1_sub<- function(u,y){
   operator <- operator(  min , max )
   y$w <- infer_rules(fuzzy_rules(
 
-
     fuzzy_rule( 0, 1, 1, 1, 1, 1, 1 ,1,
                 1, 1, 1, 1, 1, 1, 1 ,1,
                 1, 0, 0, 0),
@@ -191,7 +190,7 @@ g_pm_myvar1_sub<- function(u,y){
                 0, 0, 0, 0, 0, 1, 1 ,1,
                 0, 0, 0, 1),
     fuzzy_rule( 1, 0, 0, 0, 0, 0, 0 ,0,
-                0, 0, 1, 1 ,1 ,0 ,0 ,0,
+                0, 0, 0, 1 ,1 ,1 ,0 ,0,
                 0, 0, 1, 0),
     fuzzy_rule( 1, 0, 0, 0, 0, 0, 0 ,0,
                 0, 1, 1, 1 ,0 ,0 , 0,0,
@@ -290,7 +289,6 @@ g_pm_Efficiency<- function(u,y){
   operator <- operator(  min , max )
   y$w <- infer_rules(fuzzy_rules(
 
-
     fuzzy_rule( 0, 1, 1, 1, 0, 0, 0, 0 ,
                 0, 1, 1, 1, 0, 0, 0, 0 ,
                 0, 1, 1, 1, 0, 0, 0, 0 ,
@@ -349,7 +347,6 @@ t_pm_profile<- function(y){
   )
   return(templates[which.max(y$w)])
 }
-
 pm_profile <- pm(y=cp_profile, g=g_pm_profile, t=t_pm_profile)
 
 ####################################################################
@@ -417,16 +414,14 @@ report_method <- function(properties,pm){
 
     paste (
       str_to_title(mycategory_label), " is defined as ",mycategory_definition,".",
-      #pm_report(pm$pm_myvar4), round(pm$pm_myvar4$u*100, digits=2), " percent of the indicators are available. ",
       pm_report(pm$pm_profile),
-      ## no overall performance if heterogeneous ##
       pm_report(pm$pm_Efficiency),
       "The first dimension,",
       myperc_var1,pm_report(pm$pm_myvar1_sub),
       " The second one,",
-      myperc_var2,pm_report(pm$pm_myvar1_sub),
+      myperc_var2,pm_report(pm$pm_myvar2_sub),
       paste0(". Finally, the last selected indicator of ",mycategory_label),
-      myperc_var3,pm_report(pm$pm_myvar1_sub),
+      myperc_var3,pm_report(pm$pm_myvar3_sub),
       ". Among the factors contributing to those performances we can mention [More from desks]",
       sep="")
   } #close if(no_data)
