@@ -14,17 +14,17 @@
 #'@export
 #'
 
-htk_text_generator=function(data,category,vars,vars_label){
+htk_text_generator=function(data,category,main_vars,main_vars_label,sub_vars=NULL,sub_vars_label=NULL){
 
-  if(length(vars)!=4){
+  if(length(main_vars)!=3){
     print("Please provide four variables, the three first for the
           indicators and the last for the overall quality of data")
     stop()
   }
 
   #select the variables in the database
-  dt=data %>% dplyr::select(country,vars)
-  colnames(dt)=c("country","var1","var2","var3","var4")
+  dt=data %>% dplyr::select(country,main_vars)
+  #colnames(dt)=c("country","var1","var2","var3")
 
   #export data
   # rio::export(dt,paste0("htk_paragraphs.csv"),sep=";")
@@ -36,6 +36,7 @@ htk_text_generator=function(data,category,vars,vars_label){
    file.copy(paste0(current.folder,"/",output), local.folder,overwrite = T)
    source(output)
 
+
   #include the paragraphs in the database for each country
   dt[[category]]=NA
   for(i in 1:length(dt$country)){
@@ -45,7 +46,7 @@ htk_text_generator=function(data,category,vars,vars_label){
     text=gsub("country",countrycode(ctry,origin="iso3c",destination="country.name"),my_ldcp$report$description)
     dt[i,category]=text
   }
-  colnames(dt)=c("country",vars,category)
+  colnames(dt)=c("country",main_vars,category)
   file.remove(output)
   #rio::export(dt,paste0("htk_paragraphs_",category,".csv"),sep=";")
   dt
