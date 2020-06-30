@@ -44,13 +44,13 @@ definition=c(efficiency="the capacity of the sector to propose affordable and qu
 
 mycategory_label=category
 mycategory_definition=definition[[mycategory_label]]
-myvar1_label=vars_label[1]
+myvar1_label=main_vars_label[1]
 myvar1_sub_label="[Indicator of replacement]"
 
-myvar2_label=vars_label[2]
+myvar2_label=main_vars_label[2]
 myvar2_sub_label="[Indicator of replacement]"
 
-myvar3_label=vars_label[3]
+myvar3_label=main_vars_label[3]
 myvar3_sub_label="[Indicator of replacement]"
 
 ####################################################################
