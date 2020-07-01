@@ -144,7 +144,7 @@ t_pm_myvar2<- function(y){
 }
 
 
-pm_myvar2 <- rLDCP::rLDCP::pm(y=cp_myvar2, g=g_pm_myvar2, t=t_pm_myvar2)
+pm_myvar2 <- rLDCP::pm(y=cp_myvar2, g=g_pm_myvar2, t=t_pm_myvar2)
 
 #########################################
 ## myvar3: third main indicator
