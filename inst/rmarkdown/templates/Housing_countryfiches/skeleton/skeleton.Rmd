@@ -99,16 +99,17 @@ var_names=c("Price to\nincome","House price\nvolatility", "Mortgage \nclaims")
 sec_col=c("goldenrod")
 
 htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names,sec_col, title="Efficiency Outcomes")
+
 ```
 
 \color{black}
 ```{r Efficiency paragraph, results='asis',include=F}
 category="efficiency"
-vars=c(var_codes,"dispo_var")
-vars_label=c("the price to income ratio","house price volatility","Mortgage claims as percentage of bank assets")
+main_vars=var_codes
+main_vars_label=c("the price to income ratio","house price volatility","Mortgage claims as percentage of bank assets")
 data=vars_cluster
 
-dt=htk_text_generator(data %>% filter(country==params$ctry_code),category,vars,vars_label=vars_label)
+dt=htk_text_generator(data %>% filter(country==params$ctry_code),category,main_vars,main_vars_label=main_vars_label)
 paragraph=dt %>% dplyr::select(category)
 cat(paragraph[[category]])
 ```
@@ -143,11 +144,11 @@ htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names,sec_col, title="Inclus
 
 ```{r Inclusiveness paragraph, results='asis',include=F}
 category="inclusiveness"
-vars=c(var_codes,"ovc_tot")
-vars_label=c("Home ownership among youth or low income", "over burden rate","over crowding rate")
+main_vars=var_codes
+main_vars_label=c("Home ownership among youth or low income", "over burden rate","over crowding rate")
 data=vars_cluster
 
-dt=htk_text_generator(data %>% filter(country==params$ctry_code),category,vars,vars_label=vars_label)
+dt=htk_text_generator(data %>% filter(country==params$ctry_code),category,main_vars,main_vars_label=main_vars_label)
 paragraph=dt %>% dplyr::select(category)
 cat(paragraph[[category]])
 ```
@@ -178,11 +179,11 @@ htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names, sec_col, title="Susta
 
 ```{r Sustainability paragraph, results='asis',include=F}
 category="sustainability"
-vars=c(var_codes,"ovc_tot")
-vars_label=c("Local air pollution in large cities", "extend of urban sprawl","CO2 emissions from housing per capita")
+main_vars=var_codes
+main_vars_label=c("Local air pollution in large cities", "extend of urban sprawl","CO2 emissions from housing per capita")
 data=vars_cluster
 
-dt=htk_text_generator(data %>% filter(country==params$ctry_code),category,vars,vars_label=vars_label)
+dt=htk_text_generator(data %>% filter(country==params$ctry_code),category,main_vars,main_vars_label=main_vars_label)
 paragraph=dt %>% dplyr::select(category)
 cat(paragraph[[category]])
 ```
@@ -264,5 +265,4 @@ htk_policyradar(data_polvar,params$ctry_code)
 \end{tabular}
 }
 \end{tabular}
-
 
