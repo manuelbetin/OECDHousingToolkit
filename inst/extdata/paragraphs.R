@@ -113,7 +113,7 @@ t_pm_myvar1 <- function(y){
   return(templates[which.max(y$w)])
 }
 
-pm_myvar1 <- pm(y=cp_myvar1, g=g_pm_myvar1, t=t_pm_myvar1)
+pm_myvar1 <- rLDCP::pm(y=cp_myvar1, g=g_pm_myvar1, t=t_pm_myvar1)
 
 #########################################
 ## myvar2: second main indicator
@@ -144,7 +144,7 @@ t_pm_myvar2<- function(y){
 }
 
 
-pm_myvar2 <- rLDCP::pm(y=cp_myvar2, g=g_pm_myvar2, t=t_pm_myvar2)
+pm_myvar2 <- rLDCP::rLDCP::pm(y=cp_myvar2, g=g_pm_myvar2, t=t_pm_myvar2)
 
 #########################################
 ## myvar3: third main indicator
@@ -209,7 +209,7 @@ t_pm_myvar1_sub<- function(y){
   return(templates[which.max(y$w)])
 }
 
-pm_myvar1_sub <- pm(y=cp_myvar1_sub, g=g_pm_myvar1_sub, t=t_pm_myvar1_sub)
+pm_myvar1_sub <- rLDCP::pm(y=cp_myvar1_sub, g=g_pm_myvar1_sub, t=t_pm_myvar1_sub)
 
 #########################################
 ## myvar2_sub: replacement value if myvar2 is missing
@@ -245,7 +245,7 @@ t_pm_myvar2_sub<- function(y){
   return(templates[which.max(y$w)])
 }
 
-pm_myvar2_sub <- pm(y=cp_myvar2_sub, g=g_pm_myvar2_sub, t=t_pm_myvar2_sub)
+pm_myvar2_sub <- rLDCP::pm(y=cp_myvar2_sub, g=g_pm_myvar2_sub, t=t_pm_myvar2_sub)
 
 #########################################
 ## myvar1_sub: replacement value if myvar2 is missing
@@ -281,7 +281,7 @@ t_pm_myvar3_sub<- function(y){
   return(templates[which.max(y$w)])
 }
 
-pm_myvar3_sub <- pm(y=cp_myvar3_sub, g=g_pm_myvar3_sub, t=t_pm_myvar3_sub)
+pm_myvar3_sub <- rLDCP::pm(y=cp_myvar3_sub, g=g_pm_myvar3_sub, t=t_pm_myvar3_sub)
 
 #########################################
 # global performance over the three indicators
@@ -315,7 +315,7 @@ t_pm_Efficiency<- function(y){
   return(templates[which.max(y$w)])
 }
 
-pm_Efficiency <- pm(y=cp_Efficiency, g=g_pm_Efficiency, t=t_pm_Efficiency)
+pm_Efficiency <- rLDCP::pm(y=cp_Efficiency, g=g_pm_Efficiency, t=t_pm_Efficiency)
 
 #########################################
 # Homogeneity of performance over the three main indicators
@@ -347,7 +347,7 @@ t_pm_profile<- function(y){
   )
   return(templates[which.max(y$w)])
 }
-pm_profile <- pm(y=cp_profile, g=g_pm_profile, t=t_pm_profile)
+pm_profile <- rLDCP::pm(y=cp_profile, g=g_pm_profile, t=t_pm_profile)
 
 ####################################################################
 ###################### GLMP definition ##############################
