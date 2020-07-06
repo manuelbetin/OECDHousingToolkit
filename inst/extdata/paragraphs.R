@@ -42,7 +42,7 @@ definition=c(efficiency="the capacity of the sector to propose affordable and qu
              sustainability="[Add definition")
 
 
-mycategory_label=category
+mycategory_label=tolower(category)
 mycategory_definition=definition[[mycategory_label]]
 myvar1_label=main_vars_label[1]
 myvar1_sub_label="[Indicator of replacement]"
@@ -163,7 +163,7 @@ g_pm_myvar3<- function(u,y){
 t_pm_myvar3<- function(y){
   templates <- c(
     paste0(" ",myvar3_label,", is not available for this country"),
-    paste0(" ",myvar3_label,",is in the bottom tail"),
+    paste0(" ",myvar3_label,", is in the bottom tail"),
     paste0(" ",myvar3_label,", is among the 35 percent lower performing economies"),
     paste0(" ",myvar3_label,", is slighly below the average"),
     paste0(" ",myvar3_label,", is close to the average"),
@@ -182,7 +182,7 @@ pm_myvar3 <- rLDCP::pm(y=cp_myvar3, g=g_pm_myvar3, t=t_pm_myvar3)
 g_pm_myvar1_sub<- function(u,y){
   operator <- operator(  min , max )
   y$w <- infer_rules(fuzzy_rules(
-
+    
     fuzzy_rule( 0, 1, 1, 1, 1, 1, 1 ,1,
                 1, 1, 1, 1, 1, 1, 1 ,1,
                 1, 0, 0, 0),
@@ -217,8 +217,8 @@ pm_myvar1_sub <- rLDCP::pm(y=cp_myvar1_sub, g=g_pm_myvar1_sub, t=t_pm_myvar1_sub
 g_pm_myvar2_sub<- function(u,y){
   operator <- operator(  min , max )
   y$w <- infer_rules(fuzzy_rules(
-
-
+    
+    
     fuzzy_rule( 0, 1, 1, 1, 1, 1, 1 ,1,
                 1, 1, 1, 1, 1, 1, 1 ,1,
                 1, 0, 0, 0),
@@ -253,8 +253,8 @@ pm_myvar2_sub <- rLDCP::pm(y=cp_myvar2_sub, g=g_pm_myvar2_sub, t=t_pm_myvar2_sub
 g_pm_myvar3_sub<- function(u,y){
   operator <- operator(  min , max )
   y$w <- infer_rules(fuzzy_rules(
-
-
+    
+    
     fuzzy_rule( 0, 1, 1, 1, 1, 1, 1 ,1,
                 1, 1, 1, 1, 1, 1, 1 ,1,
                 1, 0, 0, 0),
@@ -288,7 +288,7 @@ pm_myvar3_sub <- rLDCP::pm(y=cp_myvar3_sub, g=g_pm_myvar3_sub, t=t_pm_myvar3_sub
 g_pm_Efficiency<- function(u,y){
   operator <- operator(  min , max )
   y$w <- infer_rules(fuzzy_rules(
-
+    
     fuzzy_rule( 0, 1, 1, 1, 0, 0, 0, 0 ,
                 0, 1, 1, 1, 0, 0, 0, 0 ,
                 0, 1, 1, 1, 0, 0, 0, 0 ,
@@ -323,7 +323,7 @@ pm_Efficiency <- rLDCP::pm(y=cp_Efficiency, g=g_pm_Efficiency, t=t_pm_Efficiency
 g_pm_profile<- function(u,y){
   operator <- operator(  min , max )
   y$w <- infer_rules(fuzzy_rules(
-
+    
     fuzzy_rule( 0, 1, 1, 1, 0, 0, 0, 0,
                 0, 1, 1, 1, 0, 0, 0, 0,
                 0, 1, 1, 1, 0, 0, 0, 0,
@@ -357,11 +357,11 @@ glmp_method <- function(pm,input){
   pm$pm_myvar1  <- pm_infer(pm$pm_myvar1, input[1])
   pm$pm_myvar2  <- pm_infer(pm$pm_myvar2, input[2])
   pm$pm_myvar3  <- pm_infer(pm$pm_myvar3, input[3])
-
+  
   pm$pm_myvar1_sub  <- pm_infer(pm$pm_myvar1_sub, list(pm$pm_myvar1$y,pm$pm_myvar2$y)) #update last argument with value of replacement
   pm$pm_myvar2_sub  <- pm_infer(pm$pm_myvar2_sub, list(pm$pm_myvar2$y,pm$pm_myvar1$y)) #update last argument with value of replacement
   pm$pm_myvar3_sub  <- pm_infer(pm$pm_myvar3_sub, list(pm$pm_myvar3$y,pm$pm_myvar1$y)) #update last argument with value of replacement
-
+  
   pm$pm_Efficiency  <- pm_infer(pm$pm_Efficiency, list(pm$pm_myvar1$y,pm$pm_myvar2$y,pm$pm_myvar3$y))
   pm$pm_profile  <- pm_infer(pm$pm_profile, list(pm$pm_myvar1$y,pm$pm_myvar2$y,pm$pm_myvar3$y))
   pm
@@ -388,30 +388,29 @@ report_no_data=function(var1,var2,var3){
   return(no_data)
 }
 
-report_tail=function(var){ #error in the function the rank is not displaying properly
+report_tail=function(var, nb_indicators){ #error in the function the rank is not displaying properly
   if(str_detect(pm_report(var), "tail")) {
-    x = rank(round(myvars[[1]],3))
-    ctry_x=as.numeric(rank(myvars[[1]])[match(round(var[["u"]],3) ,round(myvars[[1]],3))])
-    #myperc_var=paste0(pm_report(var), ". Indeed, country is ranked ", ((length(myvars[[1]])+1)-ctry_x), " over ", length(myvars[[1]]), " (", round(var[["u"]], digits=3),") countries")
-    myperc_var=paste0(pm_report(var)," (", round(var[["u"]], digits=3),").")
+    x = rank(myvars[[nb_indicators]])
+    ctry_x=x[[i]]
+    myperc_var=paste0(pm_report(var), ". Indeed, country is ranked ", ((length(myvars[[nb_indicators]])+1)-ctry_x), " over ", length(myvars[[nb_indicators]]), " (", round(var[["u"]], digits=3),") countries")
   } else {
-    myperc_var=paste0(pm_report(var)," (", round(var[["u"]], digits=3),").")
+    myperc_var=paste0(pm_report(var)," (", round(var[["u"]], digits=3),")")
   }
   return(myperc_var)
 }
 
 report_method <- function(properties,pm){
-
+  
   ## specific case for no data at all ##
-
+  
   no_data=report_no_data(pm$pm_myvar1$u,pm$pm_myvar2$u,pm$pm_myvar3$u)
-
+  
   ## specific case for extreme values, include ranking of the country ##
   if(no_data==1){
-    myperc_var1=report_tail(pm$pm_myvar1)
-    myperc_var2=report_tail(pm$pm_myvar2)
-    myperc_var3=report_tail(pm$pm_myvar3)
-
+    myperc_var1=report_tail(pm$pm_myvar1,1)
+    myperc_var2=report_tail(pm$pm_myvar2,2)
+    myperc_var3=report_tail(pm$pm_myvar3,3)
+    
     paste (
       str_to_title(mycategory_label), " is defined as ",mycategory_definition,".",
       pm_report(pm$pm_profile),
@@ -420,7 +419,7 @@ report_method <- function(properties,pm){
       myperc_var1,pm_report(pm$pm_myvar1_sub),
       " The second one,",
       myperc_var2,pm_report(pm$pm_myvar2_sub),
-      paste0(". Finally, the last selected indicator of ",mycategory_label),
+      paste0(" Finally, the last selected indicator of ",mycategory_label),
       myperc_var3,pm_report(pm$pm_myvar3_sub),
       ". Among the factors contributing to those performances we can mention [More from desks]",
       sep="")
@@ -435,3 +434,4 @@ my_report <- report_template(properties,report_method)
 ####################################################################
 
 my_ldcp <- ldcp(data=my_data,glmp=my_glmp,report=my_report)
+
