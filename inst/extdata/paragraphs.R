@@ -37,9 +37,12 @@ rm(input1)
 #provide the labels to the indicators and the categories that will be
 #used in the text as well as definitions for each categories
 
-definition=c(efficiency="the capacity of the sector to propose affordable and qualitative housing conditions",
-             inclusiveness="[Add definition]",
-             sustainability="[Add definition")
+definition=c(efficiency="the capacity of the sector to provide housing that meets demand across the country, to
+             facilitate residential mobility and to deliver housing that countributes to macroeconomic stability",
+             inclusiveness="the capacity of the sector to provide affordable homes across tenure modalities,
+             to tackle homelessness and to coordinate housing policies across levels of government",
+             sustainability="the capacity of the sector to built environmentally sustainable housing and to
+             design urban areas that support the environment.")
 
 
 mycategory_label=tolower(category)
@@ -182,7 +185,7 @@ pm_myvar3 <- rLDCP::pm(y=cp_myvar3, g=g_pm_myvar3, t=t_pm_myvar3)
 g_pm_myvar1_sub<- function(u,y){
   operator <- operator(  min , max )
   y$w <- infer_rules(fuzzy_rules(
-    
+
     fuzzy_rule( 0, 1, 1, 1, 1, 1, 1 ,1,
                 1, 1, 1, 1, 1, 1, 1 ,1,
                 1, 0, 0, 0),
@@ -217,8 +220,8 @@ pm_myvar1_sub <- rLDCP::pm(y=cp_myvar1_sub, g=g_pm_myvar1_sub, t=t_pm_myvar1_sub
 g_pm_myvar2_sub<- function(u,y){
   operator <- operator(  min , max )
   y$w <- infer_rules(fuzzy_rules(
-    
-    
+
+
     fuzzy_rule( 0, 1, 1, 1, 1, 1, 1 ,1,
                 1, 1, 1, 1, 1, 1, 1 ,1,
                 1, 0, 0, 0),
@@ -253,8 +256,8 @@ pm_myvar2_sub <- rLDCP::pm(y=cp_myvar2_sub, g=g_pm_myvar2_sub, t=t_pm_myvar2_sub
 g_pm_myvar3_sub<- function(u,y){
   operator <- operator(  min , max )
   y$w <- infer_rules(fuzzy_rules(
-    
-    
+
+
     fuzzy_rule( 0, 1, 1, 1, 1, 1, 1 ,1,
                 1, 1, 1, 1, 1, 1, 1 ,1,
                 1, 0, 0, 0),
@@ -288,7 +291,7 @@ pm_myvar3_sub <- rLDCP::pm(y=cp_myvar3_sub, g=g_pm_myvar3_sub, t=t_pm_myvar3_sub
 g_pm_Efficiency<- function(u,y){
   operator <- operator(  min , max )
   y$w <- infer_rules(fuzzy_rules(
-    
+
     fuzzy_rule( 0, 1, 1, 1, 0, 0, 0, 0 ,
                 0, 1, 1, 1, 0, 0, 0, 0 ,
                 0, 1, 1, 1, 0, 0, 0, 0 ,
@@ -323,7 +326,7 @@ pm_Efficiency <- rLDCP::pm(y=cp_Efficiency, g=g_pm_Efficiency, t=t_pm_Efficiency
 g_pm_profile<- function(u,y){
   operator <- operator(  min , max )
   y$w <- infer_rules(fuzzy_rules(
-    
+
     fuzzy_rule( 0, 1, 1, 1, 0, 0, 0, 0,
                 0, 1, 1, 1, 0, 0, 0, 0,
                 0, 1, 1, 1, 0, 0, 0, 0,
@@ -357,11 +360,11 @@ glmp_method <- function(pm,input){
   pm$pm_myvar1  <- pm_infer(pm$pm_myvar1, input[1])
   pm$pm_myvar2  <- pm_infer(pm$pm_myvar2, input[2])
   pm$pm_myvar3  <- pm_infer(pm$pm_myvar3, input[3])
-  
+
   pm$pm_myvar1_sub  <- pm_infer(pm$pm_myvar1_sub, list(pm$pm_myvar1$y,pm$pm_myvar2$y)) #update last argument with value of replacement
   pm$pm_myvar2_sub  <- pm_infer(pm$pm_myvar2_sub, list(pm$pm_myvar2$y,pm$pm_myvar1$y)) #update last argument with value of replacement
   pm$pm_myvar3_sub  <- pm_infer(pm$pm_myvar3_sub, list(pm$pm_myvar3$y,pm$pm_myvar1$y)) #update last argument with value of replacement
-  
+
   pm$pm_Efficiency  <- pm_infer(pm$pm_Efficiency, list(pm$pm_myvar1$y,pm$pm_myvar2$y,pm$pm_myvar3$y))
   pm$pm_profile  <- pm_infer(pm$pm_profile, list(pm$pm_myvar1$y,pm$pm_myvar2$y,pm$pm_myvar3$y))
   pm
@@ -400,17 +403,17 @@ report_tail=function(var, nb_indicators){ #error in the function the rank is not
 }
 
 report_method <- function(properties,pm){
-  
+
   ## specific case for no data at all ##
-  
+
   no_data=report_no_data(pm$pm_myvar1$u,pm$pm_myvar2$u,pm$pm_myvar3$u)
-  
+
   ## specific case for extreme values, include ranking of the country ##
   if(no_data==1){
     myperc_var1=report_tail(pm$pm_myvar1,1)
     myperc_var2=report_tail(pm$pm_myvar2,2)
     myperc_var3=report_tail(pm$pm_myvar3,3)
-    
+
     paste (
       str_to_title(mycategory_label), " is defined as ",mycategory_definition,".",
       pm_report(pm$pm_profile),
