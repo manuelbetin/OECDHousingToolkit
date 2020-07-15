@@ -86,7 +86,7 @@ htk_text_generator=function(data,category,ranking,ctry,var_codes,var_names){
     ctry=dt[i,"Iso_code3"]
     current_input <- c(round(dt[i,colsnum[1]],2),round(dt[i,colsnum[2]],2),round(dt[i,colsnum[3]],2),round(dt[i,colsnum[3]],2))
     my_ldcp <- ldcp_run(ldcp=my_ldcp,input=current_input)
-    text=gsub("country",countrycode(ctry,origin="iso3c",destination="country.name"),my_ldcp$report$description)
+    text=gsub("targetcountry",countrycode(ctry,origin="iso3c",destination="country.name"),my_ldcp$report$description)
     dt[i,category]=text
   }
 

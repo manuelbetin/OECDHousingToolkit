@@ -106,13 +106,13 @@ g_pm_myvar1 <- function(u,y){
 t_pm_myvar1 <- function(y){
   templates <- c(
     paste0(" ",myvar1_label),
-    paste0(" ",myvar1_label,", locates country in the bottom tail of the distribution"),
+    paste0(" ",myvar1_label,", locates targetcountry in the bottom tail of the distribution"),
     paste0(" ",myvar1_label,", is relatively far below OECD average"),
     paste0(" ",myvar1_label,", is slightly below OECD average"),
     paste0(" ",myvar1_label,", is close to the OECD average"),
     paste0(" ",myvar1_label,", is slightly above OECD average"),
     paste0(" ",myvar1_label,", is relatively far above OECD average"),
-    paste0(" ",myvar1_label,", locates country in the upper tail of the distribution")
+    paste0(" ",myvar1_label,", locates targetcountry in the upper tail of the distribution")
   )
   return(templates[which.max(y$w)])
 }
@@ -135,7 +135,7 @@ g_pm_myvar2<- function(u,y){
 
 t_pm_myvar2<- function(y){
   templates <- c(
-    paste0(" ",myvar2_label,", is not available for this country"),
+    paste0(" ",myvar2_label,", is not available for this targetcountry"),
     paste0(" ",myvar2_label,", is in the bottom tail of the distribution"),
     paste0(" ",myvar2_label,", is in the lower third of the distribution"),
     paste0(" ",myvar2_label,", is slightly below the average"),
@@ -166,7 +166,7 @@ g_pm_myvar3<- function(u,y){
 
 t_pm_myvar3<- function(y){
   templates <- c(
-    paste0(" ",myvar3_label,", is not available for this country"),
+    paste0(" ",myvar3_label,", is not available for this targetcountry"),
     paste0(" ",myvar3_label,", is in the bottom tail"),
     paste0(" ",myvar3_label,", is among the 35 percent lower performing economies"),
     paste0(" ",myvar3_label,", is slighly below the average"),
@@ -207,7 +207,7 @@ t_pm_Efficiency<- function(y){
     "",#" what make overall assessment on efficiency difficult",
     " Generally speaking, its performance are among the bottom OECD ones.",
     " Overall, its performance are in line with the rest of OECD countries.",
-    " country is globally among the top OECD performers."
+    " targetcountry is globally among the top OECD performers."
   )
   return(templates[which.max(y$w)])
 }
@@ -239,8 +239,8 @@ g_pm_profile<- function(u,y){
 
 t_pm_profile<- function(y){
   templates <- c(
-    paste0(" The overall performance of country is difficult to assess based on the three main indicators: ",myvar1_label, ", ", myvar2_label, " and ",myvar3_label, '. '),
-    paste0(" country displays similar relative performances among all three dimensions: ",myvar1_label, ", ", myvar2_label, " and ",myvar3_label, '. ')
+    paste0(" The overall performance of targetcountry is difficult to assess based on the three main indicators: ",myvar1_label, ", ", myvar2_label, " and ",myvar3_label, '. '),
+    paste0(" targetcountry displays similar relative performances among all three dimensions: ",myvar1_label, ", ", myvar2_label, " and ",myvar3_label, '. ')
   )
   return(templates[which.max(y$w)])
 }
@@ -281,7 +281,7 @@ report_tail=function(var, nb_indicators){ #error in the function the rank is not
   if(str_detect(pm_report(var), "tail")) {
     x = rank(myvars[[nb_indicators]])
     ctry_x=x[[i]]
-    myperc_var=paste0(pm_report(var), ". Indeed, country is ranked ", ((length(myvars[[nb_indicators]])+1)-ctry_x), " over ", length(myvars[[nb_indicators]]), " (", round(var[["u"]], digits=3),") countries")
+    myperc_var=paste0(pm_report(var), ". Indeed, targetcountry is ranked ", ((length(myvars[[nb_indicators]])+1)-ctry_x), " over ", length(myvars[[nb_indicators]]), " (", round(var[["u"]], digits=3),") countries")
   } else {
 
     myperc_var=paste0(pm_report(var)," (", round(var[["u"]], digits=3),")")
