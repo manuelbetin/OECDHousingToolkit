@@ -281,10 +281,10 @@ report_tail=function(var, nb_indicators){ #error in the function the rank is not
   if(str_detect(pm_report(var), "tail")) {
     x = rank(myvars[[nb_indicators]])
     ctry_x=x[[i]]
-    myperc_var=paste0(pm_report(var), ". Indeed, targetcountry is ranked ", ((length(myvars[[nb_indicators]])+1)-ctry_x), " over ", length(myvars[[nb_indicators]]), " (", round(var[["u"]], digits=3),") countries")
+    myperc_var=paste0(pm_report(var), ". Indeed, targetcountry is ranked ", ((length(myvars[[nb_indicators]])+1)-ctry_x), " over ", length(myvars[[nb_indicators]]), " (located in the percentile", round(var[["u"]], digits=3),") countries")
   } else {
 
-    myperc_var=paste0(pm_report(var)," (", round(var[["u"]], digits=3),")")
+    myperc_var=paste0(pm_report(var)," (located in the percentile ", round(var[["u"]], digits=3),")")
   }
   return(myperc_var)
 }
