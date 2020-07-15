@@ -21,8 +21,6 @@
 #'
 #'@export
 
-
-
 htk_CyC=function(mydata,ranking, ctry,var_codes,var_names, sec_col, title=NULL){
 
   # do here selectin of variables based on ranking
@@ -50,8 +48,8 @@ htk_CyC=function(mydata,ranking, ctry,var_codes,var_names, sec_col, title=NULL){
   vars_touse=get_vars(n_rank1, n_rank2, n_rank3, dt_non_na )
   temp_names<-merge(vars_touse, ranking , by="variable")
 
-    var_codes=temp_names$variable
-    var_names=temp_names$variable_name
+    var_codes<-temp_names$variable
+    var_names<-temp_names$variable_name
 
     ##################################################################################################
   #country_name=countrycode(ctry,origin = "iso3c",destination="country.name")
@@ -119,7 +117,7 @@ sapply(vars_needed, class)
     theme(panel.background = element_blank(),
           axis.text.x = element_blank(),
           plot.title=element_text(face="bold",colour ="black",size=15, hjust =0.5),
-          axis.text.y = element_text(angle=40,size=8,color=sec_col),
+          axis.text.y = element_text(angle=40,size=10,color=sec_col),
           axis.ticks =element_blank() )+
     scale_x_discrete(breaks=final$main_v,labels=var_names) +
     geom_text(aes(y= value_scaled   , label=paste(ctry,": ", round(value.value, digits = 2))),
