@@ -47,21 +47,30 @@ data_polvar=htk_Polvars
 
 
 data("htk_Outcomevars")
-vars_cluster=htk_Outcomevars
+#all_vars=htk_Outcomevars
 
-# vars_cluster=rio::import("country_fiches_data.xlsx")
-# vars_cluster=vars_cluster %>% mutate(period=year(as.Date(period,format="%d/%m/%Y"))) %>%
+ all_vars=rio::import("/Users/federicadepace/Dropbox (Personal)/OECD/projects/all_clean_cf_data0713.xlsx")
+ catalogue<-rio::import("/Users/federicadepace/Dropbox (Personal)/OECD/projects/catalogue.xlsx")
+# all_vars=all_vars %>% mutate(period=year(as.Date(period,format="%d/%m/%Y"))) %>%
 #   filter(period==2018)
 
 rm(htk_Polvars)
 rm(htk_paragraphs)
 rm(htk_Outcomevars)
 
-vars_cluster <- vars_cluster %>% mutate(Iso_code3=countrycode(country,origin="country.name",destination="iso3c"))
-vars_cluster <- vars_cluster %>%  select(Iso_code3, everything()) %>%
-  rename(country_name=country,
-         country=Iso_code3)
-vars_cluster=vars_cluster %>% gather(key=key,value=value,-c("country","country_name")) %>% group_by(country) %>%
+all_vars <- all_vars %>% mutate(country_name=countrycode(iso3,origin="iso3c",destination="country.name"))
+
+all_vars <- all_vars %>%  select(iso3, country_name, everything()) 
+all_vars <- subset(all_vars, !is.na(country_name)  )
+
+  #mutate(country_name= ifelse( iso3=="OECD", "OECD", country_name), 
+   #      country_name= ifelse( iso3=="EUU", "EUU", country_name), 
+    #     country_name= ifelse( iso3=="OECD", "OECD", country_name))
+
+all_vars <- all_vars  %>%
+  rename(Iso_code3=iso3)
+
+all_vars=all_vars %>% gather(key=key,value=value,-c("Iso_code3","country_name")) %>% group_by(Iso_code3) %>%
   mutate(dispo_var=mean(ifelse(!is.na(value),1,0))) %>% spread(key=key,value) %>% ungroup() %>% data.frame()
 
 ```
@@ -93,21 +102,27 @@ The provision of efficient, sustainable and inclusive housing is crucial for the
 \end{center}
 
 ```{r Efficiency}
+# select the variables according to the ranking 
 
-var_codes<-c("ovc_tot", "tenure_oo", "mortgage_dispincome")
-var_names=c("Price to\nincome","House price\nvolatility", "Mortgage \nclaims")
-sec_col=c("goldenrod")
+effic_vars<-catalogue  %>%  filter(category=="efficiency") %>%  
+                            filter(type=="outcome")
+ranking_eff<-effic_vars  %>% select(variable, rank, variable_name)
+ranking_eff<-ranking_eff   %>% mutate(variable_name=gsub("*","\n",ranking_eff$variable_name, fixed = T))
+var_codes_eff<-c(effic_vars$variable) # only select ALL efficiency variables 
+var_names_eff<-c(ranking_eff$variable_name) # only the efficiency ones
+dt_effic<-all_vars %>% select(Iso_code3,country_name, var_codes_eff) 
+sec_col_eff=c("goldenrod")
 
-htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names,sec_col, title="Efficiency Outcomes")
+htk_CyC(dt_effic, ranking_eff, params$ctry_code,var_codes_eff,var_names_eff, sec_col_eff, title="Efficiency Outcomes")
 
 ```
 
 \color{black}
-```{r Efficiency paragraph, results='asis',include=F}
-category="efficiency"
+```{r Efficiency paragraph, results='asis',include=F, eval=F}
+category="Efficiency"
 main_vars=var_codes
 main_vars_label=c("the price to income ratio","house price volatility","Mortgage claims as percentage of bank assets")
-data=vars_cluster
+data=all_vars
 
 dt=htk_text_generator(data %>% filter(country==params$ctry_code),category,main_vars,main_vars_label=main_vars_label)
 paragraph=dt %>% dplyr::select(category)
@@ -116,7 +131,7 @@ cat(paragraph[[category]])
 
 
 \small
-```{r Efficiency paragraph results, results='asis'}
+```{r Efficiency paragraph results, results='asis',  eval=F}
 
 cat(paragraph[[category]])
 
@@ -133,20 +148,29 @@ cat(paragraph[[category]])
 \color{black}
 
 ```{r Inclusiveness}
-var_codes<-c("tenure_rent_subs_bq", "mortgage_GDP", "no_heating_3q")
-var_names=c("Home\nownership", "overburden","overcrowding")
+incl_vars<-catalogue  %>%  filter(category=="inclusiveness") %>%  
+                            filter(type=="outcome")
+ranking_incl<-incl_vars  %>% select(variable, rank, variable_name)
+ranking_incl<-ranking_incl   %>% mutate(variable_name=gsub("*","\n",ranking_incl$variable_name, fixed = T))
+var_codes_incl<-c(incl_vars$variable) # only select ALL efficiency variables 
+var_names_incl<-c(ranking_incl$variable_name) # only the efficiency ones
+dt_incl<-all_vars %>% select(Iso_code3,country_name, var_codes_incl) 
 sec_col=c("deepskyblue")
 
-htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names,sec_col, title="Inclusiveness Outcomes")
-
+htk_CyC(dt_incl,ranking_incl, params$ctry_code,var_codes_incl,var_names_incl,sec_col, title="Inclusiveness Outcomes")
+#mydata=dt_incl
+#ranking =ranking_incl
+#ctry=params$ctry_code
+#var_codes =var_codes_incl
+#var_names =var_names_incl
 ```
 
 
-```{r Inclusiveness paragraph, results='asis',include=F}
+```{r Inclusiveness paragraph, results='asis',include=F,  eval=F}
 category="inclusiveness"
 main_vars=var_codes
 main_vars_label=c("Home ownership among youth or low income", "over burden rate","over crowding rate")
-data=vars_cluster
+data=all_vars
 
 dt=htk_text_generator(data %>% filter(country==params$ctry_code),category,main_vars,main_vars_label=main_vars_label)
 paragraph=dt %>% dplyr::select(category)
@@ -154,7 +178,7 @@ cat(paragraph[[category]])
 ```
 
 
-```{r Inclusiveness paragraph results, results='asis'}
+```{r Inclusiveness paragraph results, results='asis',  eval=F}
 cat(paragraph[[category]])
 ```
 
@@ -169,26 +193,38 @@ cat(paragraph[[category]])
 \color{black}
 
 ```{r Sustainability}
-var_codes<-c("room_outright_bq", "hbc_rent_3q", "hbc_rent_bq")
-var_names=c("Local air\npollution", "urban\nsprawl","CO2\nEmissions")
+sust_vars<-catalogue  %>%  filter(category=="sustainability") %>%  
+                            filter(type=="outcome")
+ranking_sust<-sust_vars  %>% select(variable, rank, variable_name)
+ranking_sust<-ranking_sust   %>% mutate(variable_name=gsub("*","\n",ranking_sust$variable_name, fixed = T))
+var_codes_sust<-c(sust_vars$variable) # only select ALL sust variables 
+var_names_sust<-c(ranking_sust$variable_name) # only the efficiency ones
+dt_sust<-all_vars %>% select(Iso_code3,country_name, var_codes_sust) 
 sec_col=c("darkgreen")
 
-htk_CyC(vars_cluster,params$ctry_code,var_codes,var_names, sec_col, title="Sustainability Outcomes")
+
+htk_CyC(dt_sust,ranking_sust, params$ctry_code,var_codes_sust,var_names_sust, sec_col, title="Sustainability Outcomes")
+
+ranking=ranking_sust
+ctry=params$ctry_code
+var_codes = var_codes_sust
+var_names= var_names_sust
+sec_col
 
 ```
 
-```{r Sustainability paragraph, results='asis',include=F}
+```{r Sustainability paragraph, results='asis',include=F,  eval=F}
 category="sustainability"
 main_vars=var_codes
 main_vars_label=c("Local air pollution in large cities", "extend of urban sprawl","CO2 emissions from housing per capita")
-data=vars_cluster
+data=all_vars
 
 dt=htk_text_generator(data %>% filter(country==params$ctry_code),category,main_vars,main_vars_label=main_vars_label)
 paragraph=dt %>% dplyr::select(category)
 cat(paragraph[[category]])
 ```
 
-```{r Sustainability paragraph results, results='asis'}
+```{r Sustainability paragraph results, results='asis',  eval=F}
 cat(paragraph[[category]])
 ```
 

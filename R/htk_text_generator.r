@@ -1,6 +1,6 @@
 
 
-#'@title Create dynamique text from
+#'@title Create dynamic text
 #'@description generate dynamic text
 #'@param data dataset with one row per country
 #'@param category name of the category: Efficiency, Affordability, Sustainability
@@ -8,11 +8,12 @@
 #'two are the variables of interest and the fourth one is a value [0,1] denoting
 #'the quality of the data
 #'@param vars_label a vector of three variable name that enter the algorithm
-#'@author Manuel Betin, Federica Depace, Naomi Cohen
+#'@author Manuel Betin, Federica De Pace, Naomi Cohen
 #'@return a dataset containing the values of the indicator for each country
 #'and the paragraph of text interpretating the data
 #'@export
 #'
+
 
 htk_text_generator=function(data,category,main_vars,main_vars_label,sub_vars=NULL,sub_vars_label=NULL){
 
@@ -42,6 +43,8 @@ htk_text_generator=function(data,category,main_vars,main_vars_label,sub_vars=NUL
     text=gsub("country",countrycode(ctry,origin="iso3c",destination="country.name"),my_ldcp$report$description)
     dt[i,category]=text
   }
+
+
   colnames(dt)=c("country",main_vars,category)
   file.remove(output)
   #rio::export(dt,paste0("htk_paragraphs_",category,".csv"),sep=";")

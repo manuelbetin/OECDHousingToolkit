@@ -4,8 +4,11 @@
 \alias{htk_generate_ctry_fiches}
 \title{generate the country fiche for the selected country}
 \usage{
-htk_generate_ctry_fiches(Rmdfile = "skeleton.Rmd", country_code_list,
-  path = NULL)
+htk_generate_ctry_fiches(
+  Rmdfile = "skeleton.Rmd",
+  country_code_list,
+  path = NULL
+)
 }
 \arguments{
 \item{Rmdfile}{the name of the file (.Rmd) that is used as template}
