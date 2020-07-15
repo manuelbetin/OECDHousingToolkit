@@ -153,7 +153,7 @@ htk_CyC=function(mydata,ranking, ctry,var_codes,var_names, sec_col, title=NULL){
     theme(panel.background = element_blank(),
           axis.text.x = element_blank(),
           plot.title=element_text(face="bold",colour ="black",size=15, hjust =0.5),
-          axis.text.y = element_text(angle=40,size=10,color=sec_col),
+          axis.text.y = element_text(angle=40,size=11,color=sec_col),
           axis.ticks =element_blank() )+
     scale_x_discrete(breaks=final$main_v,labels=var_names) +
     geom_text(aes(y= value.rank   , label=paste(ctry,": ", round(value.value, digits = 2))),
