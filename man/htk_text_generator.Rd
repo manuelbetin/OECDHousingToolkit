@@ -2,12 +2,27 @@
 % Please edit documentation in R/htk_text_generator.r
 \name{htk_text_generator}
 \alias{htk_text_generator}
-\title{Create dynamique text from}
+\title{Create dynamic text}
 \usage{
-htk_text_generator(category, vars, path = NULL)
+htk_text_generator(
+  data,
+  category,
+  main_vars,
+  main_vars_label,
+  sub_vars = NULL,
+  sub_vars_label = NULL
+)
 }
 \arguments{
+\item{data}{dataset with one row per country}
+
 \item{category}{name of the category: Efficiency, Affordability, Sustainability}
+
+\item{vars}{a vector of four variable codes that enter the algorithm, the first
+two are the variables of interest and the fourth one is a value [0,1] denoting
+the quality of the data}
+
+\item{vars_label}{a vector of three variable name that enter the algorithm}
 }
 \value{
 a dataset containing the values of the indicator for each country
@@ -17,5 +32,5 @@ and the paragraph of text interpretating the data
 generate dynamic text
 }
 \author{
-Manuel Betin, Federica Depace
+Manuel Betin, Federica De Pace, Naomi Cohen
 }

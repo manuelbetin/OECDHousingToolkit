@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.7.18)  18 MAY 2020 14:22
+This is pdfTeX, Version 3.14159265-2.6-1.40.17 (TeX Live 2016) (preloaded format=pdflatex 2016.7.18)  7 JUL 2020 18:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1111,62 +1111,61 @@ G,.JBIG2,.JB2,.eps]
 (/usr/local/texlive/2016/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
-)) <skeleton_files/figure-latex/Efficiency-1.pdf, id=28, 541.02126pt x 337.26pt
->
+))
+<skeleton_files/figure-latex/Efficiency-1.pdf, id=28, 524.96124pt x 307.1475pt>
 File: skeleton_files/figure-latex/Efficiency-1.pdf Graphic file (type pdf)
 <use skeleton_files/figure-latex/Efficiency-1.pdf>
 Package pdftex.def Info: skeleton_files/figure-latex/Efficiency-1.pdf used on i
 nput line 157.
-(pdftex.def)             Requested size: 228.06941pt x 142.17314pt.
+(pdftex.def)             Requested size: 228.06793pt x 133.43936pt.
 
-<skeleton_files/figure-latex/Inclusiveness-1.pdf, id=29, 544.0325pt x 350.30875
-pt>
+<skeleton_files/figure-latex/Inclusiveness-1.pdf, id=29, 521.95pt x 315.1775pt>
 File: skeleton_files/figure-latex/Inclusiveness-1.pdf Graphic file (type pdf)
 <use skeleton_files/figure-latex/Inclusiveness-1.pdf>
 Package pdftex.def Info: skeleton_files/figure-latex/Inclusiveness-1.pdf used o
-n input line 175.
-(pdftex.def)             Requested size: 228.06873pt x 146.85606pt.
+n input line 177.
+(pdftex.def)             Requested size: 228.06584pt x 137.71667pt.
 
-<skeleton_files/figure-latex/Sustainability-1.pdf, id=30, 540.0175pt x 314.1737
+<skeleton_files/figure-latex/Sustainability-1.pdf, id=30, 518.93875pt x 295.102
 5pt>
 File: skeleton_files/figure-latex/Sustainability-1.pdf Graphic file (type pdf)
 <use skeleton_files/figure-latex/Sustainability-1.pdf>
 Package pdftex.def Info: skeleton_files/figure-latex/Sustainability-1.pdf used 
-on input line 192.
-(pdftex.def)             Requested size: 228.06651pt x 132.68553pt.
-LaTeX Font Info:    Try loading font information for OT1+lmr on input line 197.
+on input line 196.
+(pdftex.def)             Requested size: 228.07245pt x 129.6969pt.
+LaTeX Font Info:    Try loading font information for OT1+lmr on input line 205.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OML+lmm on input line 197.
+LaTeX Font Info:    Try loading font information for OML+lmm on input line 205.
 
 (/usr/local/texlive/2016/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 197
+LaTeX Font Info:    Try loading font information for OMS+lmsy on input line 205
 .
 (/usr/local/texlive/2016/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
-LaTeX Font Info:    Try loading font information for OMX+lmex on input line 197
+LaTeX Font Info:    Try loading font information for OMX+lmex on input line 205
 .
 (/usr/local/texlive/2016/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2009/10/30 v1.6 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 197.
+(Font)              <10> on input line 205.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 197.
+(Font)              <7> on input line 205.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 197.
-LaTeX Font Info:    Try loading font information for U+msa on input line 197.
+(Font)              <5> on input line 205.
+LaTeX Font Info:    Try loading font information for U+msa on input line 205.
 (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (/usr/local/texlive/2016/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 197.
+LaTeX Font Info:    Try loading font information for U+msb on input line 205.
 (/usr/local/texlive/2016/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (/usr/local/texlive/2016/texmf-dist/tex/latex/microtype/mt-msb.cfg
@@ -1174,7 +1173,7 @@ File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 ) <OECDlogo.jpg, id=31, 319.1925pt x 159.59625pt>
 File: OECDlogo.jpg Graphic file (type jpg)
 <use OECDlogo.jpg>
-Package pdftex.def Info: OECDlogo.jpg used on input line 197.
+Package pdftex.def Info: OECDlogo.jpg used on input line 205.
 (pdftex.def)             Requested size: 95.99713pt x 47.99857pt.
 
 Package scrlayer-scrpage Warning: \headheight to low.
@@ -1184,15 +1183,15 @@ Package scrlayer-scrpage Warning: \headheight to low.
 (scrlayer-scrpage)                processing, but you should do this yourself,
 (scrlayer-scrpage)                e.g., setting geometry's option
 (scrlayer-scrpage)                `head=47.99857pt'.
-(scrlayer-scrpage)                I'll also decrease \topmargin on input line 1
-97.
+(scrlayer-scrpage)                I'll also decrease \topmargin on input line 2
+05.
 
 
 Overfull \vbox (32.99857pt too high) has occurred while \output is active []
 
 File: OECDlogo.jpg Graphic file (type jpg)
 <use OECDlogo.jpg>
-Package pdftex.def Info: OECDlogo.jpg used on input line 197.
+Package pdftex.def Info: OECDlogo.jpg used on input line 205.
 (pdftex.def)             Requested size: 72.00029pt x 36.00014pt.
 
 Package scrlayer-scrpage Warning: \footheight to low.
@@ -1203,71 +1202,71 @@ Package scrlayer-scrpage Warning: \footheight to low.
 (scrlayer-scrpage)                e.g., using
 (scrlayer-scrpage)                  \setlength{\footheight}{41.50008pt}
 (scrlayer-scrpage)                in your preamble.
-(scrlayer-scrpage)                I'll also increase \footskip on input line 19
-7.
+(scrlayer-scrpage)                I'll also increase \footskip on input line 20
+5.
 
 [1{/usr/local/texlive/2016/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 
  <./OECDlogo.jpg> <./skeleton_files/figure-latex/Efficiency-1.pdf> <./skeleton_
 files/figure-latex/Inclusiveness-1.pdf> <./skeleton_files/figure-latex/Sustaina
 bility-1.pdf>]
-<skeleton_files/figure-latex/unnamed-chunk-2-1.pdf, id=65, 178.6675pt x 156.585
-pt>
-File: skeleton_files/figure-latex/unnamed-chunk-2-1.pdf Graphic file (type pdf)
+<skeleton_files/figure-latex/unnamed-chunk-1-1.pdf, id=63, 305.14pt x 289.08pt>
+File: skeleton_files/figure-latex/unnamed-chunk-1-1.pdf Graphic file (type pdf)
 
-<use skeleton_files/figure-latex/unnamed-chunk-2-1.pdf>
-Package pdftex.def Info: skeleton_files/figure-latex/unnamed-chunk-2-1.pdf used
- on input line 212.
-(pdftex.def)             Requested size: 178.6725pt x 156.58939pt.
+<use skeleton_files/figure-latex/unnamed-chunk-1-1.pdf>
+Package pdftex.def Info: skeleton_files/figure-latex/unnamed-chunk-1-1.pdf used
+ on input line 218.
+(pdftex.def)             Requested size: 246.48691pt x 233.51392pt.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <9> on input line 258.
+(Font)              <8> on input line 269.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 258.
+(Font)              <6> on input line 269.
 
-Overfull \hbox (306.46088pt too wide) in paragraph at lines 258--258
+Overfull \hbox (297.6347pt too wide) in paragraph at lines 269--269
 [] 
  []
 
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 261.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 272.
 File: OECDlogo.jpg Graphic file (type jpg)
 <use OECDlogo.jpg>
-Package pdftex.def Info: OECDlogo.jpg used on input line 261.
+Package pdftex.def Info: OECDlogo.jpg used on input line 272.
 (pdftex.def)             Requested size: 95.99713pt x 47.99857pt.
 File: OECDlogo.jpg Graphic file (type jpg)
 <use OECDlogo.jpg>
-Package pdftex.def Info: OECDlogo.jpg used on input line 261.
+Package pdftex.def Info: OECDlogo.jpg used on input line 272.
 (pdftex.def)             Requested size: 72.00029pt x 36.00014pt.
-[2 <./skeleton_files/figure-latex/unnamed-chunk-2-1.pdf>]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 261.
+[2 <./skeleton_files/figure-latex/unnamed-chunk-1-1.pdf>]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 272.
 (./skeleton.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 261.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 261.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 272.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 272.
 Package rerunfilecheck Info: File `skeleton.out' has not changed.
-(rerunfilecheck)             Checksum: 98D3B770C41C76ADC57E57D04773498A;939.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 261.
+(rerunfilecheck)             Checksum: 1D2BF6F2DEB5290E8897C7A8E193F061;804.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 272.
  ) 
 Here is how much of TeX's memory you used:
- 15973 strings out of 493014
- 264753 string characters out of 6133351
- 518657 words of memory out of 5000000
- 19234 multiletter control sequences out of 15000+600000
- 47547 words of font info for 69 fonts, out of 8000000 for 9000
+ 15990 strings out of 493014
+ 264919 string characters out of 6133351
+ 517657 words of memory out of 5000000
+ 19236 multiletter control sequences out of 15000+600000
+ 51178 words of font info for 77 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 63i,27n,103p,308b,599s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 60i,27n,101p,707b,570s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2016/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/
 texlive/2016/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/20
 16/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}</usr/local/texlive/2016/texmf-dist/
 fonts/type1/public/lm/lmbx12.pfb></usr/local/texlive/2016/texmf-dist/fonts/type
-1/public/lm/lmbx9.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm
-/lmmi9.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmr10.pfb>
+1/public/lm/lmbx8.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm
+/lmmi8.pfb></usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmr10.pfb>
 </usr/local/texlive/2016/texmf-dist/fonts/type1/public/lm/lmr6.pfb></usr/local/
-texlive/2016/texmf-dist/fonts/type1/public/lm/lmr9.pfb></usr/local/texlive/2016
-/texmf-dist/fonts/type1/public/lm/lmro10.pfb></usr/local/texlive/2016/texmf-dis
-t/fonts/type1/public/lm/lmro8.pfb>
-Output written on skeleton.pdf (2 pages, 216565 bytes).
+texlive/2016/texmf-dist/fonts/type1/public/lm/lmr8.pfb></usr/local/texlive/2016
+/texmf-dist/fonts/type1/public/lm/lmr9.pfb></usr/local/texlive/2016/texmf-dist/
+fonts/type1/public/lm/lmro10.pfb></usr/local/texlive/2016/texmf-dist/fonts/type
+1/public/lm/lmro8.pfb>
+Output written on skeleton.pdf (2 pages, 245884 bytes).
 PDF statistics:
- 121 PDF objects out of 1000 (max. 8388607)
+ 122 PDF objects out of 1000 (max. 8388607)
  95 compressed objects within 1 object stream
  9 named destinations out of 1000 (max. 500000)
- 10314 words of extra memory for PDF output out of 12000 (max. 10000000)
+ 12362 words of extra memory for PDF output out of 14400 (max. 10000000)
 

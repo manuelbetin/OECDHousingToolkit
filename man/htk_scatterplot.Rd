@@ -4,8 +4,16 @@
 \alias{htk_scatterplot}
 \title{scatter barplots with OECD template style to display correlation between two variables in the housing toolkit chapters}
 \usage{
-htk_scatterplot(data_source, myvar_x, myvar_y, my_label, Xlabel = NULL,
-  Ylabel = NULL, title = NULL, subtitle = NULL)
+htk_scatterplot(
+  data_source,
+  myvar_x,
+  myvar_y,
+  my_label,
+  Xlabel = NULL,
+  Ylabel = NULL,
+  title = NULL,
+  subtitle = NULL
+)
 }
 \arguments{
 \item{data_source}{dataframe that contains the variables to plot}

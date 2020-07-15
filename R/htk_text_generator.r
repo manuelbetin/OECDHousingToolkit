@@ -1,74 +1,52 @@
 
-#'@title Create dynamique text from
+
+#'@title Create dynamic text
 #'@description generate dynamic text
+#'@param data dataset with one row per country
 #'@param category name of the category: Efficiency, Affordability, Sustainability
-#'@author Manuel Betin, Federica Depace
+#'@param vars a vector of four variable codes that enter the algorithm, the first
+#'two are the variables of interest and the fourth one is a value [0,1] denoting
+#'the quality of the data
+#'@param vars_label a vector of three variable name that enter the algorithm
+#'@author Manuel Betin, Federica De Pace, Naomi Cohen
 #'@return a dataset containing the values of the indicator for each country
 #'and the paragraph of text interpretating the data
 #'@export
 #'
 
-htk_text_generator=function(category,vars,path=NULL){
-  #import outcome variables
-  data("htk_Outcomevars")
-  htk_Outcomevars=htk_Outcomevars
 
-<<<<<<< HEAD
- # current.folder=system.file("extdata", package = "OECDHousingToolkit")
-#  local.folder <- "."
-#  list.of.files <- list.files(path = current.folder, full.names = TRUE)
-#  file.copy(list.of.files, local.folder)
-=======
-  if(!category %in% c("Efficiency","Sustainability","Inclusiveness")){
-    print("Please select a relevant category: Efficicency, Sustainability or Inclusiveness")
+htk_text_generator=function(data,category,main_vars,main_vars_label,sub_vars=NULL,sub_vars_label=NULL){
+
+  if(length(main_vars)!=3){
+    print("Please provide four variables, the three first for the
+          indicators and the last for the overall quality of data")
     stop()
   }
 
-  if(length(vars)!=3){
-    print("Please provide three variables")
-    stop()
-  }
->>>>>>> upstream/master
+  #select the variables in the database
+  dt=data %>% dplyr::select(country,main_vars)
 
-  dt=htk_Outcomevars %>% dplyr::select(country,vars)
-  colnames(dt)=c("country","var1","var2","var3")
+  output <-"paragraphs.R"
 
-  #export data
-  rio::export(dt,paste0("htk_paragraphs.csv"),sep=";")
+   current.folder=system.file("extdata", package = "OECDHousingToolkit")
+   local.folder <- "."
+   file.copy(paste0(current.folder,"/",output), local.folder,overwrite = T)
+   source(output)
 
-  output <-paste0(category,"_paragraphs.R")
-
-
-  current.folder=system.file("extdata", package = "OECDHousingToolkit")
-  local.folder <- "."
-  file.copy(paste0(current.folder,"/",output), local.folder)
-
-  source(output)
-
-  #include the paragraphs in the database
-  my_ldcp <- ldcp(data=my_data,glmp=my_glmp,report=my_report)
+  #include the paragraphs in the database for each country
   dt[[category]]=NA
   for(i in 1:length(dt$country)){
+    i<<-i
     ctry=dt[i,"country"]
-    current_input <- c(round(myvar1[i],2),round(myvar2[i],2),round(myvar3[i],2))
+    current_input <- c(round(dt[i,2],2),round(dt[i,3],2),round(dt[i,4],2),round(dt[i,5],2))
     my_ldcp <- ldcp_run(ldcp=my_ldcp,input=current_input)
-    text=gsub("country",ctry,my_ldcp$report$description)
+    text=gsub("country",countrycode(ctry,origin="iso3c",destination="country.name"),my_ldcp$report$description)
     dt[i,category]=text
   }
-<<<<<<< HEAD
 
-  colnames(dt)=c("country",vars,"Efficiency")
-#  file.remove("htk_paragraphs.csv")
-#  file.remove("Affordability_paragraphs.xml")
-#  file.remove("Efficiency_paragraphs.xml")
-#  file.remove("Sustainability_paragraphs.xml")
-#  file.remove(output)
-  rio::export(dt,paste0("htk_paragraphs_",category,".csv"),sep=";")
-=======
-  colnames(dt)=c("country",vars,category)
+
+  colnames(dt)=c("country",main_vars,category)
   file.remove(output)
-  file.remove("htk_paragraphs.csv")
   #rio::export(dt,paste0("htk_paragraphs_",category,".csv"),sep=";")
->>>>>>> upstream/master
   dt
 }

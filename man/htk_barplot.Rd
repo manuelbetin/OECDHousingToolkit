@@ -4,9 +4,22 @@
 \alias{htk_barplot}
 \title{barplots with OECD template style to display cross country comparisons in the housing toolkit chapters}
 \usage{
-htk_barplot(data_source, x, y, y2 = NULL, y3 = NULL, Xlabel = NULL,
-  Ylabel = NULL, ylegend = NULL, y2legend = NULL, y3legend = NULL,
-  title = NULL, subtitle = NULL, file = NULL, path1 = NULL)
+htk_barplot(
+  data_source,
+  x,
+  y,
+  y2 = NULL,
+  y3 = NULL,
+  Xlabel = NULL,
+  Ylabel = NULL,
+  ylegend = NULL,
+  y2legend = NULL,
+  y3legend = NULL,
+  title = NULL,
+  subtitle = NULL,
+  file = NULL,
+  path1 = NULL
+)
 }
 \arguments{
 \item{data_source}{dataframe that contains the variables and dates to be chosen}
