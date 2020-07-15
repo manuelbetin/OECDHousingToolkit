@@ -15,15 +15,16 @@
 #'
 
 
-# mydata=dt_effic
+# data=dt_effic
 # ranking=ranking_eff
 # ctry=params$ctry_code
 # var_codes=var_codes_eff
 # var_names=var_names_eff
+# var_names_long=var_names_long_eff
 # sec_col=sec_col_eff
 # title="Efficiency Outcomes"
 
-htk_text_generator=function(data,category,ranking,ctry,var_codes,var_names){
+htk_text_generator=function(data,category,ranking,ctry,var_codes){
 
 
   category<<-category
@@ -31,7 +32,7 @@ htk_text_generator=function(data,category,ranking,ctry,var_codes,var_names){
   ##################################################################################################
   this_country<-data %>%  filter(Iso_code3==ctry)  %>%  select(Iso_code3, first(var_codes):last(var_codes))
   this_country_long<-gather(this_country, variable , value,  first(var_codes):last(var_codes) )
-  this_country_long<- merge(this_country_long, ranking[1:3], by="variable")
+  this_country_long<- merge(this_country_long, ranking[1:5], by="variable")
 
   # which of the main var is NA?
   ind_NA<-which(is.na(this_country_long$value) == TRUE, arr.ind=TRUE)
@@ -53,7 +54,7 @@ htk_text_generator=function(data,category,ranking,ctry,var_codes,var_names){
   temp_names<-merge(vars_touse, ranking , by="variable")
 
   main_vars<<-temp_names$variable
-  main_vars_label<<-temp_names$variable_name
+  main_vars_label<<-temp_names$variable_name_long.x
   main_vars_direction <<- temp_names$direction.x
 
   # which variables to use:
