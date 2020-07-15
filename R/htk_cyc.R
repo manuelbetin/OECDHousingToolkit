@@ -64,12 +64,32 @@ sapply(vars_needed, class)
 vars_needed[var_codes] <- sapply(vars_needed[var_codes],as.numeric)
 sapply(vars_needed, class)
 
+dt_mean <-vars_needed %>% summarise_at(.vars = var_codes,
+                                       .funs=list(mean=~mean(.,na.rm=T)))
+
+dt_mean <-dt_mean %>% mutate(Iso_code3="OECD")
+dt_mean<-dt_mean %>% arrange(Iso_code3, "")
+dt_mean<-dt_mean[,c(4,1,2,3)]
+
+names(dt_mean)
+# change the name of variables
+dt_mean<-dt_mean  %>%  rename_all( funs(str_replace(., "_mean", "")))
+names(dt_mean)
+names(vars_needed)
+
+
+vars_needed<-rbind(vars_needed, dt_mean)
+
   # compute mean, min, max
   vars_needed<- vars_needed  %>%
     mutate_at(vars(var_codes),.funs=list(mean=~mean(.,na.rm=T),
                                          min=~min(.,na.rm=T),
-                                         max=~max(.,na.rm=T)))
+                                         max=~max(.,na.rm=T),
+                                         rank=~percent_rank(.,na.rm=T) ))
   names(vars_needed)
+
+
+
 
     # 2. create min, max, mean, valu
   for (var in var_codes) {
@@ -84,6 +104,17 @@ sapply(vars_needed, class)
       mutate(!!name_col := vars_needed$Iso_code3[which.max(get(var))] )
   }
 
+
+  OECD<- vars_needed %>%  filter(Iso_code3=="OECD")
+  OECD<-OECD  %>%   select( contains('rank', ignore.case = TRUE))
+
+  OECD_final<-data.frame(t(OECD)) %>%
+    rename(rank_OECD=t.OECD.)
+  OECD_final<-OECD_final %>% mutate(main_v=rownames(OECD_final))
+  OECD_final<-OECD_final %>% mutate(main_v=gsub("_rank","",OECD_final$main_v, fixed = T))
+
+    OECD_final<-OECD_final[, c(2,1)]
+
   temp_long<- vars_needed %>%  filter(Iso_code3==ctry)%>% dplyr::select(-Iso_code3) %>%
     gather(key = "variable", value = "value")
 
@@ -96,20 +127,23 @@ sapply(vars_needed, class)
            ext=ifelse( (str_detect(variable, "min")), "min", ext),
            ext=ifelse( (str_detect(variable, "max")), "max", ext),
            ext=ifelse( (str_detect(variable, "country_max")), "country_max", ext),
-           ext=ifelse( (str_detect(variable, "country_min")), "country_min", ext)) %>%
+           ext=ifelse( (str_detect(variable, "country_min")), "country_min", ext),
+           ext=ifelse( (str_detect(variable, "rank")), "rank", ext)) %>%
     dplyr::select(-variable)
 
   final<-reshape(temp_long, idvar = "main_v" , timevar =  "ext" , direction = "wide")
-
-  name_vars<-c("value.value","value.mean","value.min","value.max")
-  final<-  final %>% mutate_at(vars(name_vars),as.numeric) %>%
-    mutate(value_scaled = (value.value-value.min) / (value.max-value.min ),
-           mean_scaled =  ( value.mean-value.min) / (value.max-value.min ) )
+names(final)
+  name_vars<-c("value.value","value.mean","value.min","value.max", "value.rank")
+  final<-  final %>% mutate_at(vars(name_vars),as.numeric)
+  final<-merge(final, OECD_final, by="main_v")
+ # %>%
+  #  mutate(value_scaled = (value.value-value.min) / (value.max-value.min ),
+   #        mean_scaled =  ( value.mean-value.min) / (value.max-value.min ) )
 
   ggplot(data=final,aes(x=main_v))+
     geom_segment(aes(xend=main_v, y=-0.05, yend=1.05), color="grey") +
-    geom_point(aes(y= value_scaled ), shape=19, color='red', size=4)  +
-    geom_point(aes(y=mean_scaled  ) , shape=18, color='darkblue', size=3) +
+    geom_point(aes(y= value.rank ), shape=19, color='red', size=4)  +
+    geom_point(aes(y=rank_OECD  ) , shape=18, color='darkblue', size=3) +
     geom_point(aes(y=0), shape=1, color='grey', size=2)  +
     geom_point(aes(y=1 ), shape=1, color='grey', size=2) +
     coord_flip() +
@@ -122,9 +156,9 @@ sapply(vars_needed, class)
           axis.text.y = element_text(angle=40,size=8,color=sec_col),
           axis.ticks =element_blank() )+
     scale_x_discrete(breaks=final$main_v,labels=var_names) +
-    geom_text(aes(y= value_scaled   , label=paste(ctry,": ", round(value.value, digits = 2))),
+    geom_text(aes(y= value.rank   , label=paste(ctry,": ", round(value.value, digits = 2))),
               size=3.5, nudge_x = -0.1, nudge_y = 0.0,  check_overlap = TRUE) +
-    geom_text(aes(y= mean_scaled   , label=paste("OECD: ", round(value.mean, digits = 2))),
+    geom_text(aes(y= rank_OECD   , label=paste("OECD: ", round(value.mean, digits = 2))),
               size=3, nudge_x = 0.1, nudge_y = 0.0,  check_overlap = TRUE,color="steelblue") +
     geom_text(aes(y= 0   , label=paste(value.country_min,":" , round(value.min, digits = 2))),
               size=3, nudge_x = 0.2, nudge_y = 0.03,  check_overlap = TRUE,color="steelblue") +

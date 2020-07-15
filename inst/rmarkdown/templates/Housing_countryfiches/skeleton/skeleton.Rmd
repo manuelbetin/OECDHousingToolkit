@@ -49,7 +49,7 @@ data_polvar=htk_Polvars
 data("htk_Outcomevars")
 #all_vars=htk_Outcomevars
 
- all_vars=rio::import("/Users/federicadepace/Dropbox (Personal)/OECD/projects/all_clean_cf_data0713.xlsx")
+ all_vars=rio::import("/Users/federicadepace/Dropbox (Personal)/OECD/projects/all_clean_cf_data0715.xlsx")
  catalogue<-rio::import("/Users/federicadepace/Dropbox (Personal)/OECD/projects/catalogue.xlsx")
 # all_vars=all_vars %>% mutate(period=year(as.Date(period,format="%d/%m/%Y"))) %>%
 #   filter(period==2018)
@@ -198,7 +198,7 @@ sust_vars<-catalogue  %>%  filter(category=="sustainability") %>%
 ranking_sust<-sust_vars  %>% select(variable, rank, variable_name)
 ranking_sust<-ranking_sust   %>% mutate(variable_name=gsub("*","\n",ranking_sust$variable_name, fixed = T))
 var_codes_sust<-c(sust_vars$variable) # only select ALL sust variables 
-var_names_sust<-c(ranking_sust$variable_name) # only the efficiency ones
+var_names_sust<-c(ranking_sust$variable_name) # only the sustainability ones
 dt_sust<-all_vars %>% select(Iso_code3,country_name, var_codes_sust) 
 sec_col=c("darkgreen")
 
@@ -246,7 +246,22 @@ cat(paragraph[[category]])
 
 ```{r fig.height =  6,fig.width = 6,fig.align="center"}
 #correct legend that as potentially an error
-htk_policyradar(data_polvar,params$ctry_code)
+
+data_polvar<-catalogue  %>%  filter(type=="policy")
+                            
+ranking_pol<-data_polvar  %>% select(variable, rank, variable_name)
+ranking_pol<-ranking_pol   %>% mutate(variable_name=gsub("*","\n",ranking_pol$variable_name, fixed = T))
+
+
+var_codes_pol<-c(data_polvar$variable) # only select ALL policy variables 
+var_names_pol<-c(ranking_pol$variable_name) # only the policy ones
+dt_pol<-all_vars %>% select(Iso_code3,country_name, all_of(var_codes_pol) )
+sec_col=c("grey")
+
+#htk_policyradar(data_polvar,params$ctry_code) #old 
+
+htk_policyradar(dt_pol,ranking_pol, params$ctry_code,var_codes_pol,var_names_pol, sec_col, title="Policy")
+
 ```
 }
 &
