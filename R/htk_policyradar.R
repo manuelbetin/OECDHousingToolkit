@@ -47,8 +47,6 @@ htk_policyradar=function(mydata,ranking, ctry, var_codes, var_names, title=NULL)
   sapply(vars_needed, class)
   vars_needed[var_codes] <- sapply(vars_needed[var_codes],as.numeric)
   sapply(vars_needed, class)
-names(vars_needed)
-
 
 dt_mean <-vars_needed %>% summarise_at(.vars = var_codes,
                                        .funs=list(mean=~mean(.,na.rm=T)))
@@ -58,13 +56,8 @@ dt_mean<-dt_mean %>% arrange(Iso_code3, "")
 dt_mean <- dt_mean %>%
   select(Iso_code3, everything())
 
-
-names(dt_mean)
 # change the name of variables
 dt_mean<-dt_mean  %>%  rename_all( funs(str_replace(., "_mean", "")))
-names(dt_mean)
-names(vars_needed)
-
 
 vars_needed<-rbind(vars_needed, dt_mean)
 
@@ -120,7 +113,7 @@ vars_needed_plus<- vars_needed  %>%
   name_vars<-c("value.value","value.mean","value.min","value.max", "value.rank")
 
   OECD<- vars_needed_plus %>%  filter(Iso_code3=="OECD")
-  OECD<-OECD  %>%   select( contains('rank', ignore.case = TRUE))
+  OECD<-OECD  %>%   dplyr::select( contains('rank', ignore.case = TRUE))
 
   OECD_final<-data.frame(t(OECD)) %>%
     rename(rank_OECD=t.OECD.)
@@ -166,6 +159,7 @@ min=rep(0,5)
     # plot the radar chart
     radarchart( data  , axistype=4 ,
                 title="",
+                seg=5,
                 #custom polygon
                 pcol=colors_border , pfcol=colors_in , plwd=1 , plty=1,pty=16,
                 #custom the grid
