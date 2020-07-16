@@ -1,3 +1,15 @@
+#' @title select relevant variables
+#' @description algorithm to select proper variables in
+#' replacement of main variables when missing
+#' @param n_rank1 the number of variables ranking 1
+#' @param n_rank2 the number of variables ranking 2
+#' @param n_rank3 the number of variables ranking 3
+#' @param dt_non_na a dataset containing the data
+#' @return tibble with the proper selection of
+#' variables
+#' @author  Federica Depace
+
+
 get_vars<-function(n_rank1, n_rank2, n_rank3, dt_non_na ){
   newdf <- dt_non_na[with( dt_non_na,which(rank==1 )), ]
 

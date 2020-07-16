@@ -13,54 +13,11 @@ htk_policyradar=function(mydata,ranking, ctry, var_codes, title=NULL){
   #' @author Manuel Betin
   #' @export
 
+  #1 prepare the data according to data availability
 
-  # reshape the variables
-  dt_non_na<-mydata %>%
-    filter(Iso_code3==ctry)  %>%
-    select(Iso_code3, var_codes) %>%
-    gather(variable , value,  var_codes) %>%
-    merge(ranking,# %>% dplyr::select(variable,rank),
-          by="variable") %>%
-    filter(!is.na(value))
+ vars_needed_plus=prep_data(mydata,ranking,ctry,var_codes)
 
-  #select relevant variables according to availability
-  n_rank1 <- nrow(dt_non_na[with( dt_non_na,which(rank==1 )), ])
-  n_rank2 <- nrow(dt_non_na[with( dt_non_na,which(rank==2 )), ])
-  n_rank3 <- nrow(dt_non_na[with( dt_non_na,which(rank==3 )), ])
-
-  dt_non_na=get_vars_policy(n_rank1, n_rank2, n_rank3, dt_non_na)
-
-  #store final variable codes and names
-  var_codes=dt_non_na$variable
-  var_names=dt_non_na$variable_name
-
-  # keep only relevant variables in the dataset
-  vars_needed=mydata %>%
-    select(Iso_code3, var_codes) %>%
-    data.frame()
-
-  # transform in numeric
-  vars_needed[var_codes] <- sapply(vars_needed[var_codes],as.numeric)
-
-  #compute OECD average
-  OECD_mean <-vars_needed %>%
-    summarise_at(.vars = var_codes,.funs=list(~mean(.,na.rm=T)))%>%
-    mutate(Iso_code3="OECD")%>%
-    arrange(Iso_code3, "") %>%
-    select(Iso_code3, everything())
-
-  # Aggregate OECD average to the dataset
-   vars_needed<-rbind(vars_needed, OECD_mean)
-
-  #compute relevant statistics
-  vars_needed_plus<- vars_needed  %>%
-  mutate_at(vars(var_codes),.funs=list(mean=~mean(.,na.rm=T),
-                                       min=~min(.,na.rm=T),
-                                       max=~max(.,na.rm=T),
-                                       rank=~ percent_rank(.,na.rm=T) ))
-
-
-  # 2. create min, max, mean, value
+ # 2. create min, max, mean, value
 
   #find the min and max countries for each variable
   for (var in var_codes) {
