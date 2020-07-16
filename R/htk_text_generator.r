@@ -38,9 +38,9 @@ htk_text_generator=function(data,category,ranking,ctry,var_codes){
   main_vars_direction <<- vars_needed$var_direction
 
   #select the variables in the database
-  dt=vars_needed$data %>% data.frame()
+  dt<<-vars_needed$data %>% data.frame()
   dt=dt %>% dplyr::select(Iso_code3,main_vars,main_vars_rank)
-names(dt)
+
   output <-"paragraphs.R"
 
    current.folder=system.file("extdata", package = "OECDHousingToolkit")
