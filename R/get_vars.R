@@ -126,8 +126,6 @@ get_vars<-function(n_rank1, n_rank2, n_rank3, dt_non_na,type_var){
     }
 
   }
-
-return(final)
 }
 
 
