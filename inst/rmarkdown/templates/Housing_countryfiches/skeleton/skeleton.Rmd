@@ -40,29 +40,14 @@ library(rLDCP)
 
 ```{r import data}
 
-data("htk_paragraphs")
-dt=htk_paragraphs
-data("htk_Polvars")
-data_polvar=htk_Polvars
-
-data("htk_Outcomevars")
-#all_vars=htk_Outcomevars
-
- all_vars=rio::import("../../../../../data/all_clean_cf_data0715.xlsx")
- catalogue<-rio::import("../../../../../data/catalogue.xlsx")
-
-rm(htk_Polvars)
-rm(htk_paragraphs)
-rm(htk_Outcomevars)
+dt=NA
+all_vars=rio::import("all_clean_cf_data0715.xlsx") #change path accordingly
+catalogue<-rio::import("catalogue.xlsx") #change path accordingly
+definition<-rio::import("definitions.rda") #change path accordingly
 
 all_vars <- all_vars %>% mutate(country_name=countrycode(iso3,origin="iso3c",destination="country.name"))
-
 all_vars <- all_vars %>%  select(iso3, country_name, everything()) 
 all_vars <- subset(all_vars, !is.na(country_name)  )
-
-  #mutate(country_name= ifelse( iso3=="OECD", "OECD", country_name), 
-   #      country_name= ifelse( iso3=="EUU", "EUU", country_name), 
-    #     country_name= ifelse( iso3=="OECD", "OECD", country_name))
 
 all_vars <- all_vars  %>%
   rename(Iso_code3=iso3)
@@ -77,19 +62,32 @@ all_vars=all_vars %>% gather(key=key,value=value,-c("Iso_code3","country_name"))
  \rule[-1.75\baselineskip]{0pt}{0pt}
   \includegraphics[height=4\baselineskip,valign=c]{OECDlogo.jpg}
   \quad% Space
-   Housing Sector Country Fiche}
+   Housing Sector Country Fiche: PRELIMINARY VERSION 15/07/2020}
 
 \newpage
 \bigskip
 
-\color{ultramarineblue}
+PRELIMINARY VERSION: 
 
+prepared by Naomi Cohen, Federica Depace, Maxime Nguyen and Manuel Betin
+
+- This page will be remove for the final version and only two pages will remain
+
+- The current version include raw data and raw text as produced by the algorithm, 
+
+- Fiabilization tests, editorial corrections and validation of data for each countries has not been yet undertaken. 
+
+- This template is constructed according to data availability and will thus display replacement variables if the prefered variables  
+are not available.
+
+\newpage
+
+\color{ultramarineblue}
 \section{Housing Sector Outcomes: \Large `r params$ctry_name`}
 
 \color{black}
 
 The provision of efficient, sustainable and inclusive housing is crucial for the well-being of citizens. Housing markets affect people’s well-being through a wide range of channels including access to decent shelter, environmental quality, efficient use of scarce resources, type and extent of commuting or its contribution to strong and resilient economic growth. Galloping urbanisation coupled with increasing awareness for negative externalities arising from commuting and urban sprawl have put strain on housing markets and their capacity to deliver affordable housing to all while reducing environmental and health costs for current and future generations. 
-
 
 \begin{multicols}{3}
 
@@ -103,7 +101,7 @@ The provision of efficient, sustainable and inclusive housing is crucial for the
 mycategory="efficiency"
 effic_vars<-catalogue  %>%  filter(category==mycategory) %>%  
                             filter(type=="outcome")
-ranking_eff<-effic_vars  %>% select(variable, rank,direction, variable_name)
+ranking_eff<-effic_vars  %>% select(variable, rank,direction,variable_name_long, variable_name)
 ranking_eff<-ranking_eff   %>% mutate(variable_name=gsub("*","\n",ranking_eff$variable_name, fixed = T))
 var_codes_eff<-c(effic_vars$variable) # only select ALL efficiency variables 
 var_names_eff<-c(ranking_eff$variable_name) # only the efficiency ones
@@ -111,8 +109,8 @@ var_direction_eff<-c(ranking_eff$direction) # only the efficiency ones
 dt_effic<-all_vars %>% select(Iso_code3,country_name, var_codes_eff) 
 sec_col_eff=c("goldenrod")
 
-htk_CyC(dt_effic, ranking_eff, params$ctry_code,var_codes_eff,var_names_eff, sec_col_eff, title="Efficiency Outcomes")
-
+fig_eff=htk_CyC(dt_effic, ranking_eff, params$ctry_code,var_codes_eff,var_names_eff, sec_col_eff, title="Efficiency Outcomes")
+fig_eff
 ```
 
 \color{black}
@@ -121,8 +119,7 @@ dt=htk_text_generator(data=dt_effic,
                       category=mycategory,
                       ranking=ranking_eff,
                       ctry=params$ctry_code,
-                      var_codes=var_codes_eff,
-                      var_names=var_names_eff)
+                      var_codes=var_codes_eff)
 
 paragraph=dt %>% dplyr::select(mycategory)
 paragraph=gsub("\n","",paragraph)
@@ -134,7 +131,6 @@ paragraph=gsub("\n","",paragraph)
 ```{r Efficiency paragraph results, results='asis'}
 cat(paragraph)
 ```
-
 
 \columnbreak
 
@@ -149,14 +145,15 @@ cat(paragraph)
 mycategory="inclusiveness"
 incl_vars<-catalogue  %>%  filter(category==mycategory) %>%  
                             filter(type=="outcome")
-ranking_incl<-incl_vars  %>% select(variable, rank,direction, variable_name)
+ranking_incl<-incl_vars  %>% select(variable, rank,direction,variable_name_long, variable_name)
 ranking_incl<-ranking_incl   %>% mutate(variable_name=gsub("*","\n",ranking_incl$variable_name, fixed = T))
 var_codes_incl<-c(incl_vars$variable) # only select ALL efficiency variables 
 var_names_incl<-c(ranking_incl$variable_name) # only the efficiency ones
 dt_incl<-all_vars %>% select(Iso_code3,country_name, var_codes_incl) 
 sec_col=c("deepskyblue")
 
-htk_CyC(dt_incl,ranking_incl, params$ctry_code,var_codes_incl,var_names_incl,sec_col, title="Inclusiveness Outcomes")
+fig_incl=htk_CyC(dt_incl,ranking_incl, params$ctry_code,var_codes_incl,var_names_incl,sec_col, title="Inclusiveness Outcomes")
+fig_incl
 ```
 
 
@@ -166,8 +163,7 @@ dt=htk_text_generator(data=dt_incl,
                       category=mycategory,
                       ranking=ranking_incl,
                       ctry=params$ctry_code,
-                      var_codes=var_codes_incl,
-                      var_names=var_names_incl)
+                      var_codes=var_codes_incl)
 
 paragraph=dt %>% dplyr::select(mycategory)
 paragraph=gsub("\n","",paragraph)
@@ -192,7 +188,7 @@ cat(paragraph)
 mycategory="sustainability"
 sust_vars<-catalogue  %>%  filter(category==mycategory) %>%  
                             filter(type=="outcome")
-ranking_sust<-sust_vars  %>% select(variable, rank,direction, variable_name)
+ranking_sust<-sust_vars  %>% select(variable, rank,direction,variable_name_long, variable_name)
 ranking_sust<-ranking_sust   %>% mutate(variable_name=gsub("*","\n",ranking_sust$variable_name, fixed = T))
 var_codes_sust<-c(sust_vars$variable) # only select ALL sust variables 
 var_names_sust<-c(ranking_sust$variable_name) # only the efficiency ones
@@ -200,7 +196,8 @@ dt_sust<-all_vars %>% select(Iso_code3,country_name, var_codes_sust)
 sec_col=c("darkgreen")
 
 
-htk_CyC(dt_sust,ranking_sust, params$ctry_code,var_codes_sust,var_names_sust, sec_col, title="Sustainability Outcomes")
+fig_sust=htk_CyC(dt_sust,ranking_sust, params$ctry_code,var_codes_sust,var_names_sust, sec_col, title="Sustainability Outcomes")
+fig_sust
 ```
 
 ```{r Sustainability paragraph, results='asis',include=F}
@@ -209,8 +206,7 @@ dt=htk_text_generator(data=dt_sust,
                       category=mycategory,
                       ranking=ranking_sust,
                       ctry=params$ctry_code,
-                      var_codes=var_codes_sust,
-                      var_names=var_names_sust)
+                      var_codes=var_codes_sust)
 
 paragraph=dt %>% dplyr::select(mycategory)
 paragraph=gsub("\n","",paragraph)
@@ -223,8 +219,6 @@ cat(paragraph)
 
 \end{multicols}
 
-
-
 \newpage
 
 \begin{tabular}{l  l}
@@ -232,14 +226,38 @@ cat(paragraph)
 \color{ultramarineblue}
 \section{Housing Sector Policies Variables:}
 
+\small
 \color{black}
+This section is a place holder and do not contain final variables and text.
+
 \lipsum[2-2]
 \bigskip
 
 ```{r fig.height =  6,fig.width = 6,fig.align="center"}
-#correct legend that as potentially an error
-htk_policyradar(data_polvar,params$ctry_code)
+
+data_polvar<-catalogue  %>%  filter(type=="policy")
+                            
+ranking_pol<-data_polvar  %>% dplyr::select(variable, rank, variable_name)
+ranking_pol<-ranking_pol   %>% mutate(variable_name=gsub("*","\n",ranking_pol$variable_name, fixed = T))
+
+var_codes_pol<-c(data_polvar$variable) # only select ALL policy variables 
+var_names_pol<-c(ranking_pol$variable_name) # only the policy ones
+dt_pol<-all_vars %>% dplyr::select(Iso_code3,country_name, var_codes_pol)
+sec_col=c("grey")
+
+htk_policyradar(dt_pol,ranking_pol, params$ctry_code,var_codes_pol,var_names_pol, title="Policy")
 ```
+
+```{r,results='asis',eval=F}
+
+first_vars=catalogue %>% filter(rank==1 & type=="outcome") %>% dplyr::select(variable) %>% pull
+
+dispo_vars=c(fig_eff$data$main_v,fig_incl$data$main_v,fig_sust$data$main_v)
+
+cat(setdiff(dispo_vars,first_vars))
+
+```
+
 }
 &
 \parbox[t]{0.2\textwidth}{
@@ -255,17 +273,19 @@ htk_policyradar(data_polvar,params$ctry_code)
 \multicolumn{2}{c}{}        \\
 \color{Goldenrod}\bf {Residential Investment} & Difference in number of dwellings that were completed during a given year  \\
 & and are ready to be occupied between two consecutive quarters \\
-\color{Goldenrod}\bf {House Price Volatility} & Standard deviation of (real) house price index  \\
-\color{Goldenrod}\bf {Price to income} &  Ratio between (real) house price index and median  yearly income \\
+\color{Goldenrod}\bf {House Price Volatility} & Annualised standard deviation of detrended real house prices \\
+\color{Goldenrod}\bf {Price to income} &  Number of years of disposable income required to buy a 100m2 dwelling \\
 & \\
-\color{Goldenrod}\bf {Mortgage claims} &  add definition \\
+\color{Goldenrod}\bf {Mortgage claims} &  Mortgage claims as percentage of GDP \\
 & \\
 \multicolumn{2}{c}{\color{ProcessBlue}\bf{Inclusiveness}}        \\
 \multicolumn{2}{c}{}        \\
-\color{ProcessBlue}\bf{  Home ownership}  & add definition \\
+\color{ProcessBlue}\bf{  Home ownership}  & Percentage of household that own a dwelling, whether it \\
+& is with and without outstanding mortgage \\
 \color{ProcessBlue}\bf{  Over-crowding } & Percentage of household that does not have at its disposal a minimum \\ 
 & number of rooms \\
-\color{ProcessBlue}\bf{  Over burden } & add definition  \\
+\color{ProcessBlue}\bf{  Over burden } & Percentage of population spending more than 40 percent of \\
+& disposable income on private rent \\
  & \\
 \multicolumn{2}{c}{\color{Green}\bf{Sustainability}}        \\
 \multicolumn{2}{c}{}        \\
@@ -277,20 +297,21 @@ htk_policyradar(data_polvar,params$ctry_code)
 & \\
 \multicolumn{2}{c}{\color{ultramarineblue}\bf{Policy}}        \\
 \multicolumn{2}{c}{}        \\
-\color{ultramarineblue}\bf {Rent control stringency} & The rent control indicator measures the extent of rental regulation \\
-& in the private rental market by country. \\
-& It considers the presence of controls on rent levels and rent increases   \\
-\color{ultramarineblue}\bf {Tenant protection} &  The tenant protection indicator considers the ease of tenant eviction, \\
-& tenure security and deposit requirement \\
-\color{ultramarineblue}\bf {Social housing} & Share of public expenditure on social housing \\
-\color{ultramarineblue}\bf {LTV } & Maximum loan-to-value ratio \\
-\color{ultramarineblue}\bf {METR mortgage } & Marginal effective tax rate on mortgage \\
-\color{ultramarineblue}\bf {Building and energy} & Definition to find \\
-\color{ultramarineblue}\bf {code stringency} &   \\
-\color{ultramarineblue}\bf {Planning system} & Definition to find \\
+\color{ultramarineblue}\bf {Rent control stringency} & Index reflecting on the number of regulations that restrict rent increases, \\
+& nominal rent freezes, rent level control, limits of decontrolling  \\
+& (e.g. change of tenant, new or vacant dwelling) \\
+&  as well as restrictions on subletting. \\
+\color{ultramarineblue}\bf {Bank capital requirement} & [Add definition]  \\
+\color{ultramarineblue}\bf {mortgage interest relief} & [Add definition] \\
+\color{ultramarineblue}\bf {Marginal effective taxe rate on mortgage } & Marginal effective tax rate on mortgage \\
+\color{ultramarineblue}\bf {Land-use governance} & [Add definition] \\
+\color{ultramarineblue}\bf {Governemnt spending on housing allowances} &  [Add definition] \\
 \hline
 \hline
 \end{tabular}
+Note: The figures only display available data and this table of definition is only tentative and should adapt to the country
+availability
 }
 \end{tabular}
+
 
