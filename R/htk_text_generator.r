@@ -28,50 +28,20 @@ htk_text_generator=function(data,category,ranking,ctry,var_codes){
 
 
   category<<-category
-  # do here selectin of variables based on ranking
-  ##################################################################################################
-  this_country<-data %>%  filter(Iso_code3==ctry)  %>%  select(Iso_code3, first(var_codes):last(var_codes))
-  this_country_long<-gather(this_country, variable , value,  first(var_codes):last(var_codes) )
-  this_country_long<- merge(this_country_long, ranking[1:5], by="variable")
 
-  # which of the main var is NA?
-  ind_NA<-which(is.na(this_country_long$value) == TRUE, arr.ind=TRUE)
+ # prepare the data according to data availability
 
-  if (length(ind_NA) ==0) {
-    dt_non_na = this_country_long
-  }  else if (length(ind_NA) >0) {
-    dt_non_na = this_country_long[-ind_NA, ]
-  }
+  vars_needed=prep_data(data,ranking,ctry,var_codes)
 
-  #n_var_nonna<-nrow(dt_non_na)
-  # count Non NA vars ranked 1 or 2 or 3
-
-  n_rank1 <- nrow(dt_non_na[with( dt_non_na,which(rank==1 )), ])
-  n_rank2 <- nrow(dt_non_na[with( dt_non_na,which(rank==2 )), ])
-  n_rank3 <- nrow(dt_non_na[with( dt_non_na,which(rank==3 )), ])
-
-  vars_touse=get_vars(n_rank1, n_rank2, n_rank3, dt_non_na )
-  temp_names<-merge(vars_touse, ranking , by="variable")
-
-  main_vars<<-temp_names$variable
-  main_vars_label<<-temp_names$variable_name_long.x
-  main_vars_direction <<- temp_names$direction.x
-
-  # which variables to use:
-  vars_needed=data %>%  select(Iso_code3, main_vars)
-  vars_needed =data.frame(vars_needed)
-
-  if(length(main_vars)!=3){
-    print("Please provide four variables, the three first for the
-          indicators and the last for the overall quality of data")
-    stop()
-  }
+  main_vars<<-vars_needed$var_codes
+  main_vars_rank<<-paste0(main_vars,"_rank")
+  main_vars_label<<-vars_needed$var_names
+  main_vars_direction <<- vars_needed$var_direction
 
   #select the variables in the database
-  dt=vars_needed
+  dt=vars_needed$data %>% data.frame()
+  dt=dt %>% dplyr::select(Iso_code3,main_vars,main_vars_rank)
 
-  dt=dt %>% mutate_at(vars(main_vars),funs(rank=percent_rank))
-  dt<<-data.frame(dt)
   output <-"paragraphs.R"
 
    current.folder=system.file("extdata", package = "OECDHousingToolkit")
