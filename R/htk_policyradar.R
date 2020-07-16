@@ -1,4 +1,4 @@
-htk_policyradar=function(mydata,ranking, ctry, var_codes, var_names, title=NULL){
+htk_policyradar=function(mydata,ranking, ctry, var_codes, title=NULL){
 
   #' @title Radar chart for policy variables
   #' @description Radar chart to produce the spider graph
@@ -8,7 +8,6 @@ htk_policyradar=function(mydata,ranking, ctry, var_codes, var_names, title=NULL)
   #' @param ranking a dataframe with the ranking of the policy variables
   #' @param ctry the iso3 code for the selected country
   #' @param var_codes a dataframe with the the code of the policy variables
-  #' @param var_names a dataframe with the names of the policy variables
   #' @param title an optional title for the figure
   #' @return fmsl radarchart object
   #' @author Manuel Betin
