@@ -105,7 +105,7 @@ htk_CyC=function(mydata,ranking, ctry,var_codes, sec_col, title=NULL){
               size=3, nudge_x = 0.2, nudge_y = 0.03,  check_overlap = TRUE,color="steelblue") +
     geom_text(aes(y= 1   , label=paste(value.country_max,":", round(value.max, digits = 2))),
               size=3, nudge_x = 0.2, nudge_y = -0.05,  check_overlap = TRUE,color="steelblue")+
-    annotate("text", x =3.4, y = 0.14, label = "min OECD", size=5,color="darkgrey") +
+    annotate("text", x =3.4, y = 0.05, label = "min OECD", size=5,color="darkgrey") +
     annotate("text", x =3.4, y = 0.90, label = "max OECD", size=5,color="darkgrey")
 
 }
