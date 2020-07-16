@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ldcp xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="ldcpSchema.xsd">
+
+	<input>
+		<file id="input1" path="htk_paragraphs.csv" dec="." header="TRUE" type="csv" separator=";" />
+	</input>
+
+	<data_structure>
+		<data ref="input1" id="Res_Invest" column_name="var1" position="2"
+			min_value="0" max_value="1" />
+		<data ref="input1" id="Price_vol" column_name="var2" position="3"
+			min_value="0" max_value="1" />
+	</data_structure>
+
+	<glmp>
+		<cp_list count="3">
+			<cp id="cp_Res_Invest">
+				<a count="3">
+					<le id="Res_Invest_low" />
+					<le id="Res_Invest_medium" />
+					<le id="Res_Invest_high" />
+				</a>
+			</cp>
+			<cp id="cp_Price_vol">
+				<a count="3">
+					<le id="Price_vol_low" />
+					<le id="Price_vol_medium" />
+					<le id="Price_vol_high" />
+				</a>
+			</cp>
+			<cp id="cp_Efficiency">
+				<a count="3">
+					<le id="below_avg" />
+					<le id="low_avg" />
+					<le id="avg" />
+				</a>
+			</cp>
+		</cp_list>
+
+		<pm_network count="3">
+			<pm id="pm_Res_Invest">
+				<u>
+					<data ref="Res_Invest"/>
+				</u>
+				<y>
+					<cp ref="cp_Res_Invest"/>
+				</y>
+				<g>
+					<fuzzy_partitions count="3">
+						<trapezoid_mf>
+							<le ref="Res_Invest_low" />
+							<vertex value="0" />
+							<vertex value="0.1" />
+							<vertex value="0.25" />
+							<vertex value="0.40" />
+						</trapezoid_mf>
+						<triangle_mf>
+							<le ref="Res_Invest_medium" />
+							<vertex value="0.40" />
+							<vertex value="0.45" />
+							<vertex value="0.50" />
+						</triangle_mf>
+						<trapezoid_mf>
+							<le ref="Res_Invest_high" />
+							<vertex value="0.55" />
+							<vertex value="0.65" />
+							<vertex value="0.75" />
+							<vertex value="0.99" />
+						</trapezoid_mf>
+					</fuzzy_partitions>
+				</g>
+				<t>
+					<le template=" the performance in terms of residential investment is below OECD average " ref="Res_Invest_low" />
+					<le template=" the performance in terms of residential investment is close to OECD average " ref="Res_Invest_medium" />
+					<le template=" the performance in terms of residential investment is above OECD average " ref="Res_Invest_high" />
+				</t>
+			</pm>
+
+			<pm id="pm_Price_vol">
+				<u>
+					<data ref="Price_vol" />
+				</u>
+				<y>
+					<cp ref="cp_Price_vol" />
+				</y>
+				<g>
+					<fuzzy_partitions count="3">
+						<trapezoid_mf>
+							<le ref="Price_vol_low" />
+							<vertex value="0" />
+							<vertex value="0.1" />
+							<vertex value="0.25" />
+							<vertex value="0.4" />
+						</trapezoid_mf>
+						<triangle_mf>
+							<le ref="Price_vol_medium" />
+							<vertex value="0.40" />
+							<vertex value="0.45" />
+							<vertex value="0.50" />
+						</triangle_mf>
+						<trapezoid_mf>
+							<le ref="Price_vol_high" />
+							<vertex value="0.5" />
+							<vertex value="0.6" />
+							<vertex value="0.7" />
+							<vertex value="0.8" />
+						</trapezoid_mf>
+					</fuzzy_partitions>
+				</g>
+				<t>
+					<le template=" the relative performance in terms of house price volatility is below the OECD average" ref="Price_vol_low" />
+					<le template=" the relative performance in terms of house price volatility is close to the OECD average" ref="Price_vol_medium" />
+					<le template=" the relative performance in terms of house price volatility is above the OECD average" ref="Price_vol_high" />
+				</t>
+			</pm>
+
+			<pm id="pm_Efficiency">
+				<u>
+					<cp ref="cp_Res_Invest" />
+					<cp ref="cp_Price_vol" />
+				</u>
+				<y>
+					<cp ref="cp_Efficiency" />
+				</y>
+				<g>
+					<fuzzy_rules count="9" conjunction="MIN" disjunction="MAX">
+						<fuzzy_rule>
+							<antecedent ref="cp_Res_Invest"><le ref="Res_Invest_low" /></antecedent>
+							<antecedent ref="cp_Price_vol"><le ref="Price_vol_low" /></antecedent>
+							<consequent><le ref="below_avg" /></consequent>
+						</fuzzy_rule>
+						<fuzzy_rule>
+							<antecedent ref="cp_Res_Invest"><le ref="Res_Invest_high" /></antecedent>
+							<antecedent ref="cp_Price_vol"><le ref="Price_vol_low" /></antecedent>
+							<consequent><le ref="avg" /></consequent>
+						</fuzzy_rule>
+						<fuzzy_rule>
+							<antecedent ref="cp_Res_Invest"><le ref="Res_Invest_medium" /></antecedent>
+							<antecedent ref="cp_Price_vol"><le ref="Price_vol_low" /></antecedent>
+							<consequent><le ref="low_avg" /></consequent>
+						</fuzzy_rule>
+						<fuzzy_rule>
+							<antecedent ref="cp_Res_Invest"><le ref="Res_Invest_low" /></antecedent>
+							<antecedent ref="cp_Price_vol"><le ref="Price_vol_medium" /></antecedent>
+							<consequent><le ref="low_avg" /></consequent>
+						</fuzzy_rule>
+						<fuzzy_rule>
+							<antecedent ref="cp_Res_Invest"><le ref="Res_Invest_medium" /></antecedent>
+							<antecedent ref="cp_Price_vol"><le ref="Price_vol_medium" /></antecedent>
+							<consequent><le ref="avg" /></consequent>
+						</fuzzy_rule>
+						<fuzzy_rule>
+							<antecedent ref="cp_Res_Invest"><le ref="Res_Invest_high" /></antecedent>
+							<antecedent ref="cp_Price_vol"><le ref="Price_vol_medium" /></antecedent>
+							<consequent><le ref="avg" /></consequent>
+						</fuzzy_rule>
+						<fuzzy_rule>
+							<antecedent ref="cp_Res_Invest"><le ref="Res_Invest_low" /></antecedent>
+							<antecedent ref="cp_Price_vol"><le ref="Price_vol_high" /></antecedent>
+							<consequent><le ref="avg" /></consequent>
+						</fuzzy_rule>
+							<fuzzy_rule>
+							<antecedent ref="cp_Res_Invest"><le ref="Res_Invest_medium" /></antecedent>
+							<antecedent ref="cp_Price_vol"><le ref="Price_vol_high" /></antecedent>
+							<consequent><le ref="avg" /></consequent>
+						</fuzzy_rule>
+						<fuzzy_rule>
+							<antecedent ref="cp_Res_Invest"><le ref="Res_Invest_high" /></antecedent>
+							<antecedent ref="cp_Price_vol"><le ref="Price_vol_high" /></antecedent>
+							<consequent><le ref="avg" /></consequent>
+						</fuzzy_rule>
+					</fuzzy_rules>
+				</g>
+				<t>
+					<le template="The Efficiency of the housing sector in country is below the OECD average in the two dimensions" ref="below_avg" />
+					<le template="The Efficiency of the housing sector has relatively weak but heterogeneous performances" ref="low_avg" />
+					<le template="The Efficiency of the housing sector is in line with OECD averages in both dimensions" ref="avg" />
+				</t>
+			</pm>
+		</pm_network>
+	</glmp>
+
+	<report_template>
+  		<output ref="cp_Efficiency" />
+	  	<text>. Indeed, among the two dimensions considered,</text>
+  		<output ref="cp_Res_Invest" />
+  		<text>while </text>
+  		<output ref="cp_Price_vol" />
+	  	<text>.</text>
+	</report_template>
+</ldcp>

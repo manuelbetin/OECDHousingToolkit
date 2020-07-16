@@ -15,13 +15,13 @@ htk_policyradar=function(mydata,ranking, ctry, var_codes, title=NULL){
 
   #1 prepare the data according to data availability
 
- vars_needed_plus=prep_data(mydata,ranking,ctry,var_codes)
+  vars_needed_plus=prep_data(mydata,ranking,ctry,var_codes)
 
- var_codes=vars_needed_plus$var_codes
- var_names=vars_needed_plus$var_names
- vars_needed_plus=vars_needed_plus$data
+  var_codes=vars_needed_plus$var_codes
+  var_names=vars_needed_plus$var_names
+  vars_needed_plus=vars_needed_plus$data
 
- # 2. create min, max, mean, value
+  # 2. create min, max, mean, value
 
   #find the min and max countries for each variable
   for (var in var_codes) {
@@ -50,7 +50,7 @@ htk_policyradar=function(mydata,ranking, ctry, var_codes, title=NULL){
            ext=ifelse( (str_detect(variable, "country_max")), "country_max", ext),
            ext=ifelse( (str_detect(variable, "country_min")), "country_min", ext),
            ext=ifelse( (str_detect(variable, "rank")), "rank", ext)) %>%
-      dplyr::select(-variable)
+    dplyr::select(-variable)
 
   #reshape the final dataset used for the graph
   final<-reshape(temp_long, idvar = "main_v" , timevar =  "ext" , direction = "wide")
@@ -80,38 +80,38 @@ htk_policyradar=function(mydata,ranking, ctry, var_codes, title=NULL){
 
   rownames(final_t)[5]=ctry
   #only keep relevant lines: value of the country and rank of OECD
-   names_sel<-c(ctry,  "OECD" )
-   final_t1<- subset(final_t, rownames(final_t) %in% names_sel)
-   data=data.frame(final_t1)
-   as.numeric.factor <- function(x) {as.numeric(levels(x))[x]}
-   data[var_codes] <- sapply(data[var_codes], as.numeric.factor)
+  names_sel<-c(ctry,  "OECD" )
+  final_t1<- subset(final_t, rownames(final_t) %in% names_sel)
+  data=data.frame(final_t1)
+  as.numeric.factor <- function(x) {as.numeric(levels(x))[x]}
+  data[var_codes] <- sapply(data[var_codes], as.numeric.factor)
 
-   #set the upper and lower bound for the figure
-   max=rep(1,5)
-   min=rep(0,5)
-   data=rbind(min,max,data)
-   rownames(data)[1:2]<-c("min", "max")
+  #set the upper and lower bound for the figure
+  max=rep(1,5)
+  min=rep(0,5)
+  data=rbind(min,max,data)
+  rownames(data)[1:2]<-c("min", "max")
 
-    # set colors
-    colors=c(rgb(1,0,0,0.3),rgb(0,0,1,0.5))
-    colors_leg=c(rgb(1,0,0,1),rgb(0,0,1,0.5))
-    colnames(data)=var_names
+  # set colors
+  colors=c(rgb(1,0,0,0.3),rgb(0,0,1,0.5))
+  colors_leg=c(rgb(1,0,0,1),rgb(0,0,1,0.5))
+  colnames(data)=var_names
 
-    # plot the radar chart
-    radarchart( data  , axistype=4 ,
-                title="",
-                seg=5,
-                #custom polygon
-                pcol=colors_leg ,
-                #pfcol=colors ,
-                #plwd=1 , plty=1,pty=16,
-                #custom the grid
-                cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,1.2,.2), cglwd=1,
-                #custom labels : check here
-                vlcex=0.7
-    ) %>%
-      legend(x=0.85,y=0,
-             legend=rownames(data)[3:4],fill=colors_leg,col=colors_leg,
-             bty = "n" ,text.col = colors_leg, cex=0.8,horiz = F,merge = F)
- # }
+  # plot the radar chart
+  radarchart( data  , axistype=4 ,
+              title="",
+              seg=5,
+              #custom polygon
+              pcol=colors_leg ,
+              #pfcol=colors ,
+              #plwd=1 , plty=1,pty=16,
+              #custom the grid
+              cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,1.2,.2), cglwd=1,
+              #custom labels : check here
+              vlcex=0.7
+  ) %>%
+    legend(x=0.85,y=0,
+           legend=rownames(data)[3:4],fill=colors_leg,col=colors_leg,
+           bty = "n" ,text.col = colors_leg, cex=0.8,horiz = F,merge = F)
+  # }
 }
