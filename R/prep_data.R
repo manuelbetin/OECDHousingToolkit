@@ -7,8 +7,9 @@
 #' @param ranking a dataframe with the ranking of the policy variables
 #' @param ctry the iso3 code for the selected country
 #' @param var_codes a dataframe with the the code of the policy variables
-#' @return tibble with the proper selection of
-#' variables de
+#' @return a list with data a tibble with the proper selection of
+#' variables, var_codes the codes of the selected vars and
+#' var_names the names of the selected vars
 #' @author Manuel Betin, Federica Depace
 
 prep_data=function(mydata,ranking,ctry,var_codes){
@@ -57,5 +58,5 @@ prep_data=function(mydata,ranking,ctry,var_codes){
                                          max=~max(.,na.rm=T),
                                          rank=~ percent_rank(.,na.rm=T) ))
 
-  return(vars_needed_plus)
+  return(list(data=vars_needed_plus,var_codes=var_codes,var_names=var_names))
 }
