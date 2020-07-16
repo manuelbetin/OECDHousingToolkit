@@ -34,7 +34,7 @@ htk_text_generator=function(data,category,ranking,ctry,var_codes){
 
   main_vars<<-vars_needed$var_codes
   main_vars_rank<<-paste0(main_vars,"_rank")
-  main_vars_label<<-vars_needed$var_names
+  main_vars_label<<-vars_needed$var_names_long
   main_vars_direction <<- vars_needed$var_direction
 
   #select the variables in the database

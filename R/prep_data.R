@@ -32,7 +32,8 @@ prep_data=function(mydata,ranking,ctry,var_codes,type_var="policy"){
   #store final variable codes and names
   var_codes=dt_non_na$variable
   var_names=dt_non_na$variable_name
-  var_direction <<- dt_non_na$direction
+  var_names_long=dt_non_na$variable_name_long
+  var_direction = dt_non_na$direction
 
   # keep only relevant variables in the dataset
   vars_needed=mydata %>%
@@ -59,5 +60,5 @@ prep_data=function(mydata,ranking,ctry,var_codes,type_var="policy"){
                                          max=~max(.,na.rm=T),
                                          rank=~ percent_rank(.,na.rm=T) ))
 
-  return(list(data=vars_needed_plus,var_codes=var_codes,var_names=var_names,var_direction=var_direction))
+  return(list(data=vars_needed_plus,var_codes=var_codes,var_names=var_names,var_direction=var_direction,var_names_long=var_names_long))
 }
