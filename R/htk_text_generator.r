@@ -1,5 +1,4 @@
 
-
 #'@title Create dynamic text
 #'@description generate dynamic text
 #'@param data dataset with one row per country
@@ -38,8 +37,8 @@ htk_text_generator=function(data,category,ranking,ctry,var_codes){
   main_vars_direction <<- vars_needed$var_direction
 
   #select the variables in the database
-  dt<<-vars_needed$data %>% data.frame()
-  dt=dt %>% dplyr::select(Iso_code3,main_vars,main_vars_rank)
+  mydt<<-vars_needed$data %>% data.frame()
+  mydt=mydt %>% dplyr::select(Iso_code3,main_vars,main_vars_rank)
 
   output <-"paragraphs.R"
 
@@ -49,18 +48,18 @@ htk_text_generator=function(data,category,ranking,ctry,var_codes){
   source(output)
 
   #include the paragraphs in the database for each country
-  dt=dt %>% filter(Iso_code3==ctry)
-  dt[[category]]=NA
-  for(i in 1:length(dt$Iso_code3)){
+  mydt=mydt %>% filter(Iso_code3==ctry)
+  mydt[[category]]=NA
+  for(i in 1:length(mydt$Iso_code3)){
     i<<-i
-    ctry=dt[i,"Iso_code3"]
-    current_input <- c(round(dt[i,colsnum[1]],2),round(dt[i,colsnum[2]],2),round(dt[i,colsnum[3]],2),round(dt[i,colsnum[3]],2))
+    ctry=mydt[i,"Iso_code3"]
+    current_input <- c(round(mydt[i,colsnum[1]],2),round(mydt[i,colsnum[2]],2),round(mydt[i,colsnum[3]],2))
     my_ldcp <- ldcp_run(ldcp=my_ldcp,input=current_input)
     text=gsub("targetcountry",countrycode(ctry,origin="iso3c",destination="country.name"),my_ldcp$report$description)
-    dt[i,category]=text
+    mydt[i,category]=text
   }
-  #colnames(dt)=c("country",main_vars,category)
+  #colnames(mydt)=c("country",main_vars,category)
    file.remove(output)
-  #rio::export(dt,paste0("htk_paragraphs_",category,".csv"),sep=";")
-  dt
+  #rio::export(mydt,paste0("htk_paragraphs_",category,".csv"),sep=";")
+  mydt
 }

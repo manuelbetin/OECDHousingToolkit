@@ -21,9 +21,13 @@ htk_generate_ctry_fiches = function(Rmdfile="skeleton.Rmd",country_code_list,pat
       Rmdfile, params = list(
         ctry_code = country_code,
         ctry_name=country_name
+        #ctry_adj=country_adj
       ),
       output_file = ifelse(!is.null(path),paste0(path,"/OECD_Housing_Country_Fiches-", country_code, ".pdf"),paste0("CountryFiches-", country_name, ".pdf"))
     )
   })
 
 }
+
+
+
