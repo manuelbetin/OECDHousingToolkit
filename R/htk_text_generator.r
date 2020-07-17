@@ -13,16 +13,6 @@
 #'@export
 #'
 
-
-# data=dt_effic
-# ranking=ranking_eff
-# ctry=params$ctry_code
-# var_codes=var_codes_eff
-# var_names=var_names_eff
-# var_names_long=var_names_long_eff
-# sec_col=sec_col_eff
-# title="Efficiency Outcomes"
-
 htk_text_generator=function(data,category,ranking,ctry,var_codes){
 
   category<<-category
