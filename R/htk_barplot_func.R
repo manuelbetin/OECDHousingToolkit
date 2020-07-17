@@ -17,7 +17,7 @@ htk_barplot_func <- function(data_source,yvar,country,title,subtitle=NULL,Xlabel
             axis.text.y = element_text(size=7),
             plot.title=element_text(face="bold",colour ="steelblue",size=10, hjust =0.5),
             plot.subtitle =element_text(size =7, hjust = 0.5))
-  }   else if (is.na(myv)) {
+  }   else if(is.na(myv)) {
     plot<-plot.new()
   }
   return(plot)
