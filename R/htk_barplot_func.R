@@ -1,7 +1,7 @@
 htk_barplot_func <- function(data_source,yvar,country,title,subtitle=NULL,Xlabel=NULL,Ylabel=NULL){
 
-  myv<-data_source %>% filter(ISO3_code==country) %>% dplyr::select(yvar) %>% pull()
-  if (!is.na(myv)){
+  myv<-data_source %>% filter(ISO3_code=="SWE") %>% dplyr::select(yvar)
+  if(dim(myv)[1]!=0){
     plot <- ggplot(data =data_source) +
       geom_bar(stat="identity",aes(x=reorder(ISO3_code, get(yvar)),y=get(yvar)),fill="steelblue",width=0.7,alpha=0.6) +
       geom_bar(stat="identity",aes(x=reorder(ISO3_code, get(yvar)),y=ifelse(ISO3_code!=country,NA,get(yvar))),fill="steelblue",color="navyblue",width=0.7) +
@@ -17,7 +17,7 @@ htk_barplot_func <- function(data_source,yvar,country,title,subtitle=NULL,Xlabel
             axis.text.y = element_text(size=7),
             plot.title=element_text(face="bold",colour ="steelblue",size=10, hjust =0.5),
             plot.subtitle =element_text(size =7, hjust = 0.5))
-  }   else if(is.na(myv)) {
+  }   else {
     plot<-plot.new()
   }
   return(plot)
