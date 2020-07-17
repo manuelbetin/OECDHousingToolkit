@@ -14,9 +14,15 @@ htk_generate_ctry_fiches = function(Rmdfile="skeleton.Rmd",country_code_list,pat
   if(!is.null(path)){
     dir.create(path)
   }
+  country_code="USA"
   lapply(country_code_list,function(country_code){
    country_name=countrycode::countrycode(country_code,origin="iso3c",destination="country.name")
    country_adj=get_adjective() %>% filter(Country==country_name) %>% dplyr::select(Adjectivals) %>% pull()
+   country_adj=tolower(country_adj)
+   if(length(country_adj)==0){
+     country_adj=paste0(country_name,"'s")
+   }
+
     rmarkdown::render(
       Rmdfile, params = list(
         ctry_code = country_code,
