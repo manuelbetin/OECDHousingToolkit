@@ -1,6 +1,6 @@
 htk_barplot_func <- function(data_source,yvar,country,title,subtitle=NULL,Xlabel=NULL,Ylabel=NULL){
 
-  myv<-data_source %>% filter(ISO3_code=="SWE") %>% dplyr::select(yvar)
+  myv<-data_source %>% filter(ISO3_code==country) %>% dplyr::select(yvar)
   if(dim(myv)[1]!=0){
     plot <- ggplot(data =data_source) +
       geom_bar(stat="identity",aes(x=reorder(ISO3_code, get(yvar)),y=get(yvar)),fill="steelblue",width=0.7,alpha=0.6) +
