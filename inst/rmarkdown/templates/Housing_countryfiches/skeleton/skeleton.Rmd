@@ -35,27 +35,20 @@ library(countrycode)
 library(tidyr)
 library(OECDHousingToolkit)
 library(rLDCP)
-
-
 ```
 
 ```{r import data}
-
 dt=NA
 all_vars=rio::import("all_clean_cf_data0715.xlsx") #change path accordingly
 catalogue<-rio::import("catalogue.xlsx") #change path accordingly
 definition<-rio::import("definitions.rda") #change path accordingly
-
 all_vars <- all_vars %>% mutate(country_name=countrycode(iso3,origin="iso3c",destination="country.name"))
 all_vars <- all_vars %>%  select(iso3, country_name, everything()) 
 all_vars <- subset(all_vars, !is.na(country_name)  )
-
 all_vars <- all_vars  %>%
   rename(Iso_code3=iso3)
-
 all_vars=all_vars %>% gather(key=key,value=value,-c("Iso_code3","country_name")) %>% group_by(Iso_code3) %>%
   mutate(dispo_var=mean(ifelse(!is.na(value),1,0))) %>% spread(key=key,value) %>% ungroup() %>% data.frame()
-
 ```
 
 
@@ -108,8 +101,12 @@ var_names_eff<-c(ranking_eff$variable_name) # only the efficiency ones
 var_direction_eff<-c(ranking_eff$direction) # only the efficiency ones
 dt_effic<-all_vars %>% select(Iso_code3,country_name, var_codes_eff) 
 sec_col_eff=c("goldenrod")
+<<<<<<< HEAD
+fig_eff=htk_CyC(dt_effic, ranking_eff, params$ctry_code,var_codes_eff,var_names_eff, sec_col_eff, title="Efficiency Outcomes")
+=======
 
 fig_eff=htk_CyC(dt_effic, ranking_eff, params$ctry_code,var_codes_eff, sec_col_eff, title="Efficiency Outcomes")
+>>>>>>> upstream/master
 fig_eff
 ```
 
@@ -120,11 +117,13 @@ dt=htk_text_generator(data=dt_effic,
                       ranking=ranking_eff,
                       ctry=params$ctry_code,
                       var_codes=var_codes_eff)
-
 paragraph=dt %>% dplyr::select(mycategory)
 paragraph=gsub("\n","",paragraph)
+<<<<<<< HEAD
+=======
 paragraph=gsub("targetadjective",params$ctry_adj,paragraph)
 
+>>>>>>> upstream/master
 ```
 
 
@@ -152,20 +151,22 @@ var_codes_incl<-c(incl_vars$variable) # only select ALL efficiency variables
 var_names_incl<-c(ranking_incl$variable_name) # only the efficiency ones
 dt_incl<-all_vars %>% select(Iso_code3,country_name, var_codes_incl) 
 sec_col=c("deepskyblue")
+<<<<<<< HEAD
+fig_incl=htk_CyC(dt_incl,ranking_incl, params$ctry_code,var_codes_incl,var_names_incl,sec_col, title="Inclusiveness Outcomes")
+=======
 
 fig_incl=htk_CyC(dt_incl,ranking_incl, params$ctry_code,var_codes_incl,sec_col, title="Inclusiveness Outcomes")
+>>>>>>> upstream/master
 fig_incl
 ```
 
 
 ```{r Inclusiveness paragraph, results='asis',include=F}
-
 dt=htk_text_generator(data=dt_incl,
                       category=mycategory,
                       ranking=ranking_incl,
                       ctry=params$ctry_code,
                       var_codes=var_codes_incl)
-
 paragraph=dt %>% dplyr::select(mycategory)
 paragraph=gsub("\n","",paragraph)
 paragraph=gsub("targetadjective",params$ctry_adj,paragraph)
@@ -196,20 +197,22 @@ var_codes_sust<-c(sust_vars$variable) # only select ALL sust variables
 var_names_sust<-c(ranking_sust$variable_name) # only the efficiency ones
 dt_sust<-all_vars %>% select(Iso_code3,country_name, var_codes_sust) 
 sec_col=c("darkgreen")
+<<<<<<< HEAD
+fig_sust=htk_CyC(dt_sust,ranking_sust, params$ctry_code,var_codes_sust,var_names_sust, sec_col, title="Sustainability Outcomes")
+=======
 
 
 fig_sust=htk_CyC(dt_sust,ranking_sust, params$ctry_code,var_codes_sust, sec_col, title="Sustainability Outcomes")
+>>>>>>> upstream/master
 fig_sust
 ```
 
 ```{r Sustainability paragraph, results='asis',include=F}
-
 dt=htk_text_generator(data=dt_sust,
                       category=mycategory,
                       ranking=ranking_sust,
                       ctry=params$ctry_code,
                       var_codes=var_codes_sust)
-
 paragraph=dt %>% dplyr::select(mycategory)
 paragraph=gsub("\n","",paragraph)
 paragraph=gsub("targetadjective",params$ctry_adj,paragraph) 
@@ -238,28 +241,26 @@ This section is a place holder and do not contain final variables and text.
 \bigskip
 
 ```{r fig.height =  6,fig.width = 6,fig.align="center"}
-
 data_polvar<-catalogue  %>%  filter(type=="policy")
                             
 ranking_pol<-data_polvar  %>% dplyr::select(variable, rank, variable_name)
 ranking_pol<-ranking_pol   %>% mutate(variable_name=gsub("*","\n",ranking_pol$variable_name, fixed = T))
-
 var_codes_pol<-c(data_polvar$variable) # only select ALL policy variables 
 var_names_pol<-c(ranking_pol$variable_name) # only the policy ones
 dt_pol<-all_vars %>% dplyr::select(Iso_code3,country_name, var_codes_pol)
 sec_col=c("grey")
+<<<<<<< HEAD
+htk_policyradar(dt_pol,ranking_pol, params$ctry_code,var_codes_pol,var_names_pol, title="Policy")
+=======
 
 htk_policyradar(dt_pol,ranking_pol, params$ctry_code,var_codes_pol, title="Policy")
+>>>>>>> upstream/master
 ```
 
 ```{r,results='asis',eval=F}
-
 first_vars=catalogue %>% filter(rank==1 & type=="outcome") %>% dplyr::select(variable) %>% pull
-
 dispo_vars=c(fig_eff$data$main_v,fig_incl$data$main_v,fig_sust$data$main_v)
-
 cat(setdiff(dispo_vars,first_vars))
-
 ```
 
 }
