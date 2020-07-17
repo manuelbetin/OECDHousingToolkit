@@ -7,7 +7,7 @@
 #'@export a ldcp object containing the text generated
 #'
 
-library(rLDCP)
+#library(rLDCP)
 
 ####################################################################
 ###################### input file definition #######################

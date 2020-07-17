@@ -26,7 +26,7 @@
 htk_text_generator=function(data,category,ranking,ctry,var_codes){
 
   category<<-category
-
+  ctry<<-ctry
  # prepare the data according to data availability
 
   vars_needed=prep_data(data,ranking,ctry,var_codes,type_var="outcomes")
