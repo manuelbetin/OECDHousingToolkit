@@ -38,7 +38,7 @@ htk_text_generator=function(data,category,ranking,ctry,var_codes){
 
   #select the variables in the database
   mydt<<-vars_needed$data %>% data.frame()
-  mydt=mydt %>% dplyr::select(Iso_code3,main_vars,main_vars_rank)
+  mydt<<-mydt %>% dplyr::select(Iso_code3,main_vars,main_vars_rank)
 
   output <-"paragraphs.R"
 
