@@ -8,6 +8,7 @@ output:
 params:
   ctry_code: FRA
   ctry_name: France
+  ctry_adj: french
   title: Housing Horizontal Project
 ---
 
@@ -87,8 +88,7 @@ are not available.
 
 \color{black}
 
-The provision of efficient, sustainable and inclusive housing is crucial for the well-being of citizens. Housing markets affect people’s well-being through a wide range of channels including access to decent shelter, environmental quality, efficient use of scarce resources, type and extent of commuting or its contribution to strong and resilient economic growth. Galloping urbanisation coupled with increasing awareness for negative externalities arising from commuting and urban sprawl have put strain on housing markets and their capacity to deliver affordable housing to all while reducing environmental and health costs for current and future generations. 
-
+The provision of efficient, sustainable and inclusive housing is crucial for the well-being of citizens. Housing markets affect people’s well-being through a wide range of channels including access to decent shelter, environmental quality, efficient use of scarce resources, type and extent of commuting or its contribution to strong and resilient economic growth. Galloping urbanisation coupled with increasing awareness for negative externalities arising from commuting and urban sprawl have put strain on housing markets and their capacity to deliver affordable housing to all while reducing environmental and health costs for current and future generations. This note provides a cross-country perspective of `r params$ctry_name`’s housing-related indicators and policy settings.
 \begin{multicols}{3}
 
 \color{Goldenrod}
@@ -109,7 +109,7 @@ var_direction_eff<-c(ranking_eff$direction) # only the efficiency ones
 dt_effic<-all_vars %>% select(Iso_code3,country_name, var_codes_eff) 
 sec_col_eff=c("goldenrod")
 
-fig_eff=htk_CyC(dt_effic, ranking_eff, params$ctry_code,var_codes_eff,var_names_eff, sec_col_eff, title="Efficiency Outcomes")
+fig_eff=htk_CyC(dt_effic, ranking_eff, params$ctry_code,var_codes_eff, sec_col_eff, title="Efficiency Outcomes")
 fig_eff
 ```
 
@@ -123,6 +123,7 @@ dt=htk_text_generator(data=dt_effic,
 
 paragraph=dt %>% dplyr::select(mycategory)
 paragraph=gsub("\n","",paragraph)
+paragraph=gsub("targetadjective",params$ctry_adj,paragraph)
 
 ```
 
@@ -152,7 +153,7 @@ var_names_incl<-c(ranking_incl$variable_name) # only the efficiency ones
 dt_incl<-all_vars %>% select(Iso_code3,country_name, var_codes_incl) 
 sec_col=c("deepskyblue")
 
-fig_incl=htk_CyC(dt_incl,ranking_incl, params$ctry_code,var_codes_incl,var_names_incl,sec_col, title="Inclusiveness Outcomes")
+fig_incl=htk_CyC(dt_incl,ranking_incl, params$ctry_code,var_codes_incl,sec_col, title="Inclusiveness Outcomes")
 fig_incl
 ```
 
@@ -167,6 +168,7 @@ dt=htk_text_generator(data=dt_incl,
 
 paragraph=dt %>% dplyr::select(mycategory)
 paragraph=gsub("\n","",paragraph)
+paragraph=gsub("targetadjective",params$ctry_adj,paragraph)
 ```
 
 
@@ -196,7 +198,7 @@ dt_sust<-all_vars %>% select(Iso_code3,country_name, var_codes_sust)
 sec_col=c("darkgreen")
 
 
-fig_sust=htk_CyC(dt_sust,ranking_sust, params$ctry_code,var_codes_sust,var_names_sust, sec_col, title="Sustainability Outcomes")
+fig_sust=htk_CyC(dt_sust,ranking_sust, params$ctry_code,var_codes_sust, sec_col, title="Sustainability Outcomes")
 fig_sust
 ```
 
@@ -210,10 +212,12 @@ dt=htk_text_generator(data=dt_sust,
 
 paragraph=dt %>% dplyr::select(mycategory)
 paragraph=gsub("\n","",paragraph)
+paragraph=gsub("targetadjective",params$ctry_adj,paragraph) 
 ```
 
 ```{r Sustainability paragraph results, results='asis'}
 cat(paragraph)
+
 ```
 
 
@@ -245,7 +249,7 @@ var_names_pol<-c(ranking_pol$variable_name) # only the policy ones
 dt_pol<-all_vars %>% dplyr::select(Iso_code3,country_name, var_codes_pol)
 sec_col=c("grey")
 
-htk_policyradar(dt_pol,ranking_pol, params$ctry_code,var_codes_pol,var_names_pol, title="Policy")
+htk_policyradar(dt_pol,ranking_pol, params$ctry_code,var_codes_pol, title="Policy")
 ```
 
 ```{r,results='asis',eval=F}
@@ -313,5 +317,4 @@ Note: The figures only display available data and this table of definition is on
 availability
 }
 \end{tabular}
-
 

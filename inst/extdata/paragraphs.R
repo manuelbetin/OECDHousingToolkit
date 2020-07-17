@@ -44,11 +44,11 @@ rm(input1)
 #provide the labels to the indicators and the categories that will be
 #used in the text as well as definitions for each categories
 
-definition=c(efficiency=" is defined as the capacity of the sector to provide housing that meets demand across the country, to
+definition=c(efficiency=" is defined as the capacity of the targetadjective housing sector to provide a supply that meets demand across the country, to
              facilitate residential mobility and to deliver housing that countributes to macroeconomic stability",
-             inclusiveness=" refers to the capacity of the sector to provide affordable homes across tenure modalities,
+             inclusiveness=" refers to the capacity of the targetadjective housing sector to provide affordable homes across tenure modalities,
              to tackle homelessness and to coordinate housing policies across levels of government",
-             sustainability=" assess the capacity of the sector to built environmentally sustainable housing and to
+             sustainability=" assess the capacity of the targetadjective housing sector to built environmentally sustainable housing and to
              design urban areas that support the environment.")
 
 

@@ -59,7 +59,6 @@ htk_text_generator=function(data,category,ranking,ctry,var_codes){
     text=gsub("targetcountry",countrycode(ctry,origin="iso3c",destination="country.name"),my_ldcp$report$description)
     dt[i,category]=text
   }
-
   #colnames(dt)=c("country",main_vars,category)
    file.remove(output)
   #rio::export(dt,paste0("htk_paragraphs_",category,".csv"),sep=";")
