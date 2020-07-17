@@ -12,7 +12,7 @@
 #' var_names the names of the selected vars
 #' @author Manuel Betin, Federica Depace
 
-prep_data=function(mydata,ranking,ctry,var_codes){
+prep_data=function(mydata,ranking,ctry,var_codes,type_var="policy"){
   # reshape the variables
   dt_non_na<-mydata %>%
     filter(Iso_code3==ctry)  %>%
@@ -27,11 +27,13 @@ prep_data=function(mydata,ranking,ctry,var_codes){
   n_rank2 <- nrow(dt_non_na[with( dt_non_na,which(rank==2 )), ])
   n_rank3 <- nrow(dt_non_na[with( dt_non_na,which(rank==3 )), ])
 
-  dt_non_na=get_vars_policy(n_rank1, n_rank2, n_rank3, dt_non_na)
+  dt_non_na=get_vars(n_rank1, n_rank2, n_rank3, dt_non_na,type_var)
 
   #store final variable codes and names
   var_codes=dt_non_na$variable
   var_names=dt_non_na$variable_name
+  var_names_long=dt_non_na$variable_name_long
+  var_direction = dt_non_na$direction
 
   # keep only relevant variables in the dataset
   vars_needed=mydata %>%
@@ -58,5 +60,5 @@ prep_data=function(mydata,ranking,ctry,var_codes){
                                          max=~max(.,na.rm=T),
                                          rank=~ percent_rank(.,na.rm=T) ))
 
-  return(list(data=vars_needed_plus,var_codes=var_codes,var_names=var_names))
+  return(list(data=vars_needed_plus,var_codes=var_codes,var_names=var_names,var_direction=var_direction,var_names_long=var_names_long))
 }

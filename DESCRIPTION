@@ -19,5 +19,6 @@ require:
   lubridate,
   forcats,
   fmsb,
-  rLDCP
+  rLDCP,
+  toOrdinal
 RoxygenNote: 7.1.0

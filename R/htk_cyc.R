@@ -6,7 +6,6 @@
 
 #'@param ctry selected OECD countries for which the country note is produced
 #'@param var_codes list of indicators
-#'@param var_names names of the indicators
 #'@param sub_vars list of replacement indicators
 #'@param sub_vars_label names of the replacement  indicators
 
@@ -23,73 +22,16 @@
 
 
 
-htk_CyC=function(mydata,ranking, ctry,var_codes,var_names, sec_col, title=NULL){
+htk_CyC=function(mydata,ranking, ctry,var_codes, sec_col, title=NULL){
 
-  # do here selectin of variables based on ranking
-  ##################################################################################################
-  this_country<-mydata %>%  filter(Iso_code3==ctry)  %>%  select(Iso_code3, first(var_codes):last(var_codes))
-  this_country_long<-gather(this_country, variable , value,  first(var_codes):last(var_codes) )
-  this_country_long<- merge(this_country_long, ranking[1:2], by="variable")
+  #prepare the dataset with the proper variables
+  vars_needed=prep_data(mydata,ranking,ctry,var_codes,type_var="outcomes")
 
-  # which of the main var is NA?
-  ind_NA<-which(is.na(this_country_long$value) == TRUE, arr.ind=TRUE)
+  var_codes=vars_needed$var_codes
+  var_codes_rank=paste0(var_codes,"_rank")
+  var_names=vars_needed$var_names
 
-  if (length(ind_NA) ==0) {
-    dt_non_na = this_country_long
-  }  else if (length(ind_NA) >0) {
-    dt_non_na = this_country_long[-ind_NA, ]
-  }
-
-  #n_var_nonna<-nrow(dt_non_na)
-  # count Non NA vars ranked 1 or 2 or 3
-
-  n_rank1 <- nrow(dt_non_na[with( dt_non_na,which(rank==1 )), ])
-  n_rank2 <- nrow(dt_non_na[with( dt_non_na,which(rank==2 )), ])
-  n_rank3 <- nrow(dt_non_na[with( dt_non_na,which(rank==3 )), ])
-
-  vars_touse=get_vars(n_rank1, n_rank2, n_rank3, dt_non_na )
-  temp_names<-merge(vars_touse, ranking , by="variable")
-
-  var_codes=temp_names$variable
-  var_names=temp_names$variable_name
-
-  ##################################################################################################
-  #country_name=countrycode(ctry,origin = "iso3c",destination="country.name")
-
-  # which variables to use:
-  vars_needed=mydata %>%  select(Iso_code3, var_codes)
-  vars_needed =data.frame(vars_needed)
-  # transform in numeric
-  sapply(vars_needed, class)
-  vars_needed[var_codes] <- sapply(vars_needed[var_codes],as.numeric)
-  sapply(vars_needed, class)
-
-  dt_mean <-vars_needed %>% summarise_at(.vars = var_codes,
-                                         .funs=list(mean=~mean(.,na.rm=T)))
-
-  dt_mean <-dt_mean %>% mutate(Iso_code3="OECD")
-  dt_mean<-dt_mean %>% arrange(Iso_code3, "")
-  dt_mean<-dt_mean[,c(4,1,2,3)]
-
-  names(dt_mean)
-  # change the name of variables
-  dt_mean<-dt_mean  %>%  rename_all( funs(str_replace(., "_mean", "")))
-  names(dt_mean)
-  names(vars_needed)
-
-
-  vars_needed<-rbind(vars_needed, dt_mean)
-
-  # compute mean, min, max
-  vars_needed<- vars_needed  %>%
-    mutate_at(vars(var_codes),.funs=list(mean=~mean(.,na.rm=T),
-                                         min=~min(.,na.rm=T),
-                                         max=~max(.,na.rm=T),
-                                         rank=~percent_rank(.,na.rm=T) ))
-  names(vars_needed)
-
-
-
+  vars_needed=vars_needed$data
 
   # 2. create min, max, mean, valu
   for (var in var_codes) {
@@ -136,9 +78,8 @@ htk_CyC=function(mydata,ranking, ctry,var_codes,var_names, sec_col, title=NULL){
   name_vars<-c("value.value","value.mean","value.min","value.max", "value.rank")
   final<-  final %>% mutate_at(vars(name_vars),as.numeric)
   final<-merge(final, OECD_final, by="main_v")
-  # %>%
-  #  mutate(value_scaled = (value.value-value.min) / (value.max-value.min ),
-  #        mean_scaled =  ( value.mean-value.min) / (value.max-value.min ) )
+
+  #produce the figure
 
   ggplot(data=final,aes(x=main_v))+
     geom_segment(aes(xend=main_v, y=-0.05, yend=1.05), color="grey") +
@@ -164,7 +105,7 @@ htk_CyC=function(mydata,ranking, ctry,var_codes,var_names, sec_col, title=NULL){
               size=3, nudge_x = 0.2, nudge_y = 0.03,  check_overlap = TRUE,color="steelblue") +
     geom_text(aes(y= 1   , label=paste(value.country_max,":", round(value.max, digits = 2))),
               size=3, nudge_x = 0.2, nudge_y = -0.05,  check_overlap = TRUE,color="steelblue")+
-    annotate("text", x =3.4, y = 0.14, label = "Bottom OECD performer", size=5,color="darkgrey") +
-    annotate("text", x =3.4, y = 0.90, label = "Top OECD performer", size=5,color="darkgrey")
+    annotate("text", x =3.4, y = 0.05, label = "min OECD", size=5,color="darkgrey") +
+    annotate("text", x =3.4, y = 0.90, label = "max OECD", size=5,color="darkgrey")
 
 }

@@ -7,7 +7,7 @@
 #'@export a ldcp object containing the text generated
 #'
 
-library(rLDCP)
+#library(rLDCP)
 
 ####################################################################
 ###################### input file definition #######################
@@ -20,7 +20,7 @@ library(rLDCP)
 ###################### data definition #############################
 ####################################################################
 
-input1=data.frame(dt)
+input1=data.frame(mydt)
 
 replace_value_na=0 #default value when missing data
 
@@ -30,8 +30,7 @@ colsnum=(2+length(main_vars)):(2*length(main_vars)+1)
 
 #colsnum=2:length(main_vars)
 myvars=lapply(colsnum,function(x){
-  main_vars_direction[x-4]
-  if(3=="decreasing"){
+  if(main_vars_direction[x-4]=="decreasing"){
     myvar <- 1-c(base::t(input1[x]))
   }else{
     myvar <- c(base::t(input1[x]))
@@ -45,11 +44,11 @@ rm(input1)
 #provide the labels to the indicators and the categories that will be
 #used in the text as well as definitions for each categories
 
-definition=c(efficiency=" is defined as the capacity of the sector to provide housing that meets demand across the country, to
+definition=c(efficiency=" is defined as the capacity of the targetadjective housing sector to provide a supply that meets demand across the country, to
              facilitate residential mobility and to deliver housing that countributes to macroeconomic stability",
-             inclusiveness=" refers to the capacity of the sector to provide affordable homes across tenure modalities,
+             inclusiveness=" refers to the capacity of the targetadjective housing sector to provide affordable homes across tenure modalities,
              to tackle homelessness and to coordinate housing policies across levels of government",
-             sustainability=" assess the capacity of the sector to built environmentally sustainable housing and to
+             sustainability=" assess the capacity of the targetadjective housing sector to built environmentally sustainable housing and to
              design urban areas that support the environment.")
 
 
@@ -106,13 +105,13 @@ g_pm_myvar1 <- function(u,y){
 t_pm_myvar1 <- function(y){
   templates <- c(
     paste0(" ",myvar1_label),
-    paste0(" ",myvar1_label,", locates targetcountry in the bottom tail of the distribution"),
-    paste0(" ",myvar1_label,", is relatively far below OECD average"),
-    paste0(" ",myvar1_label,", is slightly below OECD average"),
-    paste0(" ",myvar1_label,", is close to the OECD average"),
-    paste0(" ",myvar1_label,", is slightly above OECD average"),
-    paste0(" ",myvar1_label,", is relatively far above OECD average"),
-    paste0(" ",myvar1_label,", locates targetcountry in the upper tail of the distribution")
+    paste0(" ",myvar1_label," locates targetcountry in the bottom tail of the distribution"),
+    paste0(" ",myvar1_label," is relatively far below OECD average"),
+    paste0(" ",myvar1_label," is slightly below OECD average"),
+    paste0(" ",myvar1_label," is close to the OECD average"),
+    paste0(" ",myvar1_label," is slightly above OECD average"),
+    paste0(" ",myvar1_label," is relatively far above OECD average"),
+    paste0(" ",myvar1_label," locates targetcountry in the upper tail of the distribution")
   )
   return(templates[which.max(y$w)])
 }
@@ -135,14 +134,14 @@ g_pm_myvar2<- function(u,y){
 
 t_pm_myvar2<- function(y){
   templates <- c(
-    paste0(" ",myvar2_label,", is not available for this targetcountry"),
-    paste0(" ",myvar2_label,", is in the bottom tail of the distribution"),
-    paste0(" ",myvar2_label,", is in the lower third of the distribution"),
-    paste0(" ",myvar2_label,", is slightly below the average"),
-    paste0(" ",myvar2_label,", is close to the average"),
-    paste0(" ",myvar2_label,", is slighly above the average"),
-    paste0(" ",myvar2_label,", is between the 65th and 85th percentile"),
-    paste0(" ",myvar2_label,", is in the upper tail of the distribution")
+    paste0(" ",myvar2_label,", there is unfortunately no data available for this targetcountry"),
+    paste0(" ",myvar2_label,", targetcountry is in the bottom tail of the distribution"),
+    paste0(" ",myvar2_label,", targetcountry is in the lower third of the distribution"),
+    paste0(" ",myvar2_label,", targetcountry is slightly below the average"),
+    paste0(" ",myvar2_label,", targetcountry is close to the average"),
+    paste0(" ",myvar2_label,", targetcountry is slighly above the average"),
+    paste0(" ",myvar2_label,", targetcountry is between the 65th and 85th percentile"),
+    paste0(" ",myvar2_label,", targetcountry is in the upper tail of the distribution")
   )
   return(templates[which.max(y$w)])
 }
@@ -169,9 +168,9 @@ t_pm_myvar3<- function(y){
     paste0(" ",myvar3_label,", is not available for this targetcountry"),
     paste0(" ",myvar3_label,", is in the bottom tail"),
     paste0(" ",myvar3_label,", is among the 35 percent lower performing economies"),
-    paste0(" ",myvar3_label,", is slighly below the average"),
-    paste0(" ",myvar3_label,", is close to the average"),
-    paste0(" ",myvar3_label,", is slighly above the average"),
+    paste0(" ",myvar3_label,", is slighly below the average of OECD countries"),
+    paste0(" ",myvar3_label,", is close to the average of OECD countries"),
+    paste0(" ",myvar3_label,", is slighly above the average of OECD countries"),
     paste0(" ",myvar3_label,", is among the 35 percent better performing economies"),
     paste0(" ",myvar3_label,", is in the upper tail")
   )
@@ -239,8 +238,8 @@ g_pm_profile<- function(u,y){
 
 t_pm_profile<- function(y){
   templates <- c(
-    paste0(" The overall performance of targetcountry is difficult to assess based on the three main indicators: ",myvar1_label, ", ", myvar2_label, " and ",myvar3_label, '. '),
-    paste0(" targetcountry displays similar relative performances among all three dimensions: ",myvar1_label, ", ", myvar2_label, " and ",myvar3_label, '. ')
+    paste0(" The overall performance of targetcountry regarding ", category, " is difficult to assess based on the three main indicators"),
+    paste0(" targetcountry displays similar relative performances among all three dimensions of ", category, ":")
   )
   return(templates[which.max(y$w)])
 }
@@ -277,14 +276,16 @@ report_no_data=function(var1,var2,var3){
   return(no_data)
 }
 
-report_tail=function(var, nb_indicators){ #error in the function the rank is not displaying properly
-  if(str_detect(pm_report(var), "tail")) {
+report_tail=function(myvar, nb_indicators){ #error in the function the rank is not displaying properly
+  if(str_detect(pm_report(myvar), "tail")) {
     x = rank(myvars[[nb_indicators]])
-    ctry_x=x[[i]]
-    myperc_var=paste0(pm_report(var), ". Indeed, targetcountry is ranked ", ((length(myvars[[nb_indicators]])+1)-ctry_x), " over ", length(myvars[[nb_indicators]]), " (located in the percentile", round(var[["u"]], digits=3),") countries")
+    v = which(all_vars==ctry)
+    ctry_x=x[[v]]
+    rank_var=(length(myvars[[nb_indicators]])+1)-ctry_x
+    myperc_var=paste0(pm_report(myvar), ". Indeed, targetcountry is ranked ", toOrdinal::toOrdinal(rank_var,language="english"), " over ", length(myvars[[nb_indicators]]), " countries", " (located in the percentile ", round(myvar[["u"]], digits=3),")")
   } else {
 
-    myperc_var=paste0(pm_report(var)," (located in the percentile ", round(var[["u"]], digits=3),")")
+    myperc_var=paste0(pm_report(myvar)," (located in the percentile ", round(myvar[["u"]], digits=3),")")
   }
   return(myperc_var)
 }
@@ -305,17 +306,16 @@ report_method <- function(properties,pm){
       str_to_title(mycategory_label),mycategory_definition,".",
       pm_report(pm$pm_profile),
       pm_report(pm$pm_Efficiency),".",
-      "The first dimension,",
+      " First, we can see that the",
       myperc_var1,".",
-      " The second one,",
+      " When it comes to the",
       myperc_var2,".",
-      paste0(" Finally, the last selected indicator of ",mycategory_label),
+      paste0(" Finally, the last selected indicator of ",mycategory_label, ","),
       myperc_var3,
-      ". Among the factors contributing to those performances we can mention [More from desks]",
+      ". Among the factors contributing to those performances, we can mention [More from desks]",
       sep="")
   } #close if(no_data)
 }
-
 properties = NULL
 my_report <- report_template(properties,report_method)
 
