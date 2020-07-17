@@ -18,7 +18,7 @@ htk_barplot_func <- function(data_source,yvar,country,title,subtitle=NULL,Xlabel
             plot.title=element_text(face="bold",colour ="steelblue",size=10, hjust =0.5),
             plot.subtitle =element_text(size =7, hjust = 0.5))
   }   else {
-    plot<-plot.new()
+    plot<-ggplot()
   }
   return(plot)
 }
