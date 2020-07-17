@@ -18,8 +18,8 @@ knitr::opts_chunk$set(echo = FALSE)
 knitr::opts_chunk$set(warning = FALSE)
 knitr::opts_chunk$set(message = FALSE)
 knitr::opts_chunk$set(fig.align = "center")
-knitr::opts_chunk$set(fig.height =  5)
-knitr::opts_chunk$set(fig.width = 8)
+#knitr::opts_chunk$set(fig.height =  5)
+#knitr::opts_chunk$set(fig.width = 8)
 #R package dependencies
 library(devtools)
 library(ggplot2)
@@ -38,6 +38,11 @@ library(rLDCP)
 ```
 
 ```{r import data}
+
+struc_cross=rio::import("struc_vars_cross.xlsx") #change path accordingly
+catalogue_struct=rio::import("catalogue_structural.xlsx") #change path accordingly
+
+
 dt=NA
 all_vars=rio::import("all_clean_cf_data0715.xlsx") #change path accordingly
 catalogue<-rio::import("catalogue.xlsx") #change path accordingly
@@ -51,13 +56,13 @@ all_vars=all_vars %>% gather(key=key,value=value,-c("Iso_code3","country_name"))
   mutate(dispo_var=mean(ifelse(!is.na(value),1,0))) %>% spread(key=key,value) %>% ungroup() %>% data.frame()
 ```
 
-
 \chead{
  \rule[-1.75\baselineskip]{0pt}{0pt}
   \includegraphics[height=4\baselineskip,valign=c]{OECDlogo.jpg}
   \quad% Space
    Housing Sector Country Fiche: PRELIMINARY VERSION 15/07/2020}
 
+```{r,eval=F}
 \newpage
 \bigskip
 
@@ -75,13 +80,97 @@ prepared by Naomi Cohen, Federica Depace, Maxime Nguyen and Manuel Betin
 are not available.
 
 \newpage
-
-\color{ultramarineblue}
-\section{Housing Sector Outcomes: \Large `r params$ctry_name`}
+```
 
 \color{black}
-
+\begin{center} \section{\Large `r toupper(params$ctry_name)`}\end{center}
+\color{mygray}
+\small
 The provision of efficient, sustainable and inclusive housing is crucial for the well-being of citizens. Housing markets affect people’s well-being through a wide range of channels including access to decent shelter, environmental quality, efficient use of scarce resources, type and extent of commuting or its contribution to strong and resilient economic growth. Galloping urbanisation coupled with increasing awareness for negative externalities arising from commuting and urban sprawl have put strain on housing markets and their capacity to deliver affordable housing to all while reducing environmental and health costs for current and future generations. This note provides a cross-country perspective of `r params$ctry_name`’s housing-related indicators and policy settings.
+
+---------------------
+
+\begin{figure}[H]
+\captionsetup[subfigure]{labelformat=empty}
+\vspace*{2mm} % vertical whitespace
+\begin{minipage}[b]{0.45\textwidth}
+\begin{subfigure}[b]{\linewidth}
+\color{mygray}
+\caption{Homeownership across OECD countries}
+```{r fig.height =  1.5,fig.width = 4}
+
+#### Plot the graph
+
+ranking_struc<- catalogue_struct %>% dplyr::select(variable, rank, variable_name)
+ranking_struc<-ranking_struc   %>% mutate(variable_name=gsub("*","\n",ranking_struc$variable_name, fixed = T))
+
+homeownership_data <- struc_cross %>% select("ISO3_code", "Structural_owners_perc") 
+yvar="Structural_owners_perc"
+title="Homeownership across OECD countries"
+
+data_source=homeownership_data
+country="FRA"
+homeownership_graph <- htk_barplot_func(homeownership_data,yvar,params$ctry_code,title=NULL) 
+
+homeownership_graph #Get the graph
+
+ 
+```
+\end{subfigure}
+\vspace*{2mm} % vertical whitespace
+\begin{subfigure}[b]{\linewidth}
+\color{mygray}
+\caption{Homeownership across OECD countries}
+```{r fig.height =  1.5,fig.width = 4}
+
+mortgage_data <- struc_cross %>% select("ISO3_code", "Structural_resilience_LMHQ") 
+
+yvar="Structural_resilience_LMHQ"
+title="Mortgage claims as a share of GDP"
+mortgage_graph <- htk_barplot_func(mortgage_data,yvar,params$ctry_code,title=NULL) 
+
+mortgage_graph #Get the graph
+```
+\end{subfigure}
+\end{minipage}
+\hspace*{5mm} % horizontal whitespace  
+\begin{minipage}[b]{0.45\textwidth}
+\begin{subfigure}[b]{\linewidth}
+\color{mygray}
+\caption{House price evolution}
+```{r fig.height =  1.5,fig.width = 4}
+
+homeownership_graph
+```
+\end{subfigure}
+\vspace*{2mm} % vertical whitespace
+\begin{subfigure}[b]{\linewidth}
+\color{mygray}
+\caption{mortgage loans}
+```{r fig.height =  1.5,fig.width = 4}
+
+mortgage_graph
+```
+\end{subfigure}
+\end{minipage}
+\end{figure}
+
+-------------------------------------------------------------------------------------------------------
+
+\small
+\color{mygray}
+Paragraph on the Figures   \lipsum[2-2]
+\newpage
+
+```{r,eval=F}
+\color{ultramarineblue}
+\begin{center}
+\section{Main Outcomes}
+\end{center}
+
+```
+
+
 \begin{multicols}{3}
 
 \color{Goldenrod}
@@ -106,7 +195,7 @@ fig_eff=htk_CyC(dt_effic, ranking_eff, params$ctry_code,var_codes_eff, sec_col_e
 fig_eff
 ```
 
-\color{black}
+\color{mygray}
 ```{r Efficiency paragraph, results='asis',include=F}
 dt=htk_text_generator(data=dt_effic,
                       category=mycategory,
@@ -118,8 +207,10 @@ paragraph=gsub("\n","",paragraph)
 paragraph=gsub("targetadjective",params$ctry_adj,paragraph)
 ```
 
-
 \footnotesize
+
+---------------------------------------------------------------------------------
+
 ```{r Efficiency paragraph results, results='asis'}
 cat(paragraph)
 ```
@@ -131,7 +222,7 @@ cat(paragraph)
 \section{Inclusiveness}
 \end{center}
 
-\color{black}
+\color{mygray}
 
 ```{r Inclusiveness}
 mycategory="inclusiveness"
@@ -159,6 +250,8 @@ paragraph=gsub("\n","",paragraph)
 paragraph=gsub("targetadjective",params$ctry_adj,paragraph)
 ```
 
+---------------------------------------------------------------------------------
+
 
 ```{r Inclusiveness paragraph results, results='asis'}
 cat(paragraph)
@@ -172,7 +265,7 @@ cat(paragraph)
 \section{Sustainability}
 \end{center}
 
-\color{black}
+\color{mygray}
 
 ```{r Sustainability}
 mycategory="sustainability"
@@ -199,6 +292,9 @@ paragraph=gsub("\n","",paragraph)
 paragraph=gsub("targetadjective",params$ctry_adj,paragraph) 
 ```
 
+---------------------------------------------------------------------------------
+
+
 ```{r Sustainability paragraph results, results='asis'}
 cat(paragraph)
 
@@ -212,10 +308,12 @@ cat(paragraph)
 \begin{tabular}{l  l}
 \parbox[t]{0.35\textwidth}{
 \color{ultramarineblue}
-\section{Housing Sector Policies Variables:}
+\begin{center}
+\section{Policy Profile}
+\end{center}
 
 \small
-\color{black}
+\color{mygray}
 This section is a place holder and do not contain final variables and text.
 
 \lipsum[2-2]
@@ -244,17 +342,19 @@ cat(setdiff(dispo_vars,first_vars))
 &
 \parbox[t]{0.2\textwidth}{
 \color{ultramarineblue}
+\begin{center}
 \section{Definitions}
+\end{center}
+
 \color{black}
 \footnotesize
-\begin{tabular}{ l p{11cm} }
+\begin{tabular}{ l p{10cm} }
 \hline
 \hline
 \multicolumn{2}{c}{}        \\
 \multicolumn{2}{c}{\color{Goldenrod}\bf{Efficiency}}        \\
 \multicolumn{2}{c}{}        \\
-\color{Goldenrod}\bf {Residential Investment} & Difference in number of dwellings that were completed during a given year  \\
-& and are ready to be occupied between two consecutive quarters \\
+\color{Goldenrod}\bf {Residential Investment} & Difference in number of dwellings that were completed during a given year and are ready to be occupied between two consecutive quarters \\
 \color{Goldenrod}\bf {House Price Volatility} & Annualised standard deviation of detrended real house prices \\
 \color{Goldenrod}\bf {Price to income} &  Number of years of disposable income required to buy a 100m2 dwelling \\
 & \\
@@ -262,37 +362,31 @@ cat(setdiff(dispo_vars,first_vars))
 & \\
 \multicolumn{2}{c}{\color{ProcessBlue}\bf{Inclusiveness}}        \\
 \multicolumn{2}{c}{}        \\
-\color{ProcessBlue}\bf{  Home ownership}  & Percentage of household that own a dwelling, whether it \\
-& is with and without outstanding mortgage \\
-\color{ProcessBlue}\bf{  Over-crowding } & Percentage of household that does not have at its disposal a minimum \\ 
-& number of rooms \\
-\color{ProcessBlue}\bf{  Over burden } & Percentage of population spending more than 40 percent of \\
-& disposable income on private rent \\
+\color{ProcessBlue}\bf{  Home ownership}  & Percentage of household that own a dwelling, whether it is with and without outstanding mortgage\\
+\color{ProcessBlue}\bf{  Over-crowding } & Percentage of household that does not have at its disposal a minimum number of rooms\\ 
+\color{ProcessBlue}\bf{  Over burden } & Percentage of population spending more than 40 percent of disposable income on private rent \\
  & \\
 \multicolumn{2}{c}{\color{Green}\bf{Sustainability}}        \\
 \multicolumn{2}{c}{}        \\
-\color{Green}\bf{  Local air pollution} & Presence of contaminant or pollutant substances in the air that do not \\ 
-& disperse properly and that interfere with human health or welfare, \\
-& or produce other harmful environmental effects \\
+\color{Green}\bf{  Local air pollution} & Presence of contaminant or pollutant substances in the air that do not disperse properly and that interfere with human health or welfare, or produce other harmful environmental effects \\ 
 \color{Green}\bf{  $CO_{2}$ emission} & Product of fuel efficiency and the carbon intensity per kWh.5  \\
 \color{Green}\bf{  Urban sprawl} & Low average urban population density  \\
 & \\
 \multicolumn{2}{c}{\color{ultramarineblue}\bf{Policy}}        \\
 \multicolumn{2}{c}{}        \\
-\color{ultramarineblue}\bf {Rent control stringency} & Index reflecting on the number of regulations that restrict rent increases, \\
-& nominal rent freezes, rent level control, limits of decontrolling  \\
-& (e.g. change of tenant, new or vacant dwelling) \\
-&  as well as restrictions on subletting. \\
+\color{ultramarineblue}\bf {Rent control stringency} & Index reflecting on the number of regulations that restrict rent increases, nominal rent freezes, rent level control, limits of decontrolling (e.g. change of tenant, new or vacant dwelling) as well as restrictions on subletting. \\
 \color{ultramarineblue}\bf {Bank capital requirement} & [Add definition]  \\
 \color{ultramarineblue}\bf {mortgage interest relief} & [Add definition] \\
-\color{ultramarineblue}\bf {Marginal effective taxe rate on mortgage } & Marginal effective tax rate on mortgage \\
+\color{ultramarineblue}\bf {Marginal effective taxe  } & Marginal effective tax rate on mortgage \\
+\color{ultramarineblue}\bf {rate on mortgage } &  \\
 \color{ultramarineblue}\bf {Land-use governance} & [Add definition] \\
-\color{ultramarineblue}\bf {Governemnt spending on housing allowances} &  [Add definition] \\
+\color{ultramarineblue}\bf {Governemnt spending } &  [Add definition] \\
+\color{ultramarineblue}\bf {on housing allowances} & \\
+& \\
 \hline
 \hline
+
 \end{tabular}
-Note: The figures only display available data and this table of definition is only tentative and should adapt to the country
-availability
 }
 \end{tabular}
 
