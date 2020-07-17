@@ -1,4 +1,4 @@
-htk_policyradar=function(mydata,ranking, ctry, var_codes, title=NULL){
+htk_policyradar=function(mydata,ranking, ctry, var_codes,  title=NULL){
 
   #' @title Radar chart for policy variables
   #' @description Radar chart to produce the spider graph

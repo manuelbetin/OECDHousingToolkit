@@ -3,12 +3,10 @@
 #'@description The functions generates a (line) plot displaying the value of the selected indicator for each country and with the average OECD value, the bottom and top performing countries.
 #'@param mydata dataframe that contains the variables and dates to be chosen
 #'@param ranking dataframe that contains the ranking of variables needed
-
 #'@param ctry selected OECD countries for which the country note is produced
 #'@param var_codes list of indicators
 #'@param sub_vars list of replacement indicators
 #'@param sub_vars_label names of the replacement  indicators
-
 #'@param sec_col colours for each section
 #'@param title a title for the figure
 #'

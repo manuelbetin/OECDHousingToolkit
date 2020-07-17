@@ -38,6 +38,10 @@ library(rLDCP)
 ```
 
 ```{r import data}
+# import data for page 1 : cross and time-series 
+struc_cross=rio::import("struc_vars_cross.xlsx") #change path accordingly
+catalogue_struct=rio::import("catalogue_structural.xlsx") #change path accordingly
+
 dt=NA
 all_vars=rio::import("all_clean_cf_data0715.xlsx") #change path accordingly
 catalogue<-rio::import("catalogue.xlsx") #change path accordingly
@@ -73,6 +77,79 @@ prepared by Naomi Cohen, Federica Depace, Maxime Nguyen and Manuel Betin
 
 - This template is constructed according to data availability and will thus display replacement variables if the prefered variables  
 are not available.
+\newpage
+
+\color{ultramarineblue}
+\section{ Housing  in \Large `r params$ctry_name`}
+\color{black}
+
+First paragraph on the Housing Horizontal Project 
+\lipsum[2-2]
+
+\begin{figure}
+\begin{minipage}[b]{0.45\textwidth}
+\begin{subfigure}[b]{\linewidth}
+
+```{r fig.height =  2,fig.width = 6}
+
+#### Plot the graph
+
+ranking_struc<- catalogue_struct %>% dplyr::select(variable, rank, variable_name)
+ranking_struc<-ranking_struc   %>% mutate(variable_name=gsub("*","\n",ranking_struc$variable_name, fixed = T))
+
+homeownership_data <- struc_cross %>% select("ISO3_code", "Structural_owners_perc") 
+xvar=homeownership_data$ISO3_code
+yvar=homeownership_data$Structural_owners_perc
+title="Homeownership across OECD countries"
+homeownership_graph <- htk_barplot_func(homeownership_data,xvar,yvar,params$ctry_code,title) 
+
+homeownership_graph #Get the graph
+
+ 
+```
+\caption{Caption A}
+\end{subfigure}
+
+\vspace*{5mm} % vertical whitespace
+\begin{subfigure}[b]{\linewidth}
+```{r fig.height =  2,fig.width = 6}
+
+mortgage_data <- struc_cross %>% select("ISO3_code", "Structural_resilience_LMHQ") 
+xvar=mortgage_data$ISO3_code
+yvar=mortgage_data$Structural_resilience_LMHQ
+title="Mortgage claims as a share of GDP"
+mortgage_graph <- htk_barplot_func(mortgage_data,xvar,yvar,params$ctry_code,title) 
+
+mortgage_graph #Get the graph
+```
+\caption{Caption B}
+\end{subfigure}
+\end{minipage}\hspace*{20mm} % horizontal whitespace
+\begin{minipage}[b]{0.45\textwidth}
+\begin{subfigure}[b]{\linewidth}
+
+```{r fig.height =  2,fig.width = 6}
+
+homeownership_graph
+```
+
+\caption{Caption C}
+\end{subfigure}
+
+\vspace*{5mm} % vertical whitespace
+
+\begin{subfigure}[b]{\linewidth}
+```{r fig.height =  2,fig.width = 6}
+
+mortgage_graph
+```
+\caption{Caption D}
+\end{subfigure}
+\end{minipage}
+
+\end{figure}
+Pragraph on the Figures   \lipsum[2-2]
+\newpage
 
 \newpage
 
