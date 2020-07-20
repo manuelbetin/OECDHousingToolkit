@@ -30,7 +30,7 @@ cf_stackedbars_func <- function(data_source,yvar,fillvar,country,title=NULL,subt
                                  "Private rent", "Subsidized rent"))
 
   }   else {
-    myctry=countrycode::countrycode(ctry,origin="iso3c",destination="country.name")
+    myctry=countrycode::countrycode(country,origin="iso3c",destination="country.name")
     plot<-ggplot()+
       geom_text(aes(x=10,y=10,label=paste0(myctry, " has no data available for this dimension")))+
       geom_point(aes(x=c(0,20),y=c(0,20)),color="white")+
