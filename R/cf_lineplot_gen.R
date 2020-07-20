@@ -27,6 +27,6 @@ cf_lineplot_gen <- function(data_source,xvar,yvar,valuevar,title=NULL,
           plot.subtitle =element_text(hjust = 0.5)) +
     geom_line(data=data_source2,aes(x=get(xvar), y=get(valuevar),colour=get(yvar))) +
     geom_line(data=data_source3,aes(x=get(xvar), y=OECDmean),colour="blue",alpha=0.5) +
-    theme(legend.position = "none")
+    theme(legend.position = "right")
 
 }
