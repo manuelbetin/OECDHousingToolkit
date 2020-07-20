@@ -18,27 +18,6 @@
 #'
 #'@export
 
-
-mycategory="efficiency"
-effic_vars<-catalogue  %>%  filter(category==mycategory) %>%
-  filter(type=="outcome")
-
-ranking_eff<-effic_vars  %>% select(variable, rank,direction,variable_name_long, variable_name)
-ranking_eff<-ranking_eff   %>% mutate(variable_name=gsub("*","\n",ranking_eff$variable_name, fixed = T))
-
-var_codes_eff<-c(effic_vars$variable) # only select ALL efficiency variables
-var_names_eff<-c(ranking_eff$variable_name) # only the efficiency ones
-var_direction_eff<-c(ranking_eff$direction) # only the efficiency ones
-
-dt_effic<-all_vars %>% select(Iso_code3,country_name, var_codes_eff)
-sec_col_eff=c("goldenrod")
-
-mydata=dt_effic
-ranking=ranking_eff
-ctry="BRA"
-var_codes=var_codes_eff
-
-
 htk_CyC=function(mydata,ranking, ctry,var_codes, sec_col, title=NULL){
 
   #prepare the dataset with the proper variables
