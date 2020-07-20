@@ -18,10 +18,14 @@
 #'
 #'@export
 
-
-
 htk_CyC=function(mydata,ranking, ctry,var_codes, sec_col, title=NULL){
 
+   # mydata=dt_effic
+   # ranking=ranking_eff
+   # var_codes=var_codes_eff
+   # ctry=params$ctry_code
+   # type_var="outcomes"
+   # sec_col=sec_col_eff
   #prepare the dataset with the proper variables
   vars_needed=prep_data(mydata,ranking,ctry,var_codes,type_var="outcomes")
 
@@ -31,6 +35,7 @@ htk_CyC=function(mydata,ranking, ctry,var_codes, sec_col, title=NULL){
 
   vars_needed=vars_needed$data
 
+if(length(var_codes)>1){
   # 2. create min, max, mean, valu
   for (var in var_codes) {
     name_col=paste0(var, '_country_min')
@@ -102,8 +107,14 @@ htk_CyC=function(mydata,ranking, ctry,var_codes, sec_col, title=NULL){
     geom_text(aes(y= 0   , label=paste(value.country_min,":" , round(value.min, digits = 2))),
               size=3, nudge_x = 0.2, nudge_y = 0.03,  check_overlap = TRUE,color="steelblue") +
     geom_text(aes(y= 1   , label=paste(value.country_max,":", round(value.max, digits = 2))),
-              size=3, nudge_x = 0.2, nudge_y = -0.05,  check_overlap = TRUE,color="steelblue")+
-    annotate("text", x =3.4, y = 0.05, label = "min OECD", size=5,color="darkgrey") +
-    annotate("text", x =3.4, y = 0.90, label = "max OECD", size=5,color="darkgrey")
-
+              size=3, nudge_x = 0.2, nudge_y = -0.05,  check_overlap = TRUE,color="steelblue")#+
+    #annotate("text", x =3.4, y = 0.05, label = "min OECD", size=5,color="darkgrey") +
+    #annotate("text", x =3.4, y = 0.90, label = "max OECD", size=5,color="darkgrey")
+}else{
+  myctry=countrycode::countrycode(ctry,origin="iso3c",destination="country.name")
+  ggplot()+
+    geom_text(aes(x=10,y=10,label=paste0(myctry, " has no data available for this dimension")))+
+    geom_point(aes(x=c(0,20),y=c(0,20)),color="white")+
+    theme_void()
+}
 }

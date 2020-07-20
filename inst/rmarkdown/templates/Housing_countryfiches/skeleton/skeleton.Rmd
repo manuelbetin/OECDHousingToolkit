@@ -8,7 +8,7 @@ output:
 params:
   ctry_code: USA
   ctry_name: United States
-  ctry_adj: US
+  ctry_adj: french
   title: Housing Horizontal Project
 ---
 

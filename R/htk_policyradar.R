@@ -15,12 +15,19 @@ htk_policyradar=function(mydata,ranking, ctry, var_codes,  title=NULL){
 
   #1 prepare the data according to data availability
 
+# mydata=dt_pol
+# ranking=ranking_pol
+# var_codes=var_codes_pol
+# ctry=params$ctry_code
+# type_var="policy"
+
   vars_needed_plus=prep_data(mydata,ranking,ctry,var_codes,type_var="policy")
 
   var_codes=vars_needed_plus$var_codes
   var_names=vars_needed_plus$var_names
   vars_needed_plus=vars_needed_plus$data
 
+ if(length(var_codes)>2){
   # 2. create min, max, mean, value
 
   #find the min and max countries for each variable
@@ -87,10 +94,10 @@ htk_policyradar=function(mydata,ranking, ctry, var_codes,  title=NULL){
   data[var_codes] <- sapply(data[var_codes], as.numeric.factor)
 
   #set the upper and lower bound for the figure
-  max=rep(1,5)
   min=rep(0,5)
-  data=rbind(min,max,data)
-  rownames(data)[1:2]<-c("min", "max")
+  max=rep(1,5)
+  data=rbind(max,min,data)
+  rownames(data)[1:2]<-c("max", "min")
 
   # set colors
   colors=c(rgb(1,0,0,0.3),rgb(0,0,1,0.5))
@@ -114,4 +121,11 @@ htk_policyradar=function(mydata,ranking, ctry, var_codes,  title=NULL){
            legend=rownames(data)[3:4],fill=colors_leg,col=colors_leg,
            bty = "n" ,text.col = colors_leg, cex=0.8,horiz = F,merge = F)
   # }
+ } else{
+   myctry=countrycode::countrycode(ctry,origin="iso3c",destination="country.name")
+   ggplot()+
+     geom_text(aes(x=10,y=10,label=paste0(myctry, " has no data available for this dimension")))+
+     geom_point(aes(x=c(0,20),y=c(0,20)),color="white")+
+     theme_void()
+ }
 }

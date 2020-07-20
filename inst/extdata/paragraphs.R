@@ -44,12 +44,12 @@ rm(input1)
 #provide the labels to the indicators and the categories that will be
 #used in the text as well as definitions for each categories
 
-definition=c(efficiency=" is defined as the capacity of the targetadjective housing sector to provide a supply that meets demand across the country, to
-             facilitate residential mobility and to deliver housing that countributes to macroeconomic stability",
-             inclusiveness=" refers to the capacity of the targetadjective housing sector to provide affordable homes across tenure modalities,
-             to tackle homelessness and to coordinate housing policies across levels of government",
-             sustainability=" assess the capacity of the targetadjective housing sector to built environmentally sustainable housing and to
-             design urban areas that support the environment.")
+definition=c(efficiency=" measures the housing sector's capacity to bring demand in line with supply, facilitate residential mobility and
+             contribute to macroeconomic stability",
+             inclusiveness=" refers to the housing sector's capacity to provide adequate and affordable homes across the income distribution
+             and limit residential segregation",
+             sustainability=" assess the housing sector's readiness for the transition to a low-carbon economy and its capacity to attenuate
+             pressures on the ecosystem by preserving biodiversity and residents' health")
 
 
 mycategory_label=tolower(category)
@@ -104,14 +104,14 @@ g_pm_myvar1 <- function(u,y){
 
 t_pm_myvar1 <- function(y){
   templates <- c(
-    paste0(" ",myvar1_label),
-    paste0(" ",myvar1_label," locates targetcountry in the bottom tail of the distribution"),
-    paste0(" ",myvar1_label," is relatively far below OECD average"),
-    paste0(" ",myvar1_label," is slightly below OECD average"),
-    paste0(" ",myvar1_label," is close to the OECD average"),
-    paste0(" ",myvar1_label," is slightly above OECD average"),
-    paste0(" ",myvar1_label," is relatively far above OECD average"),
-    paste0(" ",myvar1_label," locates targetcountry in the upper tail of the distribution")
+    paste0(" ",myvar1_label," there is unfortunately no data available for targetcountry"),
+    paste0("targetcountry displays among the lowest ",myvar1_label," among the set of reviewed countries"),
+    paste0("targetcountry displays relatively low ",myvar1_label," among the set of reviewed countries"),
+    paste0("targetcountry displays relatively low ",myvar1_label," among the set of reviewed countries"),
+    paste0("targetcountry displays average ",myvar1_label," among the set of reviewed countries"),
+    paste0("targetcountry displays relatively high ",myvar1_label," among the set of reviewed countries"),
+    paste0("targetcountry displays relatively high ",myvar1_label," among the set of reviewed countries"),
+    paste0("targetcountry displays among the highest ",myvar1_label," among the set of reviewed countries")
   )
   return(templates[which.max(y$w)])
 }
@@ -134,14 +134,14 @@ g_pm_myvar2<- function(u,y){
 
 t_pm_myvar2<- function(y){
   templates <- c(
-    paste0(" ",myvar2_label,", there is unfortunately no data available for this targetcountry"),
-    paste0(" ",myvar2_label,", targetcountry is in the bottom tail of the distribution"),
-    paste0(" ",myvar2_label,", targetcountry is in the lower third of the distribution"),
-    paste0(" ",myvar2_label,", targetcountry is slightly below the average"),
-    paste0(" ",myvar2_label,", targetcountry is close to the average"),
+    paste0(" ",myvar2_label,", there is unfortunately no data available for targetcountry"),
+    paste0(" ",myvar2_label,", targetcountry is very low compared to other countries"),
+    paste0(" ",myvar2_label,", targetcountry is low compared to other countries"),
+    paste0(" ",myvar2_label,", targetcountry is low compared to other countries"),
+    paste0(" ",myvar2_label,", targetcountry is close to the OECD average"),
     paste0(" ",myvar2_label,", targetcountry is slighly above the average"),
-    paste0(" ",myvar2_label,", targetcountry is between the 65th and 85th percentile"),
-    paste0(" ",myvar2_label,", targetcountry is in the upper tail of the distribution")
+    paste0(" ",myvar2_label,", targetcountry is high compared to other countries"),
+    paste0(" ",myvar2_label,", targetcountry is very high compared to other countries")
   )
   return(templates[which.max(y$w)])
 }
@@ -278,11 +278,12 @@ report_no_data=function(var1,var2,var3){
 
 report_tail=function(myvar, nb_indicators){ #error in the function the rank is not displaying properly
   if(str_detect(pm_report(myvar), "tail")) {
-    x = rank(myvars[[nb_indicators]])
-    v = which(all_vars==ctry)
-    ctry_x=x[[v]]
-    rank_var=(length(myvars[[nb_indicators]])+1)-ctry_x
-    myperc_var=paste0(pm_report(myvar), ". Indeed, targetcountry is ranked ", toOrdinal::toOrdinal(rank_var,language="english"), " over ", length(myvars[[nb_indicators]]), " countries", " (located in the percentile ", round(myvar[["u"]], digits=3),")")
+    #x = rank(myvars[[nb_indicators]])
+    #v = which(all_vars==ctry)
+    #ctry_x=x[[v]]
+    #rank_var=(length(myvars[[nb_indicators]])+1)-ctry_x
+    #myperc_var=paste0(pm_report(myvar), ". Indeed, targetcountry is ranked ", toOrdinal::toOrdinal(rank_var,language="english"), " over ", length(myvars[[nb_indicators]]), " countries", " (located in the percentile ", round(myvar[["u"]], digits=3),")")
+    myperc_var=paste0(pm_report(myvar)," (located in the percentile ", round(myvar[["u"]], digits=3),")")
   } else {
 
     myperc_var=paste0(pm_report(myvar)," (located in the percentile ", round(myvar[["u"]], digits=3),")")
@@ -306,7 +307,7 @@ report_method <- function(properties,pm){
       str_to_title(mycategory_label),mycategory_definition,".",
       pm_report(pm$pm_profile),
       pm_report(pm$pm_Efficiency),".",
-      " First, we can see that the",
+      " First, we can see that ",
       myperc_var1,".",
       " When it comes to the",
       myperc_var2,".",
