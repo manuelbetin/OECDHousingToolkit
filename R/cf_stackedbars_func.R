@@ -11,14 +11,14 @@ cf_stackedbars_func <- function(data_source,yvar,fillvar,country,title=NULL,subt
            y=NULL) +
       theme_minimal() +
       theme(panel.grid.minor =  element_blank(),
-            axis.text.x = element_text(size =7,angle=90, hjust=1),
+            axis.text.x = element_text(size =10,angle=90, hjust=1),
             axis.title.x = element_text(size = 7),
             axis.title.y = element_text(size=7),
             axis.text.y = element_text(size=7),
             plot.title=element_text(face="bold",colour ="steelblue",size=15, hjust =0.5),
             plot.subtitle =element_text(size =7, hjust = 0.5),
             legend.title=element_blank(),
-            legend.text = element_text(size=3.5),
+            legend.text = element_text(size=7),
             legend.position = "bottom",
             legend.key.size = unit(0.5,"line"),
             legend.margin = margin(0.2, 0.2, 0.2, 0.2, "cm"))+
@@ -30,8 +30,10 @@ cf_stackedbars_func <- function(data_source,yvar,fillvar,country,title=NULL,subt
                                  "Private rent", "Subsidized rent"))
 
   }   else {
-  plot<-ggplot()
+    plot<-ggplot()
   }
   return(plot)
 
 }
+
+

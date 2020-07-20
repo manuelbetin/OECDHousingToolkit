@@ -6,9 +6,9 @@ output:
     includes:
       in_header: "preamble.tex"
 params:
-  ctry_code: USA
-  ctry_name: United States
-  ctry_adj: American
+  ctry_code: DEU
+  ctry_name: Germany
+  ctry_adj: german
   title: Housing Horizontal Project
 ---
 
@@ -39,15 +39,18 @@ library(rLDCP)
 
 ```{r import data}
 
-struc_cross=rio::import("struc_vars_cross.xlsx") #change path accordingly
-catalogue_struct=rio::import("catalogue_structural.xlsx") #change path accordingly
-house_price_data=rio::import("house_prices_data.xlsx") #change path accordingly
-house_tenure_data=rio::import("housing_tenure_data.xlsx") #change path accordingly
+run_edit_par=T
+
+struc_cross=rio::import("data/struc_vars_cross.xlsx") #change path accordingly
+catalogue_struct=rio::import("data/catalogue_structural.xlsx") #change path accordingly
+house_price_data=rio::import("data/house_prices_data.xlsx") #change path accordingly
+house_tenure_data=rio::import("data/housing_tenure_data.xlsx") #change path accordingly
+data_paragraphs=rio::import("data/database_paragraphs_complete.xlsx") #change path accordingly
 
 dt=NA
-all_vars=rio::import("data_CF.xlsx") #change path accordingly
-catalogue<-rio::import("catalogue_CF.xlsx") #change path accordingly
-definition<-rio::import("definitions.rda") #change path accordingly
+all_vars=rio::import("data/data_CF.xlsx") #change path accordingly
+catalogue<-rio::import("data/catalogue_CF.xlsx") #change path accordingly
+definition<-rio::import("data/definitions.rda") #change path accordingly
 all_vars <- all_vars %>% mutate(country_name=countrycode(iso3,origin="iso3c",destination="country.name"))
 all_vars <- all_vars %>%  select(iso3, country_name, everything()) 
 all_vars <- subset(all_vars, !is.na(country_name)  )
@@ -77,8 +80,8 @@ The provision of efficient, sustainable and inclusive housing is crucial for the
 \begin{minipage}[b]{0.45\textwidth}
 \begin{subfigure}[b]{\linewidth}
 \color{mygray}
-\caption{Homeownership across OECD countries}
-```{r fig.height =  1.5,fig.width = 4}
+\caption{Homeownership Across OECD Countries}
+```{r fig.height =  1.6,fig.width = 4}
 
 #### Plot the graph : "Homeownership across OECD countries"
 
@@ -101,8 +104,10 @@ homeownership_graph #Get the graph
 \vspace*{2mm} % vertical whitespace
 \begin{subfigure}[b]{\linewidth}
 \color{mygray}
-\caption{Mortgage claims as a share of GDP}
-```{r fig.height =  1.5,fig.width = 4}
+
+
+\caption{Mortgage Claims as a Share of GDP}
+```{r fig.height =  1.6,fig.width = 4}
 mortgage_data <- struc_cross %>% select("ISO3_code", "Structural_resilience_LMHQ") 
 yvar="Structural_resilience_LMHQ"
 #title="Mortgage claims as a share of GDP"
@@ -115,14 +120,14 @@ mortgage_graph #Get the graph
 \begin{minipage}[b]{0.45\textwidth}
 \begin{subfigure}[b]{\linewidth}
 \color{mygray}
-\caption{House price evolution }
+\caption{House Price Evolution }
+```{r fig.height =  2,fig.width = 6}
 
-```{r fig.height =  1.5,fig.width = 4}
 #title_lineplot="House prices evolution across OECD countries"
 hp_evol<-cf_lineplot_gen(house_price_data,
-                xvar=period,
-                yvar=ISO3_code,
-                valuevar=rhp,
+                xvar="period",
+                yvar="ISO3_code",
+                valuevar="rhp",
                 title=NULL,
                 Xlabel = NULL,
                 Ylabel=NULL,
@@ -133,15 +138,13 @@ hp_evol
 \vspace*{2mm} % vertical whitespace
 \begin{subfigure}[b]{\linewidth}
 \color{mygray}
-\caption{Housing tenure distribution}
 
- 
-```{r fig.height =  1.5,fig.width = 4}
+\caption{Housing Tenure Distribution}
+```{r fig.height =  2.2,fig.width = 6}
 
 housing_tenure_graph <- cf_stackedbars_func(data_source=house_tenure_data,
-                                            xvar=ISO3_code,
-                                            yvar=Tenure_share,
-                                            fill=Tenure_cat,
+                                            yvar="Tenure_share",
+                                            fill="Tenure_cat",
                                             country=params$ctry_code,
                                             title=NULL)
 housing_tenure_graph
@@ -151,11 +154,9 @@ housing_tenure_graph
 \end{minipage}
 \end{figure}
 
--------------------------------------------------------------------------------------------------------
-
 \small
 \color{mygray}
-Paragraph on the Figures   \lipsum[2-2]
+The structure of the housing sector is heterogeneous among countries. Price evolutions, modality of ownership, degree of development of mortage markets and the scope of the rental market profoundly shape the outcomes of the housing market. Panel (a) and (d) display the relative position of `r params$country_code` with respect to homeownership and rental markets, panel (b) shows the real house price dynamics in the long run and panel (c) the importance of the housing sector. 
 \newpage
 
 ```{r,eval=F}
@@ -165,7 +166,6 @@ Paragraph on the Figures   \lipsum[2-2]
 \end{center}
 
 ```
-
 
 \begin{multicols}{3}
 
@@ -208,7 +208,17 @@ paragraph=gsub("targetadjective",params$ctry_adj,paragraph)
 ---------------------------------------------------------------------------------
 
 ```{r Efficiency paragraph results, results='asis'}
-cat(paragraph)
+#cat(paragraph)
+edited_par=data_paragraphs %>% filter(Iso_code3==params$ctry_code) %>% dplyr::select(mycategory) %>% pull
+edited_par=gsub("\n","",edited_par)
+edited_par=str_replace_all(edited_par,"%","percent")
+
+if(length(edited_par)==0 | run_edit_par==F){
+  cat(paragraph)
+}else{
+  cat(edited_par)
+}
+
 ```
 
 \columnbreak
@@ -250,7 +260,18 @@ paragraph=gsub("targetadjective",params$ctry_adj,paragraph)
 
 
 ```{r Inclusiveness paragraph results, results='asis'}
-cat(paragraph)
+#cat(paragraph)
+
+edited_par=data_paragraphs %>% filter(Iso_code3==params$ctry_code) %>% dplyr::select(mycategory) %>% pull
+edited_par=gsub("\n","",edited_par)
+edited_par=str_replace_all(edited_par,"%","percent")
+
+if(length(edited_par)==0 | run_edit_par==F){
+  cat(paragraph)
+}else{
+  cat(edited_par)
+}
+
 ```
 
 \columnbreak
@@ -292,7 +313,15 @@ paragraph=gsub("targetadjective",params$ctry_adj,paragraph)
 
 
 ```{r Sustainability paragraph results, results='asis'}
-cat(paragraph)
+edited_par=data_paragraphs %>% filter(Iso_code3==params$ctry_code) %>% dplyr::select(mycategory) %>% pull
+edited_par=gsub("\n","",edited_par)
+edited_par=str_replace_all(edited_par,"%","percent")
+
+if(length(edited_par)==0 | run_edit_par==F){
+  cat(paragraph)
+}else{
+  cat(edited_par)
+}
 
 ```
 
@@ -385,4 +414,5 @@ cat(setdiff(dispo_vars,first_vars))
 \end{tabular}
 }
 \end{tabular}
+
 
