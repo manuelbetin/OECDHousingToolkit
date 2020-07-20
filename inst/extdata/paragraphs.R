@@ -45,11 +45,11 @@ rm(input1)
 #used in the text as well as definitions for each categories
 
 definition=c(efficiency=" measures the housing sector's capacity to bring demand in line with supply, facilitate residential mobility and
-             contribute to macroeconomic stability.",
+             contribute to macroeconomic stability",
              inclusiveness=" refers to the housing sector's capacity to provide adequate and affordable homes across the income distribution
              and limit residential segregation",
              sustainability=" assess the housing sector's readiness for the transition to a low-carbon economy and its capacity to attenuate
-             pressures on the ecosystem by preserving biodiversity and residents' health.")
+             pressures on the ecosystem by preserving biodiversity and residents' health")
 
 
 mycategory_label=tolower(category)
@@ -306,7 +306,7 @@ report_method <- function(properties,pm){
       str_to_title(mycategory_label),mycategory_definition,".",
       pm_report(pm$pm_profile),
       pm_report(pm$pm_Efficiency),".",
-      " First, we can see that the",
+      " First, we can see that ",
       myperc_var1,".",
       " When it comes to the",
       myperc_var2,".",
