@@ -119,6 +119,7 @@ htk_policyradar=function(mydata,ranking, ctry, var_codes,  title=NULL){
    myctry=countrycode::countrycode(ctry,origin="iso3c",destination="country.name")
    ggplot()+
      geom_text(aes(x=10,y=10,label=paste0(myctry, " has no data available for this dimension")))+
+     geom_point(aes(x=c(0,20),y=c(0,20)),color="white")+
      theme_void()
  }
 }
