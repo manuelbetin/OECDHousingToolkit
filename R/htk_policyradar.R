@@ -21,6 +21,7 @@ htk_policyradar=function(mydata,ranking, ctry, var_codes,  title=NULL){
   var_names=vars_needed_plus$var_names
   vars_needed_plus=vars_needed_plus$data
 
+ if(length(var_codes)!=0){
   # 2. create min, max, mean, value
 
   #find the min and max countries for each variable
@@ -114,4 +115,10 @@ htk_policyradar=function(mydata,ranking, ctry, var_codes,  title=NULL){
            legend=rownames(data)[3:4],fill=colors_leg,col=colors_leg,
            bty = "n" ,text.col = colors_leg, cex=0.8,horiz = F,merge = F)
   # }
+ } else{
+   myctry=countrycode::countrycode(ctry,origin="iso3c",destination="country.name")
+   ggplot()+
+     geom_text(aes(x=10,y=10,label=paste0(myctry, " has no data available for this dimension")))+
+     theme_void()
+ }
 }
