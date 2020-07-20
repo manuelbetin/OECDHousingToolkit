@@ -14,7 +14,7 @@ cf_stackedbars_func <- function(data_source,yvar,fillvar,country,title=NULL,subt
             axis.text.x = element_text(size =10,angle=90, hjust=1),
             axis.title.x = element_text(size = 7),
             axis.title.y = element_text(size=7),
-            axis.text.y = element_text(size=7),
+            axis.text.y = element_text(size=10),
             plot.title=element_text(face="bold",colour ="steelblue",size=15, hjust =0.5),
             plot.subtitle =element_text(size =7, hjust = 0.5),
             legend.title=element_blank(),
