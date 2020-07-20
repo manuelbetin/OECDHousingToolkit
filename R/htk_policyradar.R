@@ -21,7 +21,7 @@ htk_policyradar=function(mydata,ranking, ctry, var_codes,  title=NULL){
   var_names=vars_needed_plus$var_names
   vars_needed_plus=vars_needed_plus$data
 
- if(length(var_codes)<3){
+ if(length(var_codes)>2){
   # 2. create min, max, mean, value
 
   #find the min and max countries for each variable
