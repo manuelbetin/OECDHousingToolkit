@@ -15,6 +15,12 @@ htk_policyradar=function(mydata,ranking, ctry, var_codes,  title=NULL){
 
   #1 prepare the data according to data availability
 
+# mydata=dt_pol
+# ranking=ranking_pol
+# var_codes=var_codes_pol
+# ctry=params$ctry_code
+# type_var="policy"
+
   vars_needed_plus=prep_data(mydata,ranking,ctry,var_codes,type_var="policy")
 
   var_codes=vars_needed_plus$var_codes
