@@ -19,6 +19,25 @@
 #'@export
 
 
+mycategory="efficiency"
+effic_vars<-catalogue  %>%  filter(category==mycategory) %>%
+  filter(type=="outcome")
+
+ranking_eff<-effic_vars  %>% select(variable, rank,direction,variable_name_long, variable_name)
+ranking_eff<-ranking_eff   %>% mutate(variable_name=gsub("*","\n",ranking_eff$variable_name, fixed = T))
+
+var_codes_eff<-c(effic_vars$variable) # only select ALL efficiency variables
+var_names_eff<-c(ranking_eff$variable_name) # only the efficiency ones
+var_direction_eff<-c(ranking_eff$direction) # only the efficiency ones
+
+dt_effic<-all_vars %>% select(Iso_code3,country_name, var_codes_eff)
+sec_col_eff=c("goldenrod")
+
+mydata=dt_effic
+ranking=ranking_eff
+ctry="BRA"
+var_codes=var_codes_eff
+
 
 htk_CyC=function(mydata,ranking, ctry,var_codes, sec_col, title=NULL){
 
@@ -31,6 +50,7 @@ htk_CyC=function(mydata,ranking, ctry,var_codes, sec_col, title=NULL){
 
   vars_needed=vars_needed$data
 
+if(length(var_codes)!=0){
   # 2. create min, max, mean, valu
   for (var in var_codes) {
     name_col=paste0(var, '_country_min')
@@ -105,5 +125,10 @@ htk_CyC=function(mydata,ranking, ctry,var_codes, sec_col, title=NULL){
               size=3, nudge_x = 0.2, nudge_y = -0.05,  check_overlap = TRUE,color="steelblue")#+
     #annotate("text", x =3.4, y = 0.05, label = "min OECD", size=5,color="darkgrey") +
     #annotate("text", x =3.4, y = 0.90, label = "max OECD", size=5,color="darkgrey")
-
+}else{
+  myctry=countrycode::countrycode(ctry,origin="iso3c",destination="country.name")
+  ggplot()+
+    geom_text(aes(x=10,y=10,label=paste0(myctry, " has no data available for this dimension")))+
+    theme_void()
+}
 }
