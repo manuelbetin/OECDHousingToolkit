@@ -95,7 +95,7 @@ htk_policyradar=function(mydata,ranking, ctry, var_codes,  title=NULL){
   # set colors
   colors=c(rgb(1,0,0,0.3),rgb(0,0,1,0.5))
   colors_leg=c(rgb(1,0,0,1),rgb(0,0,1,0.5))
-  #colnames(data)=var_names
+  colnames(data)=var_names
 
   # plot the radar chart
   radarchart( data  , axistype=4 ,
