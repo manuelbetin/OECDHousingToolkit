@@ -13,6 +13,10 @@ htk_policyradar=function(mydata,ranking, ctry, var_codes,  title=NULL){
   #' @author Manuel Betin
   #' @export
 
+  mydata=dt_pol
+  ranking=ranking_pol
+  var_codes=var_codes_pol
+  ctry="USA"
   #1 prepare the data according to data availability
 
   vars_needed_plus=prep_data(mydata,ranking,ctry,var_codes,type_var="policy")
@@ -87,15 +91,17 @@ htk_policyradar=function(mydata,ranking, ctry, var_codes,  title=NULL){
   data[var_codes] <- sapply(data[var_codes], as.numeric.factor)
 
   #set the upper and lower bound for the figure
-  max=rep(1,5)
   min=rep(0,5)
-  data=rbind(min,max,data)
-  rownames(data)[1:2]<-c("min", "max")
+  max=rep(1,5)
+  data=rbind(max,min,data)
+  rownames(data)[1:2]<-c("max", "min")
 
   # set colors
   colors=c(rgb(1,0,0,0.3),rgb(0,0,1,0.5))
   colors_leg=c(rgb(1,0,0,1),rgb(0,0,1,0.5))
-  colnames(data)=var_names
+  #colnames(data)=var_names
+
+  radarchart(data)
 
   # plot the radar chart
   radarchart( data  , axistype=4 ,
