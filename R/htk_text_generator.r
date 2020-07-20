@@ -30,6 +30,11 @@ htk_text_generator=function(data,category,ranking,ctry,var_codes){
     #select the variables in the database
     mydt<<-vars_needed$data %>% data.frame()
     mydt<<-mydt %>% dplyr::select(Iso_code3,main_vars,main_vars_rank)
+    test=function(x){
+      x=ifelse(x==0,0.01,x)
+      x=ifelse(x==1,0.99,x)
+    }
+    mydt<<-mydt %>% mutate_at(vars(main_vars_rank),test)
 
     output <-"paragraphs.R"
 
@@ -65,3 +70,4 @@ htk_text_generator=function(data,category,ranking,ctry,var_codes){
 
   mydt
 }
+
