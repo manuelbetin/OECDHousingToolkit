@@ -3,8 +3,8 @@ cf_stackedbars_func <- function(data_source,yvar,fillvar,country,title=NULL,subt
   myv<-data_source %>% filter(ISO3_code==country) %>% dplyr::select(yvar)
   if(dim(myv)[1]!=0){
     plot<-ggplot(data_source) +
-      geom_bar(position="stack", stat="identity",aes(fill=get(fillvar), y=get(yvar), x=ISO3_code),alpha=0.5)+
-      geom_bar(position="stack", stat="identity",aes(fill=get(fillvar), y=ifelse(ISO3_code==country,get(yvar),NA), x=ISO3_code),color="black",alpha=1)+
+      geom_bar(position="stack", stat="identity",aes(fill=get(fillvar), y=get(yvar), x=ISO3_code),alpha=0.5,width=0.7)+
+      geom_bar(position="stack", stat="identity",aes(fill=get(fillvar), y=ifelse(ISO3_code==country,get(yvar),NA), x=ISO3_code),color="black",alpha=1,width=0.7)+
       labs(title= NULL,
            subtitle = NULL,
            x=NULL,
