@@ -7,7 +7,7 @@ cf_lineplot_gen <- function(data_source,xvar,yvar,valuevar,title=NULL,
   data_source3 <- data_source %>% group_by(period) %>% summarize(OECDmean=mean(get(valuevar),na.rm=T))
 
   ggplot(data=data_source) +
-    geom_line(aes(x=get(xvar), y=get(valuevar), group=get(yvar)),alpha=1) +
+    geom_line(aes(x=get(xvar), y=get(valuevar), group=get(yvar)),alpha=0.05) +
     labs(title = title,
          subtitle = subtitle,
          x = Xlabel,
