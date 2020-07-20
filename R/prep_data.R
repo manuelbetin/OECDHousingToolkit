@@ -58,7 +58,7 @@ prep_data=function(mydata,ranking,ctry,var_codes,type_var="policy"){
     mutate_at(vars(var_codes),.funs=list(mean=~mean(.,na.rm=T),
                                          min=~min(.,na.rm=T),
                                          max=~max(.,na.rm=T),
-                                         rank=~percent_rank(.,na.rm=T))
+                                         rank=~percent_rank(.,na.rm=T)))
 
   return(list(data=vars_needed_plus,var_codes=var_codes,var_names=var_names,var_direction=var_direction,var_names_long=var_names_long))
 }
