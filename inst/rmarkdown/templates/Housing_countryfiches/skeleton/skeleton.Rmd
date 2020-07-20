@@ -6,9 +6,9 @@ output:
     includes:
       in_header: "preamble.tex"
 params:
-  ctry_code: FRA
-  ctry_name: France
-  ctry_adj: french
+  ctry_code: USA
+  ctry_name: United States
+  ctry_adj: American
   title: Housing Horizontal Project
 ---
 
@@ -41,11 +41,12 @@ library(rLDCP)
 
 struc_cross=rio::import("struc_vars_cross.xlsx") #change path accordingly
 catalogue_struct=rio::import("catalogue_structural.xlsx") #change path accordingly
-
+house_price_data=rio::import("house_prices_data.xlsx") #change path accordingly
+house_tenure_data=rio::import("housing_tenure_data.xlsx") #change path accordingly
 
 dt=NA
-all_vars=rio::import("all_clean_cf_data0715.xlsx") #change path accordingly
-catalogue<-rio::import("catalogue.xlsx") #change path accordingly
+all_vars=rio::import("data_CF.xlsx") #change path accordingly
+catalogue<-rio::import("catalogue_CF.xlsx") #change path accordingly
 definition<-rio::import("definitions.rda") #change path accordingly
 all_vars <- all_vars %>% mutate(country_name=countrycode(iso3,origin="iso3c",destination="country.name"))
 all_vars <- all_vars %>%  select(iso3, country_name, everything()) 
@@ -61,26 +62,6 @@ all_vars=all_vars %>% gather(key=key,value=value,-c("Iso_code3","country_name"))
   \includegraphics[height=4\baselineskip,valign=c]{OECDlogo.jpg}
   \quad% Space
    Housing Sector Country Fiche: PRELIMINARY VERSION 15/07/2020}
-
-```{r,eval=F}
-\newpage
-\bigskip
-
-PRELIMINARY VERSION: 
-
-prepared by Naomi Cohen, Federica Depace, Maxime Nguyen and Manuel Betin
-
-- This page will be remove for the final version and only two pages will remain
-
-- The current version include raw data and raw text as produced by the algorithm, 
-
-- Fiabilization tests, editorial corrections and validation of data for each countries has not been yet undertaken. 
-
-- This template is constructed according to data availability and will thus display replacement variables if the prefered variables  
-are not available.
-
-\newpage
-```
 
 \color{black}
 \begin{center} \section{\Large `r toupper(params$ctry_name)`}\end{center}
@@ -99,7 +80,7 @@ The provision of efficient, sustainable and inclusive housing is crucial for the
 \caption{Homeownership across OECD countries}
 ```{r fig.height =  1.5,fig.width = 4}
 
-#### Plot the graph
+#### Plot the graph : "Homeownership across OECD countries"
 
 ranking_struc<- catalogue_struct %>% dplyr::select(variable, rank, variable_name)
 ranking_struc<-ranking_struc   %>% mutate(variable_name=gsub("*","\n",ranking_struc$variable_name, fixed = T))
@@ -109,7 +90,7 @@ yvar="Structural_owners_perc"
 title="Homeownership across OECD countries"
 
 data_source=homeownership_data
-country="FRA"
+#country="FRA"
 homeownership_graph <- htk_barplot_func(homeownership_data,yvar,params$ctry_code,title=NULL) 
 
 homeownership_graph #Get the graph
@@ -120,15 +101,12 @@ homeownership_graph #Get the graph
 \vspace*{2mm} % vertical whitespace
 \begin{subfigure}[b]{\linewidth}
 \color{mygray}
-\caption{Homeownership across OECD countries}
+\caption{Mortgage claims as a share of GDP}
 ```{r fig.height =  1.5,fig.width = 4}
-
 mortgage_data <- struc_cross %>% select("ISO3_code", "Structural_resilience_LMHQ") 
-
 yvar="Structural_resilience_LMHQ"
-title="Mortgage claims as a share of GDP"
+#title="Mortgage claims as a share of GDP"
 mortgage_graph <- htk_barplot_func(mortgage_data,yvar,params$ctry_code,title=NULL) 
-
 mortgage_graph #Get the graph
 ```
 \end{subfigure}
@@ -137,19 +115,37 @@ mortgage_graph #Get the graph
 \begin{minipage}[b]{0.45\textwidth}
 \begin{subfigure}[b]{\linewidth}
 \color{mygray}
-\caption{House price evolution}
-```{r fig.height =  1.5,fig.width = 4}
+\caption{House price evolution }
 
-homeownership_graph
+```{r fig.height =  1.5,fig.width = 4}
+#title_lineplot="House prices evolution across OECD countries"
+hp_evol<-cf_lineplot_gen(house_price_data,
+                xvar=period,
+                yvar=ISO3_code,
+                valuevar=rhp,
+                title=NULL,
+                Xlabel = NULL,
+                Ylabel=NULL,
+                country=params$ctry_code)
+hp_evol
 ```
 \end{subfigure}
 \vspace*{2mm} % vertical whitespace
 \begin{subfigure}[b]{\linewidth}
 \color{mygray}
-\caption{mortgage loans}
+\caption{Housing tenure distribution}
+
+ 
 ```{r fig.height =  1.5,fig.width = 4}
 
-mortgage_graph
+housing_tenure_graph <- cf_stackedbars_func(data_source=house_tenure_data,
+                                            xvar=ISO3_code,
+                                            yvar=Tenure_share,
+                                            fill=Tenure_cat,
+                                            country=params$ctry_code,
+                                            title=NULL)
+housing_tenure_graph
+
 ```
 \end{subfigure}
 \end{minipage}
