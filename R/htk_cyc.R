@@ -20,13 +20,12 @@
 
 htk_CyC=function(mydata,ranking, ctry,var_codes, sec_col, title=NULL){
 
-
-   # mydata=dt_effic
-   # ranking=ranking_eff
-   # var_codes=var_codes_eff
-   # ctry=params$ctry_code
-
-
+   mydata=dt_effic
+   ranking=ranking_eff
+   var_codes=var_codes_eff
+   ctry=params$ctry_code
+   type_var="outcomes"
+   sec_col=sec_col_eff
   #prepare the dataset with the proper variables
   vars_needed=prep_data(mydata,ranking,ctry,var_codes,type_var="outcomes")
 
@@ -36,7 +35,7 @@ htk_CyC=function(mydata,ranking, ctry,var_codes, sec_col, title=NULL){
 
   vars_needed=vars_needed$data
 
-if(length(var_codes)!=0){
+if(length(var_codes)>1){
   # 2. create min, max, mean, valu
   for (var in var_codes) {
     name_col=paste0(var, '_country_min')
