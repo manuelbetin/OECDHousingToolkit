@@ -278,11 +278,12 @@ report_no_data=function(var1,var2,var3){
 
 report_tail=function(myvar, nb_indicators){ #error in the function the rank is not displaying properly
   if(str_detect(pm_report(myvar), "tail")) {
-    x = rank(myvars[[nb_indicators]])
-    v = which(all_vars==ctry)
-    ctry_x=x[[v]]
-    rank_var=(length(myvars[[nb_indicators]])+1)-ctry_x
-    myperc_var=paste0(pm_report(myvar), ". Indeed, targetcountry is ranked ", toOrdinal::toOrdinal(rank_var,language="english"), " over ", length(myvars[[nb_indicators]]), " countries", " (located in the percentile ", round(myvar[["u"]], digits=3),")")
+    #x = rank(myvars[[nb_indicators]])
+    #v = which(all_vars==ctry)
+    #ctry_x=x[[v]]
+    #rank_var=(length(myvars[[nb_indicators]])+1)-ctry_x
+    #myperc_var=paste0(pm_report(myvar), ". Indeed, targetcountry is ranked ", toOrdinal::toOrdinal(rank_var,language="english"), " over ", length(myvars[[nb_indicators]]), " countries", " (located in the percentile ", round(myvar[["u"]], digits=3),")")
+    myperc_var=paste0(pm_report(myvar)," (located in the percentile ", round(myvar[["u"]], digits=3),")")
   } else {
 
     myperc_var=paste0(pm_report(myvar)," (located in the percentile ", round(myvar[["u"]], digits=3),")")
