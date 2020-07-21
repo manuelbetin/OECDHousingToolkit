@@ -10,7 +10,7 @@ htk_barplot_func <- function(data_source,yvar,country,title,subtitle=NULL,Xlabel
            x= Xlabel,
            y= Ylabel) +
       theme_minimal() + #set background as minimal
-      theme(panel.grid.minor =  element_blank(),
+      theme(panel.grid.major.x = element_blank(),
             axis.text.x = element_text(size =8,angle=90),
             axis.title.x = element_text(size = 8),
             axis.title.y = element_text(size=7),
