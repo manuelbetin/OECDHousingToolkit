@@ -82,7 +82,7 @@ htk_policyradar=function(mydata,ranking, ctry, var_codes,  title=NULL){
   final[name_vars] <- sapply(final[name_vars],as.numeric)
 
   final_t<-data.frame(t(final))
-  names(final_t) <- var_codes
+  names(final_t) <- final$main_v
   final_t <- final_t[-1,]
 
   rownames(final_t)[5]=ctry
@@ -97,6 +97,9 @@ htk_policyradar=function(mydata,ranking, ctry, var_codes,  title=NULL){
   min=rep(0,5)
   max=rep(1,5)
   data=rbind(max,min,data)
+  # sort columns as in var_codes
+  data <- data[,match(var_codes, colnames(data))]
+
   rownames(data)[1:2]<-c("max", "min")
 
   # set colors
