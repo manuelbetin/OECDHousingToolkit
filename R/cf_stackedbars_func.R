@@ -5,21 +5,22 @@ cf_stackedbars_func <- function(data_source,yvar,fillvar,country,title=NULL,subt
     plot<-ggplot(data_source) +
       geom_bar(position="stack", stat="identity",aes(fill=get(fillvar), y=get(yvar), x=ISO3_code),alpha=0.5,width=0.7)+
       geom_bar(position="stack", stat="identity",aes(fill=get(fillvar), y=ifelse(ISO3_code==country,get(yvar),NA), x=ISO3_code),color="black",alpha=1,width=0.7)+
-      labs(title= NULL,
-           subtitle = NULL,
-           x=NULL,
-           y=NULL) +
-      theme_minimal() +
+      #labs(title= NULL,
+       #    subtitle = NULL,
+        #   x=NULL,
+         #  y=NULL) +
+    #  theme_minimal() +
       theme(panel.grid.minor =  element_blank(),
-            axis.text.x = element_text(size =10,angle=90, hjust=1),
-            axis.title.x = element_text(size = 7),
-            axis.title.y = element_text(size=7),
+            axis.text.x = element_text(size =10,angle=90, hjust=0.3),
+            axis.title.x = element_blank(),
+            axis.title.y = element_blank(),
             axis.text.y = element_text(size=10),
             plot.title=element_text(face="bold",colour ="steelblue",size=15, hjust =0.5),
             plot.subtitle =element_text(size =7, hjust = 0.5),
             legend.title=element_blank(),
             legend.text = element_text(size=10),
             legend.position = "bottom",
+            legend.box.margin = margin(t=-10),
             legend.key.size = unit(0.5,"line"),
             legend.margin = margin(0.2, 0.2, 0.2, 0.2, "cm"))+
       scale_fill_manual(breaks=c("Other", "Own_outright", "Owner_with_mortgage",
