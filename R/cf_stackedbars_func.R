@@ -11,7 +11,7 @@ cf_stackedbars_func <- function(data_source,yvar,fillvar,country,title=NULL,subt
          #  y=NULL) +
     #  theme_minimal() +
       theme(panel.grid.minor =  element_blank(),
-            axis.text.x = element_text(size =10,angle=90, hjust=0.3),
+            axis.text.x = element_text(size =10,angle=90, vjust=0.5),
             axis.title.x = element_blank(),
             axis.title.y = element_blank(),
             axis.text.y = element_text(size=10),
