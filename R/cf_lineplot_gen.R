@@ -29,6 +29,11 @@ cf_lineplot_gen <- function(data_source,xvar,yvar,valuevar,title=NULL,
           axis.text.y = element_text(size=10),
           plot.title=element_text(face="bold",colour="steelblue",size=15, hjust =0.5),
           plot.subtitle =element_text(hjust = 0.5)) +
-    geom_line(data=data_source2,aes(x=get(xvar), y=get(valuevar),colour=get(yvar))) +
-    geom_line(data=data_source3,aes(x=get(xvar), y=OECDmean),colour="blue",alpha=0.5)
+    #geom_line(data=data_source2,aes(x=get(xvar), y=get(valuevar),colour=get(yvar))) +
+    #geom_line(data=data_source3,aes(x=get(xvar), y=OECDmean),colour="blue",alpha=0.5)
+    geom_line(data=data_source2, mapping= aes(x=get(xvar), y=get(valuevar), colour=country)) +
+    geom_line(data=data_source3, mapping= aes(x=get(xvar), y=OECDmean, colour="OECD")) +
+    scale_colour_manual( "",
+                         breaks = c(country, "OECD"),
+                         values = c("red", "blue"))
 }

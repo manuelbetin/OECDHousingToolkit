@@ -77,7 +77,7 @@ prepared by Naomi Cohen, Federica Depace, Maxime Nguyen and Manuel Betin
 
 - This template is constructed according to data availability and will thus display replacement variables if the prefered variables  
 are not available.
-\newpage
+\newpage 
 
 \color{ultramarineblue}
 \section{ Housing  in \Large `r params$ctry_name`}

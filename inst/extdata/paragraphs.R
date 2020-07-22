@@ -313,7 +313,7 @@ report_method <- function(properties,pm){
       myperc_var2,".",
       paste0(" Finally, the last selected indicator of ",mycategory_label, ","),
       myperc_var3,
-      ". Among the factors contributing to those performances, we can mention [More from desks]",
+      ". Among the factors contributing to those performances, the following can be mentioned [More from desks]",
       sep="")
   } #close if(no_data)
 }

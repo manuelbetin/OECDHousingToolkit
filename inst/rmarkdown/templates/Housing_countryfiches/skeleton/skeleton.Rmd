@@ -6,9 +6,9 @@ output:
     includes:
       in_header: "preamble.tex"
 params:
-  ctry_code: DEU
-  ctry_name: Germany
-  ctry_adj: german
+  ctry_code: USA
+  ctry_name: United States
+  ctry_adj: french
   title: Housing Horizontal Project
 ---
 
@@ -35,6 +35,7 @@ library(countrycode)
 library(tidyr)
 library(OECDHousingToolkit)
 library(rLDCP)
+library(kableExtra)
 ```
 
 ```{r import data}
@@ -64,7 +65,7 @@ all_vars=all_vars %>% gather(key=key,value=value,-c("Iso_code3","country_name"))
  \rule[-1.75\baselineskip]{0pt}{0pt}
   \includegraphics[height=4\baselineskip,valign=c]{OECDlogo.jpg}
   \quad% Space
-   Housing Sector Country Fiche: PRELIMINARY VERSION 15/07/2020}
+   Housing Sector Country Fiche: 20/07/2020}
 
 \color{black}
 \begin{center} \section{\Large `r toupper(params$ctry_name)`}\end{center}
@@ -74,13 +75,14 @@ The provision of efficient, sustainable and inclusive housing is crucial for the
 
 ---------------------
 
+\bigskip
+
 \begin{figure}[H]
 \captionsetup[subfigure]{labelformat=empty}
-\vspace*{2mm} % vertical whitespace
 \begin{minipage}[b]{0.45\textwidth}
 \begin{subfigure}[b]{\linewidth}
 \color{mygray}
-\caption{Homeownership Across OECD Countries}
+\caption{Home Outright Across OECD Countries}
 ```{r fig.height =  1.6,fig.width = 4}
 
 #### Plot the graph : "Homeownership across OECD countries"
@@ -101,12 +103,12 @@ homeownership_graph #Get the graph
  
 ```
 \end{subfigure}
-\vspace*{2mm} % vertical whitespace
+\vspace*{10mm} % vertical whitespace
 \begin{subfigure}[b]{\linewidth}
+\bigskip
+\bigskip
 \color{mygray}
-
-
-\caption{Mortgage Claims as a Share of GDP}
+\caption{Mortgage Claims as a Share of GDP (in percent)}
 ```{r fig.height =  1.6,fig.width = 4}
 mortgage_data <- struc_cross %>% select("ISO3_code", "Structural_resilience_LMHQ") 
 yvar="Structural_resilience_LMHQ"
@@ -116,11 +118,10 @@ mortgage_graph #Get the graph
 ```
 \end{subfigure}
 \end{minipage}
-\hspace*{5mm} % horizontal whitespace  
 \begin{minipage}[b]{0.45\textwidth}
 \begin{subfigure}[b]{\linewidth}
 \color{mygray}
-\caption{House Price Evolution }
+\caption{Real House Price Index (100=2016)}
 ```{r fig.height =  2,fig.width = 6}
 
 #title_lineplot="House prices evolution across OECD countries"
@@ -135,11 +136,12 @@ hp_evol<-cf_lineplot_gen(house_price_data,
 hp_evol
 ```
 \end{subfigure}
-\vspace*{2mm} % vertical whitespace
+\vspace*{10mm} % vertical whitespace
 \begin{subfigure}[b]{\linewidth}
+\bigskip
+\bigskip
 \color{mygray}
-
-\caption{Housing Tenure Distribution}
+\caption{Housing Tenure Distribution (in percent)}
 ```{r fig.height =  2.2,fig.width = 6}
 
 housing_tenure_graph <- cf_stackedbars_func(data_source=house_tenure_data,
@@ -156,7 +158,10 @@ housing_tenure_graph
 
 \small
 \color{mygray}
+```{r,eval=F}
 The structure of the housing sector is heterogeneous among countries. Price evolutions, modality of ownership, degree of development of mortage markets and the scope of the rental market profoundly shape the outcomes of the housing market. Panel (a) and (d) display the relative position of `r params$country_code` with respect to homeownership and rental markets, panel (b) shows the real house price dynamics in the long run and panel (c) the importance of the housing sector. 
+```
+
 \newpage
 
 ```{r,eval=F}
@@ -198,7 +203,7 @@ dt=htk_text_generator(data=dt_effic,
                       ranking=ranking_eff,
                       ctry=params$ctry_code,
                       var_codes=var_codes_eff)
-paragraph=dt %>% dplyr::select(mycategory)
+paragraph=dt %>% dplyr::select(mycategory) %>% pull()
 paragraph=gsub("\n","",paragraph)
 paragraph=gsub("targetadjective",params$ctry_adj,paragraph)
 ```
@@ -251,7 +256,7 @@ dt=htk_text_generator(data=dt_incl,
                       ranking=ranking_incl,
                       ctry=params$ctry_code,
                       var_codes=var_codes_incl)
-paragraph=dt %>% dplyr::select(mycategory)
+paragraph=dt %>% dplyr::select(mycategory) %>% pull()
 paragraph=gsub("\n","",paragraph)
 paragraph=gsub("targetadjective",params$ctry_adj,paragraph)
 ```
@@ -277,11 +282,9 @@ if(length(edited_par)==0 | run_edit_par==F){
 \columnbreak
 
 \color{Green}
-
 \begin{center}
 \section{Sustainability}
 \end{center}
-
 \color{mygray}
 
 ```{r Sustainability}
@@ -304,7 +307,7 @@ dt=htk_text_generator(data=dt_sust,
                       ranking=ranking_sust,
                       ctry=params$ctry_code,
                       var_codes=var_codes_sust)
-paragraph=dt %>% dplyr::select(mycategory)
+paragraph=dt %>% dplyr::select(mycategory) %>% pull()
 paragraph=gsub("\n","",paragraph)
 paragraph=gsub("targetadjective",params$ctry_adj,paragraph) 
 ```
@@ -339,10 +342,15 @@ if(length(edited_par)==0 | run_edit_par==F){
 
 \small
 \color{mygray}
-This section is a place holder and do not contain final variables and text.
+Housing policies shape the efficiency, inclusiveness and sustainability of the housing sector. The radar below shows the five principal indicators capturing the policy profile for `r params$ctry_name`.
 
-\lipsum[2-2]
+Higher values of the land-use governance indicators, which reflect more decentralisation to the municipalities and/or more overlap across government levels, have been empirically linked to housing supply that more vigorously responds to changes in demand.
+Greater amounts of mortgage interest relief, as well as lower marginal effective tax rates on housing, typically result in higher house prices.
+More stringent rent control, which reduces the expected profitability of housing investment, is empirically associated with weaker response of housing supply to change in demand. 
+Higher government spending on housing allowances is empirically associated with greater residential mobility that can in turn foster efficiency of the housing sector.
+
 \bigskip
+
 
 ```{r fig.height =  6,fig.width = 6,fig.align="center"}
 data_polvar<-catalogue  %>%  filter(type=="policy")
@@ -357,12 +365,6 @@ sec_col=c("grey")
 htk_policyradar(dt_pol,ranking_pol, params$ctry_code,var_codes_pol, title="Policy")
 ```
 
-```{r,results='asis',eval=F}
-first_vars=catalogue %>% filter(rank==1 & type=="outcome") %>% dplyr::select(variable) %>% pull
-dispo_vars=c(fig_eff$data$main_v,fig_incl$data$main_v,fig_sust$data$main_v)
-cat(setdiff(dispo_vars,first_vars))
-```
-
 }
 &
 \parbox[t]{0.2\textwidth}{
@@ -372,47 +374,53 @@ cat(setdiff(dispo_vars,first_vars))
 \end{center}
 
 \color{black}
-\footnotesize
-\begin{tabular}{ l p{10cm} }
-\hline
-\hline
-\multicolumn{2}{c}{}        \\
-\multicolumn{2}{c}{\color{Goldenrod}\bf{Efficiency}}        \\
-\multicolumn{2}{c}{}        \\
-\color{Goldenrod}\bf {Residential Investment} & Difference in number of dwellings that were completed during a given year and are ready to be occupied between two consecutive quarters \\
-\color{Goldenrod}\bf {House Price Volatility} & Annualised standard deviation of detrended real house prices \\
-\color{Goldenrod}\bf {Price to income} &  Number of years of disposable income required to buy a 100m2 dwelling \\
-& \\
-\color{Goldenrod}\bf {Mortgage claims} &  Mortgage claims as percentage of GDP \\
-& \\
-\multicolumn{2}{c}{\color{ProcessBlue}\bf{Inclusiveness}}        \\
-\multicolumn{2}{c}{}        \\
-\color{ProcessBlue}\bf{  Home ownership}  & Percentage of household that own a dwelling, whether it is with and without outstanding mortgage\\
-\color{ProcessBlue}\bf{  Over-crowding } & Percentage of household that does not have at its disposal a minimum number of rooms\\ 
-\color{ProcessBlue}\bf{  Over burden } & Percentage of population spending more than 40 percent of disposable income on private rent \\
- & \\
-\multicolumn{2}{c}{\color{Green}\bf{Sustainability}}        \\
-\multicolumn{2}{c}{}        \\
-\color{Green}\bf{  Local air pollution} & Presence of contaminant or pollutant substances in the air that do not disperse properly and that interfere with human health or welfare, or produce other harmful environmental effects \\ 
-\color{Green}\bf{  $CO_{2}$ emission} & Product of fuel efficiency and the carbon intensity per kWh.5  \\
-\color{Green}\bf{  Urban sprawl} & Low average urban population density  \\
-& \\
-\multicolumn{2}{c}{\color{ultramarineblue}\bf{Policy}}        \\
-\multicolumn{2}{c}{}        \\
-\color{ultramarineblue}\bf {Rent control stringency} & Index reflecting on the number of regulations that restrict rent increases, nominal rent freezes, rent level control, limits of decontrolling (e.g. change of tenant, new or vacant dwelling) as well as restrictions on subletting. \\
-\color{ultramarineblue}\bf {Bank capital requirement} & [Add definition]  \\
-\color{ultramarineblue}\bf {mortgage interest relief} & [Add definition] \\
-\color{ultramarineblue}\bf {Marginal effective taxe  } & Marginal effective tax rate on mortgage \\
-\color{ultramarineblue}\bf {rate on mortgage } &  \\
-\color{ultramarineblue}\bf {Land-use governance} & [Add definition] \\
-\color{ultramarineblue}\bf {Governemnt spending } &  [Add definition] \\
-\color{ultramarineblue}\bf {on housing allowances} & \\
-& \\
-\hline
-\hline
+```{r}
+sel_eff<-fig_eff$data %>% select(main_v)
+sel_eff<-c(sel_eff$main_v)
 
-\end{tabular}
+sel_incl<-fig_incl$data%>% select(main_v)
+sel_incl<-c(sel_incl$main_v)
+
+sel_sust<-fig_sust$data%>% select(main_v)
+sel_sust<-c(sel_sust$main_v)
+
+#sel_v<-rbind(sel_eff, sel_incl, sel_sust)
+#sel_v<-c(sel_v$main_v)
+# to have it in order 
+dt_table_eff<- catalogue %>% filter(category=="efficiency") %>%  
+              select(variable, variable_name, variable_desc) 
+dt_table_eff<-dt_table_eff[which(dt_table_eff$variable %in% sel_eff), ]
+
+dt_table_incl<- catalogue %>% filter(category=="inclusiveness") %>%  
+              select(variable, variable_name, variable_desc) 
+dt_table_incl<-dt_table_incl[which(dt_table_incl$variable %in% sel_incl), ]
+
+dt_table_sust<- catalogue %>% filter(category=="sustainability") %>%  
+              select(variable, variable_name, variable_desc) 
+dt_table_sust<-dt_table_sust[which(dt_table_sust$variable %in% sel_sust), ]
+dt_table<-rbind(dt_table_eff, dt_table_incl, dt_table_sust)
+#dt_table$variable
+dt_table<- dt_table %>% select(variable_name, variable_desc) 
+dt_table<-dt_table   %>% mutate(variable_name=str_to_sentence(variable_name))
+dt_table<-dt_table   %>% mutate(variable_desc=str_to_sentence(variable_desc))
+dt_table<-dt_table   %>% mutate(variable_name=gsub("*","",dt_table$variable_name, fixed = T))
+rownames(dt_table)<-dt_table$variable_name
+
+dt_table_fin<-subset(dt_table, select = variable_desc )
+
+colnames(dt_table_fin)<-"description"
+
+mytb<-kable(dt_table_fin,format="latex", booktabs = TRUE, col.names = NULL) %>%    
+      kable_styling(latex_options = "striped")%>%  
+      column_spec(1, width = "6cm")%>%
+      column_spec(2, width = "9cm")%>%
+kable_styling(position = "left")%>%
+pack_rows(  index = c("Efficiency" = 3, "Inclusiveness" = 3, "Sustainability" = 3), 
+            hline_before=T, hline_after=T, latex_align="c") 
+
+mytb
+```
+
 }
 \end{tabular}
-
 
