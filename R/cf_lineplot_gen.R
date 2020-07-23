@@ -14,7 +14,7 @@ cf_lineplot_gen <- function(data_source,xvar,yvar,valuevar,title=NULL,
          y = Ylabel) +
     theme_minimal() +   #set the background of the plot as white
     theme(panel.grid.minor =  element_blank(),
-          legend.position ="bottom",
+          legend.position ="right",
           legend.title=element_blank(),
           legend.text = element_text(size=10),
           legend.justification="center",
