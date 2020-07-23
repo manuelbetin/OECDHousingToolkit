@@ -23,12 +23,12 @@ cf_lineplot_gen <- function(data_source,xvar,yvar,valuevar,title=NULL,
           #aspect.ratio=2,
           #legend.margin = margin(0.2, 0.2, 0.2, 0.2, "cm"),
           legend.key.size = unit(0.5,"line"),
-          axis.title.x = element_text(size = 9),
-          axis.title.y = element_text(size=9),
+          axis.title.x = element_blank(),
+          axis.title.y = element_blank(),
           axis.text.x = element_text(size=8),
-          axis.text.y = element_text(size=10),
-          plot.title=element_text(face="bold",colour="steelblue",size=15, hjust =0.5),
-          plot.subtitle =element_text(hjust = 0.5)) +
+          axis.text.y = element_text(size=8),
+          plot.title=element_blank(),
+          plot.subtitle =element_blank()) +
     #geom_line(data=data_source2,aes(x=get(xvar), y=get(valuevar),colour=get(yvar))) +
     #geom_line(data=data_source3,aes(x=get(xvar), y=OECDmean),colour="blue",alpha=0.5)
     geom_line(data=data_source2, mapping= aes(x=get(xvar), y=get(valuevar), colour=country)) +
