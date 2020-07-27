@@ -27,7 +27,7 @@ htk_CyC=function(mydata,ranking, ctry,var_codes, sec_col, title=NULL){
    # type_var="outcomes"
    # sec_col=sec_col_eff
   #prepare the dataset with the proper variables
-  vars_needed=prep_data(mydata,ranking,ctry,var_codes,type_var="outcomes")
+  vars_needed=prep_data_indsel(mydata,ranking,ctry,var_codes,type_var="outcomes")
 
   var_codes=vars_needed$var_codes
   var_codes_rank=paste0(var_codes,"_rank")
