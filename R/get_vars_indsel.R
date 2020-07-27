@@ -42,8 +42,8 @@ if (type_var=="outcomes"){
       assign(name_dt, empty ) #one row on NAs
     }
   }
-    newdf<-na.omit(newdf)
     newdf<-rbind(newdf_A, newdf_B, newdf_C)
+    newdf<-na.omit(newdf)
     newdf<-distinct(newdf)
 
     #need to: take care of 2 out of 3 variables! # take care of joker variables
