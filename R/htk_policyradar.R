@@ -21,7 +21,7 @@ htk_policyradar=function(mydata,ranking, ctry, var_codes,  title=NULL){
 # ctry=params$ctry_code
 # type_var="policy"
 
-  vars_needed_plus=prep_data(mydata,ranking,ctry,var_codes,type_var="policy")
+  vars_needed_plus=prep_data_indsel(mydata,ranking,ctry,var_codes,type_var="policy")
 
   var_codes=vars_needed_plus$var_codes
   var_names=vars_needed_plus$var_names
