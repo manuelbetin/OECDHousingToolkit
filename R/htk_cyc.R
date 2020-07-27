@@ -81,6 +81,8 @@ if(length(var_codes)>1){
   name_vars<-c("value.value","value.mean","value.min","value.max", "value.rank")
   final<-  final %>% mutate_at(vars(name_vars),as.numeric)
   final<-merge(final, OECD_final, by="main_v")
+  rownames(final)<-final[,1]
+  final <- final[match(var_codes, rownames(final)),]
 
   #produce the figure
 
