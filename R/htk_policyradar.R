@@ -108,7 +108,7 @@ htk_policyradar=function(mydata,ranking, ctry, var_codes,  title=NULL){
   colnames(data)=var_names
 
   # plot the radar chart
-  radarchart( data  , axistype=4 ,
+  radarchart( data[,c(1, length(data):2)]  , axistype=4 ,
               title="",
               seg=5,
               #custom polygon
@@ -118,7 +118,7 @@ htk_policyradar=function(mydata,ranking, ctry, var_codes,  title=NULL){
               #custom the grid
               cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,1.2,.2), cglwd=1,
               #custom labels : check here
-              vlcex=0.7
+              vlcex=0.6
   ) %>%
     legend(x=0.85,y=0,
            legend=rownames(data)[3:4],fill=colors_leg,col=colors_leg,
