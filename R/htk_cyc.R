@@ -83,7 +83,6 @@ if(length(var_codes)>1){
   final<-merge(final, OECD_final, by="main_v")
   rownames(final)<-final[,1]
   final <- final[match(var_codes, rownames(final)),]
-
   #produce the figure
 
   ggplot(data=final,aes(x=main_v))+
@@ -101,7 +100,7 @@ if(length(var_codes)>1){
           plot.title=element_text(face="bold",colour ="black",size=15, hjust =0.5),
           axis.text.y = element_text(angle=40,size=11,color=sec_col),
           axis.ticks =element_blank() )+
-    scale_x_discrete(breaks=final$main_v,labels=var_names) +
+    scale_x_discrete(breaks=final$main_v,labels=var_names, limits = rev(final$main_v)) +
     geom_text(aes(y= value.rank   , label=paste(ctry,": ", round(value.value, digits = 2))),
               size=3.5, nudge_x = -0.1, nudge_y = 0.0,  check_overlap = TRUE) +
     geom_text(aes(y= rank_OECD   , label=paste("OECD: ", round(value.mean, digits = 2))),
