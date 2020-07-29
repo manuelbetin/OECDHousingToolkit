@@ -116,13 +116,13 @@ htk_policyradar=function(mydata,ranking, ctry, var_codes,  title=NULL){
               #pfcol=colors ,
               #plwd=1 , plty=1,pty=16,
               #custom the grid
-              cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,1.2,.2), cglwd=1,
+              cglcol="grey", cglty=1, axislabcol="grey", caxislabels=seq(0,1.2,.2),calcex=0.5, cglwd=1,
               #custom labels : check here
-              vlcex=0.6
+              vlcex=0.4
   ) %>%
     legend(x=0.85,y=0,
            legend=rownames(data)[3:4],fill=colors_leg,col=colors_leg,
-           bty = "n" ,text.col = colors_leg, cex=0.8,horiz = F,merge = F)
+           bty = "n" ,text.col = colors_leg, cex=0.5, horiz = F,merge = F)
   # }
  } else{
    myctry=countrycode::countrycode(ctry,origin="iso3c",destination="country.name")
