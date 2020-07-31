@@ -23,7 +23,8 @@ htk_text_generator=function(data,category,ranking,ctry,var_codes){
 
   main_vars<<-vars_needed$var_codes
   main_vars_rank<<-paste0(main_vars,"_rank")
-  main_vars_label<<-vars_needed$var_names_long
+  main_vars_label<<-vars_needed$var_names
+  main_vars_label_long<<-vars_needed$var_names_long
   main_vars_direction <<- vars_needed$var_direction
 
   if(length(main_vars)==3){
@@ -36,13 +37,13 @@ htk_text_generator=function(data,category,ranking,ctry,var_codes){
     }
     mydt<<-mydt %>% mutate_at(vars(main_vars_rank),test)
 
-    output <-"paragraphs.R"
+    output <-"paragraphs_1.R"
 
     current.folder=system.file("extdata", package = "OECDHousingToolkit")
     local.folder <- "."
-    file.copy(paste0(current.folder,"/",output), local.folder,overwrite = T)
-    source(output)
-
+      file.copy(paste0(current.folder,"/",output), local.folder,overwrite = T)
+      source(output)
+#source("/Users/myname/Dropbox (folder)/OECD/projects/paragraphs_1.R")
     #include the paragraphs in the database for each country
     mydt=mydt %>% filter(Iso_code3==ctry)
     mydt[[category]]=NA
