@@ -15,7 +15,7 @@ htk_barplot_growthrate <- function(data_source,yvar,country,title=NULL,subtitle=
       geom_bar(data=subset(myv, year_to_use==2005),aes(x=reorder(ISO3_code,get(yvar)),y=get(yvar),fill=factor(year_to_use)),stat='identity', width=0.7,alpha=0.6)    +
       geom_bar(data=subset(myv, year_to_use==2005),aes(x=reorder(ISO3_code,get(yvar)),y=ifelse(ISO3_code!=country,NA,get(yvar)),
                                                        fill=factor(year_to_use)), stat='identity',color="navyblue", width=0.7) +
-      geom_point(data=subset(myv, year==2018),aes(colour="2018"),shape=17) +
+      geom_point(data=subset(myv, year==2019),aes(colour="2019"),shape=17) +
       theme_minimal()+
       scale_y_continuous(limits = c(0, 180), breaks=(seq(0, 180, 30)))+
       theme(axis.text.x = element_text(size =10, angle = 90, vjust = 0.5),
@@ -28,8 +28,8 @@ htk_barplot_growthrate <- function(data_source,yvar,country,title=NULL,subtitle=
             legend.box.margin = margin(t=-25),
             legend.key.size = unit(0.5,"line"),
             legend.margin = margin(0.2, 0.2, 0.2, 0.2, "cm"))+
-      scale_fill_manual(values=c("steelblue","black"), name  =NULL, labels=c("2005*", "2018"))+
-      scale_color_manual(name = NULL, values = c("2005*" = "steelblue","2018" = "black")) +
+      scale_fill_manual(values=c("steelblue","black"), name  =NULL, labels=c("2005", "2019"))+
+      scale_color_manual(name = NULL, values = c("2005" = "steelblue","2019" = "black")) +
       guides(fill = guide_legend(override.aes = list(shape = NA)))
   }   else {
     myctry=countrycode::countrycode(country,origin="iso3c",destination="country.name")
