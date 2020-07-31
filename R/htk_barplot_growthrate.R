@@ -3,12 +3,15 @@ htk_barplot_growthrate <- function(data_source,yvar,country,title=NULL,subtitle=
 
   nas<-c("BRA", "CHN", "CZE", "HUN", "IND", "LTU", "LUX" ,"LVA" ,"POL", "SVN" ,"TUR")
   myv<- data_source  %>% mutate(year= year(period))
+  myv<- myv  %>% mutate(month= month(period))
+  myv<- myv  %>% filter(month==1)
+
   myv<-myv %>% group_by(ISO3_code)  %>%
     mutate(year_min=ifelse(ISO3_code %in% nas, min(year), 2005)) %>%
     mutate(year_max=max(year)) %>%
     filter(year==year_min | year==year_max)
   myv<- myv %>%
-    mutate(year_to_use=ifelse(year_min!=2005, 2005,year ))
+    mutate(year_to_use=ifelse(year_min !=2005&year!=2019, 2005, year ))
 
   if(dim(myv)[1]!=0){
     plot <- ggplot(data=myv, aes(x=ISO3_code, y=get(yvar)))+
