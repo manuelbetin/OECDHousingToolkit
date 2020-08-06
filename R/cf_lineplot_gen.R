@@ -12,6 +12,7 @@ cf_lineplot_gen <- function(data_source,xvar,yvar,valuevar,title=NULL,
          subtitle = subtitle,
          x = Xlabel,
          y = Ylabel) +
+    scale_y_continuous(breaks=seq(0,200,50))+
     scale_x_date(expand=c(0,0),  breaks=seq(as.Date("1960-01-01"),as.Date("2015-01-01"), by="5 years"), date_labels=("%Y"))+
     theme_minimal() +   #set the background of the plot as white
     theme(panel.grid.minor = element_blank(),
