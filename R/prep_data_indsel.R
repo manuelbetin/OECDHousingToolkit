@@ -10,9 +10,9 @@
 #' @return a list with data a tibble with the proper selection of
 #' variables, var_codes the codes of the selected vars and
 #' var_names the names of the selected vars
-#' @author Manuel Betin, Federica Depace
+#' @author Manuel Betin, Federica De Pace
 
-prep_data=function(mydata,ranking,ctry,var_codes,type_var){
+prep_data_indsel=function(mydata,ranking,ctry,var_codes,type_var){
   # reshape the variables
   dt_non_na<-mydata %>%
     filter(Iso_code3==ctry)  %>%
@@ -23,11 +23,7 @@ prep_data=function(mydata,ranking,ctry,var_codes,type_var){
     filter(!is.na(value))
 
   #select relevant variables according to availability
-  n_rank1 <- nrow(dt_non_na[with( dt_non_na,which(rank==1 )), ])
-  n_rank2 <- nrow(dt_non_na[with( dt_non_na,which(rank==2 )), ])
-  n_rank3 <- nrow(dt_non_na[with( dt_non_na,which(rank==3 )), ])
-
-  dt_non_na=get_vars(n_rank1, n_rank2, n_rank3, dt_non_na,type_var) %>% filter(!is.na(variable))
+  dt_non_na=get_vars_indsel(dt_non_na,type_var) %>% filter(!is.na(variable))
 
   #store final variable codes and names
   var_codes=dt_non_na$variable

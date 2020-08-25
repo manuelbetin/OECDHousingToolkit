@@ -44,8 +44,8 @@ rm(input1)
 #provide the labels to the indicators and the categories that will be
 #used in the text as well as definitions for each categories
 
-definition=c(efficiency=" measures the housing sector's capacity to bring demand in line with supply, facilitate residential mobility and
-             contribute to macroeconomic stability",
+definition=c(efficiency="  measures the economy’s capacity to align housing supply with housing demand, thereby limiting excessive price and rent increases,
+             contributing to macroeconomic stability and facilitating residential mobility",
              inclusiveness=" refers to the housing sector's capacity to provide adequate and affordable homes across the income distribution
              and limit residential segregation",
              sustainability=" assess the housing sector's readiness for the transition to a low-carbon economy and its capacity to attenuate

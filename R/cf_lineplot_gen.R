@@ -12,23 +12,25 @@ cf_lineplot_gen <- function(data_source,xvar,yvar,valuevar,title=NULL,
          subtitle = subtitle,
          x = Xlabel,
          y = Ylabel) +
+    scale_y_continuous(breaks=seq(0,200,50))+
+    scale_x_date(expand=c(0,0),  breaks=seq(as.Date("1960-01-01"),as.Date("2015-01-01"), by="5 years"), date_labels=("%Y"))+
     theme_minimal() +   #set the background of the plot as white
-    theme(panel.grid.minor =  element_blank(),
-          legend.position ="bottom",
+    theme(panel.grid.minor = element_blank(),
+          legend.position =c(.95, .1),
           legend.title=element_blank(),
-          legend.text = element_text(size=10),
-          legend.justification="center",
-          legend.margin=margin(0,0,0,0),
-          legend.box.margin=margin(0,0,0,0),
+          legend.text = element_text(size=7),
+          legend.justification = c("right", "bottom"),,
+          #   legend.margin=margin(1,1,0.5,0.5),
+          legend.margin=margin(6, 6, 6, 6),
           #aspect.ratio=2,
           #legend.margin = margin(0.2, 0.2, 0.2, 0.2, "cm"),
-          legend.key.size = unit(0.5,"line"),
-          axis.title.x = element_text(size = 9),
-          axis.title.y = element_text(size=9),
+          legend.key.size = unit(0.4,"line"),
+          axis.title.x = element_blank(),
+          axis.title.y = element_blank(),
           axis.text.x = element_text(size=8),
-          axis.text.y = element_text(size=10),
-          plot.title=element_text(face="bold",colour="steelblue",size=15, hjust =0.5),
-          plot.subtitle =element_text(hjust = 0.5)) +
+          axis.text.y = element_text(size=8),
+          plot.title=element_blank(),
+          plot.subtitle =element_blank()) +
     #geom_line(data=data_source2,aes(x=get(xvar), y=get(valuevar),colour=get(yvar))) +
     #geom_line(data=data_source3,aes(x=get(xvar), y=OECDmean),colour="blue",alpha=0.5)
     geom_line(data=data_source2, mapping= aes(x=get(xvar), y=get(valuevar), colour=country)) +
