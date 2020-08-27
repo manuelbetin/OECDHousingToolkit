@@ -13,7 +13,8 @@ htk_get_selvar=function(sel,catalogue,mycategory,type, title=NULL){
     dt_table_1<- catalogue %>% filter(category==mycategory) %>%
       select(variable, variable_name, variable_desc)
     dt_table_1<-dt_table_1[which(dt_table_1$variable %in% sel), ]
-
+    rownames(dt_table_1)=dt_table_1[,1]
+    dt_table_1<-dt_table_1[match(sel, rownames(dt_table_1)),]
   }
   else if (type=="policy"){
 
