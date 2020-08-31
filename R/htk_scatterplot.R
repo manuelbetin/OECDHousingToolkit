@@ -20,7 +20,7 @@
 #'@export
 
 
-htk_scatterplot <- function(data_source,myvar_x,myvar_y,my_label,Xlabel=NULL,Ylabel=NULL,title=NULL,subtitle=NULL)
+htk_scatterplot <- function(data_source,myvar_x,myvar_y,my_label,Xlabel=NULL,Ylabel=NULL,xlimits = c(0,35),ylimits = c(0,100),title=NULL,subtitle=NULL)
 {
     plot <- ggplot(data =data_source, aes(x=get(myvar_x),y=get(myvar_y),
                                           label=get(my_label))) +
@@ -29,8 +29,8 @@ htk_scatterplot <- function(data_source,myvar_x,myvar_y,my_label,Xlabel=NULL,Yla
                                                       #"",round(get(myvar_y),2),"\n"))) +
       geom_point() +
       geom_text_repel() +
-      scale_x_continuous(name=Xlabel, limits=c(-100, 0)) +
-      scale_y_continuous(name=Ylabel,limits=c(0, 40)) +
+      scale_x_continuous(name=Xlabel, limits=xlimits, labels = function(x) paste0(x, "%")) +
+      scale_y_continuous(name=Ylabel,limits=ylimits,labels = function(x) paste0(x, "%")) +
       geom_smooth(method=lm, se = FALSE, color="darkred") +
       labs(title = title,
            subtitle=subtitle,

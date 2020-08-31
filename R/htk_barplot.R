@@ -25,10 +25,10 @@
 #'
 #'@export
 
-htk_barplot <- function(data_source,x,y,y2=NULL,y3=NULL,Xlabel=NULL,Ylabel=NULL,ylegend=NULL,y2legend=NULL,y3legend=NULL,title=NULL,subtitle=NULL, file=NULL, path1=NULL)
+htk_barplot <- function(data_source,x,y,y2=NULL,y3=NULL,y4=NULL,Xlabel=NULL,Ylabel=NULL,ylegend=NULL,y2legend=NULL,y3legend=NULL,y4legend=NULL,title=NULL,subtitle=NULL, file=NULL, path1=NULL)
 {
 
-  data_source=data_source %>% mutate(mycolor=ifelse(ISO3_code=="OECD","red","steelblue"))
+  data_source=data_source %>% mutate(mycolor=ifelse(iso3=="OECD","red","steelblue"))
   plot <- ggplot(data =data_source) +
     geom_bar(aes(x=get(x),y=get(y), fill=ylegend,text=paste0("Country: ",get(x),"\n",
                                                             "Value: ", round(get(y),2),"\n")),stat="identity",show.legend = F) +
@@ -51,8 +51,11 @@ htk_barplot <- function(data_source,x,y,y2=NULL,y3=NULL,Xlabel=NULL,Ylabel=NULL,
     {if(!is.null(y3)) {
       geom_point(aes(x=get(x),y=get(y3), colour=y3legend,text=paste0("Country: ",get(x),"\n","Value: ", round(get(y),2),"\n")), na.rm = TRUE, shape =19, show.legend = TRUE)
     }} +
+    {if(!is.null(y4)) {
+      geom_point(aes(x=get(x),y=get(y4), colour=y4legend,text=paste0("Country: ",get(x),"\n","Value: ", round(get(y),2),"\n")), na.rm = TRUE, shape =3, show.legend = TRUE)
+    }} +
     scale_fill_manual(name=NULL, values="steelblue") +
-    scale_color_manual(name=NULL,values=c("black","gray71")) +
+    scale_color_manual(name=NULL,values=c("black","gray71","black")) +
     theme(legend.position="bottom")
   return(plot)
   if (!is.null(file)){
