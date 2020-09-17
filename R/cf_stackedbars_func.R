@@ -30,6 +30,8 @@ cf_stackedbars_func <- function(data_source,yvar,fillvar, sortvar,country,title=
             legend.title=element_blank(),
             legend.text = element_text(size=10),
             legend.position = "bottom",
+            legend.box="vertical",
+            legend.spacing.y = unit(-0.1, "cm"),
             legend.box.margin = margin(t=-10),
             legend.key.size = unit(0.5,"line"),
             legend.margin = margin(0.2, 0.2, 0.2, 0.2, "cm"))+
