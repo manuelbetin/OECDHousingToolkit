@@ -35,9 +35,10 @@ cf_stackedbars_func <- function(data_source,yvar,fillvar, sortvar,country,title=
             legend.box.margin = margin(t=-10),
             legend.key.size = unit(0.5,"line"),
             legend.margin = margin(0.2, 0.2, 0.2, 0.2, "cm"))+
-      scale_fill_brewer(breaks=c( "Own_outright", "Owner_with_mortgage",
+      scale_fill_manual(breaks=c( "Own_outright", "Owner_with_mortgage",
                                   "Private_rent", "Subsidized_rent", "Other"),
-                        "Blues",
+                        values=c("olivedrab3", "steelblue3",
+                        "gold2", "khaki", "grey60"),
                         labels=c("Own outright", "Owner with mortgage",
                                  "Private rent", "Subsidized rent", "Other"))+
       geom_hline(aes(yintercept=yinter, linetype="OECD home-ownership rate"), colour = "red")+
