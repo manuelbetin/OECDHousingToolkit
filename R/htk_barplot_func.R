@@ -3,13 +3,13 @@ htk_barplot_func <- function(data_source,yvar,country,title,subtitle=NULL,Xlabel
   myv<-data_source %>% filter(ISO3_code==country) %>% dplyr::select(yvar)
   if(dim(myv)[1]!=0){
     plot <- ggplot(data =data_source) +
-      geom_bar(stat="identity",aes(x=reorder(ISO3_code, get(yvar)),y=get(yvar)),fill="steelblue",width=0.7,alpha=0.6) +
+      geom_bar(stat="identity",aes(x=reorder(ISO3_code, -get(yvar)),y=get(yvar)),fill="steelblue",width=0.7,alpha=0.6) +
       geom_bar(stat="identity",aes(x=reorder(ISO3_code, get(yvar)),y=ifelse(ISO3_code!=country,NA,get(yvar))),fill="steelblue",color="navyblue",width=0.7) +
       labs(title = title,
            subtitle= subtitle,
            x= Xlabel,
            y= Ylabel) +
-      theme_minimal() + #set background as minimal
+      my_OECD_theme() + #set background as minimal
       theme(panel.grid.major.x = element_blank(),
             axis.text.x = element_text(size =10,angle=90, vjust=0.5),
             axis.title.x = element_blank(),

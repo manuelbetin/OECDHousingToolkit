@@ -12,22 +12,24 @@ cf_lineplot_gen <- function(data_source,xvar,yvar,valuevar,title=NULL,
          subtitle = subtitle,
          x = Xlabel,
          y = Ylabel) +
-    scale_y_continuous(breaks=seq(0,200,50))+
-    scale_x_date(expand=c(0,0),  breaks=seq(as.Date("1960-01-01"),as.Date("2015-01-01"), by="5 years"), date_labels=("%Y"))+
-    theme_minimal() +   #set the background of the plot as white
+    scale_y_continuous(limits=c(0,200),breaks=seq(0,200,20))+
+    scale_x_date(expand=c(0,0),  breaks=seq(as.Date("1970-01-01"),as.Date("2019-01-01"), by="2 years"), date_labels=("%Y"))+
+    my_OECD_theme() +   #set the background of the plot as white
     theme(panel.grid.minor = element_blank(),
-          legend.position =c(.95, .1),
+          legend.position ="top",
           legend.title=element_blank(),
-          legend.text = element_text(size=7),
-          legend.justification = c("right", "bottom"),,
+       #   legend.text = element_text(size=7),
+       #   legend.justification = c("center", "bottom"),
+          legend.box = "horizontal",
+         # legend.margin=margin(0,20,0,0),
           #   legend.margin=margin(1,1,0.5,0.5),
-          legend.margin=margin(6, 6, 6, 6),
+          #legend.margin=margin(6, 6, 6, 6),
           #aspect.ratio=2,
           #legend.margin = margin(0.2, 0.2, 0.2, 0.2, "cm"),
           legend.key.size = unit(0.4,"line"),
           axis.title.x = element_blank(),
           axis.title.y = element_blank(),
-          axis.text.x = element_text(size=8),
+          axis.text.x = element_text(angle=90, size=8, vjust=0.5),
           axis.text.y = element_text(size=8),
           plot.title=element_blank(),
           plot.subtitle =element_blank()) +
