@@ -13,7 +13,7 @@ cf_stackedbars_func <- function(data_source,yvar,fillvar, sortvar,country,title=
   data_source_noOECD<-subset(data_source, ISO3_code!="OECD")
   # start plot
   if(dim(myv)[1]!=0){
-    plot<-ggplot(data_source_noOECD) +
+    plot<-ggplot(data_source) +
       geom_bar(position="stack", stat="identity",
                aes(fill=get(fillvar), y= get(yvar), x=reorder(ISO3_code, -get(sortvar))),
                alpha=0.5,width=0.7)  +
