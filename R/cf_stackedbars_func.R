@@ -20,13 +20,14 @@ cf_stackedbars_func <- function(data_source,yvar,fillvar, sortvar,country,title=
       geom_bar(position="stack", stat="identity",
                aes(fill=get(fillvar), y=ifelse(ISO3_code==country,get(yvar),NA), x=ISO3_code),
                color="black",alpha=1,width=0.7)  +
+      scale_y_continuous(expand=c(0,0))+
       my_OECD_theme()+
       theme(panel.grid.minor =  element_blank(),
-            axis.text.x = element_text(size =10,angle=90, vjust=0.5),
+            axis.text.x = element_text(size =8,angle=90, vjust=0.5),
             axis.title.x = element_blank(),
             axis.title.y = element_blank(),
             axis.text.y = element_text(size=10),
-            legend.position = "bottom")+
+            legend.position = "top")+
       # plot.title=element_text(face="bold",colour ="steelblue",size=15, hjust =0.5),
       # plot.subtitle =element_text(size =7, hjust = 0.5),
       # legend.title=element_blank(),

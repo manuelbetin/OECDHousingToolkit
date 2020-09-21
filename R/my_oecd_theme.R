@@ -10,7 +10,7 @@ my_OECD_theme=function(){
         legend.key         = element_rect(fill="transparent", color = 0), # define the legend left aprt (with line colors)
         legend.key.width   = unit(20,"pt"),                               # define width of the legend line or box
         legend.key.size    = unit(10,"pt"),                               # define size between series in legend
-        legend.background  = element_blank(),                             # remobve border around the legend box  
+        legend.background  = element_blank(),                             # remobve border around the legend box
         legend.margin      = margin(0,0,0,0, "cm"),                       # remobve legend box margin
         legend.spacing     = unit(-0.5, "cm"),
         axis.title.y       = element_text(size=10,vjust = 1.05), # put title (unit) of the Y axis on top and centered (leeft and right)
