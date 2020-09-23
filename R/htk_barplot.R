@@ -19,9 +19,7 @@
 #'
 #'@return returns a standardized barplot
 #'
-#'@author
-#'Manuel Betin
-#'Maxime Nguyen
+#'@author Manuel Betin, Maxime Nguyen
 #'
 #'@export
 
