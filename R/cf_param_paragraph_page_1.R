@@ -83,15 +83,14 @@ cf_param_paragraph_page_1=function(ctry_code,ctry_name,
                    including access to decent shelter, environmental quality,
                    efficient use of scarce resources, type and extent of commuting
                    as well as its contribution to strong and resilient economic growth.
-                   This note provides a cross-country perspective on" ,ctry_name, "’s
-                   housing-related indicators and policy settings.")
-
+                   This note provides a cross-country perspective on " ,ctry_name, "’s
+                   housing-related indicators and policy settings. ") #\hfill\break
 
   sentence2=paste0("Households’ tenure choices depend on demographics and/or socio-economic factors,
                    such as population ageing, as well as policies related to housing taxation and rental regulations.
                    There are large differences in tenure structure across OECD and key partner countries:
-                   homeownership in", ctry_name, "is", what(ht_avg_OECD, myctry_hh),
-                   "OECD average (Figure a).")
+                   homeownership in ", ctry_name, " is ", what(ht_avg_OECD, myctry_hh),
+                   " OECD average (Figure a). ")
 
   sentence3=paste0("Real house prices and rent prices have risen strongly in many countries since the 1990s with prices increasing by more than 100%
                    in those countries experiencing the largest increases (Figure b, c). ",what_rhp(gr_hp),
