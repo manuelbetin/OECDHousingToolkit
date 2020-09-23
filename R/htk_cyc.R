@@ -18,7 +18,7 @@
 #'
 #'@export
 
-htk_CyC=function(mydata,ranking, ctry,var_codes, sec_col, title=NULL){
+htk_CyC=function(mydata,ranking, ctry,var_codes, sec_col, type_var, title=NULL){
 
    # mydata=dt_effic
    # ranking=ranking_eff
@@ -27,7 +27,7 @@ htk_CyC=function(mydata,ranking, ctry,var_codes, sec_col, title=NULL){
    # type_var="outcomes"
    # sec_col=sec_col_eff
   #prepare the dataset with the proper variables
-  vars_needed=prep_data_indsel(mydata,ranking,ctry,var_codes,type_var="outcomes")
+  vars_needed=prep_data_indsel(mydata,ranking,ctry,var_codes,type_var)
 
   var_codes=vars_needed$var_codes
   var_codes_rank=paste0(var_codes,"_rank")
@@ -63,9 +63,12 @@ if(length(var_codes)>1){
   temp_long<- vars_needed %>%  filter(Iso_code3==ctry)%>% dplyr::select(-Iso_code3) %>%
     gather(key = "variable", value = "value")
 
-  for (var in var_codes) {
+  # clean names of variables
+  temp_long<-temp_long %>%
+    mutate(main_v= ifelse(str_detect(variable, var_codes[1]), var_codes[1], NA))
+  for (var in var_codes[2:length(var_codes)]){
     temp_long<-temp_long %>%
-      mutate(main_v=ifelse( (str_detect(variable, var_codes)), var_codes, NA))
+      mutate(main_v= ifelse(str_detect(variable, var), var, main_v))
   }
   temp_long<-temp_long %>%
     mutate(ext=ifelse( (str_detect(variable, "mean")), "mean", "value"),

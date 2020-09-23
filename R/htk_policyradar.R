@@ -44,9 +44,11 @@ htk_policyradar=function(mydata,ranking, ctry, var_codes,  title=NULL){
     gather(key = "variable", value = "value")
 
   #clean the names of variables
-  for (var in var_codes) {
+  temp_long<-temp_long %>%
+    mutate(main_v= ifelse(str_detect(variable, var_codes[1]), var_codes[1], NA))
+  for (var in var_codes[2:length(var_codes)]){
     temp_long<-temp_long %>%
-      mutate(main_v=ifelse( (str_detect(variable, var_codes)), var_codes, NA))
+      mutate(main_v= ifelse(str_detect(variable, var), var, main_v))
   }
 
   #create columns to identify the type of statistic of each row
