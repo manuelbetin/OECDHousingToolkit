@@ -84,7 +84,7 @@ cf_param_paragraph_page_1=function(ctry_code,ctry_name,
                    efficient use of scarce resources, type and extent of commuting
                    as well as its contribution to strong and resilient economic growth.
                    This note provides a cross-country perspective on " ,ctry_name, "’s
-                   housing-related indicators and policy settings. ") #\hfill\break
+                   housing-related indicators and policy settings.")
 
   sentence2=paste0("Households’ tenure choices depend on demographics and/or socio-economic factors,
                    such as population ageing, as well as policies related to housing taxation and rental regulations.
