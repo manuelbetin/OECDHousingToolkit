@@ -96,13 +96,16 @@ htk_cyc_new=function(mydata,ranking, ctry,var_codes, sec_col, type_var, title=NU
                       ifelse(time==2,rank_OECD,
                              ifelse(time==3,0,1))))%>%
       mutate(mylabel=ifelse(time==1,paste0(ctry,"\n(" , round(value, digits = 2),")"),
-                            ifelse(time==2,paste0("OECD\n(" , round(value, digits = 2),")"),
-                                   ifelse(time==3,ifelse(ctry==value.country_min,"",paste0(value.country_min,"\n(" , round(value, digits = 2),")")),
-                                          ifelse(ctry==value.country_min,"",paste0(value.country_max,"\n(" , round(value, digits = 2),")"))))))%>%
+                     ifelse(time==2,paste0("OECD\n(" , round(value, digits = 2),")"),
+                     ifelse(time==3,ifelse(ctry==value.country_min,"",paste0(value.country_min,"\n(" , round(value, digits = 2),")")),
+                  ifelse(ctry==value.country_max,"",paste0(value.country_max,"\n(" , round(value, digits = 2),")")))))) %>%
       mutate(mycolor=ifelse(time==1,"ctry",
-                            ifelse(time==2,"OECD",
-                                   ifelse(time==3,"minmax","minmax"))))%>%
+                     ifelse(time==2,"OECD",
+                     ifelse(time==3,"minmax","minmax"))))%>%
       dplyr::select(main_v,x,mylabel,mycolor)
+
+
+
 
     mysize=3
 
