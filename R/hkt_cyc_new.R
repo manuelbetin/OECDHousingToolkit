@@ -96,12 +96,12 @@ htk_cyc_new=function(mydata,ranking, ctry,var_codes, sec_col, type_var, title=NU
                       ifelse(time==2,rank_OECD,
                              ifelse(time==3,0,1))))%>%
       mutate(mylabel=ifelse(time==1,paste0(ctry,"\n(" , round(value, digits = 2),")"),
-                     ifelse(time==2,paste0("OECD\n(" , round(value, digits = 2),")"),
-                     ifelse(time==3,ifelse(ctry==value.country_min,"",paste0(value.country_min,"\n(" , round(value, digits = 2),")")),
-                  ifelse(ctry==value.country_max,"",paste0(value.country_max,"\n(" , round(value, digits = 2),")")))))) %>%
+                            ifelse(time==2,paste0("OECD\n(" , round(value, digits = 2),")"),
+                                   ifelse(time==3,ifelse(ctry==value.country_min,"",paste0(value.country_min,"\n(" , round(value, digits = 2),")")),
+                                          ifelse(ctry==value.country_max,"",paste0(value.country_max,"\n(" , round(value, digits = 2),")")))))) %>%
       mutate(mycolor=ifelse(time==1,"ctry",
-                     ifelse(time==2,"OECD",
-                     ifelse(time==3,"minmax","minmax"))))%>%
+                            ifelse(time==2,"OECD",
+                                   ifelse(time==3,"minmax","minmax"))))%>%
       dplyr::select(main_v,x,mylabel,mycolor)
 
 
@@ -116,6 +116,7 @@ htk_cyc_new=function(mydata,ranking, ctry,var_codes, sec_col, type_var, title=NU
     # final<-rio::import("final.RData")
 
     par(lheight=0.2)
+    mynudge_y=ifelse(final$value.value==final$value.mean ,0.05,-0.05 )
 
     ggplot(final,aes(y=main_v, x=0, xend=1))+
       geom_segment(aes(yend=main_v),color="grey", size=1)+
@@ -127,7 +128,15 @@ htk_cyc_new=function(mydata,ranking, ctry,var_codes, sec_col, type_var, title=NU
       geom_point(aes(x=1 ), shape=1, color='grey', size=mysize) +
       geom_text(size=3.5,data=mylabels%>%filter(mycolor=="minmax"),
                 aes(x=x,vjust=-0.5,label=mylabel,color=mycolor,lineheight = .8))+
-      geom_text_repel(seed = 1, size=3.5,data=mylabels%>%filter(mycolor!="minmax"),
+      geom_text_repel(seed = 10, size=3.5,
+                      data=mylabels%>%filter(mycolor=="OECD"),
+                      nudge_y = 0.15,
+                      # direction="y",
+                      force=3,
+                      aes(x=x,label=mylabel,color=mycolor,lineheight = .8))+
+      geom_text_repel(seed = 10, size=3.5,
+                      data=mylabels%>%filter(mycolor=="ctry"),
+                      nudge_y = -0.15,
                       # direction="y",
                       force=3,
                       aes(x=x,label=mylabel,color=mycolor,lineheight = .8))+
@@ -151,4 +160,3 @@ htk_cyc_new=function(mydata,ranking, ctry,var_codes, sec_col, type_var, title=NU
   }
 
 }
-
