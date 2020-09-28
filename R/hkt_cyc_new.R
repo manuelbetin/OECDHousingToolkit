@@ -13,12 +13,12 @@
 #'@return returns a standardized plot
 #'
 #'@author
-#'Manuel Betin
+#'Volker Ziemann
 #'Federica De Pace
 #'
 #'@export
 
-htk_CyC=function(mydata,ranking, ctry,var_codes, sec_col, type_var, title=NULL){
+htk_cyc_new=function(mydata,ranking, ctry,var_codes, sec_col, type_var, title=NULL){
 
   # mydata=dt_effic
   # ranking=ranking_eff
@@ -86,39 +86,77 @@ htk_CyC=function(mydata,ranking, ctry,var_codes, sec_col, type_var, title=NULL){
     final<-merge(final, OECD_final, by="main_v")
     rownames(final)<-final[,1]
     final <- final[match(var_codes, rownames(final)),]
+
+
     #produce the figure
 
-    ggplot(data=final,aes(x=main_v))+
-      geom_segment(aes(xend=main_v, y=-0.05, yend=1.05), color="grey") +
-      geom_point(aes(y= value.rank ), shape=19, color='red', size=4)  +
-      geom_point(aes(y=rank_OECD  ) , shape=18, color='darkblue', size=3) +
-      geom_point(aes(y=0), shape=1, color='grey', size=2)  +
-      geom_point(aes(y=1 ), shape=1, color='grey', size=2) +
-      coord_flip() +
-      labs(x = "", y=""
-           #title=title
-      ) +
+    mylabels<-reshape(final, idvar = "main_v" , varying =  list(2:5), v.names = "value", direction = "long")%>%
+      arrange(main_v,time)%>%
+      mutate(x=ifelse(time==1,value.rank,
+                      ifelse(time==2,rank_OECD,
+                             ifelse(time==3,0,1))))%>%
+      mutate(mylabel=ifelse(time==1,paste0(ctry,"\n(" , round(value, digits = 2),")"),
+                            ifelse(time==2,paste0("OECD\n(" , round(value, digits = 2),")"),
+                                   ifelse(time==3,ifelse(ctry==value.country_min,"",paste0(value.country_min,"\n(" , round(value, digits = 2),")")),
+                                          ifelse(ctry==value.country_max,"",paste0(value.country_max,"\n(" , round(value, digits = 2),")")))))) %>%
+      mutate(mycolor=ifelse(time==1,"ctry",
+                            ifelse(time==2,"OECD",
+                                   ifelse(time==3,"minmax","minmax"))))%>%
+      dplyr::select(main_v,x,mylabel,mycolor)
+
+
+
+
+    mysize=3
+
+    # rio::export(mylabels,"mylabels.RData")
+    # rio::export(final,"final.RData")
+    #
+    # mylabels<-rio::import("mylabels.RData")
+    # final<-rio::import("final.RData")
+
+    par(lheight=0.2)
+    mynudge_y=ifelse(final$value.value==final$value.mean ,0.05,-0.05 )
+
+    ggplot(final,aes(y=main_v, x=0, xend=1))+
+      geom_segment(aes(yend=main_v),color="grey", size=1)+
+      geom_dumbbell(size=mysize, color="grey93", size_x=mysize, size_xend =mysize,
+                    colour_x ="grey", colour_xend="grey")+
+      geom_point(aes(x= value.rank ), shape=19, color="red", size=mysize)  +
+      geom_point(aes(x=rank_OECD  ) , shape=18, color="darkgreen", size=mysize) +
+      geom_point(aes(x=0), shape=1, color='grey', size=mysize)  +
+      geom_point(aes(x=1 ), shape=1, color='grey', size=mysize) +
+      geom_text(size=3.5,data=mylabels%>%filter(mycolor=="minmax"),
+                aes(x=x,vjust=-0.5,label=mylabel,color=mycolor,lineheight = .8))+
+      geom_text_repel(seed = 10, size=3.5,
+                      data=mylabels%>%filter(mycolor=="OECD"),
+                      nudge_y = 0.15,
+                      # direction="y",
+                      force=3,
+                      aes(x=x,label=mylabel,color=mycolor,lineheight = .8))+
+      geom_text_repel(seed = 10, size=3.5,
+                      data=mylabels%>%filter(mycolor=="ctry"),
+                      nudge_y = -0.15,
+                      # direction="y",
+                      force=3,
+                      aes(x=x,label=mylabel,color=mycolor,lineheight = .8))+
+      scale_y_discrete(breaks=final$main_v,labels=var_names, limits = rev(final$main_v)) +
+      scale_color_manual(values = c("minmax"="black","OECD"="darkgreen","ctry"="red"))+
       theme(panel.background = element_blank(),
             axis.text.x = element_blank(),
             plot.title=element_blank(),
             axis.text.y = element_text(size=13,color=sec_col, face="bold"),
-            axis.ticks =element_blank() )+
-      scale_x_discrete(breaks=final$main_v,labels=var_names, limits = rev(final$main_v)) +
-      geom_text(aes(y= value.rank   , label=paste(ctry,": ", round(value.value, digits = 2))),
-                size=3.5, nudge_x = -0.1, nudge_y = 0.0,  check_overlap = TRUE) +
-      geom_text(aes(y= rank_OECD   , label=paste("OECD: ", round(value.mean, digits = 2))),
-                size=3, nudge_x = 0.1, nudge_y = 0.0,  check_overlap = TRUE,color="steelblue") +
-      geom_text(aes(y= 0   , label=paste(value.country_min,":" , round(value.min, digits = 2))),
-                size=3, nudge_x = 0.2, nudge_y = 0.03,  check_overlap = TRUE,color="steelblue") +
-      geom_text(aes(y= 1   , label=paste(value.country_max,":", round(value.max, digits = 2))),
-                size=3, nudge_x = 0.2, nudge_y = -0.05,  check_overlap = TRUE,color="steelblue")#+
-    #annotate("text", x =3.4, y = 0.05, label = "min OECD", size=5,color="darkgrey") +
-    #annotate("text", x =3.4, y = 0.90, label = "max OECD", size=5,color="darkgrey")
-  }else{
+            axis.ticks =element_blank(),
+            legend.position = 'none',
+            axis.title = element_blank())
+
+  }
+  else{
     myctry=countrycode::countrycode(ctry,origin="iso3c",destination="country.name")
     ggplot()+
       geom_text(aes(x=10,y=10,label=paste0(myctry, " has no data available for this dimension")))+
       geom_point(aes(x=c(0,20),y=c(0,20)),color="white")+
       theme_void()
   }
+
 }
