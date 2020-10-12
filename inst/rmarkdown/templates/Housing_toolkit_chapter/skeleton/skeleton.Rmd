@@ -16,10 +16,10 @@ knitr::opts_chunk$set(echo = FALSE)
 knitr::opts_chunk$set(warning = FALSE)
 knitr::opts_chunk$set(message = FALSE)
 knitr::opts_chunk$set(fig.align = "center")
-#knitr::opts_chunk$set(fig.height =  5)
+knitr::opts_chunk$set(fig.height =  3)
 #knitr::opts_chunk$set(fig.width = 8)
 knitr::opts_chunk$set(out.width = "90%")
-knitr::opts_chunk$set(out.with = "90%")
+#knitr::opts_chunk$set(out.height = "100%")
 
 #R package dependencies
 library(devtools)
@@ -32,11 +32,13 @@ library(DiagrammeR)
 library(lubridate)
 library(ggrepel)
 library(stringr)
+library(DT)
 library(OECDHousingToolkit)
+library(downloadthis)
+library(htmlwidgets)
 #download the functions necessary for the simulator. 
 #htk_instructions()
 ```
-
 
 
 <!-- source the button -->
@@ -64,6 +66,37 @@ rm(htk_resilience)
 ##please make sure that the format of the database is the same as the resilience_database example(ie, first column is countries' ISO3_code, second is the date, and each following column represents a variable)
 #mydt=rio::import("THE_LOCATION_OF_MY_DATASET")
 ```
+
+```{r download button function}
+icon_svg_path = "M19.404,6.65l-5.998-5.996c-0.292-0.292-0.765-0.292-1.056,0l-2.22,2.22l-8.311,8.313l-0.003,0.001v0.003l-0.161,0.161c-0.114,0.112-0.187,0.258-0.21,0.417l-1.059,7.051c-0.035,0.233,0.044,0.47,0.21,0.639c0.143,0.14,0.333,0.219,0.528,0.219c0.038,0,0.073-0.003,0.111-0.009l7.054-1.055c0.158-0.025,0.306-0.098,0.417-0.211l8.478-8.476l2.22-2.22C19.695,7.414,19.695,6.941,19.404,6.65z M8.341,16.656l-0.989-0.99l7.258-7.258l0.989,0.99L8.341,16.656z M2.332,15.919l0.411-2.748l4.143,4.143l-2.748,0.41L2.332,15.919z M13.554,7.351L6.296,14.61l-0.849-0.848l7.259-7.258l0.423,0.424L13.554,7.351zM10.658,4.457l0.992,0.99l-7.259,7.258L3.4,11.715L10.658,4.457z M16.656,8.342l-1.517-1.517V6.823h-0.003l-0.951-0.951l-2.471-2.471l1.164-1.164l4.942,4.94L16.656,8.342z"
+
+dl_button <- list(
+    name = "Download data",
+    icon = list(
+        path = icon_svg_path,
+        transform = "scale(0.84) translate(-1, -1)"
+        ),
+    click = htmlwidgets::JS("
+          function(gd) {
+            var text = '';
+            for(var i = 0; i < gd.data.length; i++){
+              text += gd.layout.xaxis.title.text + gd.data[i].name + ',' + gd.data[i].x + '\\n';
+              text += gd.layout.yaxis.title.text + gd.data[i].name + ',' + gd.data[i].y + '\\n';
+            };
+            var blob = new Blob([text], {type: 'text/plain'});
+            var a = document.createElement('a');
+            const object_URL = URL.createObjectURL(blob);
+            a.href = object_URL;
+            a.download = 'data.csv';
+            document.body.appendChild(a);
+            a.click();
+            URL.revokeObjectURL(object_URL);
+          }
+   ")
+)
+
+```
+
 
 <div class="chapter" id="ECO_PED_Res">
 <div class="context">
@@ -139,6 +172,9 @@ Please copy and paste the relevant chunk of R code to include either a barplot, 
   
 <!-- Indicator 1-->
 <!-- (If you want to copy this section start from here)-->
+
+<div class="row">
+<div class="column">
 <div class="indicators"> 
 <card>
 <center>
@@ -146,9 +182,9 @@ Please copy and paste the relevant chunk of R code to include either a barplot, 
 #--------
 #EDIT THE R CHUNK TO DRAW THE FIGURE
 var="hpi" #EDIT HERE - Y variable to plot 
-title="House Prices" #EDIT HERE -
-subtitle ="" #EDIT HERE - 
-Xlabel="Date" #EDIT HERE - 
+title=NULL #EDIT HERE -
+subtitle =NULL #EDIT HERE - 
+Xlabel=NULL #EDIT HERE - 
 Ylabel="Price index" #EDIT HERE -
 ymin=0
 ymax=120
@@ -182,21 +218,23 @@ eco_outcome1=mydt %>%
                   width=6,
                   height = 4,
                   dpi=300
-                  ) 
+                  )
   
-fig_outcome <- ggplotly(fig_outcome,tooltip="text")
+fig_outcome <- ggplotly(fig_outcome,tooltip="text") %>%
+  config(modeBarButtonsToAdd = list(dl_button))
+
 fig_outcome
+
 
 ```
 </center>
-<div class="container">
 <h3> <!-- Title of indicator HERE--> My first economic outcome </h3> 
 <p> <!-- body of indicator HERE-->My paragraph of description for the first policy outcome</p>
-</div>
 </card>
 </div> <!--END box of indicators 1 --> 
-
-<!-- Indicator 2-->
+</div>
+<div class="column">
+ <!-- Indicator 2-->
 <!-- (If you want to copy this section start from here)-->
 <div class="indicators"> 
 <card>
@@ -205,7 +243,7 @@ fig_outcome
 #--------
 #EDIT THE R CHUNK TO DRAW THE FIGURE
 var="hpi" #EDIT HERE - Y variable to plot 
-title="House Prices" #EDIT HERE -
+title=NULL #EDIT HERE -
 subtitle ="" #EDIT HERE - 
 Xlabel="Date" #EDIT HERE - 
 Ylabel="Price index" #EDIT HERE -
@@ -248,12 +286,128 @@ fig_outcome
 
 ```
 </center>
-<div class="container">
-<h3> <!-- Title of indicator HERE--> My first economic outcome </h3> 
-<p> <!-- body of indicator HERE-->My paragraph of description for the first policy outcome</p>
-</div>
+<h3> <!-- Title of indicator HERE--> My second economic outcome </h3> 
+<p> <!-- body of indicator HERE-->My paragraph of description for the second policy outcome</p>
 </card>
 </div> <!--END box of indicators 1 --> 
+</div>
+<div class="column">
+   <!-- Indicator 2-->
+<!-- (If you want to copy this section start from here)-->
+<div class="indicators"> 
+<card>
+<center>
+```{r name_of_eco_outcome5}
+#--------
+#EDIT THE R CHUNK TO DRAW THE FIGURE
+var="hpi" #EDIT HERE - Y variable to plot 
+title=NULL #EDIT HERE -
+subtitle ="" #EDIT HERE - 
+Xlabel="Date" #EDIT HERE - 
+Ylabel="Price index" #EDIT HERE -
+ymin=0
+ymax=120
+ybreak=10
+xbreak = "5 years"
+start_date = 1970
+end_date = 2018
+
+list_countries=c("FRA","DEU","ITA","USA") #EDIT HERE -Countries to plot, using ISO3_codes - Ex: if we want to add Japan, then we have list_countries = c("FRA","DEU","ITA","USA","JPN")
+#END EDITING OF R CHUNK
+#---------
+#DO NOT MODIFY THE FOLLOWING CODE PLEASE ONLY EDIT THE SECTION  ABOVE
+
+eco_outcome1=mydt %>%
+  dplyr::select(ISO3_code,Period,var) %>%
+  mutate(Period=as.Date(Period)) %>% 
+  tidyr::gather("variable","value",-c(ISO3_code,Period)) %>% 
+  na.omit() %>% filter(ISO3_code %in% list_countries)
+
+  fig_outcome <- htk_lineplot(data=eco_outcome1, #dataset use for the graph
+                  title = title, #title of the graph
+                  subtitle = subtitle,
+                  Xlabel=Xlabel,
+                  Ylabel=Ylabel,
+                  ymin=ymin,
+                  ymax=ymax,
+                  ybreak=ybreak,
+                  xbreak=xbreak,
+                  start_date=start_date,
+                  end_date=end_date,
+                  width=6,
+                  height = 4,
+                  dpi=300
+                  ) 
+  
+fig_outcome <- ggplotly(fig_outcome,tooltip="text")
+fig_outcome
+
+```
+</center>
+<h3> <!-- Title of indicator HERE--> My third economic outcome </h3> 
+<p> <!-- body of indicator HERE-->My paragraph of description for the third policy outcome</p>
+</card>
+</div> <!--END box of indicators 1 --> 
+</div>
+<div class="column">
+   <!-- Indicator 2-->
+<!-- (If you want to copy this section start from here)-->
+<div class="indicators"> 
+<card>
+<center>
+```{r name_of_eco_outcome6}
+#--------
+#EDIT THE R CHUNK TO DRAW THE FIGURE
+var="hpi" #EDIT HERE - Y variable to plot 
+title=NULL #EDIT HERE -
+subtitle ="" #EDIT HERE - 
+Xlabel="Date" #EDIT HERE - 
+Ylabel="Price index" #EDIT HERE -
+ymin=0
+ymax=120
+ybreak=10
+xbreak = "5 years"
+start_date = 1970
+end_date = 2018
+
+list_countries=c("FRA","DEU","ITA","USA") #EDIT HERE -Countries to plot, using ISO3_codes - Ex: if we want to add Japan, then we have list_countries = c("FRA","DEU","ITA","USA","JPN")
+#END EDITING OF R CHUNK
+#---------
+#DO NOT MODIFY THE FOLLOWING CODE PLEASE ONLY EDIT THE SECTION  ABOVE
+
+eco_outcome1=mydt %>%
+  dplyr::select(ISO3_code,Period,var) %>%
+  mutate(Period=as.Date(Period)) %>% 
+  tidyr::gather("variable","value",-c(ISO3_code,Period)) %>% 
+  na.omit() %>% filter(ISO3_code %in% list_countries)
+
+  fig_outcome <- htk_lineplot(data=eco_outcome1, #dataset use for the graph
+                  title = title, #title of the graph
+                  subtitle = subtitle,
+                  Xlabel=Xlabel,
+                  Ylabel=Ylabel,
+                  ymin=ymin,
+                  ymax=ymax,
+                  ybreak=ybreak,
+                  xbreak=xbreak,
+                  start_date=start_date,
+                  end_date=end_date,
+                  width=6,
+                  height = 4,
+                  dpi=300
+                  ) 
+  
+fig_outcome <- ggplotly(fig_outcome,tooltip="text")
+fig_outcome
+
+```
+</center>
+<h3> <!-- Title of indicator HERE--> My fourth economic outcome </h3> 
+<p> <!-- body of indicator HERE-->My paragraph of description for the fourth policy outcome</p>
+</card>
+</div> <!--END box of indicators 1 --> 
+</div>
+</div>
 
 <!--if you want to include a new subsection of economic outcome paste it
 HERE: MY NEW SUBSECTION OF ECONOMIC OUTCOMES-->
@@ -290,31 +444,23 @@ Please copy and paste the relevant chunk of R code to include either a barplot o
 
 <div id="id3" class ="collapse">
 
-<div class="key_reco"> 
-
 <!-- (If you want to include a new policy copy from here) -->
-<div class="selected_policies">   
-
-
+<div class="selected_policies">   <!-- START FIRST SELECTED POLICY --> 
 <h3><!--Edit title HERE -->My first policy</h3> 
-
 <p> <!-- Edit paragraph HERE-->Introduction or summary of the policy </p> 
-
-<!-- Beginning of collapsible sections -->
-<details class="more_details">
-  <summary>Cross-country experiences</summary>
-
+<!-- Beginning of collapsible section for cross country experiences -->
 
 <div class="indicators"> 
 <card>
+<!--<h3> Cross country evidence </h3>  -->
 <center>
 ```{r name_of_eco_policy}
 #--------
 #EDIT THE R CHUNK TO DRAW THE FIGURE
 var="hpi" #EDIT HERE - Y variable to plot 
-title="House Prices" #EDIT HERE -
-subtitle ="" #EDIT HERE - 
-Xlabel="Date" #EDIT HERE - 
+title=NULL #EDIT HERE -
+subtitle =NULL #EDIT HERE - 
+Xlabel=NULL #EDIT HERE - 
 Ylabel="Price index" #EDIT HERE -
 ymin=0
 ymax=120
@@ -354,24 +500,24 @@ fig_outcome <- ggplotly(fig_outcome,tooltip="text")
 fig_outcome
 
 ```
+
 </center>
-<div class="container">
+<details class="more_details">
+  <summary>More</summary>
 <h4>Policy description and rationale</h4>
 <p> <!--Edit paragraph HERE--> My paragraph of policy recommendation </p> 
-
 <h4>Impact of policies</h4>
-<span> <!--Edit paragraph HERE-->  My paragraph of impact of policies </span> 
-
-</div>
-</card>
-</div> <!--END box of indicators 1 --> 
+<p> <!--Edit paragraph HERE-->  My paragraph of impact of policies </p> 
 
 <br>
-</details> <!-- End of collapsible section that includes cross country experiences -->
-
+</div>
+</details> <!-- End of collapsible section for cross country experiences -->
+</card>
+<br>
 <!-- Beginning of a collapsible section that includes key country experiences -->
-<details class="more_details">
-  <summary>Country experiences</summary>
+<div class="indicators"> 
+<card>
+<h3>Country experiences<h3>
 <!-- Insert the name of your country below, between the <h4> </h4> tags --> 
 <h4> Country 1 </h4>
 
@@ -379,26 +525,16 @@ fig_outcome
 <p> Paragraph1 of specific country policy </p>
 
 <p> Paragraph2 of specific country policy </p>
-
-<!-- If needed, you can also include graphs and R plots in the following chunk of R code -->
-
-```{r graph country policy}
-
-```
-
-</details>
+</card>
+</div>
 <!-- End of collapsible section that includes key country experiences --> 
-
 <hr>
+</div> <!-- END FIRST SELECTED POLICY, stop copy paste here -->
 
-<!-- (If you want to include a new policy end the copy here) -->
-<!-- END SECTION OF SELECTED POLICIES --> 
 
 <!-- (if you want to include a new policy recommendation paste it 
 HERE: MY NEW SUBSECTION OF POLICY RECOMMENDATION) -->
 
-</div>
-</div>
 </div>
 <button data-toggle="collapse" data-target="#id3"class="btn">see<i class="fa fa-bars"></i></button>
 </div> <!-- END SECTION OF POLICY OUTCOMES-->

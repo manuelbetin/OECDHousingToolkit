@@ -3,7 +3,7 @@ body{ /* Normal  */
   background-color:WhiteSmoke;
   font-size: 1.675em;
   }
-  
+
 .navbar {
   background-color: #037bc1;
 }
@@ -132,13 +132,20 @@ h4 { /* Header 4 */
 .definition_details{
  padding: 0.5em;
  }
- 
+
  /* Div containing the definitions of the main indicators used in the chapter*/
 
  .indicators{
  border: 1px solid lightgrey;
+ box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+ padding: 16px;
+ text-align: center;
  }
- 
+
+.indicators:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
  .indicators p {
 font-weight: 400;
  }
@@ -168,7 +175,7 @@ font-weight: 400;
   border: 1px solid grey;
   margin: 1.6em 0em 1.6em 0;
  }
- 
+
 /* Div containing the main policy recommendations of the chapter */
 
 .key_reco{
@@ -178,13 +185,13 @@ font-weight: 400;
  box-shadow: 4px 4px 3px 0px rgba(0,0,0,0.75);
   border: 1px solid grey;*/
  }
- 
+
  /* Div containing descriptions table and figures for selected policies and countries */
 
 .selected_policies{
  padding: 0.5em;
  }
- 
+
 .selected_policies span {
 
  font-style:bold;
@@ -197,14 +204,14 @@ font-weight: 400;
  background-color: rgb(173,216,230);
  border :0.5px black;
 }
- 
+
 /* Div containing the main data sources */
 
  .data_sources{
  padding: 0.5em;
  }
- 
- 
+
+
  /* Div containing the main references */
  .references{
  padding: 0.5em;
@@ -216,7 +223,7 @@ font-weight: 400;
 }
 
 .btn {
-  background-color: #037bc1; 
+  background-color: #037bc1;
   color: white;
   display: inline-block;
   border-radius: 0.4em;
@@ -242,7 +249,7 @@ font-weight: 400;
 
 
 .opentab {
-  background-color: #037bc1; 
+  background-color: #037bc1;
   color: white;
   display: inline-block;
   border-radius: 0.4em;
@@ -253,5 +260,32 @@ font-weight: 400;
 
 .opentab:hover {
   box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+
+.column {
+  float: left;
+  width: 50%;
+  padding: 0 10px;
+}
+
+.row {margin: 0 -5px;}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
 }
 
