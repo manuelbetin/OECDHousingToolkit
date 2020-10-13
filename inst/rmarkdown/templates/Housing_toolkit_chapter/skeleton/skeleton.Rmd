@@ -1,5 +1,4 @@
 ---
-title: "Name of chapter"
 output:
   html_document:
     css: OECD_style.css
@@ -43,7 +42,6 @@ library(htmlwidgets)
 
 <!-- source the button -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
 
 <!--function to display compare your country -->
 <script>
@@ -97,59 +95,24 @@ dl_button <- list(
 
 ```
 
-
 <div class="chapter" id="ECO_PED_Res">
+<h1>OECD Housing Dashboard</h1>
+<h1 id="chapter_name">Enhancing Resilience</h1>
 <div class="context">
 <div class="introduction">
-<div class="collapsible_header">
-<h2 class="collapsible_title">Context </h2>
-</div>
 <!--
 INCLUDE TEXT OF CONTEXT
 -->
-
-<p> <!-- HERE--> My text of context </p>
-
+<p> <!-- HERE-->Housing markets are large and experience has shown that both house price and construction cycles are subject to sharp swings. The functioning of housing markets strongly influence countries’ exposure to economic crises and their capacity to recover from them. This chapter analyses the role that housing-related policies play in (a) mitigating or amplifying shocks and (b) facilitating or hampering a recovery. It discusses how macroprudential measures, rental regulation and taxation can contribute to greater economic resilience. </p>
 <!--
 END TEXT OF CONTEXT
 -->
-<button data-toggle="collapse" data-target="#id1"class="btn"><i class="fa fa-bars"></i></button>
-<div id="id1" class ="collapse">
 
-<div class="context_diagram">
-<!--
-EDIT YOUR DIAGRAM OR PICTURE OF INTRODUCTION 
--->
-</div>
-  
-<div class="definition_concepts" >
-<details class="more_details">
-<summary>More details</summary>
-
-<!--
-TEXT OF DEFINITION
--->
-
- <p> <!-- HERE-->**Definition 1:** your text</p>
-  
- <p> <!-- HERE-->**Definition 2:** your text</p>
-
-<!--Copy and paste:  <p>**Definition 3:** your text</p> 
-to include more definitions-->   
-
-<!--
-END TEXT OF DEFINITION
--->
-
-</details> 
-</div>
-</div>
 </div>
 
 <div class="economic_outcomes">
-<div class="collapsible_header">
-<h2 class="collapsible_title">Outcomes </h2>
-<button data-toggle="collapse" data-target="#id2"class="btn"><i class="fa fa-bars"></i></button>
+<div class="collapsible_header" data-toggle="collapse" data-target="#id2"class="btn">
+<h2 class="collapsible_title"> <img src="undraw_progress_data_4ebj.svg" width="15%"/> Housing Outcomes </h2>
 </div>
 <div id="id2" class ="collapse">
  <!-- *****************************
@@ -221,10 +184,24 @@ eco_outcome1=mydt %>%
                   )
   
 fig_outcome <- ggplotly(fig_outcome,tooltip="text") %>%
-  config(modeBarButtonsToAdd = list(dl_button))
+  config(modeBarButtonsToAdd = list(dl_button)) %>%
+  config(displaylogo = FALSE,
+modeBarButtonsToRemove = list(
+    'sendDataToCloud',
+    'autoScale2d',
+    'resetScale2d',
+    'hoverClosestCartesian',
+    'hoverCompareCartesian',
+    'zoom2d',
+    'pan2d',
+    'select2d',
+    'lasso2d',
+    'zoomIn2d',
+    'zoomOut2d',
+    'toggleSpikelines'
+))
 
 fig_outcome
-
 
 ```
 </center>
@@ -281,7 +258,23 @@ eco_outcome1=mydt %>%
                   dpi=300
                   ) 
   
-fig_outcome <- ggplotly(fig_outcome,tooltip="text")
+fig_outcome <- ggplotly(fig_outcome,tooltip="text") %>%
+  config(modeBarButtonsToAdd = list(dl_button)) %>%
+  config(displaylogo = FALSE,
+modeBarButtonsToRemove = list(
+    'sendDataToCloud',
+    'autoScale2d',
+    'resetScale2d',
+    'hoverClosestCartesian',
+    'hoverCompareCartesian',
+    'zoom2d',
+    'pan2d',
+    'select2d',
+    'lasso2d',
+    'zoomIn2d',
+    'zoomOut2d',
+    'toggleSpikelines'
+))
 fig_outcome
 
 ```
@@ -339,7 +332,23 @@ eco_outcome1=mydt %>%
                   dpi=300
                   ) 
   
-fig_outcome <- ggplotly(fig_outcome,tooltip="text")
+fig_outcome <- ggplotly(fig_outcome,tooltip="text") %>%
+  config(modeBarButtonsToAdd = list(dl_button)) %>%
+  config(displaylogo = FALSE,
+modeBarButtonsToRemove = list(
+    'sendDataToCloud',
+    'autoScale2d',
+    'resetScale2d',
+    'hoverClosestCartesian',
+    'hoverCompareCartesian',
+    'zoom2d',
+    'pan2d',
+    'select2d',
+    'lasso2d',
+    'zoomIn2d',
+    'zoomOut2d',
+    'toggleSpikelines'
+))
 fig_outcome
 
 ```
@@ -397,7 +406,23 @@ eco_outcome1=mydt %>%
                   dpi=300
                   ) 
   
-fig_outcome <- ggplotly(fig_outcome,tooltip="text")
+fig_outcome <- ggplotly(fig_outcome,tooltip="text") %>%
+  config(modeBarButtonsToAdd = list(dl_button)) %>%
+  config(displaylogo = FALSE,
+modeBarButtonsToRemove = list(
+    'sendDataToCloud',
+    'autoScale2d',
+    'resetScale2d',
+    'hoverClosestCartesian',
+    'hoverCompareCartesian',
+    'zoom2d',
+    'pan2d',
+    'select2d',
+    'lasso2d',
+    'zoomIn2d',
+    'zoomOut2d',
+    'toggleSpikelines'
+))
 fig_outcome
 
 ```
@@ -417,8 +442,8 @@ HERE: MY NEW SUBSECTION OF ECONOMIC OUTCOMES-->
 
 <!-- ---------------------------------- -->
 <div class="policy_outcomes">
-<div class="collapsible_header">
-<h2 class="collapsible_title">Main policy lessons </h2>
+<div class="collapsible_header" data-toggle="collapse" data-target="#id3"class="btn">
+<h2 class="collapsible_title"> <img src="undraw_set_preferences_kwia.svg" width="15%"/> Main policy lessons </h2>
 </div>
  <!-- *****************************
 INSTRUCTIONS: This section contains the description and trends of relevant policies that you want 
@@ -438,23 +463,24 @@ Please copy and paste the relevant chunk of R code to include either a barplot o
 -->
 
 <!-- Executive summary of the policies to be presented  -->
+<div id="id3" class ="collapse">
 <div>
 <p> <!-- HERE--> My text of Executive summary of policies </p>
 </div>
 
-<div id="id3" class ="collapse">
-
+<div class="row">
+<div class="column">
 <!-- (If you want to include a new policy copy from here) -->
 <div class="selected_policies">   <!-- START FIRST SELECTED POLICY --> 
-<h3><!--Edit title HERE -->My first policy</h3> 
-<p> <!-- Edit paragraph HERE-->Introduction or summary of the policy </p> 
-<!-- Beginning of collapsible section for cross country experiences -->
 
 <div class="indicators"> 
 <card>
+<h3><!--Edit title HERE -->My first policy</h3> 
+<p> <!-- Edit paragraph HERE-->Introduction or summary of the policy </p> 
+<!-- Beginning of collapsible section for cross country experiences -->
 <!--<h3> Cross country evidence </h3>  -->
 <center>
-```{r name_of_eco_policy}
+```{r name_of_eco_policy1}
 #--------
 #EDIT THE R CHUNK TO DRAW THE FIGURE
 var="hpi" #EDIT HERE - Y variable to plot 
@@ -496,7 +522,23 @@ eco_outcome1=mydt %>%
                   dpi=300
                   ) 
   
-fig_outcome <- ggplotly(fig_outcome,tooltip="text")
+fig_outcome <- ggplotly(fig_outcome,tooltip="text") %>%
+  config(modeBarButtonsToAdd = list(dl_button)) %>%
+  config(displaylogo = FALSE,
+modeBarButtonsToRemove = list(
+    'sendDataToCloud',
+    'autoScale2d',
+    'resetScale2d',
+    'hoverClosestCartesian',
+    'hoverCompareCartesian',
+    'zoom2d',
+    'pan2d',
+    'select2d',
+    'lasso2d',
+    'zoomIn2d',
+    'zoomOut2d',
+    'toggleSpikelines'
+))
 fig_outcome
 
 ```
@@ -512,8 +554,7 @@ fig_outcome
 <br>
 </div>
 </details> <!-- End of collapsible section for cross country experiences -->
-</card>
-<br>
+<hr>
 <!-- Beginning of a collapsible section that includes key country experiences -->
 <div class="indicators"> 
 <card>
@@ -528,21 +569,152 @@ fig_outcome
 </card>
 </div>
 <!-- End of collapsible section that includes key country experiences --> 
+</card>
+</div> <!-- END FIRST SELECTED POLICY, stop copy paste here -->
+</div>
+
+<div class="column">
+<!-- (If you want to include a new policy copy from here) -->
+<div class="selected_policies">   <!-- START FIRST SELECTED POLICY --> 
+
+<div class="indicators"> 
+<card>
+<h3><!--Edit title HERE -->My second policy</h3> 
+<p> <!-- Edit paragraph HERE-->Introduction or summary of the policy </p> 
+<!-- Beginning of collapsible section for cross country experiences -->
+<!--<h3> Cross country evidence </h3>  -->
+<center>
+```{r name_of_eco_policy2}
+#--------
+#EDIT THE R CHUNK TO DRAW THE FIGURE
+var="hpi" #EDIT HERE - Y variable to plot 
+title=NULL #EDIT HERE -
+subtitle =NULL #EDIT HERE - 
+Xlabel=NULL #EDIT HERE - 
+Ylabel="Price index" #EDIT HERE -
+ymin=0
+ymax=120
+ybreak=10
+xbreak = "5 years"
+start_date = 1970
+end_date = 2018
+
+list_countries=c("FRA","DEU","ITA","USA") #EDIT HERE -Countries to plot, using ISO3_codes - Ex: if we want to add Japan, then we have list_countries = c("FRA","DEU","ITA","USA","JPN")
+#END EDITING OF R CHUNK
+#---------
+#DO NOT MODIFY THE FOLLOWING CODE PLEASE ONLY EDIT THE SECTION  ABOVE
+
+eco_outcome1=mydt %>%
+  dplyr::select(ISO3_code,Period,var) %>%
+  mutate(Period=as.Date(Period)) %>% 
+  tidyr::gather("variable","value",-c(ISO3_code,Period)) %>% 
+  na.omit() %>% filter(ISO3_code %in% list_countries)
+
+  fig_outcome <- htk_lineplot(data=eco_outcome1, #dataset use for the graph
+                  title = title, #title of the graph
+                  subtitle = subtitle,
+                  Xlabel=Xlabel,
+                  Ylabel=Ylabel,
+                  ymin=ymin,
+                  ymax=ymax,
+                  ybreak=ybreak,
+                  xbreak=xbreak,
+                  start_date=start_date,
+                  end_date=end_date,
+                  width=6,
+                  height = 4,
+                  dpi=300
+                  ) 
+  
+fig_outcome <- ggplotly(fig_outcome,tooltip="text") %>%
+  config(modeBarButtonsToAdd = list(dl_button)) %>%
+  config(displaylogo = FALSE,
+modeBarButtonsToRemove = list(
+    'sendDataToCloud',
+    'autoScale2d',
+    'resetScale2d',
+    'hoverClosestCartesian',
+    'hoverCompareCartesian',
+    'zoom2d',
+    'pan2d',
+    'select2d',
+    'lasso2d',
+    'zoomIn2d',
+    'zoomOut2d',
+    'toggleSpikelines'
+))
+fig_outcome
+
+```
+
+</center>
+<details class="more_details">
+  <summary>More</summary>
+<h4>Policy description and rationale</h4>
+<p> <!--Edit paragraph HERE--> My paragraph of policy recommendation </p> 
+<h4>Impact of policies</h4>
+<p> <!--Edit paragraph HERE-->  My paragraph of impact of policies </p> 
+
+<br>
+</div>
+</details> <!-- End of collapsible section for cross country experiences -->
 <hr>
+<!-- Beginning of a collapsible section that includes key country experiences -->
+<div class="indicators"> 
+<card>
+<h3>Country experiences<h3>
+<!-- Insert the name of your country below, between the <h4> </h4> tags --> 
+<h4> Country 1 </h4>
+
+<!-- You can include your paragraphs by writing in between <p> </p> tags -->
+<p> Paragraph1 of specific country policy </p>
+
+<p> Paragraph2 of specific country policy </p>
+</card>
+</div>
+<!-- End of collapsible section that includes key country experiences --> 
+</card>
 </div> <!-- END FIRST SELECTED POLICY, stop copy paste here -->
 
+</div>
+</div>
 
 <!-- (if you want to include a new policy recommendation paste it 
 HERE: MY NEW SUBSECTION OF POLICY RECOMMENDATION) -->
 
 </div>
-<button data-toggle="collapse" data-target="#id3"class="btn">see<i class="fa fa-bars"></i></button>
 </div> <!-- END SECTION OF POLICY OUTCOMES-->
+<hr>
+
+<div class="data_sources">
+<div class="collapsible_header" data-toggle="collapse" data-target="#id5"class="btn">
+<h2 class="collapsible_subtitle">Compare your country </h2>
+</div>
+<div id="id5" class ="collapse">
+<!---
+TEXT OF OTHER DATA SOURCES
+-->
+<!--Copy and paste:  <p>My paragraph of other datasource</p>
+to include more paragraphs of datasource-->   
+
+<!---
+END TEXT OF DATA SOURCES
+-->
+
+<!---
+EDIT THE R CHUNK TO REDIRECT TO YOUR OWN SHINYAPP
+-->
+```{r}
+#edit path of the app
+knitr::include_app("https://yihui.shinyapps.io/miniUI/", 
+  height = "600px")
+```
+</div> <!--END OF DATASOURCE SECTION -->
+</div>
 
 <div class="definition_indicators">
-<div class="collapsible_header">
-<h2 class=""collapsible_title">Definitions </h2>
-<button data-toggle="collapse" data-target="#id4"class="btn">see<i class="fa fa-bars"></i></button>
+<div class="collapsible_header" data-toggle="collapse" data-target="#id4"class="btn">
+<h2 class="collapsible_subtitle">Definitions </h2>
 </div>
 <div id="id4" class ="collapse"> 
 
@@ -568,40 +740,9 @@ DT::datatable(Resilience_def_table,options = list(dom="t"))
 </div>
 
 
-
-<div class="data_sources">
-<div class="collapsible_header">
-<h2 class=""collapsible_title">Compare your country </h2>
-<button data-toggle="collapse" data-target="#id5"class="btn">see<i class="fa fa-bars"></i></button>
-</div>
-<div id="id5" class ="collapse">
-<!---
-TEXT OF OTHER DATA SOURCES
--->
- <p> <!-- HERE--> My paragraph of other datasource</p>
-  
-<!--Copy and paste:  <p>My paragraph of other datasource</p>
-to include more paragraphs of datasource-->   
-
-<!---
-END TEXT OF DATA SOURCES
--->
-
-<!---
-EDIT THE R CHUNK TO REDIRECT TO YOUR OWN SHINYAPP
--->
-```{r}
-#edit path of the app
-knitr::include_app("https://yihui.shinyapps.io/miniUI/", 
-  height = "600px")
-```
-</div> <!--END OF DATASOURCE SECTION -->
-</div>
-
 <div class="references">
-<div class="collapsible_header">
-<h2 class=""collapsible_title">References and and further readings </h2>
-<button data-toggle="collapse" data-target="#id6"class="btn">see<i class="fa fa-bars"></i></button>
+<div class="collapsible_header"  data-toggle="collapse" data-target="#id6"class="btn">
+<h2 class="collapsible_subtitle">References and further readings </h2>
 </div>
 <div id="id6" class ="collapse">
 <!---
@@ -619,8 +760,4 @@ to include more paragraphs of datasource-->
 <br>
 </div><!--END OF REFERENCE SECTION -->
 </div>
-
-
-
-
 </div> <!--END OF THE CHAPTER -->

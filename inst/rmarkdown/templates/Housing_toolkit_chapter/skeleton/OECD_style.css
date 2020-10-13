@@ -1,8 +1,20 @@
 
+html, body {
+width:100vw; /* take full browser width */
+height:100vw; /* take full browser height*/
+}
+
 body{ /* Normal  */
-  background-color:WhiteSmoke;
+  background-color:white;
   font-size: 1.675em;
   }
+
+
+.main-container {
+    max-width: 90vw !important;
+    margin-left: auto;
+    margin-right: auto;
+}
 
 .navbar {
   background-color: #037bc1;
@@ -35,17 +47,19 @@ li {
   margin: 1.6em 0 1em 0;
 }
 
+
 h1 { /* Header 1 */
   color: #037bc1;
-  font-size: 1.675em;
-  border-top: 2px solid #037bc1;
-  border-bottom: 2px solid #037bc1;
-  line-height: 1.5;
+  font-size: 1.6em;
+  text-align:center;
+  /*border-top: 2px solid #037bc1;*/
+  /*border-bottom: 2px solid #037bc1;*/
+  /*line-height: 1.5;*/
   font-weight: 600;
-  padding-bottom: 1em;
-  padding-top: 1em;
+  /*padding-bottom: 1em;*/
+  /*padding-top: 1em;*/
   padding-left:1em;
-  margin: 1.6em 0 1em 0;
+  margin: 0.1em 0 1em 0;
 }
 
 h2 { /* Header 2 */
@@ -59,14 +73,32 @@ h2 { /* Header 2 */
     margin: 0em 0 1em 0;
 }
 
-.collapsible_header h2 { /* Header 2 */
-    color: #037bc1;
+.collapsible_title { /* Header 2 */
+    color: lightgrey;
     font-style:italic;
     font-size: 1.5em;
     font-weight: 400;
     padding-left:1em;
     padding-bottom: 0em;
     margin: 0em 0 1em 0;
+}
+
+.collapsible_title:hover { /* Header 2 */
+    color: #037bc1;
+}
+
+.collapsible_subtitle { /* Header 2 */
+    color: lightgrey;
+    font-style:italic;
+    font-size: 1.2em;
+    font-weight: 400;
+    padding-left:1em;
+    padding-bottom: 0em;
+    margin: 0em 0 1em 0;
+}
+
+.collapsible_subtitle:hover { /* Header 2 */
+    color: #037bc1;
 }
 
 h3 { /* Header 3 */
@@ -93,13 +125,23 @@ h4 { /* Header 4 */
 --------------------------------------------------------------
 */
 
+.container-fluid.main-container {
+width:100vw; /* take full browser width */
+height:100vw; /* take full browser height*/
+}
+
 /* Refer to the full page of each section accessible via the navigation bar */
 .chapter {
  background-color:White;
- border: 1px solid lightgrey;
- max-width: 100%;
+ /*border: 1px solid lightgrey;*/
+ max-width: 100vw;
   margin-left: 10;
   margin-right: auto;
+}
+
+#chapter_name{
+  font-size:1.2em;
+  color:grey;
 }
 
 /* div containing the context and introduction for each topi*/
@@ -111,11 +153,7 @@ h4 { /* Header 4 */
   font-weight: 400;
   color: #037bc1;
   padding: 0.5em;
-  -webkit-box-shadow: 4px 4px 3px 0px rgba(0,0,0,0.75);
-  -moz-box-shadow: 4px 4px 3px 0px rgba(0,0,0,0.75);
-  box-shadow: 4px 4px 3px 0px rgba(0,0,0,0.75);
-  border: 1px solid grey;
-  margin: 1.6em 0em 1.6em 0;
+  margin: 0.1em 0em 0.1em 0;
 }
 
 .context_diagram{
@@ -169,10 +207,6 @@ font-weight: 400;
  font-weight: 400;
   color: #037bc1;
   padding: 0.5em;
-  -webkit-box-shadow: 4px 4px 3px 0px rgba(0,0,0,0.75);
-  -moz-box-shadow: 4px 4px 3px 0px rgba(0,0,0,0.75);
-  box-shadow: 4px 4px 3px 0px rgba(0,0,0,0.75);
-  border: 1px solid grey;
   margin: 1.6em 0em 1.6em 0;
  }
 
@@ -248,6 +282,7 @@ font-weight: 400;
 }
 
 
+
 .opentab {
   background-color: #037bc1;
   color: white;
@@ -266,7 +301,6 @@ font-weight: 400;
   box-sizing: border-box;
 }
 
-
 .column {
   float: left;
   width: 50%;
@@ -281,11 +315,6 @@ font-weight: 400;
   clear: both;
 }
 
-@media screen and (max-width: 600px) {
-  .column {
-    width: 100%;
-    display: block;
-    margin-bottom: 20px;
-  }
-}
+
+
 
