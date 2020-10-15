@@ -24,12 +24,16 @@ cf_param_paragraph_page_1=function(ctry_code,ctry_name,
   # 1 home-ownership stats: min max and below above or close t average
 
   sentence_homewonership=function(ht_avg_OECD, myctry_hh ){
-    if (myctry_hh<=ht_avg_OECD-5){
-      my_adv="lower than"
-    } else if (myctry_hh>=ht_avg_OECD+5){
-      my_adv="higher than"
-    } else if (myctry_hh>ht_avg_OECD-5&myctry_hh<ht_avg_OECD+5){
-      my_adv="close to"
+    if (identical(myctry_hh, numeric(0))){
+      my_adv="We do not have data for the country in this dimension"
+    }else{
+      if (myctry_hh<=ht_avg_OECD-5){
+        my_adv="lower than"
+      } else if (myctry_hh>=ht_avg_OECD+5){
+        my_adv="higher than"
+      } else if (myctry_hh>ht_avg_OECD-5&myctry_hh<ht_avg_OECD+5){
+        my_adv="close to"
+      }
     }
     return(my_adv)
   }
@@ -39,6 +43,9 @@ cf_param_paragraph_page_1=function(ctry_code,ctry_name,
   #################################################################################
 
   sentence_rhp=function(gr_hp, ctry_code, ctry_name){
+    if (identical(gr_hp, numeric(0))){
+      my_adv="We do not have data for the country in this dimension"
+    }else{
     if (gr_hp$rate<0){
       my_sentence=paste0("However, in few countries real house prices remained stable or even decreased, such as in ", ctry_name)
     } else  if (gr_hp$rate>0 & gr_hp$rate<20){
@@ -52,6 +59,7 @@ cf_param_paragraph_page_1=function(ctry_code,ctry_name,
     }else if (gr_hp$rate>100){
       my_sentence=paste0(" ", ctry_name, " is among the countries exhibiting the highest increase in house prices")
     }
+    }
     return(my_sentence)
   }
 
@@ -63,17 +71,34 @@ cf_param_paragraph_page_1=function(ctry_code,ctry_name,
 
 
   sentece_mortg=function(avg_mortg, mortgage_data_myctr,myctry_hh, ht_avg_OECD){
-    if (mortgage_data_myctr<avg_mortg-5 & myctry_hh<ht_avg_OECD-5){
-      my_adv="modest, reflecting a relatively low homeownership rate"
-    } else if (mortgage_data_myctr<avg_mortg-5 ){
-      my_adv="relatively modest"
-    } else if (mortgage_data_myctr>avg_mortg-5.0 & mortgage_data_myctr<avg_mortg+5){
-      my_adv="close to average by international comparison"
-    }else if (mortgage_data_myctr>avg_mortg+5 & myctry_hh>ht_avg_OECD+5){
-      my_adv="high, reflecting a relatively high homeownership rate"
-    }else if (mortgage_data_myctr>avg_mortg+5 ){
-      my_adv="relatively high by international comparison"
+    if (identical(mortgage_data_myctr, numeric(0))  ){
+      my_adv="We do not have data for the country in this dimension"
+    }  else if (identical(mortgage_data_myctr, numeric(0))==F & identical(myctry_hh, numeric(0))==F ){
+      if (mortgage_data_myctr<avg_mortg-5 & myctry_hh<ht_avg_OECD-5){
+        my_adv="modest, reflecting a relatively low homeownership rate"
+      } else if (mortgage_data_myctr<avg_mortg-5 ){
+        my_adv="relatively modest"
+      } else if (mortgage_data_myctr>avg_mortg-5.0 & mortgage_data_myctr<avg_mortg+5){
+        my_adv="close to average by international comparison"
+      }else if (mortgage_data_myctr>avg_mortg+5 & myctry_hh>ht_avg_OECD+5){
+        my_adv="high, reflecting a relatively high homeownership rate"
+      }else if (mortgage_data_myctr>avg_mortg+5 ){
+        my_adv="relatively high by international comparison"
+      }
+      }  else if (identical(mortgage_data_myctr, numeric(0))==F & identical(myctry_hh, numeric(0)) ){
+      if (mortgage_data_myctr<avg_mortg-5) {
+        my_adv="modest"
+      } else if (mortgage_data_myctr<avg_mortg-5 ){
+        my_adv="relatively modest"
+      } else if (mortgage_data_myctr>avg_mortg-5.0 & mortgage_data_myctr<avg_mortg+5){
+        my_adv="close to average by international comparison"
+      }else if (mortgage_data_myctr>avg_mortg+5){
+        my_adv="high"
+      }else if (mortgage_data_myctr>avg_mortg+5 ){
+        my_adv="relatively high by international comparison"
+      }
     }
+
     return(my_adv)
   }
 
