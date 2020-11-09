@@ -49,8 +49,7 @@ cf_param_paragraph_page_1=function(ctry_code,ctry_name,
     if (gr_hp$rate<0 & ctry_code!="DEU"){
       my_sentence=paste0("However, in few countries real house prices remained stable or even decreased, such as in ", ctry_name)
     }  else if  (gr_hp$rate<0 & ctry_code=="DEU"){
-        my_sentence="In Germany, after declining in the early 2000s, house prices started to rise faster than the OECD average in 2011 and its growth accelerated from 2016
-onwards.The increase in rent prices was moderate compared to OECD countries"
+        my_sentence="In Germany, after declining in the early 2000s, house prices started to rise faster than the OECD average in 2011 and its growth accelerated from 2016 onwards. The increase in rent prices was moderate compared to OECD countries"
     } else  if (gr_hp$rate>0 & gr_hp$rate<20){
       my_sentence=paste0("However, in few countries real house prices remained stable, such as in ", ctry_name)
     } else if (gr_hp$rate>=20 & gr_hp$rate<=50){
