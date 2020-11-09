@@ -28,9 +28,9 @@ cf_param_paragraph_page_1=function(ctry_code,ctry_name,
       my_adv="We do not have data for the country in this dimension"
     }else{
       if (myctry_hh<=ht_avg_OECD-5){
-        my_adv="below"
+        my_adv="lower than"
       } else if (myctry_hh>=ht_avg_OECD+5){
-        my_adv="above"
+        my_adv="higher than"
       } else if (myctry_hh>ht_avg_OECD-5&myctry_hh<ht_avg_OECD+5){
         my_adv="close to"
       }
@@ -55,7 +55,7 @@ cf_param_paragraph_page_1=function(ctry_code,ctry_name,
     } else if (gr_hp$rate>=20 & gr_hp$rate<=50){
       my_sentence=paste0(" However, ", ctry_name, " is one of the few countries exhibiting moderate increase in real house prices")
     } else if (gr_hp$rate>50 & gr_hp$rate<100 & ctry_code=="ESP"){
-      my_sentence=paste0( "In the years preceding the onset of the Global Financial Crisis ", ctry_name, " exhibited a steep increase in real house prices")
+      my_sentence=paste0( "In the years preceding the onset of the Global Financial Crisis, ", ctry_name, " exhibited a steep increase in real house prices")
     }else if (gr_hp$rate>50 & gr_hp$rate<=100 & ctry_code!="ESP"){
       my_sentence=paste0( "In the period under review ", ctry_name, " exhibited a steep increase in real house prices")
     }else if (gr_hp$rate>100){
@@ -94,8 +94,6 @@ cf_param_paragraph_page_1=function(ctry_code,ctry_name,
         my_adv="relatively modest"
       } else if (mortgage_data_myctr>avg_mortg-5.0 & mortgage_data_myctr<avg_mortg+5){
         my_adv="close to average by international comparison"
-      }else if (mortgage_data_myctr>avg_mortg+5){
-        my_adv="high"
       }else if (mortgage_data_myctr>avg_mortg+5 ){
         my_adv="relatively high by international comparison"
       }
@@ -108,7 +106,7 @@ cf_param_paragraph_page_1=function(ctry_code,ctry_name,
 
   sentence1=paste0("Housing policies affect people’s well-being through a wide range of channels including access to decent shelter, environmental quality, efficient use of scarce resources, type and extent of commuting, as well as its contribution to strong and resilient economic growth. This note provides a cross-country perspective on " ,ctry_name, "’s housing-related indicators and policy settings.")
 
-  sentence2=paste0("Households’ tenure choices depend on demographics and/or socio-economic factors,such as population ageing, as well as policies related to housing taxation and rental regulations. There are large differences in tenure structure across OECD and key partner countries: in terms of homeownership ", ctry_name," is ", sentence_homewonership(ht_avg_OECD, myctry_hh)," OECD average (Figure a). ")
+  sentence2=paste0("Households’ tenure choices depend on demographics and/or socio-economic factors,such as population ageing, as well as policies related to housing taxation and rental regulations. There are large differences in tenure structure across OECD and key partner countries: homeownership in ", ctry_name," is ", sentence_homewonership(ht_avg_OECD, myctry_hh)," OECD average (Figure a). ")
 
   sentence3=paste0("Real house prices and rent prices have risen strongly in many countries since the 1990s, with prices increasing by more than 100% in those countries experiencing the largest increases (Figure b, c). ",sentence_rhp(gr_hp, ctry_code, ctry_name), ".")
 
