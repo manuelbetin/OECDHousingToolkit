@@ -37,7 +37,6 @@ htk_text_generator=function(data,category,ranking,ctry,var_codes){
     }
     mydt<<-mydt %>% mutate_at(vars(main_vars_rank),test)
 
-    #output <-"paragraphs_1.R"
     #source("/Users/federicadepace/Dropbox (personal)/OECD/projects/paragraphs_2.R")
     output <-"paragraphs_2.R"
 

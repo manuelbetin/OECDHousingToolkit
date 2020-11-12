@@ -243,7 +243,6 @@ t_pm_myvar3 <- function(y){
       paste0("the ", myvar3_label, " is in line with the OECD average"),
       paste0("the ", myvar3_label, " is relatively high, by international comparison"),
       paste0("the ", myvar3_label, " is relatively high, by international comparison"),
-      paste0("the ", myvar3_label, " is relatively low, by international comparison"),
       paste0("The ", myvar3_label, " is among the highest, by international comparison")
     )
  } else if (mycategory_label=="sustainability") {
@@ -255,7 +254,6 @@ t_pm_myvar3 <- function(y){
      paste0(" targetcountry's ", myvar3_label, " is in line with the OECD average"),
      paste0(" targetcountry's ", myvar3_label, " is relatively high, by international comparison"),
      paste0(" targetcountry's ", myvar3_label, " is relatively high, by international comparison"),
-     paste0(" targetcountry's ", myvar3_label, " is relatively low, by international comparison"),
      paste0(" targetcountry's ", myvar3_label, " is among the highest, by international comparison")
    )
  }
@@ -395,8 +393,8 @@ report_method <- function(properties,pm){
       myperc_var1,".",
 
       if((str_detect(myperc_var1, "low") && str_detect(myperc_var2, "high"))|(str_detect(myperc_var1, "high") && str_detect(myperc_var2, "low"))) {
-      " Conversely, "  
-      } 
+      " Conversely, "
+      }
         else if( (str_detect(myperc_var1, "average") && ( ( str_detect(myperc_var2, "high"))| (str_detect(myperc_var2, "low"))) ) |
                  (str_detect(myperc_var2, "average") && ( ( str_detect(myperc_var1, "high"))| (str_detect(myperc_var1, "low"))) ))  {
      "" }
@@ -408,10 +406,10 @@ report_method <- function(properties,pm){
 
       myperc_var2,".",
 
-      if( (str_detect(myperc_var2, "low") && str_detect(myperc_var3, "high")) | 
+      if( (str_detect(myperc_var2, "low") && str_detect(myperc_var3, "high")) |
           (str_detect(myperc_var2, "high") && str_detect(myperc_var3, "low")) ) {
-        " On the other hand, " } 
-     else if ( (str_detect(myperc_var2, "low") && str_detect(myperc_var3, "low")) | 
+        " On the other hand, " }
+     else if ( (str_detect(myperc_var2, "low") && str_detect(myperc_var3, "low")) |
                (str_detect(myperc_var2, "high") && str_detect(myperc_var3, "high"))) {
         " Furthermore, "
         },
