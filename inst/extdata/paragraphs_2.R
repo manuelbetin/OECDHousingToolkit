@@ -260,13 +260,13 @@ t_pm_myvar3 <- function(y){
   else if (mycategory_label=="sustainability") {
    templates <- c(
      paste0(" ", myvar3_label," there is unfortunately no data available for targetcountry"),
-     paste0(" targetcountry's ", myvar3_label, " is among the lowest, by international comparison"),
-     paste0(" targetcountry's ", myvar3_label, " is relatively low, by international comparison"),
-     paste0(" targetcountry's ", myvar3_label, " is relatively low, by international comparison"),
-     paste0(" targetcountry's ", myvar3_label, " is in line with the OECD average"),
-     paste0(" targetcountry's ", myvar3_label, " is relatively high, by international comparison"),
-     paste0(" targetcountry's ", myvar3_label, " is relatively high, by international comparison"),
-     paste0(" targetcountry's ", myvar3_label, " is among the highest, by international comparison")
+     paste0(" In targetcountry, the coverage of natural and semi-natural land in urban areas is among the lowest by international comparison, indicating a high degree of urbanization across the country on average."),
+     paste0(" In targetcountry, the coverage of natural and semi-natural land in urban areas is relatively low by international comparison, indicating a high degree of urbanization across the country on average."),
+     paste0(" In targetcountry, the coverage of natural and semi-natural land in urban areas is relatively low by international comparison, indicating a high degree of urbanization across the country on average."),
+     paste0(" In targetcountry, the coverage of natural and semi-natural land in urban areas is in line with OECD average, indicating an average degree of urbanization across the country."),
+     paste0(" In targetcountry, the coverage of natural and semi-natural land in urban areas is relatively high by international comparison, indicating a modest degree of urbanization across the country on average."),
+     paste0(" In targetcountry, the coverage of natural and semi-natural land in urban areas is relatively high by international comparison, indicating a modest degree of urbanization across the country on average."),
+     paste0(" In targetcountry, the coverage of natural and semi-natural land in urban areas is among the highest by international comparison, indicating a modest degree of urbanization across the country on average.")
    )
  }
     return(templates[which.max(y$w)])
