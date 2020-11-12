@@ -368,10 +368,10 @@ report_tail=function(myvar, nb_indicators){ #error in the function the rank is n
     #ctry_x=x[[v]]
     #rank_var=(length(myvars[[nb_indicators]])+1)-ctry_x
     #myperc_var=paste0(pm_report(myvar), ". Indeed, targetcountry is ranked ", toOrdinal::toOrdinal(rank_var,language="english"), " over ", length(myvars[[nb_indicators]]), " countries", " (located in the percentile ", round(myvar[["u"]], digits=3),")")
-    myperc_var=paste0(pm_report(myvar)," (located in the percentile ", round(myvar[["u"]], digits=3),")")
+    myperc_var=paste0(pm_report(myvar),"")
   } else {
 
-    myperc_var=paste0(pm_report(myvar)," (located in the percentile ", round(myvar[["u"]], digits=3),")")
+    myperc_var=paste0(pm_report(myvar),"")
   }
   return(myperc_var)
 }
@@ -394,8 +394,9 @@ report_method <- function(properties,pm){
       #pm_report(pm$pm_Efficiency),".",
       myperc_var1,".",
 
-      if((str_detect(myperc_var1, "low") && str_detect(myperc_var2, "high")) | (str_detect(myperc_var1, "high") && str_detect(myperc_var2, "low"))) {
-      " Conversely, " }
+      if((str_detect(myperc_var1, "low") && str_detect(myperc_var2, "high"))|(str_detect(myperc_var1, "high") && str_detect(myperc_var2, "low"))) {
+      " Conversely, "  
+      } 
         else if( (str_detect(myperc_var1, "average") && ( ( str_detect(myperc_var2, "high"))| (str_detect(myperc_var2, "low"))) ) |
                  (str_detect(myperc_var2, "average") && ( ( str_detect(myperc_var1, "high"))| (str_detect(myperc_var1, "low"))) ))  {
      "" }
@@ -407,10 +408,10 @@ report_method <- function(properties,pm){
 
       myperc_var2,".",
 
-      if( (str_detect(myperc_var2, "low") && str_detect(myperc_var3, "high")) |
+      if( (str_detect(myperc_var2, "low") && str_detect(myperc_var3, "high")) | 
           (str_detect(myperc_var2, "high") && str_detect(myperc_var3, "low")) ) {
-        " On the other hand, " }
-     else if ( (str_detect(myperc_var2, "low") && str_detect(myperc_var3, "low")) |
+        " On the other hand, " } 
+     else if ( (str_detect(myperc_var2, "low") && str_detect(myperc_var3, "low")) | 
                (str_detect(myperc_var2, "high") && str_detect(myperc_var3, "high"))) {
         " Furthermore, "
         },
