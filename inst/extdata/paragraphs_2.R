@@ -234,18 +234,30 @@ t_pm_myvar3 <- function(y){
       paste0(" ",str_to_sentence(myvar3_label),", as measured by the ", myvar3_label_long, ", is relatively high by international comparison"),
       paste0(" ",str_to_sentence(myvar3_label),", as measured by the ", myvar3_label_long, ", is among the highest in OECD countries")
     )
- } else if (mycategory_label=="inclusiveness") {
+ } else if (mycategory_label=="inclusiveness" & myvar3_label=="commuting time" ) {
     templates <- c(
       paste0(" ", myvar3_label," there is unfortunately no data available for targetcountry"),
-      paste0("the ", myvar3_label, " is among the lowest, by international comparison"),
-      paste0("the ", myvar3_label, " is relatively low, by international comparison"),
-      paste0("the ", myvar3_label, " is relatively low, by international comparison"),
-      paste0("the ", myvar3_label, " is in line with the OECD average"),
-      paste0("the ", myvar3_label, " is relatively high, by international comparison"),
-      paste0("the ", myvar3_label, " is relatively high, by international comparison"),
-      paste0("The ", myvar3_label, " is among the highest, by international comparison")
+      paste0("average ", myvar3_label, " is among the lowest, by international comparison" , "which suggests that very few workers live far from their workplace. This hints at efficient residential mobility, efficient worker-job matching and low level of exclusion."),
+      paste0("average ", myvar3_label, " is relatively low, by international comparison", "which suggests that few workers live far from their workplace. This hints at efficient residential mobility, efficient worker-job matching and low level of exclusion."),
+      paste0("average ", myvar3_label, " is relatively low, by international comparison, hich suggests that few workers live far from their workplace. This hints at efficient residential mobility, efficient worker-job matching and low level of exclusion"),
+      paste0("average ", myvar3_label, " is in line with the OECD average, which suggests that some workers live far from their workplace. This hints at an average level of residential mobility, moderate worker-job matching and average level of exclusion."),
+      paste0("average ", myvar3_label, " is relatively high, by international comparison, which suggests that many workers live far from their workplace. This hints at constrained residential mobility, weak worker-job matching and high level of exclusion."),
+      paste0("average ", myvar3_label, " is relatively high, by international comparison, which suggests that many workers live far from their workplace. This hints at constrained residential mobility, weak worker-job matching and high level of exclusion."),
+      paste0("average ", myvar3_label, " is among the highest, by international comparison, which suggests that most workers live far from their workplace. This hints at constrained residential mobility, weak worker-job matching and high level of exclusion.")
     )
- } else if (mycategory_label=="sustainability") {
+ } else if (mycategory_label=="inclusiveness" & myvar3_label!="commuting time" ) {
+   templates <- c(
+     paste0(" ", myvar3_label," there is unfortunately no data available for targetcountry"),
+     paste0("average ", myvar3_label, " is among the lowest, by international comparison"),
+     paste0("average ", myvar3_label, " is relatively low, by international comparison"),
+     paste0("average ", myvar3_label, " is relatively low, by international comparison"),
+     paste0("average ", myvar3_label, " is in line with the OECD average"),
+     paste0("average ", myvar3_label, " is relatively high, by international comparison"),
+     paste0("average ", myvar3_label, " is relatively high, by international comparison"),
+     paste0("average ", myvar3_label, " is among the highest, by international comparison")
+   )
+ }
+  else if (mycategory_label=="sustainability") {
    templates <- c(
      paste0(" ", myvar3_label," there is unfortunately no data available for targetcountry"),
      paste0(" targetcountry's ", myvar3_label, " is among the lowest, by international comparison"),
