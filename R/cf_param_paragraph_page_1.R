@@ -50,7 +50,7 @@ cf_param_paragraph_page_1=function(ctry_code,ctry_name,
       my_sentence=paste0("However, in few countries real house prices remained stable or even decreased, such as in ", ctry_name)
     } else  if (gr_hp$rate[gr_hp$before_GFC==1]>0 & gr_hp$rate[gr_hp$before_GFC==1]<20 & gr_hp$rate[gr_hp$before_GFC==0]>0 & gr_hp$rate[gr_hp$before_GFC==0]<20){ #moderate overall
       my_sentence=paste0("However, in few countries real house prices remained stable, such as in ", ctry_name)
-    } else if (gr_hp$rate>=20 & gr_hp$rate<=50){
+    } else if (gr_hp$rate[gr_hp$before_GFC==1]>=20 & gr_hp$rate[gr_hp$before_GFC==1]<=50 & gr_hp$rate[gr_hp$before_GFC==0]>=20 & gr_hp$rate[gr_hp$before_GFC==0]<=50){
       my_sentence=paste0(" However, ", ctry_name, " is one of the few countries exhibiting moderate increase in real house prices")
     } else if (gr_hp$rate[gr_hp$before_GFC==1]>50 & gr_hp$rate[gr_hp$before_GFC==1]<=100 & gr_hp$rate[gr_hp$before_GFC==0]>50 & gr_hp$rate[gr_hp$before_GFC==0]<=100){
       my_sentence=paste0( "In the period under review ", ctry_name, " exhibited a steep increase in real house prices")
@@ -60,7 +60,11 @@ cf_param_paragraph_page_1=function(ctry_code,ctry_name,
       my_sentence=paste0("In ", ctry_name, ", after growing at a slower pace in the early 2000s, house prices started to rise faster than the OECD average in 2011")
     }else if (gr_hp$rate[gr_hp$before_GFC==1]>=gr_hp$OECD_av[gr_hp$before_GFC==1] & gr_hp$rate[gr_hp$before_GFC==0]<gr_hp$OECD_av[gr_hp$before_GFC==0]){
       my_sentence=paste0("In ", ctry_name, ", after growing faster than OECD average in the early 2000s, house prices started to slow down after the Global Financial Crisis")
-    }else if  (ctry_code=="DEU"){
+    }else if (gr_hp$rate[gr_hp$before_GFC==1]>=gr_hp$OECD_av[gr_hp$before_GFC==1] & gr_hp$rate[gr_hp$before_GFC==0]>=gr_hp$OECD_av[gr_hp$before_GFC==0]){
+      my_sentence=paste0("In ", ctry_name, ", house prices started have grown faster than OECD average")
+    }else if (gr_hp$rate[gr_hp$before_GFC==1]<gr_hp$OECD_av[gr_hp$before_GFC==1] & gr_hp$rate[gr_hp$before_GFC==0]<gr_hp$OECD_av[gr_hp$before_GFC==0]){
+      my_sentence=paste0("In ", ctry_name, ", house prices started have grown slower than OECD average")
+    } else if  (ctry_code=="DEU"){
       my_sentence="In Germany, after declining in the early 2000s, house prices started to rise faster than the OECD average in 2011 and its growth accelerated from 2016 onwards. The increase in rent prices was moderate compared to OECD countries"
     }else if (ctry_code=="ESP"){
       my_sentence=paste0( "In the years preceding the onset of the Global Financial Crisis, ", ctry_name, " exhibited a steep increase in real house prices")
