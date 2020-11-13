@@ -1,8 +1,8 @@
 struc_stat=function(ctry_code, struc){
-  
+
 # 1 home-ownership stats: min max and below above or close t average
 house_tenure_data=struc %>% select(ISO3_code, period, Own_outright, Owner_with_mortgage, Private_rent, Subsidized_rent,Other )%>%   filter(year(period)==2018)
-house_tenure_data<- house_tenure_data %>% mutate(temp=rowSums(house_tenure_data[,c("Own_outright", "Owner_with_mortgage", "Private_rent", "Subsidized_rent","Other")], na.rm=TRUE)) %>% 
+house_tenure_data<- house_tenure_data %>% mutate(temp=rowSums(house_tenure_data[,c("Own_outright", "Owner_with_mortgage", "Private_rent", "Subsidized_rent","Other")], na.rm=TRUE)) %>%
   filter(temp>0) %>% select(ISO3_code, period, Own_outright, Owner_with_mortgage, Private_rent, Subsidized_rent,Other )
 house_tenure_data<- house_tenure_data %>% gather(period, value, -c(ISO3_code, period))
 colnames(house_tenure_data)<-c("ISO3_code", "Tenure_cat", 	"Tenure_share")
@@ -57,8 +57,8 @@ stats_hp_bar<-stats_hp %>% group_by(ISO3_code) %>%
   filter(ISO3_code!="OECD")
 
 
-gr_hp<-stats_hp_bar %>%arrange(ISO3_code,period) %>% group_by(ISO3_code) %>% 
-  mutate(before_GFC=ifelse(year(period)<=2008, 1, 0 )) %>% 
+gr_hp<-stats_hp_bar %>%arrange(ISO3_code,period) %>% group_by(ISO3_code) %>%
+  mutate(before_GFC=ifelse(year(period)<=2008, 1, 0 )) %>%
   mutate(rate=((rhp_ind2010-lag(rhp_ind2010))/lag(rhp_ind2010))*100)%>%
   ungroup()%>% filter(rate!=is.na(rate)) %>% group_by(before_GFC)%>%
   mutate(OECD_av=mean(rate, na.rm =T))%>%ungroup()%>%
@@ -81,7 +81,7 @@ stats_rentp_bar<-stats_rentp %>% group_by(ISO3_code) %>%
   select(ISO3_code, period, rpi, rentp_ind2010) %>%
   filter(ISO3_code!="OECD")
 
-gr_rentp<-stats_rentp_bar %>%arrange(ISO3_code,period) %>% group_by(ISO3_code) %>% 
+gr_rentp<-stats_rentp_bar %>%arrange(ISO3_code,period) %>% group_by(ISO3_code) %>%
   mutate(rate=((rpi-lag(rpi))/lag(rpi))*100)%>%
   ungroup()%>%
   mutate(OECD_av=mean(rate, na.rm =T))%>%
@@ -93,7 +93,7 @@ gr_rentp<-stats_rentp_bar %>%arrange(ISO3_code,period) %>% group_by(ISO3_code) %
 mortgage_data <- struc %>% select("ISO3_code","period", "ECO_resilience_LMHQ")
 mortgage_data <- na.omit(mortgage_data  )
 
-mortgage_data<-mortgage_data %>% group_by(ISO3_code)  %>% 
+mortgage_data<-mortgage_data %>% group_by(ISO3_code)  %>%
   filter( year(period)==last(year(period)))
 
 avg_mortg<-mean(mortgage_data$ECO_resilience_LMHQ, na.rm=T)
@@ -113,9 +113,9 @@ OECD_mrg_avg<- data.frame(OECD_mrg_avg)
 mortgage_data_fin<-rbind(mortgage_data, OECD_mrg_avg)
 return(list(house_tenure_data, stats_ht, ht_avg_OECD, myctry_hh,
             stats_hp, gr_hp,
-            stats_rentp, 
+            stats_rentp,
             avg_mortg,
-            mortgage_data_fin, 
+            mortgage_data_fin,
             mortgage_data_myctr))
 }
 
