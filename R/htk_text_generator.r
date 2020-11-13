@@ -61,12 +61,12 @@ htk_text_generator=function(data,category,ranking,ctry,var_codes){
     #rio::export(mydt,paste0("htk_paragraphs_",category,".csv"),sep=";")
   }else{
     mydt=data.frame(ctry,
+                    paste0("The ",category, " of the housing sector in ",countrycode(ctry,origin="iso3c",destination="country.name")," cannot be assess based on available data.
+                           Improvements on data collection should be undertaken"),
                     paste0("The ",category, "of the housing sector in ",countrycode(ctry,origin="iso3c",destination="country.name")," cannot be assess based on available data.
-                           Improvments on data collection should be undertaken"),
+                           Improvements on data collection should be undertaken"),
                     paste0("The ",category, "of the housing sector in ",countrycode(ctry,origin="iso3c",destination="country.name")," cannot be assess based on available data.
-                           Improvments on data collection should be undertaken"),
-                    paste0("The ",category, "of the housing sector in ",countrycode(ctry,origin="iso3c",destination="country.name")," cannot be assess based on available data.
-                           Improvments on data collection should be undertaken"))
+                           Improvements on data collection should be undertaken"))
     colnames(mydt)=c("Iso_code3","efficiency","inclusiveness","sustainability")
   }
 

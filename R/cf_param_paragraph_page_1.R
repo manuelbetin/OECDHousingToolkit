@@ -24,7 +24,7 @@ cf_param_paragraph_page_1=function(ctry_code,ctry_name,
   # 1 home-ownership stats: min max and below above or close t average
 
   sentence_homewonership=function(ht_avg_OECD, myctry_hh ){
-    if (identical(myctry_hh, numeric(0))){
+    if (identical(myctry_hh, numeric(0)) ){
       my_adv="We do not have data for the country in this dimension"
     }else{
       if (myctry_hh<=ht_avg_OECD-5){
@@ -43,8 +43,8 @@ cf_param_paragraph_page_1=function(ctry_code,ctry_name,
   #################################################################################
 
   sentence_rhp=function(gr_hp, ctry_code, ctry_name){
-    if (identical(gr_hp, numeric(0))){
-      my_adv="We do not have data for the country in this dimension"
+    if ( nrow(gr_hp) == 0){
+      my_sentence="We do not have data for the country in this dimension"
     }else{
     if (gr_hp$rate[gr_hp$before_GFC==1]<=0 &gr_hp$rate[gr_hp$before_GFC==0]<=0){ # euqal to <=0 in both periods
       my_sentence=paste0("However, in few countries real house prices remained stable or even decreased, such as in ", ctry_name)
@@ -77,7 +77,7 @@ cf_param_paragraph_page_1=function(ctry_code,ctry_name,
 
 
   sentece_mortg=function(avg_mortg, mortgage_data_myctr,myctry_hh, ht_avg_OECD){
-    if (identical(mortgage_data_myctr, numeric(0))  ){
+    if (identical(mortgage_data_myctr, numeric(0)) )  {
       my_adv="We do not have data for the country in this dimension"
     }  else if (identical(mortgage_data_myctr, numeric(0))==F & identical(myctry_hh, numeric(0))==F ){
       if (mortgage_data_myctr<avg_mortg-5 & myctry_hh<ht_avg_OECD-5){
