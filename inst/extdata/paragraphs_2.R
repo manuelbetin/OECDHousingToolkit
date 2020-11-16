@@ -234,29 +234,39 @@ t_pm_myvar3 <- function(y){
       paste0(" ",str_to_sentence(myvar3_label),", as measured by the ", myvar3_label_long, ", is relatively high by international comparison"),
       paste0(" ",str_to_sentence(myvar3_label),", as measured by the ", myvar3_label_long, ", is among the highest in OECD countries")
     )
- } else if (mycategory_label=="inclusiveness") {
+ } else if (mycategory_label=="inclusiveness" & myvar3_label=="commuting time" ) {
     templates <- c(
       paste0(" ", myvar3_label," there is unfortunately no data available for targetcountry"),
-      paste0("the ", myvar3_label, " is among the lowest, by international comparison"),
-      paste0("the ", myvar3_label, " is relatively low, by international comparison"),
-      paste0("the ", myvar3_label, " is relatively low, by international comparison"),
-      paste0("the ", myvar3_label, " is in line with the OECD average"),
-      paste0("the ", myvar3_label, " is relatively high, by international comparison"),
-      paste0("the ", myvar3_label, " is relatively high, by international comparison"),
-      paste0("the ", myvar3_label, " is relatively low, by international comparison"),
-      paste0("The ", myvar3_label, " is among the highest, by international comparison")
+      paste0("average ", myvar3_label, " is among the lowest, by international comparison" , "which suggests that very few workers live far from their workplace. This hints at efficient residential mobility, efficient worker-job matching and low level of exclusion."),
+      paste0("average ", myvar3_label, " is relatively low, by international comparison", "which suggests that few workers live far from their workplace. This hints at efficient residential mobility, efficient worker-job matching and low level of exclusion."),
+      paste0("average ", myvar3_label, " is relatively low, by international comparison, which suggests that few workers live far from their workplace. This hints at efficient residential mobility, efficient worker-job matching and low level of exclusion"),
+      paste0("average ", myvar3_label, " is in line with the OECD average, which suggests that some workers live far from their workplace. This hints at an average level of residential mobility, moderate worker-job matching and average level of exclusion."),
+      paste0("average ", myvar3_label, " is relatively high, by international comparison, which suggests that many workers live far from their workplace. This hints at constrained residential mobility, weak worker-job matching and high level of exclusion."),
+      paste0("average ", myvar3_label, " is relatively high, by international comparison, which suggests that many workers live far from their workplace. This hints at constrained residential mobility, weak worker-job matching and high level of exclusion."),
+      paste0("average ", myvar3_label, " is among the highest, by international comparison, which suggests that most workers live far from their workplace. This hints at constrained residential mobility, weak worker-job matching and high level of exclusion.")
     )
- } else if (mycategory_label=="sustainability") {
+ } else if (mycategory_label=="inclusiveness" & myvar3_label!="commuting time" ) {
    templates <- c(
      paste0(" ", myvar3_label," there is unfortunately no data available for targetcountry"),
-     paste0(" targetcountry's ", myvar3_label, " is among the lowest, by international comparison"),
-     paste0(" targetcountry's ", myvar3_label, " is relatively low, by international comparison"),
-     paste0(" targetcountry's ", myvar3_label, " is relatively low, by international comparison"),
-     paste0(" targetcountry's ", myvar3_label, " is in line with the OECD average"),
-     paste0(" targetcountry's ", myvar3_label, " is relatively high, by international comparison"),
-     paste0(" targetcountry's ", myvar3_label, " is relatively high, by international comparison"),
-     paste0(" targetcountry's ", myvar3_label, " is relatively low, by international comparison"),
-     paste0(" targetcountry's ", myvar3_label, " is among the highest, by international comparison")
+     paste0("average ", myvar3_label, " is among the lowest, by international comparison"),
+     paste0("average ", myvar3_label, " is relatively low, by international comparison"),
+     paste0("average ", myvar3_label, " is relatively low, by international comparison"),
+     paste0("average ", myvar3_label, " is in line with the OECD average"),
+     paste0("average ", myvar3_label, " is relatively high, by international comparison"),
+     paste0("average ", myvar3_label, " is relatively high, by international comparison"),
+     paste0("average ", myvar3_label, " is among the highest, by international comparison")
+   )
+ }
+  else if (mycategory_label=="sustainability") {
+   templates <- c(
+     paste0(" ", myvar3_label," there is unfortunately no data available for targetcountry"),
+     paste0(" In targetcountry, the coverage of natural and semi-natural land in urban areas is among the lowest by international comparison, indicating a high degree of urbanization across the country on average"),
+     paste0(" In targetcountry, the coverage of natural and semi-natural land in urban areas is relatively low by international comparison, indicating a high degree of urbanization across the country on average"),
+     paste0(" In targetcountry, the coverage of natural and semi-natural land in urban areas is relatively low by international comparison, indicating a high degree of urbanization across the country on average"),
+     paste0(" In targetcountry, the coverage of natural and semi-natural land in urban areas is in line with OECD average, indicating an average degree of urbanization across the country"),
+     paste0(" In targetcountry, the coverage of natural and semi-natural land in urban areas is relatively high by international comparison, indicating a modest degree of urbanization across the country on average"),
+     paste0(" In targetcountry, the coverage of natural and semi-natural land in urban areas is relatively high by international comparison, indicating a modest degree of urbanization across the country on average"),
+     paste0(" In targetcountry, the coverage of natural and semi-natural land in urban areas is among the highest by international comparison, indicating a modest degree of urbanization across the country on average")
    )
  }
     return(templates[which.max(y$w)])
@@ -368,10 +378,10 @@ report_tail=function(myvar, nb_indicators){ #error in the function the rank is n
     #ctry_x=x[[v]]
     #rank_var=(length(myvars[[nb_indicators]])+1)-ctry_x
     #myperc_var=paste0(pm_report(myvar), ". Indeed, targetcountry is ranked ", toOrdinal::toOrdinal(rank_var,language="english"), " over ", length(myvars[[nb_indicators]]), " countries", " (located in the percentile ", round(myvar[["u"]], digits=3),")")
-    myperc_var=paste0(pm_report(myvar)," (located in the percentile ", round(myvar[["u"]], digits=3),")")
+    myperc_var=paste0(pm_report(myvar),"")
   } else {
 
-    myperc_var=paste0(pm_report(myvar)," (located in the percentile ", round(myvar[["u"]], digits=3),")")
+    myperc_var=paste0(pm_report(myvar),"")
   }
   return(myperc_var)
 }
@@ -394,8 +404,9 @@ report_method <- function(properties,pm){
       #pm_report(pm$pm_Efficiency),".",
       myperc_var1,".",
 
-      if((str_detect(myperc_var1, "low") && str_detect(myperc_var2, "high")) | (str_detect(myperc_var1, "high") && str_detect(myperc_var2, "low"))) {
-      " Conversely, " }
+      if((str_detect(myperc_var1, "low") && str_detect(myperc_var2, "high"))|(str_detect(myperc_var1, "high") && str_detect(myperc_var2, "low"))) {
+      " Conversely, "
+      }
         else if( (str_detect(myperc_var1, "average") && ( ( str_detect(myperc_var2, "high"))| (str_detect(myperc_var2, "low"))) ) |
                  (str_detect(myperc_var2, "average") && ( ( str_detect(myperc_var1, "high"))| (str_detect(myperc_var1, "low"))) ))  {
      "" }

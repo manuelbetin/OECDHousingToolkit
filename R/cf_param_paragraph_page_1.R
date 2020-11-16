@@ -1,5 +1,5 @@
 cf_param_paragraph_page_1=function(ctry_code,ctry_name,
-                                   stats_ht,
+                                   stats_ht,ht_avg_OECD,myctry_hh,
                                    gr_hp,
                                    avg_mortg,
                                    mortgage_data,
@@ -24,7 +24,7 @@ cf_param_paragraph_page_1=function(ctry_code,ctry_name,
   # 1 home-ownership stats: min max and below above or close t average
 
   sentence_homewonership=function(ht_avg_OECD, myctry_hh ){
-    if (identical(myctry_hh, numeric(0))){
+    if (is.na(myctry_hh)) {
       my_adv="We do not have data for the country in this dimension"
     }else{
       if (myctry_hh<=ht_avg_OECD-5){
@@ -43,22 +43,44 @@ cf_param_paragraph_page_1=function(ctry_code,ctry_name,
   #################################################################################
 
   sentence_rhp=function(gr_hp, ctry_code, ctry_name){
-    if (identical(gr_hp, numeric(0))){
-      my_adv="We do not have data for the country in this dimension"
-    }else{
-    if (gr_hp$rate<0){
+    if ( nrow(gr_hp) == 0){
+      my_sentence="We do not have data for the country in this dimension"
+    }else if (nrow(gr_hp) == 2){
+    if (gr_hp$rate[gr_hp$before_GFC==1]<=0 &gr_hp$rate[gr_hp$before_GFC==0]<=0){ # euqal to <=0 in both periods
       my_sentence=paste0("However, in few countries real house prices remained stable or even decreased, such as in ", ctry_name)
-    } else  if (gr_hp$rate>0 & gr_hp$rate<20){
+    } else  if (gr_hp$rate[gr_hp$before_GFC==1]>0 & gr_hp$rate[gr_hp$before_GFC==1]<20 & gr_hp$rate[gr_hp$before_GFC==0]>0 & gr_hp$rate[gr_hp$before_GFC==0]<20){ #moderate overall
       my_sentence=paste0("However, in few countries real house prices remained stable, such as in ", ctry_name)
-    } else if (gr_hp$rate>=20 & gr_hp$rate<=50){
+    } else if (gr_hp$rate[gr_hp$before_GFC==1]>=20 & gr_hp$rate[gr_hp$before_GFC==1]<=50 & gr_hp$rate[gr_hp$before_GFC==0]>=20 & gr_hp$rate[gr_hp$before_GFC==0]<=50){
       my_sentence=paste0(" However, ", ctry_name, " is one of the few countries exhibiting moderate increase in real house prices")
-    } else if (gr_hp$rate>50 & gr_hp$rate<100 & ctry_code=="ESP"){
-      my_sentence=paste0( "In the years preceding the onset of the Global Financial Crisis ", ctry_name, " exhibited a steep increase in real house prices")
-    }else if (gr_hp$rate>50 & gr_hp$rate<=100 & ctry_code!="ESP"){
+    } else if (gr_hp$rate[gr_hp$before_GFC==1]>50 & gr_hp$rate[gr_hp$before_GFC==1]<=100 & gr_hp$rate[gr_hp$before_GFC==0]>50 & gr_hp$rate[gr_hp$before_GFC==0]<=100){
       my_sentence=paste0( "In the period under review ", ctry_name, " exhibited a steep increase in real house prices")
-    }else if (gr_hp$rate>100){
+    }else if (gr_hp$rate[gr_hp$before_GFC==1]>100 & gr_hp$rate[gr_hp$before_GFC==0]>100){
       my_sentence=paste0(" ", ctry_name, " is among the countries exhibiting the highest increase in house prices")
+    }else if (gr_hp$rate[gr_hp$before_GFC==1]<gr_hp$OECD_av[gr_hp$before_GFC==1] & gr_hp$rate[gr_hp$before_GFC==0]>=gr_hp$OECD_av[gr_hp$before_GFC==0]){
+      my_sentence=paste0("In ", ctry_name, ", after growing at a slower pace in the early 2000s, house prices started to rise faster than the OECD average in 2011")
+    }else if (gr_hp$rate[gr_hp$before_GFC==1]>=gr_hp$OECD_av[gr_hp$before_GFC==1] & gr_hp$rate[gr_hp$before_GFC==0]<gr_hp$OECD_av[gr_hp$before_GFC==0]){
+      my_sentence=paste0("In ", ctry_name, ", after growing faster than OECD average in the early 2000s, house prices started to slow down after the Global Financial Crisis")
+    }else if (gr_hp$rate[gr_hp$before_GFC==1]>=gr_hp$OECD_av[gr_hp$before_GFC==1] & gr_hp$rate[gr_hp$before_GFC==0]>=gr_hp$OECD_av[gr_hp$before_GFC==0]){
+      my_sentence=paste0("In ", ctry_name, ", house prices have grown faster than OECD average")
+    }else if (gr_hp$rate[gr_hp$before_GFC==1]<gr_hp$OECD_av[gr_hp$before_GFC==1] & gr_hp$rate[gr_hp$before_GFC==0]<gr_hp$OECD_av[gr_hp$before_GFC==0]){
+      my_sentence=paste0("In ", ctry_name, ", house prices have grown slower than OECD average")
+    } else if  (ctry_code=="DEU"){
+      my_sentence="In Germany, after declining in the early 2000s, house prices started to rise faster than the OECD average in 2011 and its growth accelerated from 2016 onwards. The increase in rent prices was moderate compared to OECD countries"
+    }else if (ctry_code=="ESP"){
+      my_sentence=paste0( "In the years preceding the onset of the Global Financial Crisis, ", ctry_name, " exhibited a steep increase in real house prices")
     }
+    } else if (nrow(gr_hp) == 1){
+      if (gr_hp$rate<=0){ # euqal to <=0 in both periods
+        my_sentence=paste0("However, in few countries real house prices remained stable or even decreased, such as in ", ctry_name)
+      } else  if (gr_hp$rate>0 & gr_hp$rate<20){ #moderate overall
+        my_sentence=paste0("However, in few countries real house prices remained stable, such as in ", ctry_name)
+      } else if (gr_hp$rate>=20 & gr_hp$rate<=50 ){
+        my_sentence=paste0(" However, ", ctry_name, " is one of the few countries exhibiting moderate increase in real house prices")
+      } else if (gr_hp$rate>50 & gr_hp$rate<=100 ){
+        my_sentence=paste0( "In the period under review ", ctry_name, " exhibited a steep increase in real house prices")
+      }else if (gr_hp$rate>100 ){
+        my_sentence=paste0(" ", ctry_name, " is among the countries exhibiting the highest increase in house prices")
+      }
     }
     return(my_sentence)
   }
@@ -71,9 +93,9 @@ cf_param_paragraph_page_1=function(ctry_code,ctry_name,
 
 
   sentece_mortg=function(avg_mortg, mortgage_data_myctr,myctry_hh, ht_avg_OECD){
-    if (identical(mortgage_data_myctr, numeric(0))  ){
+    if (is.na(mortgage_data_myctr) )  {
       my_adv="We do not have data for the country in this dimension"
-    }  else if (identical(mortgage_data_myctr, numeric(0))==F & identical(myctry_hh, numeric(0))==F ){
+    }  else if (is.na(mortgage_data_myctr)==F & is.na(myctry_hh)==F  ){
       if (mortgage_data_myctr<avg_mortg-5 & myctry_hh<ht_avg_OECD-5){
         my_adv="modest, reflecting a relatively low homeownership rate"
       } else if (mortgage_data_myctr<avg_mortg-5 ){
@@ -85,15 +107,13 @@ cf_param_paragraph_page_1=function(ctry_code,ctry_name,
       }else if (mortgage_data_myctr>avg_mortg+5 ){
         my_adv="relatively high by international comparison"
       }
-      }  else if (identical(mortgage_data_myctr, numeric(0))==F & identical(myctry_hh, numeric(0)) ){
+      }  else if (is.na(mortgage_data_myctr)==F & is.na(myctry_hh)==T ){
       if (mortgage_data_myctr<avg_mortg-5) {
         my_adv="modest"
       } else if (mortgage_data_myctr<avg_mortg-5 ){
         my_adv="relatively modest"
       } else if (mortgage_data_myctr>avg_mortg-5.0 & mortgage_data_myctr<avg_mortg+5){
         my_adv="close to average by international comparison"
-      }else if (mortgage_data_myctr>avg_mortg+5){
-        my_adv="high"
       }else if (mortgage_data_myctr>avg_mortg+5 ){
         my_adv="relatively high by international comparison"
       }
@@ -108,9 +128,9 @@ cf_param_paragraph_page_1=function(ctry_code,ctry_name,
 
   sentence2=paste0("Households’ tenure choices depend on demographics and/or socio-economic factors,such as population ageing, as well as policies related to housing taxation and rental regulations. There are large differences in tenure structure across OECD and key partner countries: homeownership in ", ctry_name," is ", sentence_homewonership(ht_avg_OECD, myctry_hh)," OECD average (Figure a). ")
 
-  sentence3=paste0("Real house prices and rent prices have risen strongly in many countries since the 1990s with prices increasing by more than 100% in those countries experiencing the largest increases (Figure b, c). ",sentence_rhp(gr_hp, ctry_code, ctry_name), ".")
+  sentence3=paste0("Real house prices and rent prices have risen strongly in many countries since the 1990s, with prices increasing by more than 100% in those countries experiencing the largest increases (Figure b, c). ",sentence_rhp(gr_hp, ctry_code, ctry_name), ".")
 
-  sentence4=paste0("Finally, mortgage markets play a crucial role in housing markets since housing generally constitutes the household's single largest financial outlay. The share of households' mortgage claims in terms of GDP in ", ctry_name," is ", sentece_mortg(avg_mortg, mortgage_data_myctr,myctry_hh, ht_avg_OECD)," (Figure d).")
+  sentence4=paste0(" Finally, mortgage markets play a crucial role in housing markets since housing generally constitutes the household's single largest financial outlay. The share of outstanding households' mortgage claims in terms of GDP in ", ctry_name," is ", sentece_mortg(avg_mortg, mortgage_data_myctr,myctry_hh, ht_avg_OECD)," (Figure d).")
 
   return(paste0(sentence1,sentence2,sentence3,sentence4, sep=" "))
 

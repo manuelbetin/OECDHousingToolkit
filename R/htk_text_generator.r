@@ -37,13 +37,14 @@ htk_text_generator=function(data,category,ranking,ctry,var_codes){
     }
     mydt<<-mydt %>% mutate_at(vars(main_vars_rank),test)
 
-    output <-"paragraphs_1.R"
+    #source("/Users/federicadepace/Dropbox (personal)/OECD/projects/paragraphs_2.R")
+    output <-"paragraphs_2.R"
 
     current.folder=system.file("extdata", package = "OECDHousingToolkit")
     local.folder <- "."
       file.copy(paste0(current.folder,"/",output), local.folder,overwrite = T)
       source(output)
-#source("/Users/myname/Dropbox (folder)/OECD/projects/paragraphs_1.R")
+
     #include the paragraphs in the database for each country
     mydt=mydt %>% filter(Iso_code3==ctry)
     mydt[[category]]=NA
@@ -60,12 +61,12 @@ htk_text_generator=function(data,category,ranking,ctry,var_codes){
     #rio::export(mydt,paste0("htk_paragraphs_",category,".csv"),sep=";")
   }else{
     mydt=data.frame(ctry,
+                    paste0("The ",category, " of the housing sector in ",countrycode(ctry,origin="iso3c",destination="country.name")," cannot be assess based on available data.
+                           Improvements on data collection should be undertaken"),
                     paste0("The ",category, "of the housing sector in ",countrycode(ctry,origin="iso3c",destination="country.name")," cannot be assess based on available data.
-                           Improvments on data collection should be undertaken"),
+                           Improvements on data collection should be undertaken"),
                     paste0("The ",category, "of the housing sector in ",countrycode(ctry,origin="iso3c",destination="country.name")," cannot be assess based on available data.
-                           Improvments on data collection should be undertaken"),
-                    paste0("The ",category, "of the housing sector in ",countrycode(ctry,origin="iso3c",destination="country.name")," cannot be assess based on available data.
-                           Improvments on data collection should be undertaken"))
+                           Improvements on data collection should be undertaken"))
     colnames(mydt)=c("Iso_code3","efficiency","inclusiveness","sustainability")
   }
 
