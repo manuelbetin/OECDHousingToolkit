@@ -253,7 +253,7 @@ t_pm_myvar3 <- function(y){
      paste0("Accessibility of cultural point of interest is fairly equal between people living in urban centers and people residing in commuting areas, suggesting a relatively low level of segregation and a high level of inclusiveness by international comparison"),
      paste0("Accessibility of cultural point of interest is fairly equal between people living in urban centers and people residing in commuting areas, suggesting a relatively low level of segregation and a high level of inclusiveness by international comparison")
      )
- }else if (mycategory_label=="inclusiveness" & myvar3_label!="commuting time" & myvar3_label!="access to culture") {
+ }else if (mycategory_label=="inclusiveness" & myvar3_label!="commuting time" & myvar3_label!="equality of access to culture in cities") {
    templates <- c(
      paste0(" ", myvar3_label," there is unfortunately no data available for targetcountry"),
      paste0("average ", myvar3_label, " is among the lowest by international comparison"),
