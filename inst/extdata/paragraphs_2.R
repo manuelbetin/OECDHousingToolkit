@@ -168,13 +168,13 @@ t_pm_myvar2 <- function(y){
   if(mycategory_label=="efficiency") {
     templates <- c(
       paste0(" ",myvar2_label," there is unfortunately no data available for targetcountry"),
-      paste0(" targetcountry displays among the lowest ",myvar2_label, " which would suggest appropriate supply responsiveness on average across regions and localities"),
-      paste0(" targetcountry displays relatively low ",myvar2_label, " which would suggest appropriate supply responsiveness on average across regions and localities"),
-      paste0(" targetcountry displays relatively low ",myvar2_label, " which would suggest appropriate supply responsiveness on average across regions and localities"),
+      paste0(" targetcountry displays among the lowest ",myvar2_label, ", which would suggest appropriate supply responsiveness on average across regions and localities"),
+      paste0(" targetcountry displays relatively low ",myvar2_label, ", which would suggest appropriate supply responsiveness on average across regions and localities"),
+      paste0(" targetcountry displays relatively low ",myvar2_label, ", which would suggest appropriate supply responsiveness on average across regions and localities"),
       paste0(" targetcountry displays  average ", myvar2_label, ", which would suggest appropriate supply responsiveness on average across regions and localities"),
-      paste0(" targetcountry displays relatively high ",myvar2_label, " which would suggest comparatively low supply responsiveness on average across regions and localities"),
-      paste0(" targetcountry displays relatively high ",myvar2_label, " which would suggest comparatively low supply responsiveness on average across regions and localities"),
-      paste0(" targetcountry displays among the highest ",myvar2_label, " which would suggest comparatively low supply responsiveness on average across regions and localities")
+      paste0(" targetcountry displays relatively high ",myvar2_label, ", which would suggest comparatively low supply responsiveness on average across regions and localities"),
+      paste0(" targetcountry displays relatively high ",myvar2_label, ", which would suggest comparatively low supply responsiveness on average across regions and localities"),
+      paste0(" targetcountry displays among the highest ",myvar2_label, ", which would suggest comparatively low supply responsiveness on average across regions and localities")
     )
 } else if (mycategory_label=="inclusiveness") {
     templates <- c(
