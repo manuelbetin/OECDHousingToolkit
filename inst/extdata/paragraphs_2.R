@@ -245,14 +245,14 @@ t_pm_myvar3 <- function(y){
  } else if (mycategory_label=="inclusiveness" & myvar3_label=="access to culture" ) {
    templates <- c(
      paste0(" ", myvar3_label," there is unfortunately no data available for targetcountry"),
-     paste0("average ", myvar3_label, " is among the lowest by international comparison. This suggests that expensive housing forces households to live far from amenities and well-paid jobs"),
-     paste0("average ", myvar3_label, " is relatively low by international comparison. This suggests that expensive housing forces households to live far from amenities and well-paid jobs"),
-     paste0("average ", myvar3_label, " is relatively low by international comparison. This suggests that expensive housing forces households to live far from amenities and well-paid jobs"),
-     paste0("average ", myvar3_label, " is in line with OECD average."),
-     paste0("average ", myvar3_label, " is relatively high by international comparison. This suggests that housing costs allow households to easily reach amenities and well-paid jobs"),
-     paste0("average ", myvar3_label, " is relatively high by international comparison. This suggests that housing costs allow households to easily reach amenities and well-paid jobs"),
-     paste0("average ", myvar3_label, " is among the highest by international comparison. This suggests that housing costs allow households to easily reach amenities and well-paid jobs")
-   )
+     paste0("Accessibility of cultural point of interest is very unequal between people living in urban centers and people residing in commuting areas, suggesting a relatively high level of segregation and a low level of inclusiveness by international comparison"),
+     paste0("Accessibility of cultural point of interest is very unequal between people living in urban centers and people residing in commuting areas, suggesting a relatively high level of segregation and a low level of inclusiveness by international comparison"),
+     paste0("Accessibility of cultural point of interest is rather unequal between people living in urban centers and people residing in commuting areas, suggesting a average level of segregation and a average level of inclusiveness by international comparison"),
+     paste0("Accessibility of cultural point of interest is rather unequal between people living in urban centers and people residing in commuting areas, suggesting a average level of segregation and a average level of inclusiveness by international comparison"),
+     paste0("Accessibility of cultural point of interest is fairly equal between people living in urban centers and people residing in commuting areas, suggesting a relatively low level of segregation and a high level of inclusiveness by international comparison"),
+     paste0("Accessibility of cultural point of interest is fairly equal between people living in urban centers and people residing in commuting areas, suggesting a relatively low level of segregation and a high level of inclusiveness by international comparison"),
+     paste0("Accessibility of cultural point of interest is fairly equal between people living in urban centers and people residing in commuting areas, suggesting a relatively low level of segregation and a high level of inclusiveness by international comparison")
+     )
  }else if (mycategory_label=="inclusiveness" & myvar3_label!="commuting time" & myvar3_label!="access to culture") {
    templates <- c(
      paste0(" ", myvar3_label," there is unfortunately no data available for targetcountry"),
