@@ -44,7 +44,7 @@ rm(input1)
 #provide the labels to the indicators and the categories that will be
 #used in the text as well as definitions for each categories
 
-definition=c(efficiency=" measures the economy’s capacity to align housing supply with housing demand, thereby limiting excessive price and rent increases, contributing to macroeconomic stability and facilitating residential mobility",
+definition=c(efficiency=" measures the economy’s capacity to align housing supply with demand, thereby limiting excessive price and rent increases, contributing to macroeconomic stability and facilitating residential mobility",
              inclusiveness=" refers to the housing sector’s capacity to deliver adequate and affordable homes across the income distribution while limiting residential segregation",
              sustainability=" assesses the housing sector's readiness for the transition to a low-carbon economy and its capacity to attenuate pressures on the ecosystem by preserving biodiversity and residents' health")
 
@@ -109,13 +109,13 @@ g_pm_myvar1 <- function(u,y){
     if(mycategory_label=="efficiency") {
     templates <- c(
       paste0(" ",myvar1_label," there is unfortunately no data available for targetcountry"),
-      paste0(" In targetcountry, ", myvar1_label, ", a measure for the overall affordability of housing, is among the lowest in OECD countries"),
-      paste0(" In targetcountry, ", myvar1_label, ", a measure for the overall affordability of housing, is low compared with other OECD countries "),
-      paste0(" In targetcountry, ", myvar1_label, ", a measure for the overall affordability of housing, is low compared with other OECD countries "),
-      paste0(" In targetcountry, ", myvar1_label, ", a measure for the overall affordability of housing, is close with OECD average "),
-      paste0(" In targetcountry, ", myvar1_label, ", a measure for the overall affordability of housing, is high compared with other OECD countries "),
-      paste0(" In targetcountry, ", myvar1_label, ", a measure for the overall affordability of housing, is high compared with other OECD countries "),
-      paste0(" In targetcountry, ", myvar1_label, ", a measure for the overall affordability of housing, is among the highest in OECD countries ")
+      paste0(" In targetcountry, ", myvar1_label, ", which measure the overall affordability of housing, are among the lowest in OECD countries"),
+      paste0(" In targetcountry, ", myvar1_label, ", which measure the overall affordability of housing, are low compared with other OECD countries"),
+      paste0(" In targetcountry, ", myvar1_label, ", which measure the overall affordability of housing, are low compared with other OECD countries"),
+      paste0(" In targetcountry, ", myvar1_label, ", which measure the overall affordability of housing, are close with OECD average"),
+      paste0(" In targetcountry, ", myvar1_label, ", which measure the overall affordability of housing, are high compared with other OECD countries"),
+      paste0(" In targetcountry, ", myvar1_label, ", which measure the overall affordability of housing, are high compared with other OECD countries"),
+      paste0(" In targetcountry, ", myvar1_label, ", which measure the overall affordability of housing, are among the highest in OECD countries")
     )
   }
  else if(mycategory_label=="inclusiveness") {
