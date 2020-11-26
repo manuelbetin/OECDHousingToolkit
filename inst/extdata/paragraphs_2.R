@@ -275,7 +275,18 @@ t_pm_myvar3 <- function(y){
      paste0(" In targetcountry, the coverage of natural and semi-natural land in urban areas is relatively high by international comparison, indicating a modest degree of urbanization across the country on average"),
      paste0(" In targetcountry, the coverage of natural and semi-natural land in urban areas is among the highest by international comparison, indicating a modest degree of urbanization across the country on average")
    )
- }else if (mycategory_label=="sustainability" & myvar3_label!="urban area biodiversity") {
+ }else if (mycategory_label=="sustainability"& myvar3_label=="access to green space") {
+   templates <- c(
+     paste0(" ", myvar3_label," there is unfortunately no data available for targetcountry"),
+     paste0(" In targetcountry, the average access to green space in cities is among the lowest by international comparison"),
+     paste0(" In targetcountry, the average access to green space in cities is relatively low by international comparison"),
+     paste0(" In targetcountry, the average access to green space in cities is relatively low by international comparison"),
+     paste0(" In targetcountry, the average access to green space in cities is in line with OECD average"),
+     paste0(" In targetcountry, the average access to green space in cities is relatively high by international comparison"),
+     paste0(" In targetcountry, the average access to green space in cities is relatively high by international comparison"),
+     paste0(" In targetcountry, the average access to green space in cities is among the highest by international comparison")
+   )
+ }else if (mycategory_label=="sustainability" & myvar3_label!="urban area biodiversity"& myvar3_label!="access to green space") {
    templates <- c(
      paste0(" ", myvar3_label," there is unfortunately no data available for targetcountry"),
      paste0(" targetcountry's ", myvar3_label, " is among the lowest, by international comparison"),
