@@ -44,12 +44,9 @@ rm(input1)
 #provide the labels to the indicators and the categories that will be
 #used in the text as well as definitions for each categories
 
-definition=c(efficiency=" measures the economy’s capacity to align housing supply with housing demand, thereby limiting excessive price and rent increases,
-              contributing to macroeconomic stability and facilitating residential mobility",
-             inclusiveness=" refers to the housing sector’s capacity to deliver adequate and affordable homes across the income distribution
-             while limiting residential segregation",
-             sustainability=" assesses the housing sector's readiness for the transition to a low-carbon economy and its capacity to attenuate
-             pressures on the ecosystem by preserving biodiversity and residents' health")
+definition=c(efficiency=" measures the economy’s capacity to align housing supply with housing demand, thereby limiting excessive price and rent increases, contributing to macroeconomic stability and facilitating residential mobility",
+             inclusiveness=" refers to the housing sector’s capacity to deliver adequate and affordable homes across the income distribution while limiting residential segregation",
+             sustainability=" assesses the housing sector's readiness for the transition to a low-carbon economy and its capacity to attenuate pressures on the ecosystem by preserving biodiversity and residents' health")
 
 
 mycategory_label=tolower(category)
@@ -237,24 +234,24 @@ t_pm_myvar3 <- function(y){
  } else if (mycategory_label=="inclusiveness" & myvar3_label=="commuting time" ) {
     templates <- c(
       paste0(" ", myvar3_label," there is unfortunately no data available for targetcountry"),
-      paste0("average ", myvar3_label, " is among the lowest, by international comparison" , "which suggests that very few workers live far from their workplace. This hints at comparatively efficient residential mobility, efficient worker-job matching and low levels of exclusion."),
-      paste0("average ", myvar3_label, " is relatively low, by international comparison", "which suggests that few workers live far from their workplace. This hints at comparatively efficient residential mobility, efficient worker-job matching and low levels of exclusion."),
+      paste0("average ", myvar3_label, " is among the lowest, by international comparison" , "which suggests that very few workers live far from their workplace. This hints at comparatively efficient residential mobility, efficient worker-job matching and low levels of exclusion"),
+      paste0("average ", myvar3_label, " is relatively low, by international comparison", "which suggests that few workers live far from their workplace. This hints at comparatively efficient residential mobility, efficient worker-job matching and low levels of exclusion"),
       paste0("average ", myvar3_label, " is relatively low, by international comparison, which suggests that few workers live far from their workplace. This hints at comparatively efficient residential mobility, efficient worker-job matching and low levels of exclusion"),
-      paste0("average ", myvar3_label, " is in line with the OECD average, which suggests that some workers live far from their workplace. This hints at average levels of residential mobility, moderate worker-job matching and average levels of exclusion."),
-      paste0("average ", myvar3_label, " is relatively high, by international comparison, which suggests that many workers live far from their workplace. This hints at comparatively constrained residential mobility, weak worker-job matching and high levels of exclusion."),
-      paste0("average ", myvar3_label, " is relatively high, by international comparison, which suggests that many workers live far from their workplace. This hints at comparatively constrained residential mobility, weak worker-job matching and high levels of exclusion."),
-      paste0("average ", myvar3_label, " is among the highest, by international comparison, which suggests that most workers live far from their workplace. This hints at comparatively constrained residential mobility, weak worker-job matching and high levels of exclusion.")
+      paste0("average ", myvar3_label, " is in line with the OECD average, which suggests that some workers live far from their workplace. This hints at average levels of residential mobility, moderate worker-job matching and average levels of exclusion"),
+      paste0("average ", myvar3_label, " is relatively high, by international comparison, which suggests that many workers live far from their workplace. This hints at comparatively constrained residential mobility, weak worker-job matching and high levels of exclusion"),
+      paste0("average ", myvar3_label, " is relatively high, by international comparison, which suggests that many workers live far from their workplace. This hints at comparatively constrained residential mobility, weak worker-job matching and high levels of exclusion"),
+      paste0("average ", myvar3_label, " is among the highest, by international comparison, which suggests that most workers live far from their workplace. This hints at comparatively constrained residential mobility, weak worker-job matching and high levels of exclusion")
     )
  } else if (mycategory_label=="inclusiveness" & myvar3_label=="access to culture" ) {
    templates <- c(
      paste0(" ", myvar3_label," there is unfortunately no data available for targetcountry"),
-     paste0("average ", myvar3_label, " is among the lowest, by international comparison. This suggests that expensive housing forces households to live far from amenities and well-paid jobs."),
-     paste0("average ", myvar3_label, " is relatively low, by international comparison. This suggests that expensive housing forces households to live far from amenities and well-paid jobs."),
-     paste0("average ", myvar3_label, " is relatively low, by international comparison. This suggests that expensive housing forces households to live far from amenities and well-paid jobs."),
+     paste0("average ", myvar3_label, " is among the lowest, by international comparison. This suggests that expensive housing forces households to live far from amenities and well-paid jobs"),
+     paste0("average ", myvar3_label, " is relatively low, by international comparison. This suggests that expensive housing forces households to live far from amenities and well-paid jobs"),
+     paste0("average ", myvar3_label, " is relatively low, by international comparison. This suggests that expensive housing forces households to live far from amenities and well-paid jobs"),
      paste0("average ", myvar3_label, " is in line with OECD average."),
-     paste0("average ", myvar3_label, " is relatively high, by international comparison. This suggests that housing costs allow households to easily reach amenities and well-paid jobs."),
-     paste0("average ", myvar3_label, " is relatively high, by international comparison. This suggests that housing costs allow households to easily reach amenities and well-paid jobs."),
-     paste0("average ", myvar3_label, " is among the highest, by international comparison. This suggests that housing costs allow households to easily reach amenities and well-paid jobs.")
+     paste0("average ", myvar3_label, " is relatively high, by international comparison. This suggests that housing costs allow households to easily reach amenities and well-paid jobs"),
+     paste0("average ", myvar3_label, " is relatively high, by international comparison. This suggests that housing costs allow households to easily reach amenities and well-paid jobs"),
+     paste0("average ", myvar3_label, " is among the highest, by international comparison. This suggests that housing costs allow households to easily reach amenities and well-paid jobs")
    )
  }else if (mycategory_label=="inclusiveness" & myvar3_label!="commuting time" & myvar3_label!="access to culture") {
    templates <- c(
