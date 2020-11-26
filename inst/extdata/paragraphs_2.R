@@ -242,7 +242,7 @@ t_pm_myvar3 <- function(y){
       paste0("average ", myvar3_label, " is relatively high by international comparison, which suggests that many workers live far from their workplace. This hints at comparatively constrained residential mobility, weak worker-job matching and high levels of exclusion"),
       paste0("average ", myvar3_label, " is among the highest by international comparison, which suggests that most workers live far from their workplace. This hints at comparatively constrained residential mobility, weak worker-job matching and high levels of exclusion")
     )
- } else if (mycategory_label=="inclusiveness" & myvar3_label=="access to culture" ) {
+ } else if (mycategory_label=="inclusiveness" & myvar3_label=="equality of access to culture in cities" ) {
    templates <- c(
      paste0(" ", myvar3_label," there is unfortunately no data available for targetcountry"),
      paste0("Accessibility of cultural point of interest is very unequal between people living in urban centers and people residing in commuting areas, suggesting a relatively high level of segregation and a low level of inclusiveness by international comparison"),
