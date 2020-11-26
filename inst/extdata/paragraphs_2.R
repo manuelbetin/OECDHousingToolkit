@@ -242,7 +242,7 @@ t_pm_myvar3 <- function(y){
       paste0("average ", myvar3_label, " is relatively high by international comparison, which suggests that many workers live far from their workplace. This hints at comparatively constrained residential mobility, weak worker-job matching and high levels of exclusion"),
       paste0("average ", myvar3_label, " is among the highest by international comparison, which suggests that most workers live far from their workplace. This hints at comparatively constrained residential mobility, weak worker-job matching and high levels of exclusion")
     )
- } else if (mycategory_label=="inclusiveness" & myvar3_label=="equality of access to culture in cities" ) {
+ } else if (mycategory_label=="inclusiveness" & myvar3_label=="equality of access \nto culture in cities" ) {
    templates <- c(
      paste0(" ", myvar3_label," there is unfortunately no data available for targetcountry"),
      paste0("Accessibility of cultural point of interest is very unequal between people living in urban centers and people residing in commuting areas, suggesting a relatively high level of segregation and a low level of inclusiveness by international comparison"),
@@ -253,7 +253,7 @@ t_pm_myvar3 <- function(y){
      paste0("Accessibility of cultural point of interest is fairly equal between people living in urban centers and people residing in commuting areas, suggesting a relatively low level of segregation and a high level of inclusiveness by international comparison"),
      paste0("Accessibility of cultural point of interest is fairly equal between people living in urban centers and people residing in commuting areas, suggesting a relatively low level of segregation and a high level of inclusiveness by international comparison")
      )
- }else if (mycategory_label=="inclusiveness" & myvar3_label!="commuting time" & myvar3_label!="equality of access to culture in cities") {
+ }else if (mycategory_label=="inclusiveness" & myvar3_label!="commuting time" & myvar3_label!="equality of access \nto culture in cities") {
    templates <- c(
      paste0(" ", myvar3_label," there is unfortunately no data available for targetcountry"),
      paste0("average ", myvar3_label, " is among the lowest by international comparison"),
@@ -286,7 +286,7 @@ t_pm_myvar3 <- function(y){
      paste0(" In targetcountry, the average access to green space in cities is relatively high by international comparison"),
      paste0(" In targetcountry, the average access to green space in cities is among the highest by international comparison")
    )
- }else if (mycategory_label=="sustainability" & myvar3_label!="urban area biodiversity"& myvar3_label!="access to green space") {
+ }else if (mycategory_label=="sustainability" & myvar3_label!="urban area \nbiodiversity"& myvar3_label!="access to green space") {
    templates <- c(
      paste0(" ", myvar3_label," there is unfortunately no data available for targetcountry"),
      paste0(" targetcountry's ", myvar3_label, " is among the lowest, by international comparison"),
