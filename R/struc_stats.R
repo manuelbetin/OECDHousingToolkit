@@ -115,12 +115,38 @@ mortgage_data<-data.frame(mortgage_data)
 OECD_mrg_avg<- data.frame(OECD_mrg_avg)
 
 mortgage_data_fin<-rbind(mortgage_data, OECD_mrg_avg)
+#################################################################################
+# 5 INV / GDP
+################################################################################
+IH_GDP=struc %>% select(ISO3_code, period, IH_GDP)%>% filter(year(period)>=1990)
+IH_GDP <- na.omit(IH_GDP  )
+
+IH_GDP<- IH_GDP %>%arrange(ISO3_code,period) %>%group_by(ISO3_code)  %>%
+  arrange(ISO3_code,period)%>% group_by(ISO3_code)
+
+#keep 2019 and 2000 for who has it
+stats_IH_GDP<-IH_GDP %>% arrange(ISO3_code,period)  %>% group_by(ISO3_code) %>%
+  mutate(
+         sd=sd(IH_GDP),
+         rate=((IH_GDP-lag(IH_GDP))/lag(IH_GDP))*100,
+         av_rate=mean(rate, na.rm=T),
+         av_sd=mean(sd, na.rm=T))  %>% ungroup()%>%
+ mutate(OECD_gr= mean(rate, na.rm=T), OECD_sd=mean(sd, na.rm=T) ) %>%
+  filter(year(period)==last(year(period)))%>%
+ select(ISO3_code, period, av_rate , OECD_gr,  av_sd, OECD_sd )
+
+
+
+
+
+
 return(list(house_tenure_data, stats_ht, ht_avg_OECD, myctry_hh,
             stats_hp, gr_hp,
             stats_rentp,
             avg_mortg,
             mortgage_data_fin,
-            mortgage_data_myctr))
+            mortgage_data_myctr,
+            stats_IH_GDP, IH_GDP))
 }
 
 
