@@ -117,7 +117,18 @@ g_pm_myvar1 <- function(u,y){
       paste0(" In targetcountry, ", myvar1_label, ", which measure the overall affordability of housing, are high compared with other OECD countries"),
       paste0(" In targetcountry, ", myvar1_label, ", which measure the overall affordability of housing, are among the highest in OECD countries")
     )
-  }
+    } if(mycategory_label=="efficiency" & myvar1_label == "housing \nexpenses") {
+      templates <- c(
+        paste0(" ",myvar1_label," there is unfortunately no data available for targetcountry"),
+        paste0(" In targetcountry, housing costs, comprising actual rents as well as manteinance and repair of dwellings, make up a low share of overall household expenditure compared with the average OECD country"),
+        paste0(" In targetcountry, housing costs, comprising actual rents as well as manteinance and repair of dwellings, make up a low share of overall household expenditure compared with the average OECD country"),
+        paste0(" In targetcountry, housing costs, comprising actual rents as well as manteinance and repair of dwellings, make up a low share of overall household expenditure compared with the average OECD country"),
+        paste0(" In targetcountry, housing costs, comprising actual rents as well as manteinance and repair of dwellings, make up a moderate share of overall household expenditure compared with the average OECD country"),
+        paste0(" In targetcountry, housing costs, comprising actual rents as well as manteinance and repair of dwellings, make up a high share of overall household expenditure compared with the average OECD country"),
+        paste0(" In targetcountry, housing costs, comprising actual rents as well as manteinance and repair of dwellings, make up a high share of overall household expenditure compared with the average OECD country"),
+        paste0(" In targetcountry, housing costs, comprising actual rents as well as manteinance and repair of dwellings, make up a high share of overall household expenditure compared with the average OECD country")
+      )
+    }
  else if(mycategory_label=="inclusiveness" & myvar1_label!="overcrowding rate") {
     templates <- c(
       paste0(" ",myvar1_label," there is unfortunately no data available for targetcountry"),
@@ -188,7 +199,18 @@ t_pm_myvar2 <- function(y){
       paste0(" targetcountry displays relatively high ",myvar2_label, ", which would suggest comparatively low supply responsiveness on average across regions and localities"),
       paste0(" targetcountry displays among the highest ",myvar2_label, ", which would suggest comparatively low supply responsiveness on average across regions and localities")
     )
-} else if (mycategory_label=="inclusiveness") {
+  } if(mycategory_label=="efficiency" & myvar2_label=="house price\n volatility") {
+    templates <- c(
+      paste0(" ",myvar2_label," there is unfortunately no data available for targetcountry"),
+      paste0(" House price volatility is relatively low in targetcountry, suggesting little evidence for the built-up of vulnerabilities in the housing sector"),
+      paste0(" House price volatility is relatively low in targetcountry, suggesting little evidence for the built-up of vulnerabilities in the housing sector"),
+      paste0(" House price volatility is relatively low in targetcountry, suggesting little evidence for the built-up of vulnerabilities in the housing sector"),
+      paste0(" House price volatility is moderate in targetcountry, inviting for a careful assignment of possible vulnerabilities in the housing sector"),
+      paste0(" House price volatility is moderate in targetcountry, inviting for a careful assignment of possible vulnerabilities in the housing sector"),
+      paste0(" House price volatility is relatively high in targetcountry, which could be a threat to the resilience of the housing market"),
+      paste0(" House price volatility is relatively high in targetcountry which could be a threat to the resilience of the housing market")
+    )
+    }else if (mycategory_label=="inclusiveness") {
     templates <- c(
       paste0(" ",myvar2_label," there is unfortunately no data available for targetcountry"),
       paste0(" it is among the countries with the lowest level of ", myvar2_label,", measured by the ", myvar2_label_long ),
