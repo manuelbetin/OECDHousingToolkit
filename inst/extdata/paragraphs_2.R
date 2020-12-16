@@ -106,7 +106,7 @@ g_pm_myvar1 <- function(u,y){
   y }
 
   t_pm_myvar1 <- function(y){
-    if(mycategory_label=="efficiency") {
+    if(mycategory_label=="efficiency"& myvar1_label != "housing \nexpenses") {
     templates <- c(
       paste0(" ",myvar1_label," there is unfortunately no data available for targetcountry"),
       paste0(" In targetcountry, ", myvar1_label, ", which measure the overall affordability of housing, are among the lowest in OECD countries"),
@@ -128,8 +128,7 @@ g_pm_myvar1 <- function(u,y){
         paste0(" In targetcountry, housing costs, comprising actual rents as well as manteinance and repair of dwellings, make up a high share of overall household expenditure compared with the average OECD country"),
         paste0(" In targetcountry, housing costs, comprising actual rents as well as manteinance and repair of dwellings, make up a high share of overall household expenditure compared with the average OECD country")
       )
-    }
- else if(mycategory_label=="inclusiveness" & myvar1_label!="overcrowding rate") {
+    } else if(mycategory_label=="inclusiveness" & myvar1_label!="overcrowding rate") {
     templates <- c(
       paste0(" ",myvar1_label," there is unfortunately no data available for targetcountry"),
       paste0(" targetcountry displays among the lowest ",myvar1_label, " measured as the ", myvar1_label_long ),
@@ -188,7 +187,7 @@ g_pm_myvar2<- function(u,y){
   y }
 
 t_pm_myvar2 <- function(y){
-  if(mycategory_label=="efficiency") {
+  if(mycategory_label=="efficiency"& myvar2_label!="house price\n volatility") {
     templates <- c(
       paste0(" ",myvar2_label," there is unfortunately no data available for targetcountry"),
       paste0(" targetcountry displays among the lowest ",myvar2_label, ", which would suggest appropriate supply responsiveness on average across regions and localities"),
