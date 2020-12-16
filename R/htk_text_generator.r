@@ -37,7 +37,7 @@ htk_text_generator=function(data,category,ranking,ctry,var_codes){
     }
     mydt<<-mydt %>% mutate_at(vars(main_vars_rank),test)
 
-    #source("/Users/federicadepace/Dropbox (personal)/OECD/projects/paragraphs_2.R")
+    #source("/Users/federicadepace/Dropbox (personal)/OECD/projects/paragraphs_3.R")
     output <-"paragraphs_2.R"
 
     current.folder=system.file("extdata", package = "OECDHousingToolkit")

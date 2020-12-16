@@ -118,7 +118,7 @@ g_pm_myvar1 <- function(u,y){
       paste0(" In targetcountry, ", myvar1_label, ", which measure the overall affordability of housing, are among the highest in OECD countries")
     )
   }
- else if(mycategory_label=="inclusiveness") {
+ else if(mycategory_label=="inclusiveness" & myvar1_label!="overcrowding rate") {
     templates <- c(
       paste0(" ",myvar1_label," there is unfortunately no data available for targetcountry"),
       paste0(" targetcountry displays among the lowest ",myvar1_label, " measured as the ", myvar1_label_long ),
@@ -130,6 +130,18 @@ g_pm_myvar1 <- function(u,y){
       paste0(" targetcountry displays among the highest ",myvar1_label, ", measured as the ", myvar1_label_long)
     )
  }
+  else if(mycategory_label=="inclusiveness" & myvar1_label=="overcrowding rate" ) {
+    templates <- c(
+      paste0(" ",myvar1_label," there is unfortunately no data available for targetcountry"),
+      paste0(" targetcountry displays among the lowest ",myvar1_label),
+      paste0(" targetcountry displays relatively low ",myvar1_label),
+      paste0(" targetcountry displays relatively low ",myvar1_label),
+      paste0(" targetcountry displays average ",myvar1_label),
+      paste0(" targetcountry displays relatively high ",myvar1_label),
+      paste0(" targetcountry displays relatively high ",myvar1_label),
+      paste0(" targetcountry displays among the highest ",myvar1_label)
+    )
+  }
     else if(mycategory_label=="sustainability"){
       templates <- c(
         paste0(" ",myvar1_label," there is unfortunately no data available for targetcountry"),
