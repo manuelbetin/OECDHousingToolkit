@@ -20,7 +20,7 @@ htk_barplot_func <- function(data_source,yvar,country,title,subtitle=NULL,Xlabel
   }   else {
     myctry=countrycode::countrycode(country,origin="iso3c",destination="country.name")
     plot<-ggplot()+
-      geom_text(aes(x=10,y=10,label=paste0(myctry, " has no data available for this dimension")))+
+      geom_text(aes(x=10,y=10,label=paste0("The country has no data available for this dimension")))+
       geom_point(aes(x=c(0,20),y=c(0,20)),color="white")+
       theme_void()
   }
