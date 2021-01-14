@@ -128,13 +128,13 @@ htk_cyc_new=function(mydata,ranking, ctry,var_codes, sec_col, type_var, title=NU
       geom_point(aes(x=1 ), shape=1, color='grey', size=mysize) +
       geom_text(size=3.5,data=mylabels%>%filter(mycolor=="minmax"),
                 aes(x=x,vjust=-0.5,label=mylabel,color=mycolor,lineheight = .8))+
-      geom_text_repel(seed = 10, size=3.5,
+      geom_text_repel(seed = 10, size=3,
                       data=mylabels%>%filter(mycolor=="OECD"),
                       nudge_y = 0.15,
                       # direction="y",
                       force=3,
                       aes(x=x,label=mylabel,color=mycolor,lineheight = .8))+
-      geom_text_repel(seed = 10, size=3.5,
+      geom_text_repel(seed = 10, size=3,
                       data=mylabels%>%filter(mycolor=="ctry"),
                       nudge_y = -0.15,
                       # direction="y",
