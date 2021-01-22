@@ -3,7 +3,7 @@ cf_param_paragraph_page_1=function(ctry_code,ctry_name,
                                    gr_hp,
                                    avg_mortg,
                                    mortgage_data,
-                                   mortgage_data_myctr, IH_GDP){
+                                   mortgage_data_myctr, IH_GDP_stats){
 
 
   #' @title generate the paragraph of text in page 1 of the country fiche
