@@ -126,9 +126,9 @@ htk_cyc_new=function(mydata,ranking, ctry,var_codes, sec_col, type_var, title=NU
       geom_point(aes(x=rank_OECD  ) , shape=18, color="darkgreen", size=mysize) +
       geom_point(aes(x=0), shape=1, color='grey', size=mysize)  +
       geom_point(aes(x=1 ), shape=1, color='grey', size=mysize) +
-      geom_text(size=3,data=mylabels%>%filter(mycolor=="minmax"),
+      geom_text(size=2.8,data=mylabels%>%filter(mycolor=="minmax"),
                 aes(x=x,vjust=-0.5,label=mylabel,color=mycolor,lineheight = .8))+
-      geom_text_repel(seed = 10, size=3,
+      geom_text_repel(seed = 10, size=2.8,
                       data=mylabels%>%filter(mycolor=="OECD"),
                       nudge_y = 0.15,
                       # direction="y",
@@ -145,7 +145,7 @@ htk_cyc_new=function(mydata,ranking, ctry,var_codes, sec_col, type_var, title=NU
       theme(panel.background = element_blank(),
             axis.text.x = element_blank(),
             plot.title=element_blank(),
-            axis.text.y = element_text(size=13,color=sec_col, face="bold"),
+            axis.text.y = element_text(size=12,color=sec_col, face="bold"),
             axis.ticks =element_blank(),
             legend.position = 'none',
             axis.title = element_blank())
