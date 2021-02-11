@@ -40,7 +40,7 @@ prep_data_indsel=function(mydata,ranking,ctry,var_codes,type_var){
   vars_needed[var_codes] <- sapply(vars_needed[var_codes],as.numeric)
 
   #compute OECD average
-  OECD_mean <-vars_needed %>%
+  OECD_mean <-vars_needed %>% filter(Iso_code3!="CHN"&Iso_code3!="RUS"&Iso_code3!="ZAF") %>%
     summarise_at(.vars = var_codes,.funs=list(~mean(.,na.rm=T)))%>%
     mutate(Iso_code3="OECD")%>%
     arrange(Iso_code3, "") %>%
