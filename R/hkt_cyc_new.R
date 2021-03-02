@@ -99,14 +99,20 @@ htk_cyc_new=function(mydata,ranking, ctry,var_codes, sec_col, type_var, title=NU
                             ifelse(time==2,paste0("OECD\n(" , round(value, digits = 2),")"),
                                    ifelse(time==3,ifelse(ctry==value.country_min,"",paste0(value.country_min,"\n(" , round(value, digits = 2),")")),
                                           ifelse(ctry==value.country_max,"",paste0(value.country_max,"\n(" , round(value, digits = 2),")")))))) %>%
-      mutate(mycolor=ifelse(time==1,"ctry",
-                            ifelse(time==2,"OECD",
+      mutate(mycolor=ifelse(time==1 ,"ctry",
+                          ifelse(time==2,"OECD",
                                    ifelse(time==3,"minmax","minmax"))))%>%
       dplyr::select(main_v,x,mylabel,mycolor)
 
-
-
-
+    # adjust for Lva, LTu, EST
+    mylabels<-mylabels%>% mutate(mylabel=
+                                   ifelse( (ctry=="LVA" |ctry=="EST"| ctry=="LTU")&  mycolor=="ctry"&main_v=="ECO_resilience_HP_vol" ,
+                                           paste0(ctry," (2005-2019)","\n(" , round(final$value.value[final$main_v=="ECO_resilience_HP_vol"], digits = 2),")") ,
+                                           mylabel))
+    mylabels<-mylabels%>% mutate(mylabel=
+                                   ifelse( mycolor=="minmax" &x==1& main_v=="ECO_resilience_HP_vol" ,
+                                           paste0("EST*","\n(" , round(final$value.max[final$main_v=="ECO_resilience_HP_vol"], digits = 2),")") ,
+                                           mylabel))
     mysize=3
 
     # rio::export(mylabels,"mylabels.RData")
