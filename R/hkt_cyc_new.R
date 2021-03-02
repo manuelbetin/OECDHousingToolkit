@@ -106,9 +106,35 @@ htk_cyc_new=function(mydata,ranking, ctry,var_codes, sec_col, type_var, title=NU
 
     # adjust for Lva, LTu, EST
     mylabels<-mylabels%>% mutate(mylabel=
-                                   ifelse( (ctry=="LVA" |ctry=="EST"| ctry=="LTU")&  mycolor=="ctry"&main_v=="ECO_resilience_HP_vol" ,
+                                   ifelse( (ctry=="LVA" |ctry=="EST"| ctry=="LTU"|ctry=="HUN"|ctry=="POL"|ctry=="SVK")&  mycolor=="ctry"&main_v=="ECO_resilience_HP_vol" ,
                                            paste0(ctry," (2005-2019)","\n(" , round(final$value.value[final$main_v=="ECO_resilience_HP_vol"], digits = 2),")") ,
                                            mylabel))
+    mylabels<-mylabels%>% mutate(mylabel=
+                                   ifelse( (ctry=="LUX" |ctry=="SVN")&  mycolor=="ctry"&main_v=="ECO_resilience_HP_vol" ,
+                                           paste0(ctry," (2007-2019)","\n(" , round(final$value.value[final$main_v=="ECO_resilience_HP_vol"], digits = 2),")") ,
+                                           mylabel))
+    mylabels<-mylabels%>% mutate(mylabel=
+                                   ifelse( (ctry=="CZE" )&  mycolor=="ctry"&main_v=="ECO_resilience_HP_vol" ,
+                                           paste0(ctry," (2008-2019)","\n(" , round(final$value.value[final$main_v=="ECO_resilience_HP_vol"], digits = 2),")") ,
+                                           mylabel))
+    mylabels<-mylabels%>% mutate(mylabel=
+                                   ifelse( (ctry=="CHL" )&  mycolor=="ctry"&main_v=="ECO_resilience_HP_vol" ,
+                                           paste0(ctry," (2002-2019)","\n(" , round(final$value.value[final$main_v=="ECO_resilience_HP_vol"], digits = 2),")") ,
+                                           mylabel))
+
+    mylabels<-mylabels%>% mutate(mylabel=
+                                   ifelse( (ctry=="AUT" )&  mycolor=="ctry"&main_v=="ECO_resilience_HP_vol" ,
+                                           paste0(ctry," (2000-2019)","\n(" , round(final$value.value[final$main_v=="ECO_resilience_HP_vol"], digits = 2),")") ,
+                                           mylabel))
+    mylabels<-mylabels%>% mutate(mylabel=
+                                   ifelse( (ctry=="ISL" | ctry=="RUS")&  mycolor=="ctry"&main_v=="ECO_resilience_HP_vol" ,
+                                           paste0(ctry," (2001-2019)","\n(" , round(final$value.value[final$main_v=="ECO_resilience_HP_vol"], digits = 2),")") ,
+                                           mylabel))
+    mylabels<-mylabels%>% mutate(mylabel=
+                                   ifelse( (ctry=="TUR" )&  mycolor=="ctry"&main_v=="ECO_resilience_HP_vol" ,
+                                           paste0(ctry," (2010-2019)","\n(" , round(final$value.value[final$main_v=="ECO_resilience_HP_vol"], digits = 2),")") ,
+                                           mylabel))
+
     mylabels<-mylabels%>% mutate(mylabel=
                                    ifelse( mycolor=="minmax" &x==1& main_v=="ECO_resilience_HP_vol" ,
                                            paste0("EST*","\n(" , round(final$value.max[final$main_v=="ECO_resilience_HP_vol"], digits = 2),")") ,
