@@ -5,7 +5,7 @@ cf_lineplot_gen <- function(data_source,xvar,yvar,valuevar,title=NULL,
   data_source2 <- data_source %>% filter(ISO3_code==country) %>%
     mutate(ISO3_code=countrycode::countrycode(country,origin="iso3c",destination="country.name"))
   data_source3 <- data_source %>% group_by(period) %>% summarize(OECDmean=mean(get(valuevar),na.rm=T))
-  nonmiss=unique(evol_inv$ISO3_code)
+  nonmiss=unique(data_source$ISO3_code)
 
   if (ctry_code %in% nonmiss){
   plot<-ggplot(data=data_source) +
