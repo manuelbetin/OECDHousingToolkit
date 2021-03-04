@@ -5,8 +5,10 @@ cf_lineplot_gen <- function(data_source,xvar,yvar,valuevar,title=NULL,
   data_source2 <- data_source %>% filter(ISO3_code==country) %>%
     mutate(ISO3_code=countrycode::countrycode(country,origin="iso3c",destination="country.name"))
   data_source3 <- data_source %>% group_by(period) %>% summarize(OECDmean=mean(get(valuevar),na.rm=T))
+  nonmiss=unique(evol_inv$ISO3_code)
 
-  ggplot(data=data_source) +
+  if (ctry_code %in% nonmiss){
+  plot<-ggplot(data=data_source) +
     geom_line(aes(x=get(xvar), y=get(valuevar), group=get(yvar)),alpha=0.05) +
     labs(title = title,
          subtitle = subtitle,
@@ -40,4 +42,12 @@ cf_lineplot_gen <- function(data_source,xvar,yvar,valuevar,title=NULL,
     scale_colour_manual( "",
                          breaks = c(country, "OECD"),
                          values = c("red", "blue"))
+  }else{
+  myctry=countrycode::countrycode(country,origin="iso3c",destination="country.name")
+  plot<-ggplot()+
+    geom_text(aes(x=10,y=10,label=paste0("The country has no data available for this dimension")))+
+    geom_point(aes(x=c(0,20),y=c(0,20)),color="white")+
+    theme_void()
+  }
+  return(plot)
 }
