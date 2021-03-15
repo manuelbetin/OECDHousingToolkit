@@ -17,7 +17,7 @@ htk_generate_ctry_fiches = function(Rmdfile="skeleton.Rmd",country_code_list,pat
   lapply(country_code_list,function(country_code){
    country_name=countrycode::countrycode(country_code,origin="iso3c",destination="country.name")
    country_name=ifelse(country_code=="KOR", "Korea", country_name)
-   country_name=ifelse(country_code=="CZE", "Czeck Republic", country_name)
+   country_name=ifelse(country_code=="CZE", "Czech Republic", country_name)
    country_adj=get_adjective() %>% filter(Country==country_name) %>% dplyr::select(Adjectivals) %>% pull()
    country_adj=tolower(country_adj)
    if(length(country_adj)==0){
