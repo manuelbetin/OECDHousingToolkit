@@ -35,7 +35,7 @@ htk_cyc_new=function(mydata,ranking, ctry,var_codes, sec_col, type_var, title=NU
 
   vars_needed=vars_needed$data
 
-  if(length(var_codes)>=1){
+  if(length(var_codes)>1){
     # 2. create min, max, mean, valu
     for (var in var_codes) {
       name_col=paste0(var, '_country_min')
