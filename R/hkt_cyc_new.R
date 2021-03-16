@@ -60,12 +60,27 @@ htk_cyc_new=function(mydata,ranking, ctry,var_codes, sec_col, type_var, title=NU
 
     OECD_final<-OECD_final[, c(2,1)]
 
+    # if we want to show also 1 var only: add this
+    if(length(var_codes)==1){
+      OECD_final<-OECD_final %>%
+        mutate(main_v=var_codes )
+    }
+    # ######
     temp_long<- vars_needed %>%  filter(Iso_code3==ctry)%>% dplyr::select(-Iso_code3) %>%
       gather(key = "variable", value = "value")
+
 
     # clean names of variables
     temp_long<-temp_long %>%
       mutate(main_v= ifelse(str_detect(variable, var_codes[1]), var_codes[1], NA))
+
+# if we want to show also 1 var only: add this
+    if(length(var_codes)==1){
+      temp_long<-temp_long %>%
+        mutate(variable= ifelse(is.na(main_v), paste0(var_codes[1],"_",variable), variable),
+               main_v= ifelse(str_detect(variable, var_codes[1]), var_codes[1], NA) )
+    }
+# ######
     for (var in var_codes[2:length(var_codes)]){
       temp_long<-temp_long %>%
         mutate(main_v= ifelse(str_detect(variable, var), var, main_v))
@@ -83,6 +98,7 @@ htk_cyc_new=function(mydata,ranking, ctry,var_codes, sec_col, type_var, title=NU
     names(final)
     name_vars<-c("value.value","value.mean","value.min","value.max", "value.rank")
     final<-  final %>% mutate_at(vars(name_vars),as.numeric)
+
     final<-merge(final, OECD_final, by="main_v")
     rownames(final)<-final[,1]
     final <- final[match(var_codes, rownames(final)),]
