@@ -27,7 +27,7 @@ cf_stackedbars_func_FR <- function(data_source,yvar,fillvar, sortvar,country,tit
             axis.title.x = element_blank(),
             axis.title.y = element_blank(),
             axis.text.y = element_text(size=10),
-            legend.position = "top")++
+            legend.position = "top")+
       guides(fill=guide_legend(nrow=2,byrow=TRUE))+
       # plot.title=element_text(face="bold",colour ="steelblue",size=15, hjust =0.5),
       # plot.subtitle =element_text(size =7, hjust = 0.5),
