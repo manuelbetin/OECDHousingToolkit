@@ -51,7 +51,7 @@ cf_stackedbars_func_FR <- function(data_source,yvar,fillvar, sortvar,country,tit
   }   else {
     myctry=countrycode::countrycode(country,origin="iso3c",destination="country.name")
     plot<-ggplot()+
-      geom_text(aes(x=10,y=10,label=("Not enough data are available to cover this dimension")))+
+      geom_text(aes(x=10,y=10,label=("Non disponible")))+
       geom_point(aes(x=c(0,20),y=c(0,20)),color="white") +
       theme_void()
   }
