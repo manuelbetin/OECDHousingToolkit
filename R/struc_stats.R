@@ -1,7 +1,9 @@
 struc_stat=function(ctry_code, struc){
 
 # 1 home-ownership stats: min max and below above or close t average
-house_tenure_data=struc %>% select(ISO3_code, period, Own_outright, Owner_with_mortgage, Private_rent, Subsidized_rent,Other )%>%   filter(year(period)==2018 )
+house_tenure_data=struc %>% select(ISO3_code, period, Own_outright, Owner_with_mortgage, Private_rent, Subsidized_rent,Other )
+
+#%>%   filter(year(period)==2018 )
 house_tenure_data<- house_tenure_data %>% mutate(temp=rowSums(house_tenure_data[,c("Own_outright", "Owner_with_mortgage", "Private_rent", "Subsidized_rent","Other")], na.rm=TRUE)) %>%
   filter(temp>0) %>% select(ISO3_code, period, Own_outright, Owner_with_mortgage, Private_rent, Subsidized_rent,Other )
 house_tenure_data<- house_tenure_data %>% gather(period, value, -c(ISO3_code, period))
