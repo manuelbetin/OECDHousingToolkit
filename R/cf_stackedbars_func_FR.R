@@ -43,8 +43,8 @@ cf_stackedbars_func_FR <- function(data_source,yvar,fillvar, sortvar,country,tit
                                   "Private_rent", "Subsidized_rent", "Other"),
                         values=c("olivedrab3", "steelblue3",
                                  "gold2", "khaki", "grey60"),
-                        labels=c("Propr. sans prête/hypothèque", "Propr. avec prête/hypothèque",
-                                 "Location privé", "Location au prix réduit/subventionné", "Autre"))
+                        labels=c("Propr. sans prêt/hypothèque", "Propr. avec prêt/hypothèque",
+                                 "Location privée", "Location à prix réduit/subventionné", "Autre"))
     # geom_hline(aes(yintercept=yinter, linetype="OECD home-ownership rate"), colour = "red")+
     #  scale_linetype_manual(name = NULL, values = 2,
     #                 guide = guide_legend(override.aes = list(color ="red")))
