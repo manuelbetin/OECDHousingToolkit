@@ -30,7 +30,7 @@ htk_generate_ctry_fiches = function(Rmdfile="skeleton.Rmd",country_code_list,pat
         ctry_name=country_name,
         ctry_adj=country_adj
       ),
-      output_file = ifelse(!is.null(path),paste0(path,"/", country_code, ".pdf"),paste0("CountryFiches-", country_name, ".pdf"))
+      output_file = ifelse(!is.null(path),paste0(path,"/", "housing-policy-", country_name, ".pdf"),paste0("CountryFiches-", country_name, ".pdf"))
     )
   })
 
