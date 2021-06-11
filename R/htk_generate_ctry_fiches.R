@@ -18,6 +18,7 @@ htk_generate_ctry_fiches = function(Rmdfile="skeleton.Rmd",country_code_list,pat
    country_name=countrycode::countrycode(country_code,origin="iso3c",destination="country.name")
    country_name=ifelse(country_code=="KOR", "Korea", country_name)
    country_name=ifelse(country_code=="CZE", "Czech Republic", country_name)
+   country_name=ifelse(country_code=="SVK", "Slovak Republic", country_name)
    country_adj=get_adjective() %>% filter(Country==country_name) %>% dplyr::select(Adjectivals) %>% pull()
    country_adj=tolower(country_adj)
    if(length(country_adj)==0){
@@ -30,6 +31,7 @@ htk_generate_ctry_fiches = function(Rmdfile="skeleton.Rmd",country_code_list,pat
         ctry_name=country_name,
         ctry_adj=country_adj
       ),
+
       output_file = ifelse(!is.null(path),paste0(path,"/", "housing-policy-", country_name, ".pdf"),paste0("CountryFiches-", country_name, ".pdf"))
     )
   })

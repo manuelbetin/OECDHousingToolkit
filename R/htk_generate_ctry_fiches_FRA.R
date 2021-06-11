@@ -19,6 +19,9 @@ htk_generate_ctry_fiches_FRA = function(Rmdfile="skeleton.Rmd",country_code_list
    country_name=word(country_name, sep="( )")
   # country_name=ifelse(country_code=="KOR", "Korea", country_name)
    country_name=ifelse(country_code=="ZAF", "Afrique du Sud", country_name)
+   country_name=ifelse(country_code=="CZE", "Republic tchèque", country_name)
+   country_name=ifelse(country_code=="SVK", "Republic slovaque", country_name)
+
    country_adj=get_adjective() %>% filter(Country==country_name) %>% dplyr::select(Adjectivals) %>% pull()
    country_adj=tolower(country_adj)
    if(length(country_adj)==0){
