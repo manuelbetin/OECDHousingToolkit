@@ -15,7 +15,7 @@ cf_lineplot_gen <- function(data_source,xvar,yvar,valuevar,title=NULL,
          x = Xlabel,
          y = Ylabel) +
     scale_y_continuous(limits=c(0,max),breaks=seq(0,max,steps))+
-    scale_x_date(expand=c(0,0),  breaks=seq(as.Date("1970-01-01"),as.Date("2019-01-01"), by="2 years"), date_labels=("%Y"))+
+    scale_x_date(expand=c(0,0),  breaks=seq(as.Date("1970-01-01"),as.Date("2022-01-01"), by="2 years"), date_labels=("%Y"))+
     my_OECD_theme() +   #set the background of the plot as white
     theme(panel.grid.minor = element_blank(),
           legend.position ="top",
