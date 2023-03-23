@@ -40,7 +40,7 @@ prep_data_indsel=function(mydata,ranking,ctry,var_codes,type_var){
   vars_needed[var_codes] <- sapply(vars_needed[var_codes],as.numeric)
 
   #compute OECD average
-  OECD_mean <-vars_needed %>%
+  OECD_mean <-vars_needed %>% filter(Iso_code3!="CHN"&Iso_code3!="RUS"&Iso_code3!="ZAF") %>%
     summarise_at(.vars = var_codes,.funs=list(~mean(.,na.rm=T)))%>%
     mutate(Iso_code3="OECD")%>%
     arrange(Iso_code3, "") %>%
@@ -51,10 +51,11 @@ prep_data_indsel=function(mydata,ranking,ctry,var_codes,type_var){
 
   #compute relevant statistics
   vars_needed_plus<- vars_needed  %>%
-    mutate_at(vars(var_codes),.funs=list(mean=~mean(.,na.rm=T),
+    mutate_at(vars(var_codes),.funs=list(mean=~mean(.[Iso_code3!="CHN"&Iso_code3!="RUS"&Iso_code3!="ZAF"], na.rm=T ),
                                          min=~min(.,na.rm=T),
                                          max=~max(.,na.rm=T),
                                          rank=~percent_rank(.)))
+
 
   return(list(data=vars_needed_plus,var_codes=var_codes,var_names=var_names,var_direction=var_direction,var_names_long=var_names_long))
 }

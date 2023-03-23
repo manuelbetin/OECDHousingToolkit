@@ -3,7 +3,7 @@ cf_param_paragraph_page_1=function(ctry_code,ctry_name,
                                    gr_hp,
                                    avg_mortg,
                                    mortgage_data,
-                                   mortgage_data_myctr){
+                                   mortgage_data_myctr, IH_GDP_stats){
 
 
   #' @title generate the paragraph of text in page 1 of the country fiche
@@ -86,6 +86,45 @@ cf_param_paragraph_page_1=function(ctry_code,ctry_name,
   }
 
   #no sentences refering to rent prices BUT COULD BE ADDED
+  ################################################################################################
+# 3 Investment over GDP
+  ################################################################################################
+  sentence_INV_GDP=function(IH_GDP_stats, ctry_code, ctry_name){
+    IH_GDP_stats<-IH_GDP_stats %>% filter(ISO3_code==ctry_code)
+    if ( nrow(IH_GDP_stats) == 0){
+      my_sentence="We do not have data for the country in this dimension"
+    }else if (nrow(IH_GDP_stats) == 1){
+      if  ( ( IH_GDP_stats$av_rate<(IH_GDP_stats$OECD_gr-0.1))  &  (IH_GDP_stats$av_sd < (IH_GDP_stats$OECD_sd-0.1))) { #LOW rate - LOW SD
+        my_sentence=paste0(ctry_name, "'s housing investment rate is relatively low and very stable by comparison with other countries")
+      }
+      else if ( (IH_GDP_stats$av_rate<(IH_GDP_stats$OECD_gr-0.1)) & ( IH_GDP_stats$av_sd >= IH_GDP_stats$OECD_sd-0.1) & (IH_GDP_stats$av_sd <=(IH_GDP_stats$OECD_sd+0.1) ) ) { #LOW rate - avg SD
+        my_sentence=paste0(ctry_name, "'s housing investment rate is relatively low and fairly stable by comparison with other countries")
+      }
+      else if( (IH_GDP_stats$av_rate<(IH_GDP_stats$OECD_gr-0.1)) & (IH_GDP_stats$av_sd > IH_GDP_stats$OECD_sd+0.1) ){ #LOW rate - high SD
+        my_sentence=paste0(ctry_name, "'s housing investment rate is relatively low and  quite volatile by comparison with other countries")
+      }
+      else if ( (IH_GDP_stats$av_rate >= (IH_GDP_stats$OECD_gr-0.1)) & (IH_GDP_stats$av_rate <=(IH_GDP_stats$OECD_gr+0.1))  &  IH_GDP_stats$av_sd < (IH_GDP_stats$OECD_sd-0.1)) { #average rate - LOW SD
+        my_sentence=paste0(ctry_name, "'s housing investment rate is about average  and very stable by comparison with other countries")
+      }
+      else if (((IH_GDP_stats$av_rate >= (IH_GDP_stats$OECD_gr-0.1) & IH_GDP_stats$av_rate <=(IH_GDP_stats$OECD_gr+0.1))) & (IH_GDP_stats$av_sd <=(IH_GDP_stats$OECD_sd+0.1) ))  { #average rate - avg SD
+        my_sentence=paste0(ctry_name, "'s housing investment rate is about average and fairly stable by comparison with other countries")
+      }
+      else if ( (IH_GDP_stats$av_rate >= (IH_GDP_stats$OECD_gr-0.1) & IH_GDP_stats$av_rate <=(IH_GDP_stats$OECD_gr+0.1)) & (IH_GDP_stats$av_sd > IH_GDP_stats$OECD_sd+0.1)) { #average rate - high SD
+        my_sentence=paste0(ctry_name, "'s housing investment rate is about average and  quite volatile by comparison with other countries")
+      }
+      else if ( (IH_GDP_stats$av_rate >IH_GDP_stats$OECD_gr+0.1)  &  IH_GDP_stats$av_sd < (IH_GDP_stats$OECD_sd-0.1)) { #HIGH rate - LOW SD
+        my_sentence=paste0(ctry_name, "'s housing investment rate is relatively high and very stable by comparison with other countries")
+      }
+      else if ( (IH_GDP_stats$av_rate >IH_GDP_stats$OECD_gr+0.1)  & ( IH_GDP_stats$av_sd >= (IH_GDP_stats$OECD_sd-0.1)) & IH_GDP_stats$av_sd <=(IH_GDP_stats$OECD_sd+0.1) )  { #HIGH rate - avg SD
+        my_sentence=paste0(ctry_name, "'s housing investment rate is relatively high and fairly stable by comparison with other countries")
+      }
+      else if ( (IH_GDP_stats$av_rate >IH_GDP_stats$OECD_gr+0.1)  & (IH_GDP_stats$av_sd > IH_GDP_stats$OECD_sd+0.1)) { #HIGH rate - high SD
+        my_sentence=paste0(ctry_name, "'s housing investment rate is relatively high and  quite volatile by comparison with other countries")
+      }
+    }
+    return(my_sentence)
+  }
+
 
   ################################################################################################
   # 4 mortgage claims
@@ -126,12 +165,14 @@ cf_param_paragraph_page_1=function(ctry_code,ctry_name,
 
   sentence1=paste0("Housing policies affect people’s well-being through a wide range of channels including access to decent shelter, environmental quality, efficient use of scarce resources, type and extent of commuting, as well as its contribution to strong and resilient economic growth. This note provides a cross-country perspective on " ,ctry_name, "’s housing-related indicators and policy settings.")
 
-  sentence2=paste0("Households’ tenure choices depend on demographics and/or socio-economic factors,such as population ageing, as well as policies related to housing taxation and rental regulations. There are large differences in tenure structure across OECD and key partner countries: homeownership in ", ctry_name," is ", sentence_homewonership(ht_avg_OECD, myctry_hh)," OECD average (Figure a). ")
+  sentence2=paste0("Households’ tenure choices depend on demographics and/or socio-economic factors, such as population ageing, as well as policies related to housing taxation and rental regulations. There are large differences in tenure structure across OECD and key partner countries: homeownership in ", ctry_name," is ", sentence_homewonership(ht_avg_OECD, myctry_hh)," OECD average (Figure a). ")
 
-  sentence3=paste0("Real house prices and rent prices have risen strongly in many countries since the 1990s, with prices increasing by more than 100% in those countries experiencing the largest increases (Figure b, c). ",sentence_rhp(gr_hp, ctry_code, ctry_name), ".")
+  sentence3=paste0("Real house prices and rent prices have risen strongly in many countries since the 1990s, with prices increasing by more than 100 percent in those countries experiencing the largest increases (Figure b). ",sentence_rhp(gr_hp, ctry_code, ctry_name), ".")
 
-  sentence4=paste0(" Finally, mortgage markets play a crucial role in housing markets since housing generally constitutes the household's single largest financial outlay. The share of outstanding households' mortgage claims in terms of GDP in ", ctry_name," is ", sentece_mortg(avg_mortg, mortgage_data_myctr,myctry_hh, ht_avg_OECD)," (Figure d).")
+  sentence4=paste0(" ", sentence_INV_GDP(IH_GDP_stats, ctry_code, ctry_name), " (Figure c).")
 
-  return(paste0(sentence1,sentence2,sentence3,sentence4, sep=" "))
+  sentence5=paste0(" Finally, mortgage markets play a crucial role in housing markets since housing generally constitutes the household's single largest financial outlay. The ratio of outstanding households' mortgage claims to GDP in ", ctry_name," is ", sentece_mortg(avg_mortg, mortgage_data_myctr,myctry_hh, ht_avg_OECD)," (Figure d).")
+
+  return(paste0(sentence1,sentence2,sentence3,sentence4,sentence5, sep=" "))
 
 }

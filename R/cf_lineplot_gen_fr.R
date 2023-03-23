@@ -1,4 +1,4 @@
-cf_lineplot_gen <- function(data_source,xvar,yvar,valuevar,title=NULL,
+cf_lineplot_gen_fr <- function(data_source,xvar,yvar,valuevar,title=NULL,
                             subtitle=NULL,Xlabel=NULL,Ylabel=NULL,country, max, steps) {
 
 
@@ -45,7 +45,7 @@ cf_lineplot_gen <- function(data_source,xvar,yvar,valuevar,title=NULL,
   }else{
   myctry=countrycode::countrycode(country,origin="iso3c",destination="country.name")
   plot<-ggplot()+
-    geom_text(aes(x=10,y=10,label=paste0("Not enough data are available to cover this dimension")))+
+    geom_text(aes(x=10,y=10,label=paste0("Non disponible")))+
     geom_point(aes(x=c(0,20),y=c(0,20)),color="white")+
     theme_void()
   }

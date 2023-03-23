@@ -1,4 +1,4 @@
-cf_stackedbars_func <- function(data_source,yvar,fillvar, sortvar,country,title=NULL,subtitle=NULL,Xlabel=NULL,Ylabel=NULL) {
+cf_stackedbars_func_FR <- function(data_source,yvar,fillvar, sortvar,country,title=NULL,subtitle=NULL,Xlabel=NULL,Ylabel=NULL) {
 
   # sort the variables i want to show in the graph
   data_source$Tenure_cat<-factor(data_source$Tenure_cat,
@@ -28,6 +28,7 @@ cf_stackedbars_func <- function(data_source,yvar,fillvar, sortvar,country,title=
             axis.title.y = element_blank(),
             axis.text.y = element_text(size=10),
             legend.position = "top")+
+      guides(fill=guide_legend(nrow=2,byrow=TRUE))+
       # plot.title=element_text(face="bold",colour ="steelblue",size=15, hjust =0.5),
       # plot.subtitle =element_text(size =7, hjust = 0.5),
       # legend.title=element_blank(),
@@ -42,15 +43,15 @@ cf_stackedbars_func <- function(data_source,yvar,fillvar, sortvar,country,title=
                                   "Private_rent", "Subsidized_rent", "Other"),
                         values=c("olivedrab3", "steelblue3",
                                  "gold2", "khaki", "grey60"),
-                        labels=c("Own outright", "Owner with mortgage",
-                                 "Private rent", "Subsidised rent", "Other"))
+                        labels=c("Propr. sans prêt/hypothèque", "Propr. avec prêt/hypothèque",
+                                 "Location privée", "Location à prix réduit/subventionné", "Autre"))
     # geom_hline(aes(yintercept=yinter, linetype="OECD home-ownership rate"), colour = "red")+
     #  scale_linetype_manual(name = NULL, values = 2,
     #                 guide = guide_legend(override.aes = list(color ="red")))
   }   else {
     myctry=countrycode::countrycode(country,origin="iso3c",destination="country.name")
     plot<-ggplot()+
-      geom_text(aes(x=10,y=10,label=("Not enough data are available to cover this dimension")))+
+      geom_text(aes(x=10,y=10,label=("Non disponible")))+
       geom_point(aes(x=c(0,20),y=c(0,20)),color="white") +
       theme_void()
   }

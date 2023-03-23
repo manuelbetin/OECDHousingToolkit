@@ -1,10 +1,9 @@
-cf_stackedbars_func <- function(data_source,yvar,fillvar, sortvar,country,title=NULL,subtitle=NULL,Xlabel=NULL,Ylabel=NULL) {
+cf_stackedbars_func_totrent <- function(data_source,yvar,fillvar, sortvar,country,title=NULL,subtitle=NULL,Xlabel=NULL,Ylabel=NULL) {
 
   # sort the variables i want to show in the graph
   data_source$Tenure_cat<-factor(data_source$Tenure_cat,
                                  levels=c("Other",
-                                          "Subsidized_rent",
-                                          "Private_rent",
+                                          "Rent",
                                           "Owner_with_mortgage",
                                           "Own_outright"))
   myv<-data_source %>% filter(ISO3_code==country) %>% dplyr::select(yvar)
@@ -39,11 +38,11 @@ cf_stackedbars_func <- function(data_source,yvar,fillvar, sortvar,country,title=
       # legend.key.size = unit(0.5,"line"),
       # legend.margin = margin(0.2, 0.2, 0.2, 0.2, "cm"))+
       scale_fill_manual(breaks=c( "Own_outright", "Owner_with_mortgage",
-                                  "Private_rent", "Subsidized_rent", "Other"),
+                                  "Rent",  "Other"),
                         values=c("olivedrab3", "steelblue3",
-                                 "gold2", "khaki", "grey60"),
-                        labels=c("Own outright", "Owner with mortgage",
-                                 "Private rent", "Subsidised rent", "Other"))
+                                 "gold2",  "grey60"),
+                        labels=c("Own outright", "Own with mortgage",
+                                 "Rent ",  "Other"))
     # geom_hline(aes(yintercept=yinter, linetype="OECD home-ownership rate"), colour = "red")+
     #  scale_linetype_manual(name = NULL, values = 2,
     #                 guide = guide_legend(override.aes = list(color ="red")))
