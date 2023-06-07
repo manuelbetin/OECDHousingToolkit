@@ -1,4 +1,4 @@
-htk_generate_ctry_fiches = function(Rmdfile="skeleton.Rmd",country_code_list,path=NULL) {
+htk_generate_ctry_fiches = function(Rmdfile="skeleton.Rmd",country_code_list,path=NULL,quiet=F) {
   #' @title generate the country fiche for the selected country
   #' @description generate the country fiche for the selected country
   #' @param Rmdfile the name of the file (.Rmd) that is used as template
@@ -19,6 +19,7 @@ htk_generate_ctry_fiches = function(Rmdfile="skeleton.Rmd",country_code_list,pat
    country_name=ifelse(country_code=="KOR", "Korea", country_name)
    country_name=ifelse(country_code=="CZE", "Czech Republic", country_name)
    country_name=ifelse(country_code=="SVK", "Slovak Republic", country_name)
+   country_name=ifelse(country_code=="TUR", "Türkiye", country_name)
    country_adj=get_adjective() %>% filter(Country==country_name) %>% dplyr::select(Adjectivals) %>% pull()
    country_adj=tolower(country_adj)
    if(length(country_adj)==0){
@@ -31,8 +32,9 @@ htk_generate_ctry_fiches = function(Rmdfile="skeleton.Rmd",country_code_list,pat
         ctry_name=country_name,
         ctry_adj=country_adj
       ),
-
-      output_file = ifelse(!is.null(path),paste0(path,"/", "housing-policy-", country_name, ".pdf"),paste0("CountryFiches-", country_name, ".pdf"))
+      output_dir = path,
+      output_file = ifelse(!is.null(path),paste0(path,"/", "housing-policy-", country_name, ".pdf"),paste0("CountryFiches-", country_name, ".pdf")),
+      quiet = quiet
     )
   })
 

@@ -14,31 +14,32 @@
 
 prep_data_indsel=function(mydata,ranking,ctry,var_codes,type_var){
   # reshape the variables
-  dt_non_na<-mydata %>%
-    filter(Iso_code3==ctry)  %>%
-    select(Iso_code3, var_codes) %>%
-    gather(variable , value,  var_codes) %>% filter(!is.na(value)) %>%
-    merge(ranking,# %>% dplyr::select(variable,rank),
-          by="variable") %>%
+  dt_non_na <- mydata %>%
+    filter(Iso_code3 == ctry) %>%
+    select(Iso_code3, var_codes) %>% 
+    gather(variable, value, var_codes) %>% 
+    filter(!is.na(value)) %>% merge(ranking, by = "variable") %>% 
     filter(!is.na(value))
+  
 
   #select relevant variables according to availability
-  dt_non_na=get_vars_indsel(dt_non_na,type_var) %>% filter(!is.na(variable))
+  dt_non_na = get_vars_indsel(dt_non_na, type_var) %>% filter(!is.na(variable))%>%distinct()
 
   #store final variable codes and names
-  var_codes=dt_non_na$variable
-  var_names=dt_non_na$variable_name
-  var_names_long=dt_non_na$variable_name_long
+  var_codes = dt_non_na$variable
+  var_names = dt_non_na$variable_name
+  var_names_long = dt_non_na$variable_name_long
   var_direction = dt_non_na$direction
+  var_units=dt_non_na$unit
+  var_date=dt_non_na$date
 
   # keep only relevant variables in the dataset
-  vars_needed=mydata %>%
-    select(Iso_code3, var_codes) %>%
+  vars_needed = mydata %>% select(Iso_code3, var_codes) %>% 
     data.frame()
 
   # transform in numeric
-  vars_needed[var_codes] <- sapply(vars_needed[var_codes],as.numeric)
-
+  vars_needed[var_codes] <- sapply(vars_needed[var_codes], as.numeric)
+  
   #compute OECD average
   OECD_mean <-vars_needed %>% filter(Iso_code3!="CHN"&Iso_code3!="RUS"&Iso_code3!="ZAF") %>%
     summarise_at(.vars = var_codes,.funs=list(~mean(.,na.rm=T)))%>%
@@ -57,5 +58,5 @@ prep_data_indsel=function(mydata,ranking,ctry,var_codes,type_var){
                                          rank=~percent_rank(.)))
 
 
-  return(list(data=vars_needed_plus,var_codes=var_codes,var_names=var_names,var_direction=var_direction,var_names_long=var_names_long))
+  return(list(data = vars_needed_plus, var_codes = var_codes, var_names = var_names, var_direction = var_direction, var_names_long = var_names_long, var_units=var_units,var_date=var_date))
 }
