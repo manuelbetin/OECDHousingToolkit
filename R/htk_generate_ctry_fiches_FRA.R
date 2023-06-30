@@ -1,4 +1,4 @@
-htk_generate_ctry_fiches_FRA = function(Rmdfile="skeleton.Rmd",country_code_list,path=NULL,quiet=T) {
+htk_generate_ctry_fiches_FRA = function(Rmdfile="skeleton.Rmd",country_code_list,path=NULL,quiet=T,path_data,path_paragraphs) {
   #' @title generate the country fiche for the selected country
   #' @description generate the country fiche for the selected country
   #' @param Rmdfile the name of the file (.Rmd) that is used as template
@@ -33,7 +33,9 @@ htk_generate_ctry_fiches_FRA = function(Rmdfile="skeleton.Rmd",country_code_list
       Rmdfile, params = list(
         ctry_code = country_code,
         ctry_name=country_name,
-        ctry_adj=country_adj
+        ctry_adj=country_adj,
+        path_data=path_data,
+        path_paragraphs=path_paragraphs
       ),
       quiet=quiet,
       output_file = ifelse(!is.null(path),paste0(path,"/", "politique-de-logement-", country_code, ".pdf"),paste0("CountryFiches-", country_name, ".pdf"))
